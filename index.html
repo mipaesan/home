@@ -24,6 +24,15 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      position: relative;
+    }
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+    .logo img {
+      height: 60px;
     }
     header h1, header p {
       color: white;
@@ -75,6 +84,9 @@
 </head>
 <body>
   <header>
+    <div class="logo">
+      <img src="logo.png" alt="Logo Madrasah">
+    </div>
     <h1>MI Salafiyatul Ma'muroh Paesan</h1>
     <p>Iso Ngaji, Iso Teknologi</p>
     <button class="cta-button">Daftar Sekarang</button>
