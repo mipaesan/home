@@ -1,63 +1,97 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MI Salafiyatul Ma’muroh Paesan</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MI Salafiyatul Ma'muroh Paesan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #ffffff;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('hero.jpg') center/cover no-repeat;
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.5em;
+    }
+    header p {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+    .cta-button {
+      background: #28a745;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+    .programs, .gallery {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+    }
+    footer {
+      background: #222;
+      color: white;
       text-align: center;
       padding: 20px;
-    }
-    .logo {
-      width: 120px;
-      margin-top: 30px;
-    }
-    h1 {
-      font-size: 24px;
-      margin-bottom: 5px;
-      color: #222;
-    }
-    p.tagline {
-      color: #555;
-      margin-bottom: 30px;
-    }
-    .btn {
-      display: block;
-      width: 80%;
-      max-width: 320px;
-      margin: 10px auto;
-      padding: 15px;
-      background-color: #26c6da; /* Biru toska */
-      color: white;
-      border: none;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .btn:hover {
-      background-color: #1abac8;
-    }
-    .social-icons {
-      margin-top: 40px;
-    }
-    .social-icons img {
-      width: 32px;
-      margin: 0 10px;
-      vertical-align: middle;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>MI Salafiyatul Ma'muroh Paesan</h1>
+    <p>Iso Ngaji, Iso Teknologi</p>
+    <button class="cta-button">Daftar Sekarang</button>
+  </header>
 
-  <img src="logo.png" alt="Logo Madrasah" class="logo">
-  <h1>MI SALAFIYATUL MA’MUROH PAESAN</h1>
-  <p class="tagline">Iso Ngaji, Iso Teknologi</p>
+  <section>
+    <h2 style="text-align:center">Program Unggulan</h2>
+    <div class="grid programs">
+      <div class="card">Rebana</div>
+      <div class="card">Drumband</div>
+      <div class="card">Robotik</div>
+      <div class="card">Komputer Dasar</div>
+      <div class="card">Pramuka</div>
+    </div>
+  </section>
 
-  <a href="https://madrasahcontoh.sch.id" class="btn" target="_blank">Website Resmi</a>
-  <a href="https://madrasahcontoh.sch.id/ppdb" class="btn
+  <section>
+    <h2 style="text-align:center">Galeri Kegiatan</h2>
+    <div class="grid gallery">
+      <div class="card"><img src="galeri1.jpg" alt="Kegiatan 1" width="100%"></div>
+      <div class="card"><img src="galeri2.jpg" alt="Kegiatan 2" width="100%"></div>
+      <div class="card"><img src="galeri3.jpg" alt="Kegiatan 3" width="100%"></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
+    <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
+  </footer>
+</body>
+</html>
