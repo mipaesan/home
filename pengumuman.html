@@ -96,6 +96,21 @@
       text-align: center;
       animation: fadeIn 0.5s ease forwards;
     }
+
+    .status-lulus {
+      font-weight: bold;
+      font-size: 1.3em;
+      color: #2e7d32;
+      display: inline-block;
+      animation: wave 1.6s infinite ease-in-out;
+    }
+
+    @keyframes wave {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); color: #43a047; }
+      100% { transform: scale(1); }
+    }
+
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -234,11 +249,11 @@
 
       if (dataSiswa[nisn]) {
         const siswa = dataSiswa[nisn];
-        hasilDiv.textContent = 
-          `Nama: ${siswa.nama}\n` +
-          `Nomor: ${siswa.nomor}\n` +
-          `Tempat/Tanggal Lahir: ${siswa.ttl}\n` +
-          `Status: ${siswa.status}`;
+        hasilDiv.innerHTML =
+          `Nama: ${siswa.nama}<br>` +
+          `Nomor: ${siswa.nomor}<br>` +
+          `Tempat/Tanggal Lahir: ${siswa.ttl}<br>` +
+          `Status: <span class="status-lulus">${siswa.status}</span>`;
         hasilDiv.style.display = 'block';
       } else {
         errorDiv.style.display = 'block';
