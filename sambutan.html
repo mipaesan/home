@@ -4,63 +4,177 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sambutan Kepala Madrasah - MI Salafiyatul Ma'muroh Paesan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display&display=swap" rel="stylesheet" />
   <style>
+    /* Reset dan font */
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
-      background: #f9f9f9;
-      color: #333;
+      background: linear-gradient(135deg, #a8e063, #56ab2f);
+      min-height: 100vh;
       padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+    .container {
+      background: #fff;
       max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
+      width: 100%;
+      padding: 40px 50px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      animation: fadeSlideUp 1s ease forwards;
     }
+
+    /* Pola dekoratif abstrak di background container */
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, #a8e06388, transparent 70%);
+      border-radius: 50%;
+      filter: blur(50px);
+      z-index: 0;
+    }
+    .container::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, #56ab2f88, transparent 70%);
+      border-radius: 50%;
+      filter: blur(60px);
+      z-index: 0;
+    }
+
     h1 {
-      color: #28a745;
+      font-family: 'Playfair Display', serif;
+      color: #2c6e1a;
       text-align: center;
+      margin-bottom: 28px;
+      font-weight: 700;
+      font-size: 2.8rem;
+      position: relative;
+      z-index: 1;
     }
+    /* garis bawah animasi di judul */
+    h1::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: #56ab2f;
+      margin: 12px auto 0;
+      border-radius: 2px;
+      animation: growLine 1s ease forwards;
+      opacity: 0;
+    }
+
     p {
-      line-height: 1.6;
-      font-size: 1.1em;
+      line-height: 1.8;
+      font-size: 1.15em;
+      color: #444;
+      margin-bottom: 1.6em;
+      position: relative;
+      z-index: 1;
       text-align: justify;
-      margin-bottom: 1.2em;
     }
     .signature {
-      margin-top: 2em;
+      margin-top: 3em;
       text-align: right;
       font-weight: 600;
+      font-size: 1.15em;
+      color: #2c6e1a;
+      font-style: italic;
+      position: relative;
+      z-index: 1;
     }
+
     .cta-button {
-      background: #28a745;
+      background: #4caf50;
       color: white;
-      padding: 12px 30px;
+      padding: 15px 40px;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
-      font-weight: bold;
-      font-size: 1em;
+      font-weight: 700;
+      font-size: 1.2em;
       display: block;
-      margin: 40px auto 0;
+      margin: 50px auto 0;
       text-align: center;
       text-decoration: none;
       width: max-content;
+      box-shadow: 0 8px 20px rgba(76,175,80,0.4);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      position: relative;
+      z-index: 1;
     }
     .cta-button:hover {
-      background: #218838;
+      background-color: #388e3c;
+      box-shadow: 0 12px 28px rgba(56,142,60,0.7);
+      transform: scale(1.05);
+    }
+    .cta-button:active {
+      transform: scale(0.95);
+    }
+
+    /* Animasi keyframes */
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes growLine {
+      0% {
+        opacity: 0;
+        width: 0;
+      }
+      100% {
+        opacity: 1;
+        width: 60px;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .cta-button {
+        font-size: 1em;
+        padding: 12px 28px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Sambutan Kepala Madrasah MI Salafiyatul Ma’muroh Paesan Tahun Pelajaran 2024/2025</h1>
-  <p>
-    Assalamu’alaikum warahmatullahi wabarakatuh.<br><br>
-    Puji syukur kita panjatkan ke hadirat Allah SWT atas rahmat dan karunia-Nya, sehingga siswa-siswi kelas VI dapat menyelesaikan pendidikan di MI Salafiyatul Ma’muroh Paesan dengan baik. Kami ucapkan selamat dan sukses kepada seluruh siswa atas kelulusan ini. Semoga menjadi awal yang baik untuk melangkah ke jenjang berikutnya.<br><br>
-    Teruslah belajar, berakhlak mulia, dan jangan lupakan madrasah tercinta ini. Terima kasih kepada Bapak/Ibu guru dan orang tua atas bimbingan serta dukungan selama ini. Semoga Allah SWT selalu memberkahi langkah kita bersama.<br><br>
-    Wassalamu’alaikum warahmatullahi wabarakatuh.
-  </p>
-  <div class="signature">Kepala Madrasah</div>
-
-  <a href="pengumuman.html" class="cta-button">Lihat Pengumuman</a>
+  <div class="container">
+    <h1>Sambutan Kepala Madrasah MI Salafiyatul Ma’muroh Paesan Tahun Pelajaran 2024/2025</h1>
+    <p>
+      Assalamu’alaikum warahmatullahi wabarakatuh.<br><br>
+      Puji syukur kita panjatkan ke hadirat Allah SWT atas rahmat dan karunia-Nya, sehingga siswa-siswi kelas VI dapat menyelesaikan pendidikan di MI Salafiyatul Ma’muroh Paesan dengan baik. Kami ucapkan selamat dan sukses kepada seluruh siswa atas kelulusan ini. Semoga menjadi awal yang baik untuk melangkah ke jenjang berikutnya.<br><br>
+      Teruslah belajar, berakhlak mulia, dan jangan lupakan madrasah tercinta ini. Terima kasih kepada Bapak/Ibu guru dan orang tua atas bimbingan serta dukungan selama ini. Semoga Allah SWT selalu memberkahi langkah kita bersama.<br><br>
+      Wassalamu’alaikum warahmatullahi wabarakatuh.
+    </p>
+    <div class="signature">Kepala Madrasah</div>
+    <a href="pengumuman.html" class="cta-button">Lihat Pengumuman</a>
+  </div>
 </body>
 </html>
