@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pengumuman Kelulusan - MI Salafiyatul Ma'muroh Paesan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 40px 20px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #28a745;
+      margin-bottom: 30px;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 1em;
+      border: 2px solid #28a745;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1em;
+      width: 100%;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .result {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      font-size: 1.1em;
+      white-space: pre-line;
+    }
+    .error {
+      color: red;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pengumuman Kelulusan Kelas 6 MI Salafiyatul Ma'muroh Paesan</h1>
+
+  <label for="nisn-input">Masukkan NISN Anda:</label>
+  <input type="text" id="nisn-input" placeholder="Contoh: 3135996267" maxlength="10" />
+  <button onclick="cekNISN()">Lihat Pengumuman</button>
+
+  <div id="hasil" class="result" style="display:none;"></div>
+  <div id="error" class="error" style="display:none;">NISN tidak ditemukan.</div>
+
+  <script>
+    const dataSiswa = {
+      "3135996267": {
+        nama: "ABDURRAHMAN HASAN AZZAM",
+        nomor: "25-11-09-1-0029-0001",
+        ttl: "BOYOLALI, 01 Februari 2013",
+        status: "LULUS"
+      },
+      "3107397682": {
+        nama: "ADNAN WILDAN ROFI`UDIN",
+        nomor: "25-11-09-1-0029-0002",
+        ttl: "SUKOHARJO, 10 September 2010",
+        status: "LULUS"
+      },
+      "3122721637": {
+        nama: "AJI ARDIANSYAH",
+        nomor: "25-11-09-1-0029-0003",
+        ttl: "BOYOLALI, 27 Juni 2012",
+        status: "LULUS"
+      },
+      "0123760307": {
+        nama: "CAHAYA OKTAPIA HIDAYAT",
+        nomor: "25-11-09-1-0029-0004",
+        ttl: "BOYOLALI, 15 Oktober 2012",
+        status: "LULUS"
+      },
+      "0121236145": {
+        nama: "FAHRI RAFIE EL AZZAM",
+        nomor: "25-11-09-1-0029-0005",
+        ttl: "TASIKMALAYA, 15 Desember 2012",
+        status: "LULUS"
+      },
+      "3136831571": {
+        nama: "FEBRI CHOIRUL UMAM",
+        nomor: "25-11-09-1-0029-0006",
+        ttl: "BOYOLALI, 31 Januari 2013",
+        status: "LULUS"
+      },
+      "3136801499": {
+        nama: "GIBRAN FIRLANA",
+        nomor: "25-11-09-1-0029-0007",
+        ttl: "BOYOLALI, 28 Maret 2013",
+        status: "LULUS"
+      },
+      "3131821761": {
+        nama: "HAIDAR ATHARIS BIL FAKIH",
+        nomor: "25-11-09-1-0029-0008",
+        ttl: "BOYOLALI, 09 September 2013",
+        status: "LULUS"
+      },
+      "3129736772": {
+        nama: "MUCHAMMAD NAIL NUR FAIRUZ ASHFIYA'",
+        nomor: "25-11-09-1-0029-0009",
+        ttl: "BOYOLALI, 28 November 2012",
+        status: "LULUS"
+      },
+      "3125595115": {
+        nama: "MUHAMAD DIMAS ADITYA",
+        nomor: "25-11-09-1-0029-0010",
+        ttl: "BOYOLALI, 10 Oktober 2012",
+        status: "LULUS"
+      },
+      "3125863518": {
+        nama: "MUHAMMAD HUDA ALHAFIDZ",
+        nomor: "25-11-09-1-0029-0011",
+        ttl: "BOYOLALI, 04 Oktober 2012",
+        status: "LULUS"
+      },
+      "3122918701": {
+        nama: "NAUFAL GHAZI SAPUTRA",
+        nomor: "25-11-09-1-0029-0012",
+        ttl: "BOYOLALI, 22 November 2012",
+        status: "LULUS"
+      },
+      "3129362507": {
+        nama: "OKTAVIANA",
+        nomor: "25-11-09-1-0029-0013",
+        ttl: "BOYOLALI, 02 Oktober 2012",
+        status: "LULUS"
+      },
+      "3121141198": {
+        nama: "RIRIN DWI LESTARI",
+        nomor: "25-11-09-1-0029-0014",
+        ttl: "BOYOLALI, 21 Desember 2012",
+        status: "LULUS"
+      },
+      "3136689373": {
+        nama: "SIDIQ MUTHOHAR",
+        nomor: "25-11-09-1-0029-0015",
+        ttl: "BOYOLALI, 19 April 2013",
+        status: "LULUS"
+      },
+      "3112630437": {
+        nama: "ZAENAL MUSTOFA",
+        nomor: "25-11-09-1-0029-0016",
+        ttl: "BOYOLALI, 27 November 2011",
+        status: "LULUS"
+      };
+
+    function cekNISN() {
+      const nisn = document.getElementById('nisn-input').value.trim();
+      const hasilDiv = document.getElementById('hasil');
+      const errorDiv = document.getElementById('error');
+      hasilDiv.style.display = 'none';
+      errorDiv.style.display = 'none';
+
+      if (dataSiswa[nisn]) {
+        const siswa = dataSiswa[nisn];
+        hasilDiv.textContent = 
+          `Nama: ${siswa.nama}\n` +
+          `Nomor: ${siswa.nomor}\n` +
+          `Tempat/Tanggal Lahir: ${siswa.ttl}\n` +
+          `Status: ${siswa.status}`;
+        hasilDiv.style.display = 'block';
+      } else {
+        errorDiv.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
