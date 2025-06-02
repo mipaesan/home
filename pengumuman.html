@@ -8,73 +8,122 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: #f9f9f9;
+      background: linear-gradient(135deg, #4caf50 0%, #81c784 100%);
       margin: 0;
       padding: 40px 20px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      color: #fff;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.95);
       color: #333;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      max-width: 480px;
+      width: 100%;
+      padding: 30px 40px 40px;
+      box-sizing: border-box;
+      animation: fadeInUp 0.8s ease forwards;
     }
     h1 {
       text-align: center;
-      color: #28a745;
-      margin-bottom: 30px;
+      color: #2e7d32;
+      margin-bottom: 28px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
     }
     label {
       font-weight: 600;
       display: block;
       margin-bottom: 8px;
+      color: #2e7d32;
     }
     input[type="text"] {
       width: 100%;
-      padding: 10px 12px;
+      padding: 12px 16px;
       font-size: 1em;
-      border: 2px solid #28a745;
-      border-radius: 6px;
-      margin-bottom: 20px;
+      border: 2px solid #4caf50;
+      border-radius: 8px;
+      margin-bottom: 24px;
       box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus {
+      border-color: #388e3c;
+      outline: none;
+      box-shadow: 0 0 8px #81c784aa;
     }
     button {
-      background: #28a745;
+      background: #4caf50;
       color: white;
-      padding: 12px 30px;
+      padding: 14px 0;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      font-weight: bold;
-      font-size: 1em;
+      font-weight: 700;
+      font-size: 1.1em;
       width: 100%;
+      transition: background-color 0.3s ease, transform 0.15s ease;
+      box-shadow: 0 4px 12px rgba(76,175,80,0.4);
     }
     button:hover {
-      background: #218838;
+      background: #388e3c;
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(56,142,60,0.6);
+    }
+    button:active {
+      transform: scale(0.98);
     }
     .result {
-      margin-top: 30px;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      font-size: 1.1em;
+      margin-top: 28px;
+      background: #e8f5e9;
+      padding: 22px 26px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(46,125,50,0.3);
+      font-size: 1.15em;
       white-space: pre-line;
+      color: #2e7d32;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
     }
     .error {
-      color: red;
+      margin-top: 20px;
+      color: #d32f2f;
       font-weight: 700;
       text-align: center;
-      margin-top: 20px;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Pengumuman Kelulusan Kelas 6 MI Salafiyatul Ma'muroh Paesan</h1>
+  <div class="container">
+    <h1>Pengumuman Kelulusan Kelas 6<br>MI Salafiyatul Ma'muroh Paesan</h1>
 
-  <label for="nisn-input">Masukkan NISN Anda:</label>
-  <input type="text" id="nisn-input" placeholder="Contoh: 3135996267" maxlength="10" />
-  <button onclick="cekNISN()">Lihat Pengumuman</button>
+    <label for="nisn-input">Masukkan NISN Anda:</label>
+    <input type="text" id="nisn-input" placeholder="Contoh: 3135996267" maxlength="10" />
+    <button onclick="cekNISN()">Lihat Pengumuman</button>
 
-  <div id="hasil" class="result" style="display:none;"></div>
-  <div id="error" class="error" style="display:none;">NISN tidak ditemukan.</div>
+    <div id="hasil" class="result" style="display:none;"></div>
+    <div id="error" class="error" style="display:none;">NISN tidak ditemukan.</div>
+  </div>
 
   <script>
     const dataSiswa = {
@@ -174,6 +223,7 @@
         ttl: "BOYOLALI, 27 November 2011",
         status: "LULUS"
       }
+    };
 
     function cekNISN() {
       const nisn = document.getElementById('nisn-input').value.trim();
