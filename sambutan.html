@@ -4,69 +4,67 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sambutan Kepala Madrasah - MI Salafiyatul Ma'muroh Paesan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
   <style>
-    /* Reset dan font */
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
+      padding: 40px 20px;
       background: linear-gradient(135deg, #a8e063, #56ab2f);
       min-height: 100vh;
-      padding: 40px 20px;
       display: flex;
       justify-content: center;
       align-items: center;
       color: #333;
     }
+
     .container {
-      background: #fff;
+      background-color: #fff;
+      padding: 50px 60px;
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
       max-width: 900px;
       width: 100%;
-      padding: 40px 50px;
-      border-radius: 16px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
       position: relative;
       overflow: hidden;
-      animation: fadeSlideUp 1s ease forwards;
+      animation: fadeInUp 1s ease-out forwards;
     }
 
-    /* Pola dekoratif abstrak di background container */
-    .container::before {
+    .container::before, .container::after {
       content: '';
       position: absolute;
-      top: -80px;
-      right: -80px;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, #a8e06388, transparent 70%);
-      border-radius: 50%;
-      filter: blur(50px);
-      z-index: 0;
-    }
-    .container::after {
-      content: '';
-      position: absolute;
-      bottom: -80px;
-      left: -80px;
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, #56ab2f88, transparent 70%);
       border-radius: 50%;
       filter: blur(60px);
       z-index: 0;
     }
 
+    .container::before {
+      width: 220px;
+      height: 220px;
+      top: -100px;
+      left: -100px;
+      background: radial-gradient(circle, #b3ffab88, transparent 70%);
+    }
+
+    .container::after {
+      width: 200px;
+      height: 200px;
+      bottom: -80px;
+      right: -80px;
+      background: radial-gradient(circle, #56ab2f88, transparent 70%);
+    }
+
     h1 {
       font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
       color: #2c6e1a;
       text-align: center;
       margin-bottom: 28px;
-      font-weight: 700;
-      font-size: 2.8rem;
       position: relative;
       z-index: 1;
+      animation: slideDown 1s ease-out forwards;
     }
-    /* garis bawah animasi di judul */
+
     h1::after {
       content: '';
       display: block;
@@ -75,78 +73,82 @@
       background: #56ab2f;
       margin: 12px auto 0;
       border-radius: 2px;
-      animation: growLine 1s ease forwards;
       opacity: 0;
+      animation: growLine 1.2s ease forwards 0.5s;
     }
 
     p {
-      line-height: 1.8;
       font-size: 1.15em;
+      line-height: 1.8;
       color: #444;
+      text-align: justify;
       margin-bottom: 1.6em;
       position: relative;
       z-index: 1;
-      text-align: justify;
+      animation: fadeInText 1s ease-in-out forwards;
     }
+
     .signature {
-      margin-top: 3em;
       text-align: right;
-      font-weight: 600;
-      font-size: 1.15em;
-      color: #2c6e1a;
       font-style: italic;
+      font-weight: 600;
+      font-size: 1.2em;
+      color: #2c6e1a;
+      margin-top: 3em;
       position: relative;
       z-index: 1;
+      animation: fadeInText 1s ease forwards 0.5s;
     }
 
     .cta-button {
-      background: #4caf50;
-      color: white;
-      padding: 15px 40px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 1.2em;
       display: block;
       margin: 50px auto 0;
-      text-align: center;
+      padding: 14px 36px;
+      font-size: 1.2em;
+      font-weight: bold;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
       text-decoration: none;
-      width: max-content;
-      box-shadow: 0 8px 20px rgba(76,175,80,0.4);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      transition: all 0.3s ease;
       position: relative;
       z-index: 1;
-    }
-    .cta-button:hover {
-      background-color: #388e3c;
-      box-shadow: 0 12px 28px rgba(56,142,60,0.7);
-      transform: scale(1.05);
-    }
-    .cta-button:active {
-      transform: scale(0.95);
+      animation: bounceIn 1.2s ease-out forwards;
     }
 
-    /* Animasi keyframes */
-    @keyframes fadeSlideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .cta-button:hover {
+      background-color: #388e3c;
+      transform: scale(1.05);
+      box-shadow: 0 12px 28px rgba(56, 142, 60, 0.5);
     }
+
+    /* Animasi */
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
     @keyframes growLine {
-      0% {
-        opacity: 0;
-        width: 0;
-      }
-      100% {
-        opacity: 1;
-        width: 60px;
-      }
+      0% { width: 0; opacity: 0; }
+      100% { width: 60px; opacity: 1; }
+    }
+
+    @keyframes fadeInText {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.9); opacity: 0; }
+      60% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); }
     }
 
     /* Responsive */
@@ -154,9 +156,11 @@
       .container {
         padding: 30px 20px;
       }
+
       h1 {
         font-size: 2rem;
       }
+
       .cta-button {
         font-size: 1em;
         padding: 12px 28px;
@@ -166,7 +170,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>Sambutan Kepala Madrasah MI Salafiyatul Ma’muroh Paesan Tahun Pelajaran 2024/2025</h1>
+    <h1>Sambutan Kepala Madrasah MI Salafiyatul Ma’muroh Paesan<br>Tahun Pelajaran 2024/2025</h1>
     <p>
       Assalamu’alaikum warahmatullahi wabarakatuh.<br><br>
       Puji syukur kita panjatkan ke hadirat Allah SWT atas rahmat dan karunia-Nya, sehingga siswa-siswi kelas VI dapat menyelesaikan pendidikan di MI Salafiyatul Ma’muroh Paesan dengan baik. Kami ucapkan selamat dan sukses kepada seluruh siswa atas kelulusan ini. Semoga menjadi awal yang baik untuk melangkah ke jenjang berikutnya.<br><br>
