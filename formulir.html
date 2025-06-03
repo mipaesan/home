@@ -98,9 +98,9 @@
       e.preventDefault();
 
       const data = new FormData(form);
-      const templateUrl = 'Formulir PSB 25-26.pdf'; // Pastikan file ini ada di folder yang sama
-      const existingPdf = await fetch(templateUrl).then(r => r.arrayBuffer());
+      const templateUrl = 'https://mipaesan.github.io/home/Formulir%20PSB%2025-26.pdf'; // gunakan URL absolut
 
+      const existingPdf = await fetch(templateUrl).then(r => r.arrayBuffer());
       const pdfDoc = await pdfLib.PDFDocument.load(existingPdf);
       const page = pdfDoc.getPages()[0];
       const black = pdfLib.rgb(0,0,0);
