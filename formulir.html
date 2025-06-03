@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulir PPDB 2025/2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f3fef9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #1e7e34;
+    }
+    form {
+      max-width: 700px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    input[type="text"], input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #1e7e34;
+    }
+  </style>
+  <script type="module">
+    import { PDFDocument, rgb } from 'https://unpkg.com/pdf-lib@1.17.1';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('psbForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        const pdfUrl = 'Formulir PSB 25-26.pdf';
+        const existingPdfBytes = await fetch(pdfUrl).then(res => res.arrayBuffer());
+
+        const pdfDoc = await PDFDocument.load(existingPdfBytes);
+        const pages = pdfDoc.getPages();
+        const firstPage = pages[0];
+
+        const fontSize = 10;
+        const black = rgb(0, 0, 0);
+
+        // Posisi teks pada halaman PDF
+        firstPage.drawText(formData.get("nama_lengkap"), { x: 150, y: 680, size: fontSize, color: black });
+        firstPage.drawText(formData.get("nama_panggilan"), { x: 150, y: 663, size: fontSize, color: black });
+        firstPage.drawText(formData.get("tempat_lahir"), { x: 150, y: 643, size: fontSize, color: black });
+        firstPage.drawText(formData.get("tanggal_lahir"), { x: 150, y: 623, size: fontSize, color: black });
+        firstPage.drawText(formData.get("jenis_kelamin"), { x: 150, y: 603, size: fontSize, color: black });
+        firstPage.drawText(formData.get("agama"), { x: 150, y: 583, size: fontSize, color: black });
+        firstPage.drawText(formData.get("nama_sekolah"), { x: 150, y: 563, size: fontSize, color: black });
+        firstPage.drawText(formData.get("alamat_sekolah"), { x: 150, y: 543, size: fontSize, color: black });
+        firstPage.drawText(formData.get("alamat_siswa"), { x: 150, y: 523, size: fontSize, color: black });
+        firstPage.drawText(formData.get("nama_ayah"), { x: 150, y: 503, size: fontSize, color: black });
+        firstPage.drawText(formData.get("nama_ibu"), { x: 150, y: 483, size: fontSize, color: black });
+        firstPage.drawText(formData.get("alamat_ortu"), { x: 150, y: 463, size: fontSize, color: black });
+        firstPage.drawText(formData.get("telepon_ortu"), { x: 150, y: 443, size: fontSize, color: black });
+        firstPage.drawText(formData.get("nama_wali"), { x: 150, y: 423, size: fontSize, color: black });
+        firstPage.drawText(formData.get("alamat_wali"), { x: 150, y: 403, size: fontSize, color: black });
+        firstPage.drawText(formData.get("telepon_wali"), { x: 150, y: 383, size: fontSize, color: black });
+
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Formulir_PSB_Isian.pdf';
+        a.click();
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Formulir Pendaftaran PPDB 2025/2026</h1>
+  <form id="psbForm">
+    <label>Nama Lengkap: <input type="text" name="nama_lengkap" required></label>
+    <label>Nama Panggilan: <input type="text" name="nama_panggilan" required></label>
+    <label>Tempat Lahir: <input type="text" name="tempat_lahir" required></label>
+    <label>Tanggal Lahir: <input type="date" name="tanggal_lahir" required></label>
+    <label>Jenis Kelamin: <input type="text" name="jenis_kelamin" required></label>
+    <label>Agama: <input type="text" name="agama" required></label>
+    <label>Nama Sekolah Asal: <input type="text" name="nama_sekolah" required></label>
+    <label>Alamat Sekolah Asal: <input type="text" name="alamat_sekolah" required></label>
+    <label>Alamat Siswa: <input type="text" name="alamat_siswa" required></label>
+    <label>Nama Ayah: <input type="text" name="nama_ayah" required></label>
+    <label>Nama Ibu: <input type="text" name="nama_ibu" required></label>
+    <label>Alamat Orang Tua: <input type="text" name="alamat_ortu" required></label>
+    <label>Telepon/HP Orang Tua: <input type="text" name="telepon_ortu" required></label>
+    <label>Nama Wali: <input type="text" name="nama_wali"></label>
+    <label>Alamat Wali: <input type="text" name="alamat_wali"></label>
+    <label>Telepon/HP Wali: <input type="text" name="telepon_wali"></label>
+    <button type="submit">Unduh PDF</button>
+  </form>
+</body>
+</html>
