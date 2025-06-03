@@ -89,21 +89,21 @@
     <button type="submit">Unduh PDF Sekarang</button>
   </form>
 
-  <script type="module">
-    import * as pdfLib from 'https://unpkg.com/pdf-lib@1.17.1';
-
+  <!-- ✅ Ganti module dengan versi global -->
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script>
     const form = document.getElementById('psbForm');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const data = new FormData(form);
-      const templateUrl = 'https://mipaesan.github.io/home/Formulir%20PSB%2025-26.pdf'; // gunakan URL absolut
+      const templateUrl = 'https://mipaesan.github.io/home/Formulir%20PSB%2025-26.pdf';
 
       const existingPdf = await fetch(templateUrl).then(r => r.arrayBuffer());
-      const pdfDoc = await pdfLib.PDFDocument.load(existingPdf);
+      const pdfDoc = await PDFLib.PDFDocument.load(existingPdf);
       const page = pdfDoc.getPages()[0];
-      const black = pdfLib.rgb(0,0,0);
+      const black = PDFLib.rgb(0,0,0);
       const size = 10;
 
       const inputMap = {
