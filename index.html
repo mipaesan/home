@@ -45,8 +45,6 @@
       justify-content: center;
     }
     .cta-button {
-      background: #28a745;
-      color: white;
       padding: 14px 28px;
       border: none;
       border-radius: 10px;
@@ -54,11 +52,25 @@
       font-weight: bold;
       text-decoration: none;
       font-size: 1rem;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2s infinite;
     }
     .cta-button:hover {
-      background: #1e7e34;
-      transform: translateY(-2px);
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(0,0,0,0.3);
+    }
+    .cta-button.pengumuman {
+      background: #28a745;
+      color: white;
+    }
+    .cta-button.ppdb {
+      background: #ffc107;
+      color: #222;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
     section {
       padding: 60px 20px;
@@ -112,8 +124,8 @@
     <h1>MI Salafiyatul Ma'muroh Paesan</h1>
     <p>Iso Ngaji, Iso Teknologi</p>
     <div class="button-group">
-      <a class="cta-button" href="sambutan.html">Pengumuman Kelulusan</a>
-      <a class="cta-button" href="formulir.html">Formulir PPDB 2025/2026</a>
+      <a class="cta-button pengumuman" href="sambutan.html">Pengumuman Kelulusan</a>
+      <a class="cta-button ppdb" href="formulir.html">Formulir PPDB 2025/2026</a>
     </div>
   </header>
 
