@@ -30,7 +30,7 @@
       margin-bottom: 8px;
       font-weight: 600;
     }
-    input[type="text"], input[type="date"], select {
+    input, select {
       width: 100%;
       padding: 10px;
       margin-bottom: 20px;
@@ -46,129 +46,31 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s ease;
-      margin-right: 10px;
+      margin-top: 10px;
     }
     button:hover {
       background: #1e7e34;
-    }
-    #pdf-preview {
-      display: none;
-      margin-top: 40px;
-      text-align: center;
     }
     iframe {
       width: 100%;
       height: 600px;
       border: none;
+      margin-top: 20px;
     }
     #drive-link {
       margin-top: 15px;
       font-weight: 600;
+      color: #1e7e34;
     }
   </style>
-  <script type="module">
-    import * as pdfLib from 'https://unpkg.com/pdf-lib@1.17.1';
-
-    const uploadUrl = 'https://script.google.com/macros/s/AKfycbzq1zPV0y4CUAyD7qO5iK0PVV1edeLBDtVpl8I_oGpJX-nFPxKFr9Dnv9jr0F5xaJVJ/exec';
-
-    let generatedPdfBlob = null;
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const form = document.getElementById('psbForm');
-      const previewContainer = document.getElementById('pdf-preview');
-      const previewFrame = document.getElementById('preview-frame');
-      const driveLink = document.getElementById('drive-link');
-
-      form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        driveLink.textContent = '';
-        const formData = new FormData(form);
-
-        const pdfUrl = 'Formulir PSB 25-26.pdf';
-        const existingPdfBytes = await fetch(pdfUrl).then(res => res.arrayBuffer());
-
-        const pdfDoc = await pdfLib.PDFDocument.load(existingPdfBytes);
-        const pages = pdfDoc.getPages();
-        const firstPage = pages[0];
-
-        const fontSize = 10;
-        const black = pdfLib.rgb(0, 0, 0);
-
-        // Posisi teks pada PDF (x: dari kiri, y: dari bawah)
-        firstPage.drawText(formData.get("nama_lengkap"), { x: 150, y: 680, size: fontSize, color: black });
-        firstPage.drawText(formData.get("nama_panggilan"), { x: 150, y: 663, size: fontSize, color: black });
-        firstPage.drawText(formData.get("tempat_lahir"), { x: 150, y: 643, size: fontSize, color: black });
-        firstPage.drawText(formData.get("tanggal_lahir"), { x: 150, y: 623, size: fontSize, color: black });
-        firstPage.drawText(formData.get("jenis_kelamin"), { x: 150, y: 603, size: fontSize, color: black });
-        firstPage.drawText(formData.get("agama"), { x: 150, y: 583, size: fontSize, color: black });
-        firstPage.drawText(formData.get("nama_sekolah"), { x: 150, y: 563, size: fontSize, color: black });
-        firstPage.drawText(formData.get("alamat_sekolah"), { x: 150, y: 543, size: fontSize, color: black });
-        firstPage.drawText(formData.get("alamat_siswa"), { x: 150, y: 523, size: fontSize, color: black });
-        firstPage.drawText(formData.get("nama_ayah"), { x: 150, y: 503, size: fontSize, color: black });
-        firstPage.drawText(formData.get("nama_ibu"), { x: 150, y: 483, size: fontSize, color: black });
-        firstPage.drawText(formData.get("alamat_ortu"), { x: 150, y: 463, size: fontSize, color: black });
-        firstPage.drawText(formData.get("telepon_ortu"), { x: 150, y: 443, size: fontSize, color: black });
-        firstPage.drawText(formData.get("nama_wali"), { x: 150, y: 423, size: fontSize, color: black });
-        firstPage.drawText(formData.get("alamat_wali"), { x: 150, y: 403, size: fontSize, color: black });
-        firstPage.drawText(formData.get("telepon_wali"), { x: 150, y: 383, size: fontSize, color: black });
-
-        const pdfBytes = await pdfDoc.save();
-        generatedPdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
-        const pdfUrlObject = URL.createObjectURL(generatedPdfBlob);
-
-        previewFrame.src = pdfUrlObject;
-        previewContainer.style.display = 'block';
-
-        driveLink.textContent = 'Mengunggah ke Google Drive...';
-        const base64Data = await blobToBase64(generatedPdfBlob);
-        const response = await fetch(uploadUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            file: base64Data,
-            filename: `Formulir_${formData.get('nama_lengkap') || 'PPDB'}.pdf`
-          })
-        });
-
-        const resJson = await response.json();
-        if (resJson.status === 'success') {
-          driveLink.innerHTML = `✅ Berhasil diunggah ke Google Drive: <a href="${resJson.url}" target="_blank">Lihat file</a>`;
-        } else {
-          driveLink.textContent = '❌ Gagal mengunggah: ' + (resJson.message || 'Unknown error');
-        }
-      });
-
-      document.getElementById('download-btn').addEventListener('click', () => {
-        if (generatedPdfBlob) {
-          const a = document.createElement('a');
-          a.href = URL.createObjectURL(generatedPdfBlob);
-          a.download = 'Formulir_PSB_Isian.pdf';
-          a.click();
-        }
-      });
-    });
-
-    function blobToBase64(blob) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const dataUrl = reader.result;
-          const base64 = dataUrl.split(',')[1];
-          resolve(base64);
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    }
-  </script>
 </head>
 <body>
   <h1>Formulir Pendaftaran PPDB 2025/2026</h1>
   <form id="psbForm">
-    <label>Nama Lengkap: <input type="text" name="nama_lengkap" required></label>
-    <label>Nama Panggilan: <input type="text" name="nama_panggilan" required></label>
-    <label>Tempat Lahir: <input type="text" name="tempat_lahir" required></label>
-    <label>Tanggal Lahir: <input type="date" name="tanggal_lahir" required></label>
+    <label>Nama Lengkap:<input type="text" name="nama_lengkap" required /></label>
+    <label>Nama Panggilan:<input type="text" name="nama_panggilan" required /></label>
+    <label>Tempat Lahir:<input type="text" name="tempat_lahir" required /></label>
+    <label>Tanggal Lahir:<input type="date" name="tanggal_lahir" required /></label>
     <label>Jenis Kelamin:
       <select name="jenis_kelamin" required>
         <option value="Laki-Laki">Laki-Laki</option>
@@ -185,24 +87,86 @@
         <option value="Konghucu">Konghucu</option>
       </select>
     </label>
-    <label>Nama Sekolah Asal: <input type="text" name="nama_sekolah" required></label>
-    <label>Alamat Sekolah Asal: <input type="text" name="alamat_sekolah" required></label>
-    <label>Alamat Siswa: <input type="text" name="alamat_siswa" required></label>
-    <label>Nama Ayah: <input type="text" name="nama_ayah" required></label>
-    <label>Nama Ibu: <input type="text" name="nama_ibu" required></label>
-    <label>Alamat Orang Tua: <input type="text" name="alamat_ortu" required></label>
-    <label>Telepon/HP Orang Tua: <input type="text" name="telepon_ortu" required></label>
-    <label>Nama Wali: <input type="text" name="nama_wali"></label>
-    <label>Alamat Wali: <input type="text" name="alamat_wali"></label>
-    <label>Telepon/HP Wali: <input type="text" name="telepon_wali"></label>
+    <label>Nama Sekolah Asal:<input type="text" name="nama_sekolah" required /></label>
+    <label>Alamat Sekolah Asal:<input type="text" name="alamat_sekolah" required /></label>
+    <label>Alamat Siswa:<input type="text" name="alamat_siswa" required /></label>
+    <label>Nama Ayah:<input type="text" name="nama_ayah" required /></label>
+    <label>Nama Ibu:<input type="text" name="nama_ibu" required /></label>
+    <label>Alamat Orang Tua:<input type="text" name="alamat_ortu" required /></label>
+    <label>Telepon/HP Orang Tua:<input type="text" name="telepon_ortu" required /></label>
+    <label>Nama Wali:<input type="text" name="nama_wali" /></label>
+    <label>Alamat Wali:<input type="text" name="alamat_wali" /></label>
+    <label>Telepon/HP Wali:<input type="text" name="telepon_wali" /></label>
     <button type="submit">Tampilkan Preview & Upload</button>
   </form>
+  <iframe id="preview-frame" style="display:none;"></iframe>
+  <div id="drive-link"></div>
 
-  <div id="pdf-preview">
-    <h2>Preview PDF</h2>
-    <iframe id="preview-frame"></iframe>
-    <p id="drive-link"></p>
-    <button id="download-btn">Unduh PDF</button>
-  </div>
+  <script type="module">
+    import * as pdfLib from 'https://unpkg.com/pdf-lib@1.17.1';
+
+    const uploadUrl = 'https://script.google.com/macros/s/AKfycbzq1zPV0y4CUAyD7qO5iK0PVV1edeLBDtVpl8I_oGpJX-nFPxKFr9Dnv9jr0F5xaJVJ/exec';
+
+    const form = document.getElementById('psbForm');
+    const frame = document.getElementById('preview-frame');
+    const driveLink = document.getElementById('drive-link');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      driveLink.textContent = 'Sedang memproses...';
+
+      const data = new FormData(form);
+      const templateUrl = 'Formulir PSB 25-26.pdf';
+      const existingPdf = await fetch(templateUrl).then(r => r.arrayBuffer());
+
+      const pdfDoc = await pdfLib.PDFDocument.load(existingPdf);
+      const page = pdfDoc.getPages()[0];
+      const black = pdfLib.rgb(0,0,0);
+      const size = 10;
+
+      const inputMap = {
+        nama_lengkap: [150, 680], nama_panggilan: [150, 663], tempat_lahir: [150, 643], tanggal_lahir: [150, 623],
+        jenis_kelamin: [150, 603], agama: [150, 583], nama_sekolah: [150, 563], alamat_sekolah: [150, 543],
+        alamat_siswa: [150, 523], nama_ayah: [150, 503], nama_ibu: [150, 483], alamat_ortu: [150, 463],
+        telepon_ortu: [150, 443], nama_wali: [150, 423], alamat_wali: [150, 403], telepon_wali: [150, 383]
+      };
+
+      for (const [field, [x, y]] of Object.entries(inputMap)) {
+        page.drawText(data.get(field) || '', { x, y, size, color: black });
+      }
+
+      const pdfBytes = await pdfDoc.save();
+      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      frame.style.display = 'block';
+      frame.src = url;
+
+      const base64 = await blobToBase64(blob);
+      const response = await fetch(uploadUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          file: base64,
+          filename: `Formulir_${data.get('nama_lengkap') || 'PPDB'}.pdf`
+        })
+      });
+
+      const res = await response.json();
+      if (res.status === 'success') {
+        driveLink.innerHTML = `✅ Tersimpan di Drive: <a href="${res.url}" target="_blank">Lihat File</a>`;
+      } else {
+        driveLink.innerHTML = `❌ Gagal unggah: ${res.message || 'Terjadi kesalahan'}`;
+      }
+    });
+
+    function blobToBase64(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    }
+  </script>
 </body>
 </html>
