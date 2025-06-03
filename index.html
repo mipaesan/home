@@ -6,14 +6,16 @@
   <title>MI Salafiyatul Ma'muroh Paesan</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: #f9f9f9;
+      background: #f2fef6;
       color: #333;
     }
     header {
-      position: relative;
       background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
                   url('header_optimized_16by9.png') center center / cover no-repeat;
       height: 100vh;
@@ -23,38 +25,51 @@
       align-items: center;
       text-align: center;
     }
-    header h1, header p {
-      color: white;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
-    }
     header h1 {
-      font-size: 2.8em;
+      font-size: 3em;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
       margin: 0;
     }
     header p {
       font-size: 1.3em;
+      color: #fff;
       margin-top: 10px;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    }
+    .button-group {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .cta-button {
       background: #28a745;
       color: white;
-      padding: 12px 24px;
+      padding: 14px 28px;
       border: none;
-      border-radius: 8px;
-      margin-top: 20px;
+      border-radius: 10px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s ease;
       text-decoration: none;
-      display: inline-block;
+      font-size: 1rem;
+      transition: all 0.3s ease;
     }
     .cta-button:hover {
-      background: #218838;
+      background: #1e7e34;
+      transform: translateY(-2px);
     }
     section {
-      padding: 40px 20px;
+      padding: 60px 20px;
       max-width: 1000px;
       margin: auto;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 40px;
+      color: #1e7e34;
     }
     .grid {
       display: grid;
@@ -66,15 +81,29 @@
     .card {
       background: white;
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       padding: 20px;
       text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: scale(1.03);
     }
     footer {
       background: #222;
       color: white;
       text-align: center;
-      padding: 20px;
+      padding: 25px;
+      font-size: 0.9em;
+    }
+    @media screen and (max-width: 600px) {
+      header h1 {
+        font-size: 2em;
+      }
+      .cta-button {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -82,42 +111,45 @@
   <header>
     <h1>MI Salafiyatul Ma'muroh Paesan</h1>
     <p>Iso Ngaji, Iso Teknologi</p>
-    <a class="cta-button" href="sambutan.html">Pengumuman Kelulusan</a>
+    <div class="button-group">
+      <a class="cta-button" href="sambutan.html">Pengumuman Kelulusan</a>
+      <a class="cta-button" href="formulir.html">Formulir PPDB 2025/2026</a>
+    </div>
   </header>
 
   <section>
-  <h2 style="text-align:center">Program Unggulan</h2>
-  <div class="grid programs">
-    <div class="card">
-      <img src="rebana.png" alt="Rebana" style="width:80px; margin-bottom:10px;">
-      <h3>Rebana</h3>
-      <p>Melatih keterampilan musik islami dan kerja sama tim.</p>
+    <h2 class="section-title">Program Unggulan</h2>
+    <div class="grid programs">
+      <div class="card">
+        <img src="rebana.png" alt="Rebana" style="width:70px; margin-bottom:12px;">
+        <h3>Rebana</h3>
+        <p>Melatih keterampilan musik islami dan kerja sama tim.</p>
+      </div>
+      <div class="card">
+        <img src="drumband.png" alt="Drumband" style="width:70px; margin-bottom:12px;">
+        <h3>Drumband</h3>
+        <p>Menumbuhkan kedisiplinan dan semangat kebersamaan.</p>
+      </div>
+      <div class="card">
+        <img src="robotik.png" alt="Robotik" style="width:70px; margin-bottom:12px;">
+        <h3>Robotik</h3>
+        <p>Mengenalkan teknologi dan logika pemrograman sejak dini.</p>
+      </div>
+      <div class="card">
+        <img src="komputer.png" alt="Komputer Dasar" style="width:70px; margin-bottom:12px;">
+        <h3>Komputer Dasar</h3>
+        <p>Belajar keterampilan dasar komputer untuk masa depan digital.</p>
+      </div>
+      <div class="card">
+        <img src="pramuka.png" alt="Pramuka" style="width:70px; margin-bottom:12px;">
+        <h3>Pramuka</h3>
+        <p>Membentuk karakter, tanggung jawab, dan cinta tanah air.</p>
+      </div>
     </div>
-    <div class="card">
-      <img src="drumband.png" alt="Drumband" style="width:80px; margin-bottom:10px;">
-      <h3>Drumband</h3>
-      <p>Menumbuhkan kedisiplinan dan semangat kebersamaan.</p>
-    </div>
-    <div class="card">
-      <img src="robotik.png" alt="Robotik" style="width:80px; margin-bottom:10px;">
-      <h3>Robotik</h3>
-      <p>Mengenalkan teknologi dan logika pemrograman sejak dini.</p>
-    </div>
-    <div class="card">
-      <img src="komputer.png" alt="Komputer Dasar" style="width:80px; margin-bottom:10px;">
-      <h3>Komputer Dasar</h3>
-      <p>Belajar keterampilan dasar komputer untuk masa depan digital.</p>
-    </div>
-    <div class="card">
-      <img src="pramuka.png" alt="Pramuka" style="width:80px; margin-bottom:10px;">
-      <h3>Pramuka</h3>
-      <p>Membentuk karakter, tanggung jawab, dan cinta tanah air.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
   <section>
-    <h2 style="text-align:center">Galeri Kegiatan</h2>
+    <h2 class="section-title">Galeri Kegiatan</h2>
     <div class="grid gallery">
       <div class="card"><img src="galeri1.jpg" alt="Kegiatan 1" width="100%"></div>
       <div class="card"><img src="galeri2.jpg" alt="Kegiatan 2" width="100%"></div>
