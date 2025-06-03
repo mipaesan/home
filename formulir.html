@@ -67,7 +67,7 @@
     }
   </style>
   <script type="module">
-    import { PDFDocument, rgb } from 'https://unpkg.com/pdf-lib@1.17.1';
+    import * as pdfLib from 'https://unpkg.com/pdf-lib@1.17.1';
 
     const uploadUrl = 'https://script.google.com/macros/s/AKfycbzq1zPV0y4CUAyD7qO5iK0PVV1edeLBDtVpl8I_oGpJX-nFPxKFr9Dnv9jr0F5xaJVJ/exec';
 
@@ -87,12 +87,12 @@
         const pdfUrl = 'Formulir PSB 25-26.pdf';
         const existingPdfBytes = await fetch(pdfUrl).then(res => res.arrayBuffer());
 
-        const pdfDoc = await PDFDocument.load(existingPdfBytes);
+        const pdfDoc = await pdfLib.PDFDocument.load(existingPdfBytes);
         const pages = pdfDoc.getPages();
         const firstPage = pages[0];
 
         const fontSize = 10;
-        const black = rgb(0, 0, 0);
+        const black = pdfLib.rgb(0, 0, 0);
 
         // Posisi teks pada PDF (x: dari kiri, y: dari bawah)
         firstPage.drawText(formData.get("nama_lengkap"), { x: 150, y: 680, size: fontSize, color: black });
@@ -116,11 +116,9 @@
         generatedPdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
         const pdfUrlObject = URL.createObjectURL(generatedPdfBlob);
 
-        // Tampilkan preview
         previewFrame.src = pdfUrlObject;
         previewContainer.style.display = 'block';
 
-        // Upload otomatis ke Google Drive
         driveLink.textContent = 'Mengunggah ke Google Drive...';
         const base64Data = await blobToBase64(generatedPdfBlob);
         const response = await fetch(uploadUrl, {
@@ -150,12 +148,11 @@
       });
     });
 
-    // Helper: konversi Blob ke Base64 (tanpa prefix data:...)
     function blobToBase64(blob) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onloadend = () => {
-          const dataUrl = reader.result; // ex: data:application/pdf;base64,JVBER...
+          const dataUrl = reader.result;
           const base64 = dataUrl.split(',')[1];
           resolve(base64);
         };
@@ -195,4 +192,17 @@
     <label>Nama Ibu: <input type="text" name="nama_ibu" required></label>
     <label>Alamat Orang Tua: <input type="text" name="alamat_ortu" required></label>
     <label>Telepon/HP Orang Tua: <input type="text" name="telepon_ortu" required></label>
-    <label>Nama Wali: <input type="text" name="
+    <label>Nama Wali: <input type="text" name="nama_wali"></label>
+    <label>Alamat Wali: <input type="text" name="alamat_wali"></label>
+    <label>Telepon/HP Wali: <input type="text" name="telepon_wali"></label>
+    <button type="submit">Tampilkan Preview & Upload</button>
+  </form>
+
+  <div id="pdf-preview">
+    <h2>Preview PDF</h2>
+    <iframe id="preview-frame"></iframe>
+    <p id="drive-link"></p>
+    <button id="download-btn">Unduh PDF</button>
+  </div>
+</body>
+</html>
