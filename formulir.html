@@ -89,7 +89,6 @@
     <button type="submit">Unduh PDF Sekarang</button>
   </form>
 
-  <!-- ✅ Load pdf-lib versi global (non-module) -->
   <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script>
     const form = document.getElementById('psbForm');
@@ -106,31 +105,41 @@
 
       const data = new FormData(form);
       const templateUrl = 'https://mipaesan.github.io/home/Formulir%20PSB%2025-26.pdf';
-
       const existingPdf = await fetch(templateUrl).then(r => r.arrayBuffer());
       const pdfDoc = await PDFLib.PDFDocument.load(existingPdf);
       const page = pdfDoc.getPages()[0];
       const black = PDFLib.rgb(0,0,0);
       const size = 10;
 
-      const formattedTanggal = formatTanggalLahir(data.get("tanggal_lahir"));
+      const startY = 682;
+      const stepY = 18;
+      const X = 140;
 
-      const inputMap = {
-        nama_lengkap: [140, 682], nama_panggilan: [140, 666],
-        tempat_lahir: [140, 648], tanggal_lahir: [240, 648],
-        jenis_kelamin: [140, 630], agama: [300, 630],
-        nama_sekolah: [140, 610], alamat_sekolah: [140, 592],
-        alamat_siswa: [140, 572],
-        nama_ayah: [140, 552], nama_ibu: [140, 532],
-        alamat_ortu: [140, 512], telepon_ortu: [140, 492],
-        nama_wali: [140, 472], alamat_wali: [140, 452], telepon_wali: [140, 432]
-      };
+      const values = [
+        data.get('nama_lengkap'),
+        data.get('nama_panggilan'),
+        data.get('tempat_lahir') + ', ' + formatTanggalLahir(data.get('tanggal_lahir')),
+        data.get('jenis_kelamin') + '    ' + data.get('agama'),
+        data.get('nama_sekolah'),
+        data.get('alamat_sekolah'),
+        data.get('alamat_siswa'),
+        data.get('nama_ayah'),
+        data.get('nama_ibu'),
+        data.get('alamat_ortu'),
+        data.get('telepon_ortu'),
+        data.get('nama_wali'),
+        data.get('alamat_wali'),
+        data.get('telepon_wali')
+      ];
 
-      for (const [field, [x, y]] of Object.entries(inputMap)) {
-        let text = data.get(field) || '';
-        if (field === 'tanggal_lahir') text = formattedTanggal;
-        page.drawText(text, { x, y, size, color: black });
-      }
+      values.forEach((text, index) => {
+        page.drawText(text || '', {
+          x: X,
+          y: startY - index * stepY,
+          size: size,
+          color: black
+        });
+      });
 
       const pdfBytes = await pdfDoc.save();
       const blob = new Blob([pdfBytes], { type: 'application/pdf' });
