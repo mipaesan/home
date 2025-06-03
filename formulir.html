@@ -30,7 +30,7 @@
       margin-bottom: 8px;
       font-weight: 600;
     }
-    input[type="text"], input[type="date"] {
+    input[type="text"], input[type="date"], select {
       width: 100%;
       padding: 10px;
       margin-bottom: 20px;
@@ -46,18 +46,35 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s ease;
+      margin-right: 10px;
     }
     button:hover {
       background: #1e7e34;
+    }
+    #pdf-preview {
+      display: none;
+      margin-top: 40px;
+      text-align: center;
+    }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
     }
   </style>
   <script type="module">
     import { PDFDocument, rgb } from 'https://unpkg.com/pdf-lib@1.17.1';
 
+    let generatedPdfBlob = null;
+
     window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('psbForm').addEventListener('submit', async function(e) {
+      const form = document.getElementById('psbForm');
+      const previewContainer = document.getElementById('pdf-preview');
+      const previewFrame = document.getElementById('preview-frame');
+
+      form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        const formData = new FormData(e.target);
+        const formData = new FormData(form);
 
         const pdfUrl = 'Formulir PSB 25-26.pdf';
         const existingPdfBytes = await fetch(pdfUrl).then(res => res.arrayBuffer());
@@ -69,7 +86,7 @@
         const fontSize = 10;
         const black = rgb(0, 0, 0);
 
-        // Posisi teks pada halaman PDF
+        // Posisi teks sesuai PDF
         firstPage.drawText(formData.get("nama_lengkap"), { x: 150, y: 680, size: fontSize, color: black });
         firstPage.drawText(formData.get("nama_panggilan"), { x: 150, y: 663, size: fontSize, color: black });
         firstPage.drawText(formData.get("tempat_lahir"), { x: 150, y: 643, size: fontSize, color: black });
@@ -88,12 +105,20 @@
         firstPage.drawText(formData.get("telepon_wali"), { x: 150, y: 383, size: fontSize, color: black });
 
         const pdfBytes = await pdfDoc.save();
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'Formulir_PSB_Isian.pdf';
-        a.click();
+        generatedPdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const pdfUrlObject = URL.createObjectURL(generatedPdfBlob);
+
+        previewFrame.src = pdfUrlObject;
+        previewContainer.style.display = 'block';
+      });
+
+      document.getElementById('download-btn').addEventListener('click', () => {
+        if (generatedPdfBlob) {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(generatedPdfBlob);
+          a.download = 'Formulir_PSB_Isian.pdf';
+          a.click();
+        }
       });
     });
   </script>
@@ -105,8 +130,22 @@
     <label>Nama Panggilan: <input type="text" name="nama_panggilan" required></label>
     <label>Tempat Lahir: <input type="text" name="tempat_lahir" required></label>
     <label>Tanggal Lahir: <input type="date" name="tanggal_lahir" required></label>
-    <label>Jenis Kelamin: <input type="text" name="jenis_kelamin" required></label>
-    <label>Agama: <input type="text" name="agama" required></label>
+    <label>Jenis Kelamin:
+      <select name="jenis_kelamin" required>
+        <option value="Laki-Laki">Laki-Laki</option>
+        <option value="Perempuan">Perempuan</option>
+      </select>
+    </label>
+    <label>Agama:
+      <select name="agama" required>
+        <option value="Islam">Islam</option>
+        <option value="Kristen">Kristen</option>
+        <option value="Katolik">Katolik</option>
+        <option value="Hindu">Hindu</option>
+        <option value="Budha">Budha</option>
+        <option value="Konghucu">Konghucu</option>
+      </select>
+    </label>
     <label>Nama Sekolah Asal: <input type="text" name="nama_sekolah" required></label>
     <label>Alamat Sekolah Asal: <input type="text" name="alamat_sekolah" required></label>
     <label>Alamat Siswa: <input type="text" name="alamat_siswa" required></label>
@@ -117,7 +156,14 @@
     <label>Nama Wali: <input type="text" name="nama_wali"></label>
     <label>Alamat Wali: <input type="text" name="alamat_wali"></label>
     <label>Telepon/HP Wali: <input type="text" name="telepon_wali"></label>
-    <button type="submit">Unduh PDF</button>
+    <button type="submit">Tampilkan Preview</button>
   </form>
+
+  <div id="pdf-preview">
+    <h2>Preview Formulir PDF</h2>
+    <iframe id="preview-frame"></iframe>
+    <br>
+    <button id="download-btn">Unduh PDF</button>
+  </div>
 </body>
 </html>
