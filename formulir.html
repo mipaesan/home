@@ -4,49 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Formulir PPDB 2025/2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: sans-serif;
       background: #f3fef9;
-      color: #333;
-      margin: 0;
       padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      color: #1e7e34;
+      color: #333;
     }
     form {
       max-width: 700px;
-      margin: 30px auto;
+      margin: auto;
       background: white;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     input, select {
       width: 100%;
       padding: 10px;
-      margin-bottom: 20px;
+      margin: 10px 0 20px;
       border: 1px solid #ccc;
       border-radius: 6px;
     }
+    label {
+      font-weight: bold;
+    }
     button {
+      padding: 12px 20px;
       background: #28a745;
       color: white;
       border: none;
-      padding: 12px 24px;
-      font-size: 1em;
       border-radius: 8px;
+      font-size: 1em;
       cursor: pointer;
-      transition: background 0.3s ease;
-      margin-top: 10px;
     }
     button:hover {
       background: #1e7e34;
@@ -54,20 +44,20 @@
   </style>
 </head>
 <body>
-  <h1>Formulir Pendaftaran PPDB 2025/2026</h1>
+  <h1 style="text-align:center;">Formulir PPDB 2025/2026</h1>
   <form id="psbForm">
-    <label>Nama Lengkap:<input type="text" name="nama_lengkap" required /></label>
-    <label>Nama Panggilan:<input type="text" name="nama_panggilan" required /></label>
-    <label>Tempat Lahir:<input type="text" name="tempat_lahir" required /></label>
-    <label>Tanggal Lahir:<input type="date" name="tanggal_lahir" required /></label>
+    <label>Nama Lengkap:<input name="nama_lengkap" required></label>
+    <label>Nama Panggilan:<input name="nama_panggilan" required></label>
+    <label>Tempat Lahir:<input name="tempat_lahir" required></label>
+    <label>Tanggal Lahir:<input type="date" name="tanggal_lahir" required></label>
     <label>Jenis Kelamin:
-      <select name="jenis_kelamin" required>
+      <select name="jenis_kelamin">
         <option value="Laki-Laki">Laki-Laki</option>
         <option value="Perempuan">Perempuan</option>
       </select>
     </label>
     <label>Agama:
-      <select name="agama" required>
+      <select name="agama">
         <option value="Islam">Islam</option>
         <option value="Kristen">Kristen</option>
         <option value="Katolik">Katolik</option>
@@ -76,66 +66,54 @@
         <option value="Konghucu">Konghucu</option>
       </select>
     </label>
-    <label>Nama Sekolah Asal:<input type="text" name="nama_sekolah" required /></label>
-    <label>Alamat Sekolah Asal:<input type="text" name="alamat_sekolah" required /></label>
-    <label>Alamat Siswa:<input type="text" name="alamat_siswa" required /></label>
-    <label>Nama Ayah:<input type="text" name="nama_ayah" required /></label>
-    <label>Nama Ibu:<input type="text" name="nama_ibu" required /></label>
-    <label>Alamat Orang Tua:<input type="text" name="alamat_ortu" required /></label>
-    <label>Telepon/HP Orang Tua:<input type="text" name="telepon_ortu" required /></label>
-    <label>Nama Wali:<input type="text" name="nama_wali" /></label>
-    <label>Alamat Wali:<input type="text" name="alamat_wali" /></label>
-    <label>Telepon/HP Wali:<input type="text" name="telepon_wali" /></label>
-    <button type="submit">Unduh PDF Sekarang</button>
+    <label>Nama Sekolah:<input name="nama_sekolah"></label>
+    <label>Alamat Sekolah:<input name="alamat_sekolah"></label>
+    <label>Alamat Siswa:<input name="alamat_siswa"></label>
+    <label>Nama Ayah:<input name="nama_ayah"></label>
+    <label>Nama Ibu:<input name="nama_ibu"></label>
+    <label>Alamat Orang Tua:<input name="alamat_ortu"></label>
+    <label>Telepon Ortu:<input name="telepon_ortu"></label>
+    <label>Nama Wali:<input name="nama_wali"></label>
+    <label>Alamat Wali:<input name="alamat_wali"></label>
+    <label>Telepon Wali:<input name="telepon_wali"></label>
+
+    <button type="submit">Unduh Formulir</button>
   </form>
 
   <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script>
     const form = document.getElementById('psbForm');
 
-    function formatTanggalLahir(tanggal) {
-      const bulanIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-                         'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      const [tahun, bulan, hari] = tanggal.split('-');
-      return `${parseInt(hari)} ${bulanIndo[parseInt(bulan)-1]} ${tahun}`;
+    function formatTanggalIndo(tgl) {
+      const bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+      const [y, m, d] = tgl.split('-');
+      return `${parseInt(d)} ${bulan[parseInt(m)-1]} ${y}`;
     }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const data = new FormData(form);
+      const formData = new FormData(form);
+      const data = {};
+      for (const [key, value] of formData.entries()) {
+        data[key] = value;
+      }
+      if (data['tanggal_lahir']) {
+        data['tanggal_lahir'] = formatTanggalIndo(data['tanggal_lahir']);
+      }
+
       const templateUrl = 'https://mipaesan.github.io/home/Formulir%20PSB%2025-26.pdf';
-      const existingPdf = await fetch(templateUrl).then(r => r.arrayBuffer());
-      const pdfDoc = await PDFLib.PDFDocument.load(existingPdf);
-      const page = pdfDoc.getPages()[0];
-      const black = PDFLib.rgb(0,0,0);
-      const size = 11;
+      const existingPdfBytes = await fetch(templateUrl).then(r => r.arrayBuffer());
 
-      const formattedTanggal = formatTanggalLahir(data.get("tanggal_lahir"));
+      const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+      const formPdf = pdfDoc.getForm();
 
-      const fields = {
-        nama_lengkap: [300, 593],
-        nama_panggilan: [300, 583],
-        tempat_lahir: [300, 533],
-        tanggal_lahir: [300, 513],
-        jenis_kelamin: [300, 493],
-        agama: [300, 473],
-        nama_sekolah: [380, 433],
-        alamat_sekolah: [380, 413],
-        alamat_siswa: [380, 393],
-        nama_ayah: [380, 353],
-        nama_ibu: [380, 333],
-        alamat_ortu: [380, 313],
-        telepon_ortu: [380, 293],
-        nama_wali: [380, 353],
-        alamat_wali: [380, 333],
-        telepon_wali: [380, 313]
-      };
-
-      for (const [field, [x, y]] of Object.entries(fields)) {
-        let text = data.get(field) || '';
-        if (field === 'tanggal_lahir') text = formattedTanggal;
-        page.drawText(text, { x, y, size, color: black });
+      for (const field in data) {
+        try {
+          formPdf.getTextField(field).setText(data[field]);
+        } catch (err) {
+          console.warn(`Field "${field}" tidak ditemukan dalam PDF.`);
+        }
       }
 
       const pdfBytes = await pdfDoc.save();
@@ -144,7 +122,7 @@
 
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Formulir_${data.get('nama_lengkap') || 'PPDB'}.pdf`;
+      a.download = `Formulir_PPDB_${data.nama_lengkap || 'siswa'}.pdf`;
       a.click();
     });
   </script>
