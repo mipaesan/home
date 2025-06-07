@@ -1,130 +1,46 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulir PPDB 2025/2026</title>
   <style>
     body {
-      font-family: sans-serif;
-      background: #f3fef9;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
       padding: 20px;
-      color: #333;
     }
-    form {
-      max-width: 700px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    h1 {
+      text-align: center;
+      color: #1e7e34;
+      margin-bottom: 30px;
     }
-    input, select {
+    iframe {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0 20px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    label {
-      font-weight: bold;
-    }
-    button {
-      padding: 12px 20px;
-      background: #28a745;
-      color: white;
+      height: 1000px;
       border: none;
-      border-radius: 8px;
-      font-size: 1em;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #1e7e34;
     }
   </style>
 </head>
 <body>
-  <h1 style="text-align:center;">Formulir PPDB 2025/2026</h1>
-  <form id="psbForm">
-    <label>Nama Lengkap:<input name="nama_lengkap" required></label>
-    <label>Nama Panggilan:<input name="nama_panggilan" required></label>
-    <label>Tempat Lahir:<input name="tempat_lahir" required></label>
-    <label>Tanggal Lahir:<input type="date" name="tanggal_lahir" required></label>
-    <label>Jenis Kelamin:
-      <select name="jenis_kelamin">
-        <option value="Laki-Laki">Laki-Laki</option>
-        <option value="Perempuan">Perempuan</option>
-      </select>
-    </label>
-    <label>Agama:
-      <select name="agama">
-        <option value="Islam">Islam</option>
-        <option value="Kristen">Kristen</option>
-        <option value="Katolik">Katolik</option>
-        <option value="Hindu">Hindu</option>
-        <option value="Budha">Budha</option>
-        <option value="Konghucu">Konghucu</option>
-      </select>
-    </label>
-    <label>Nama Sekolah:<input name="nama_sekolah"></label>
-    <label>Alamat Sekolah:<input name="alamat_sekolah"></label>
-    <label>Alamat Siswa:<input name="alamat_siswa"></label>
-    <label>Nama Ayah:<input name="nama_ayah"></label>
-    <label>Nama Ibu:<input name="nama_ibu"></label>
-    <label>Alamat Orang Tua:<input name="alamat_ortu"></label>
-    <label>Telepon Ortu:<input name="telepon_ortu"></label>
-    <label>Nama Wali:<input name="nama_wali"></label>
-    <label>Alamat Wali:<input name="alamat_wali"></label>
-    <label>Telepon Wali:<input name="telepon_wali"></label>
+  <h1>Formulir Pendaftaran PPDB 2025/2026</h1>
 
-    <button type="submit">Unduh Formulir</button>
-  </form>
+  <iframe
+    id="JotFormIFrame-251568713800053"
+    title="FORMULIR PPDB"
+    onload="window.parent.scrollTo(0,0)"
+    allowtransparency="true"
+    allow="geolocation; microphone; camera; fullscreen; payment"
+    src="https://form.jotform.com/251568713800053"
+    frameborder="0"
+    scrolling="no"
+  >
+  </iframe>
 
-  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
   <script>
-    const form = document.getElementById('psbForm');
-
-    function formatTanggalIndo(tgl) {
-      const bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-      const [y, m, d] = tgl.split('-');
-      return `${parseInt(d)} ${bulan[parseInt(m)-1]} ${y}`;
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const formData = new FormData(form);
-      const data = {};
-      for (const [key, value] of formData.entries()) {
-        data[key] = value;
-      }
-      if (data['tanggal_lahir']) {
-        data['tanggal_lahir'] = formatTanggalIndo(data['tanggal_lahir']);
-      }
-
-      const templateUrl = 'https://mipaesan.github.io/home/Formulir%20PSB%2025-26.pdf';
-      const existingPdfBytes = await fetch(templateUrl).then(r => r.arrayBuffer());
-
-      const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
-      const formPdf = pdfDoc.getForm();
-
-      for (const field in data) {
-        try {
-          formPdf.getTextField(field).setText(data[field]);
-        } catch (err) {
-          console.warn(`Field "${field}" tidak ditemukan dalam PDF.`);
-        }
-      }
-
-      const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
-
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Formulir_PPDB_${data.nama_lengkap || 'siswa'}.pdf`;
-      a.click();
-    });
+    window.jotformEmbedHandler("iframe[id='JotFormIFrame-251568713800053']", "https://form.jotform.com/")
   </script>
 </body>
 </html>
