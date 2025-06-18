@@ -105,7 +105,8 @@
     /* SLIDESHOW */
     .slideshow-container {
       position: relative;
-      max-width: 800px;
+      max-width: 600px;
+      height: 340px;
       margin: auto;
       overflow: hidden;
       border-radius: 12px;
@@ -113,40 +114,20 @@
     }
     .slideshow-container img {
       width: 100%;
-      display: none;
-      border-radius: 12px;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
+      height: 100%;
+      object-fit: cover;
       position: absolute;
       top: 0;
       left: 0;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 1s ease-in-out, transform 1.5s ease;
     }
     .slideshow-container img.active {
-      display: block;
       opacity: 1;
+      transform: scale(1);
       position: relative;
-    }
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      width: auto;
-      padding: 16px;
-      margin-top: -22px;
-      color: white;
-      font-weight: bold;
-      font-size: 24px;
-      border-radius: 0 3px 3px 0;
-      user-select: none;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 2;
-    }
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
-    .prev:hover, .next:hover {
-      background-color: rgba(0,0,0,0.8);
+      z-index: 1;
     }
 
     footer {
@@ -163,6 +144,9 @@
       .cta-button {
         width: 100%;
         text-align: center;
+      }
+      .slideshow-container {
+        height: 220px;
       }
     }
   </style>
@@ -211,8 +195,6 @@
   <section>
     <h2 class="section-title">Galeri Kegiatan</h2>
     <div class="slideshow-container">
-      <span class="prev" onclick="prevSlide()">❮</span>
-      <span class="next" onclick="nextSlide()">❯</span>
       <img src="galeri1.jpg" class="active" alt="Kegiatan 1">
       <img src="galeri2.jpg" alt="Kegiatan 2">
       <img src="galeri3.jpg" alt="Kegiatan 3">
@@ -234,7 +216,7 @@
   <script>
     const slides = document.querySelectorAll('.slideshow-container img');
     let current = 0;
-    let slideInterval = setInterval(nextSlide, 3000);
+    let slideInterval = setInterval(nextSlide, 4000);
 
     function showSlide(index) {
       slides.forEach((slide, i) => {
@@ -247,21 +229,6 @@
       current = (current + 1) % slides.length;
       showSlide(current);
     }
-
-    function prevSlide() {
-      current = (current - 1 + slides.length) % slides.length;
-      showSlide(current);
-    }
-
-    // Reset timer when manual nav used
-    document.querySelector('.next').addEventListener('click', () => {
-      clearInterval(slideInterval);
-      slideInterval = setInterval(nextSlide, 3000);
-    });
-    document.querySelector('.prev').addEventListener('click', () => {
-      clearInterval(slideInterval);
-      slideInterval = setInterval(nextSlide, 3000);
-    });
   </script>
 </body>
 </html>
