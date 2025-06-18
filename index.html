@@ -87,7 +87,7 @@
       display: grid;
       gap: 20px;
     }
-    .programs, .gallery {
+    .programs {
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
     .card {
@@ -101,6 +101,54 @@
     .card:hover {
       transform: scale(1.03);
     }
+
+    /* SLIDESHOW */
+    .slideshow-container {
+      position: relative;
+      max-width: 800px;
+      margin: auto;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .slideshow-container img {
+      width: 100%;
+      display: none;
+      border-radius: 12px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .slideshow-container img.active {
+      display: block;
+      opacity: 1;
+      position: relative;
+    }
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      padding: 16px;
+      margin-top: -22px;
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 2;
+    }
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+    .prev:hover, .next:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+
     footer {
       background: #222;
       color: white;
@@ -162,10 +210,19 @@
 
   <section>
     <h2 class="section-title">Galeri Kegiatan</h2>
-    <div class="grid gallery">
-      <div class="card"><img src="galeri1.jpg" alt="Kegiatan 1" width="100%"></div>
-      <div class="card"><img src="galeri2.jpg" alt="Kegiatan 2" width="100%"></div>
-      <div class="card"><img src="galeri3.jpg" alt="Kegiatan 3" width="100%"></div>
+    <div class="slideshow-container">
+      <span class="prev" onclick="prevSlide()">❮</span>
+      <span class="next" onclick="nextSlide()">❯</span>
+      <img src="galeri1.jpg" class="active" alt="Kegiatan 1">
+      <img src="galeri2.jpg" alt="Kegiatan 2">
+      <img src="galeri3.jpg" alt="Kegiatan 3">
+      <img src="galeri4.jpg" alt="Kegiatan 4">
+      <img src="galeri5.jpg" alt="Kegiatan 5">
+      <img src="galeri6.jpg" alt="Kegiatan 6">
+      <img src="galeri7.jpg" alt="Kegiatan 7">
+      <img src="galeri8.jpg" alt="Kegiatan 8">
+      <img src="galeri9.jpg" alt="Kegiatan 9">
+      <img src="galeri10.jpg" alt="Kegiatan 10">
     </div>
   </section>
 
@@ -173,5 +230,38 @@
     <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
     <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
   </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slideshow-container img');
+    let current = 0;
+    let slideInterval = setInterval(nextSlide, 3000);
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) slide.classList.add('active');
+      });
+    }
+
+    function nextSlide() {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    }
+
+    function prevSlide() {
+      current = (current - 1 + slides.length) % slides.length;
+      showSlide(current);
+    }
+
+    // Reset timer when manual nav used
+    document.querySelector('.next').addEventListener('click', () => {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, 3000);
+    });
+    document.querySelector('.prev').addEventListener('click', () => {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, 3000);
+    });
+  </script>
 </body>
 </html>
