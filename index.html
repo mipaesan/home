@@ -80,15 +80,11 @@
       transform: translateY(30px);
       animation: fadeInUp 1s ease forwards;
     }
-    section:nth-of-type(2) {
-      animation-delay: 0.2s;
-    }
-    section:nth-of-type(3) {
-      animation-delay: 0.4s;
-    }
-    section:nth-of-type(4) {
-      animation-delay: 0.6s;
-    }
+    section:nth-of-type(2) { animation-delay: 0.2s; }
+    section:nth-of-type(3) { animation-delay: 0.4s; }
+    section:nth-of-type(4) { animation-delay: 0.6s; }
+    section:nth-of-type(5) { animation-delay: 0.8s; }
+
     @keyframes fadeInUp {
       to {
         opacity: 1;
@@ -152,8 +148,8 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
       margin-bottom: 50px;
     }
-    .visi {
-      background: #e8f9f1;
+    .visi, .misi {
+      background: #ffffff;
       padding: 20px 30px;
       border-left: 6px solid #28a745;
       border-radius: 10px;
@@ -164,13 +160,8 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     .misi ul {
-      background: #ffffff;
-      padding: 25px 30px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      font-size: 1.05em;
-      line-height: 1.7;
-      color: #444;
+      text-align: left;
+      padding-left: 20px;
       margin: 0;
     }
     .misi li {
@@ -208,11 +199,17 @@
   </header>
 
   <section>
-    <h2 class="section-title">Visi dan Misi</h2>
+    <h2 class="section-title">Visi</h2>
     <div class="visi-misi-container">
       <div class="visi">
-        MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI
+        "MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI"
       </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Misi</h2>
+    <div class="visi-misi-container">
       <div class="misi">
         <ul>
           <li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li>
@@ -225,5 +222,75 @@
       </div>
     </div>
   </section>
+
+  <section>
+    <h2 class="section-title">Program Unggulan</h2>
+    <div class="grid programs">
+      <div class="card">
+        <img src="rebana.png" alt="Rebana" style="width:70px; margin-bottom:12px;">
+        <h3>Rebana</h3>
+        <p>Melatih keterampilan musik islami dan kerja sama tim.</p>
+      </div>
+      <div class="card">
+        <img src="drumband.png" alt="Drumband" style="width:70px; margin-bottom:12px;">
+        <h3>Drumband</h3>
+        <p>Menumbuhkan kedisiplinan dan semangat kebersamaan.</p>
+      </div>
+      <div class="card">
+        <img src="robotik.png" alt="Robotik" style="width:70px; margin-bottom:12px;">
+        <h3>Robotik</h3>
+        <p>Mengenalkan teknologi dan logika pemrograman sejak dini.</p>
+      </div>
+      <div class="card">
+        <img src="komputer.png" alt="Komputer Dasar" style="width:70px; margin-bottom:12px;">
+        <h3>Komputer Dasar</h3>
+        <p>Belajar keterampilan dasar komputer untuk masa depan digital.</p>
+      </div>
+      <div class="card">
+        <img src="pramuka.png" alt="Pramuka" style="width:70px; margin-bottom:12px;">
+        <h3>Pramuka</h3>
+        <p>Membentuk karakter, tanggung jawab, dan cinta tanah air.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Galeri Kegiatan</h2>
+    <div class="slideshow-container">
+      <img src="galeri1.jpg" class="active" alt="Kegiatan 1">
+      <img src="galeri2.jpg" alt="Kegiatan 2">
+      <img src="galeri3.jpg" alt="Kegiatan 3">
+      <img src="galeri4.jpg" alt="Kegiatan 4">
+      <img src="galeri5.jpg" alt="Kegiatan 5">
+      <img src="galeri6.jpg" alt="Kegiatan 6">
+      <img src="galeri7.jpg" alt="Kegiatan 7">
+      <img src="galeri8.jpg" alt="Kegiatan 8">
+      <img src="galeri9.jpg" alt="Kegiatan 9">
+      <img src="galeri10.jpg" alt="Kegiatan 10">
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
+    <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slideshow-container img');
+    let current = 0;
+    let slideInterval = setInterval(nextSlide, 4000);
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) slide.classList.add('active');
+      });
+    }
+
+    function nextSlide() {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    }
+  </script>
 </body>
 </html>
