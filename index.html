@@ -73,7 +73,7 @@
       100% { transform: scale(1); }
     }
     section {
-      padding: 40px 20px;
+      padding: 60px 20px;
       max-width: 1000px;
       margin: auto;
       opacity: 0;
@@ -83,6 +83,7 @@
     section:nth-of-type(2) { animation-delay: 0.2s; }
     section:nth-of-type(3) { animation-delay: 0.4s; }
     section:nth-of-type(4) { animation-delay: 0.6s; }
+    section:nth-of-type(5) { animation-delay: 0.8s; }
 
     @keyframes fadeInUp {
       to {
@@ -140,36 +141,28 @@
       position: relative;
       z-index: 1;
     }
-    .visi-misi-container {
-      background: linear-gradient(135deg, #f6ffed, #e6f7ff, #fff1f0);
+    .berita {
+      background: #fffaf0;
+      padding: 40px 30px;
       border-radius: 16px;
-      padding: 30px 20px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      margin-bottom: 40px;
+      margin-bottom: 60px;
     }
-    .visi {
-      background: #e8f9f1;
-      padding: 15px 20px;
-      border-left: 6px solid #28a745;
-      border-radius: 10px;
-      max-width: 800px;
-      margin: 0 auto 20px auto;
-      font-size: 1.1em;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .misi ul {
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      font-size: 1em;
-      line-height: 1.6;
-      color: #444;
-      margin: 0;
-    }
-    .misi li {
+    .berita h3 {
+      color: #1e7e34;
+      font-size: 1.5em;
       margin-bottom: 10px;
+      text-align: center;
+    }
+    .berita small {
+      display: block;
+      text-align: center;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .berita p {
+      line-height: 1.8;
+      text-align: justify;
     }
     footer {
       background: #222;
@@ -203,54 +196,11 @@
   </header>
 
   <section>
-    <h2 class="section-title">Visi dan Misi</h2>
-    <div class="visi-misi-container">
-      <div class="visi">
-        MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI
-      </div>
-      <div class="misi">
-        <ul>
-          <li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li>
-          <li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa sehingga menjadi sumber inspirasi dalam bertindak.</li>
-          <li>Menjalin kerjasama yang baik dengan seluruh warga Madrasah, Masyarakat, dan kelompok kepentingan terkait.</li>
-          <li>Menerapkan manajemen partisipatif dengan melibatkan seluruh warga madrasah dan juga komite madrasah.</li>
-          <li>Mewujudkan manusia yang berilmu pengetahuan dan teknologi.</li>
-          <li>Mewujudkan manusia yang beriman, bertaqwa dan berakhlakul karimah.</li>
-        </ul>
-      </div>
-    </div>
+    <h2 class="section-title">Berita Terbaru</h2>
+    <div id="berita-container"></div>
   </section>
 
-  <section>
-    <h2 class="section-title">Program Unggulan</h2>
-    <div class="grid programs">
-      <div class="card">
-        <img src="rebana.png" alt="Rebana" style="width:70px; margin-bottom:12px;">
-        <h3>Rebana</h3>
-        <p>Melatih keterampilan musik islami dan kerja sama tim.</p>
-      </div>
-      <div class="card">
-        <img src="drumband.png" alt="Drumband" style="width:70px; margin-bottom:12px;">
-        <h3>Drumband</h3>
-        <p>Menumbuhkan kedisiplinan dan semangat kebersamaan.</p>
-      </div>
-      <div class="card">
-        <img src="robotik.png" alt="Robotik" style="width:70px; margin-bottom:12px;">
-        <h3>Robotik</h3>
-        <p>Mengenalkan teknologi dan logika pemrograman sejak dini.</p>
-      </div>
-      <div class="card">
-        <img src="komputer.png" alt="Komputer Dasar" style="width:70px; margin-bottom:12px;">
-        <h3>Komputer Dasar</h3>
-        <p>Belajar keterampilan dasar komputer untuk masa depan digital.</p>
-      </div>
-      <div class="card">
-        <img src="pramuka.png" alt="Pramuka" style="width:70px; margin-bottom:12px;">
-        <h3>Pramuka</h3>
-        <p>Membentuk karakter, tanggung jawab, dan cinta tanah air.</p>
-      </div>
-    </div>
-  </section>
+  <!-- Section lainnya tetap -->
 
   <section>
     <h2 class="section-title">Galeri Kegiatan</h2>
@@ -269,7 +219,7 @@
   </section>
 
   <footer>
-    <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan, Desa Jelok, Kecamatan Cepogo, Kabupaten Boyolali</p>
+    <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
     <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
   </footer>
 
@@ -289,6 +239,24 @@
       current = (current + 1) % slides.length;
       showSlide(current);
     }
+
+    // Load berita dari JSON
+    fetch('berita.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('berita-container');
+        data.forEach(berita => {
+          const el = document.createElement('div');
+          el.className = 'berita';
+          el.innerHTML = `
+            <h3>${berita.judul}</h3>
+            <small>${berita.tanggal}</small>
+            ${berita.gambar ? `<img src="${berita.gambar}" alt="${berita.judul}" style="max-width:100%; border-radius:10px; margin: 20px 0;">` : ''}
+            ${berita.isi.map(paragraf => `<p>${paragraf}</p>`).join('')}
+          `;
+          container.appendChild(el);
+        });
+      });
   </script>
 </body>
 </html>
