@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Berita</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8fdf9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+    h1 {
+      font-size: 1.8em;
+      color: #1e7e34;
+      margin-bottom: 10px;
+    }
+    .tanggal {
+      color: #888;
+      font-size: 0.9em;
+      margin-bottom: 20px;
+    }
+    img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+      white-space: pre-line;
+    }
+    a.kembali {
+      display: inline-block;
+      margin-top: 20px;
+      color: #1e7e34;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="berita-detail">
+    <p>Memuat berita...</p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    fetch('berita.json')
+      .then(res => res.json())
+      .then(data => {
+        const berita = data.find(b => b.id == id);
+        const container = document.getElementById('berita-detail');
+
+        if (!berita) {
+          container.innerHTML = '<p>Berita tidak ditemukan.</p>';
+          return;
+        }
+
+        container.innerHTML = `
+          <h1>${berita.judul}</h1>
+          <div class="tanggal">${berita.tanggal}</div>
+          <img src="${berita.gambar}" alt="${berita.judul}">
+          <p>${berita.isi}</p>
+          <a href="index.html" class="kembali">&larr; Kembali ke Beranda</a>
+        `;
+      })
+      .catch(() => {
+        document.getElementById('berita-detail').innerHTML = '<p>Gagal memuat berita.</p>';
+      });
+  </script>
+</body>
+</html>
