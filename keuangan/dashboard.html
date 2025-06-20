@@ -21,18 +21,25 @@
       background: #e9f0ff;
       padding: 15px;
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
+      gap: 15px;
     }
     nav a {
       text-decoration: none;
-      padding: 10px 15px;
-      background: #007bff;
+      padding: 10px 18px;
       color: white;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.3s;
     }
+    nav a.input { background: #28a745; }      /* Hijau */
+    nav a.siswa { background: #17a2b8; }      /* Biru Muda */
+    nav a.rekap { background: #ffc107; color: #333; }  /* Kuning */
+    nav a.cetak { background: #6f42c1; }      /* Ungu */
+    nav a.logout { background: #dc3545; }     /* Merah */
     nav a:hover {
-      background: #0056b3;
+      filter: brightness(1.1);
     }
     .konten {
       padding: 30px;
@@ -46,14 +53,14 @@
     <p>MI Salafiyatul Ma'muroh Paesan</p>
   </header>
   <nav>
-    <a href="#">Input Pembayaran</a>
-    <a href="#">Data Siswa</a>
-    <a href="#">Rekap Kelas</a>
-    <a href="#">Cetak</a>
-    <a href="index-keuangan.html">Logout</a>
+    <a href="#" class="input">Input Pembayaran</a>
+    <a href="#" class="siswa">Data Siswa</a>
+    <a href="#" class="rekap">Rekap Kelas</a>
+    <a href="#" class="cetak">Cetak</a>
+    <a href="index-keuangan.html" class="logout">Logout</a>
   </nav>
   <div class="konten">
-    <h2>Selamat datang, Bendahara Madrasah!</h2>
+    <h2>Selamat datang, Bendahara!</h2>
     <p>Silakan pilih menu di atas untuk mulai mengelola keuangan siswa.</p>
   </div>
 </body>
