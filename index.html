@@ -57,15 +57,16 @@
       transform: scale(1.05);
       box-shadow: 0 0 12px rgba(0,0,0,0.3);
     }
-    .cta-button.pengumuman { background: #28a745; color: white; }
-    .cta-button.ppdb { background: #ffc107; color: #222; }
-    .cta-button.keuangan { background: #17a2b8; color: white; }
+    .pengumuman { background: #28a745; color: white; }
+    .ppdb { background: #ffc107; color: #222; }
+    .keuangan { background: #007bff; color: white; }
 
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
       100% { transform: scale(1); }
     }
+
     section {
       padding: 50px 20px;
       max-width: 1000px;
@@ -85,16 +86,19 @@
         transform: none;
       }
     }
+
     .section-title {
       text-align: center;
       font-size: 2em;
       margin-bottom: 30px;
       color: #1e7e34;
     }
+
     .grid { display: grid; gap: 20px; }
     .berita-kartu {
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
+
     .berita-item {
       background: #fff;
       border-radius: 12px;
@@ -131,6 +135,7 @@
       color: #007bff;
       font-weight: bold;
     }
+
     .programs {
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
@@ -145,6 +150,7 @@
     .card:hover {
       transform: scale(1.03);
     }
+
     .slideshow-container {
       position: relative;
       max-width: 600px;
@@ -167,6 +173,7 @@
       position: relative;
       z-index: 1;
     }
+
     .visi-misi {
       background: linear-gradient(135deg, #e0ffe0, #f2fff2);
       border-radius: 12px;
@@ -184,6 +191,7 @@
     .misi li {
       margin-bottom: 10px;
     }
+
     footer {
       background: #222;
       color: white;
@@ -191,6 +199,7 @@
       padding: 25px;
       font-size: 0.9em;
     }
+
     @media screen and (max-width: 600px) {
       header h1 { font-size: 2em; }
       .cta-button { width: 100%; text-align: center; }
@@ -205,7 +214,7 @@
     <div class="button-group">
       <a class="cta-button pengumuman" href="sambutan.html">Pengumuman Kelulusan</a>
       <a class="cta-button ppdb" href="formulir.html">Formulir PPDB 2025/2026</a>
-      <a class="cta-button keuangan" href="index-keuangan.html">Laporan Keuangan</a>
+      <a class="cta-button keuangan" href="keuangan/">Laporan Keuangan</a>
     </div>
   </header>
 
@@ -219,11 +228,9 @@
     <div class="visi">"MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI"</div>
     <ul class="misi">
       <li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li>
-      <li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa sehingga menjadi sumber inspirasi dalam bertindak.</li>
-      <li>Menjalin kerjasama yang baik dengan seluruh warga Madrasah, Masyarakat, dan kelompok kepentingan terkait.</li>
-      <li>Menerapkan manajemen partisipatif dengan melibatkan seluruh warga madrasah dan juga komite madrasah.</li>
-      <li>Mewujudkan manusia yang berilmu pengetahuan dan teknologi.</li>
-      <li>Mewujudkan manusia yang beriman, bertaqwa dan berakhlakul karimah.</li>
+      <li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa.</li>
+      <li>Menjalin kerjasama yang baik dengan warga madrasah dan masyarakat.</li>
+      <li>Menerapkan manajemen partisipatif dan transparan.</li>
     </ul>
   </section>
 
@@ -247,10 +254,6 @@
       <img src="galeri4.jpg" alt="Kegiatan 4">
       <img src="galeri5.jpg" alt="Kegiatan 5">
       <img src="galeri6.jpg" alt="Kegiatan 6">
-      <img src="galeri7.jpg" alt="Kegiatan 7">
-      <img src="galeri8.jpg" alt="Kegiatan 8">
-      <img src="galeri9.jpg" alt="Kegiatan 9">
-      <img src="galeri10.jpg" alt="Kegiatan 10">
     </div>
   </section>
 
@@ -262,19 +265,11 @@
   <script>
     const slides = document.querySelectorAll('.slideshow-container img');
     let current = 0;
-    let slideInterval = setInterval(nextSlide, 4000);
-
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.remove('active');
-        if (i === index) slide.classList.add('active');
-      });
-    }
-
-    function nextSlide() {
+    setInterval(() => {
+      slides[current].classList.remove('active');
       current = (current + 1) % slides.length;
-      showSlide(current);
-    }
+      slides[current].classList.add('active');
+    }, 4000);
 
     fetch('berita.json')
       .then(res => res.json())
