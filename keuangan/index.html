@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Keuangan</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f9f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-box {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+    }
+    .login-box h2 {
+      margin-bottom: 20px;
+      color: #1e7e34;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background: #1e7e34;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Login Bendahara</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Masuk</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      // Ganti ini sesuai yang Mas kehendaki
+      const USERNAME = "bendahara";
+      const PASSWORD = "12345";
+
+      if (user === USERNAME && pass === PASSWORD) {
+        window.location.href = "dashboard.html";
+      } else {
+        document.getElementById("error").textContent = "Username atau Password salah!";
+      }
+    }
+  </script>
+</body>
+</html>
