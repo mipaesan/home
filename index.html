@@ -59,14 +59,12 @@
     }
     .cta-button.pengumuman { background: #28a745; color: white; }
     .cta-button.ppdb { background: #ffc107; color: #222; }
-    .cta-button.keuangan { background: #007bff; color: white; }
-
+    .cta-button.keuangan { background: #17a2b8; color: white; }
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
       100% { transform: scale(1); }
     }
-
     section {
       padding: 50px 20px;
       max-width: 1000px;
@@ -86,7 +84,6 @@
         transform: none;
       }
     }
-
     .section-title {
       text-align: center;
       font-size: 2em;
@@ -207,11 +204,59 @@
     <div class="button-group">
       <a class="cta-button pengumuman" href="sambutan.html">Pengumuman Kelulusan</a>
       <a class="cta-button ppdb" href="formulir.html">Formulir PPDB 2025/2026</a>
-      <a class="cta-button keuangan" href="keuangan/">Laporan Keuangan</a>
+      <a class="cta-button keuangan" href="keuangan/index.html">Laporan Keuangan</a>
     </div>
   </header>
 
-  <!-- Bagian lainnya tidak berubah -->
+  <section>
+    <h2 class="section-title">Berita Terbaru</h2>
+    <div id="berita-container" class="grid berita-kartu"></div>
+  </section>
+
+  <section class="visi-misi">
+    <h2 class="section-title">Visi & Misi</h2>
+    <div class="visi">"MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI"</div>
+    <ul class="misi">
+      <li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li>
+      <li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa sehingga menjadi sumber inspirasi dalam bertindak.</li>
+      <li>Menjalin kerjasama yang baik dengan seluruh warga Madrasah, Masyarakat, dan kelompok kepentingan terkait.</li>
+      <li>Menerapkan manajemen partisipatif dengan melibatkan seluruh warga madrasah dan juga komite madrasah.</li>
+      <li>Mewujudkan manusia yang berilmu pengetahuan dan teknologi.</li>
+      <li>Mewujudkan manusia yang beriman, bertaqwa dan berakhlakul karimah.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="section-title">Program Unggulan</h2>
+    <div class="grid programs">
+      <div class="card"><img src="rebana.png" alt="Rebana" style="width:70px; margin-bottom:12px;"><h3>Rebana</h3><p>Melatih keterampilan musik islami dan kerja sama tim.</p></div>
+      <div class="card"><img src="drumband.png" alt="Drumband" style="width:70px; margin-bottom:12px;"><h3>Drumband</h3><p>Menumbuhkan kedisiplinan dan semangat kebersamaan.</p></div>
+      <div class="card"><img src="robotik.png" alt="Robotik" style="width:70px; margin-bottom:12px;"><h3>Robotik</h3><p>Mengenalkan teknologi dan logika pemrograman sejak dini.</p></div>
+      <div class="card"><img src="komputer.png" alt="Komputer Dasar" style="width:70px; margin-bottom:12px;"><h3>Komputer Dasar</h3><p>Belajar keterampilan dasar komputer untuk masa depan digital.</p></div>
+      <div class="card"><img src="pramuka.png" alt="Pramuka" style="width:70px; margin-bottom:12px;"><h3>Pramuka</h3><p>Membentuk karakter, tanggung jawab, dan cinta tanah air.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Galeri Kegiatan</h2>
+    <div class="slideshow-container">
+      <img src="galeri1.jpg" class="active" alt="Kegiatan 1">
+      <img src="galeri2.jpg" alt="Kegiatan 2">
+      <img src="galeri3.jpg" alt="Kegiatan 3">
+      <img src="galeri4.jpg" alt="Kegiatan 4">
+      <img src="galeri5.jpg" alt="Kegiatan 5">
+      <img src="galeri6.jpg" alt="Kegiatan 6">
+      <img src="galeri7.jpg" alt="Kegiatan 7">
+      <img src="galeri8.jpg" alt="Kegiatan 8">
+      <img src="galeri9.jpg" alt="Kegiatan 9">
+      <img src="galeri10.jpg" alt="Kegiatan 10">
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
+    <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
+  </footer>
 
   <script>
     const slides = document.querySelectorAll('.slideshow-container img');
