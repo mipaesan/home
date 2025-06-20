@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Input Pembayaran</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4fbff;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #28a745;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 3px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background: #28a745;
+      color: white;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .back {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .back a {
+      text-decoration: none;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Formulir Input Pembayaran</h2>
+  </header>
+  <div class="container">
+    <form>
+      <label for="nama">Nama Siswa</label>
+      <input type="text" id="nama" name="nama" required />
+
+      <label for="kelas">Kelas</label>
+      <select id="kelas" name="kelas" required>
+        <option value="">-- Pilih Kelas --</option>
+        <option value="1">Kelas 1</option>
+        <option value="2">Kelas 2</option>
+        <option value="3">Kelas 3</option>
+        <option value="4">Kelas 4</option>
+        <option value="5">Kelas 5</option>
+        <option value="6">Kelas 6</option>
+      </select>
+
+      <label for="tagihan">Jenis Tagihan</label>
+      <input type="text" id="tagihan" name="tagihan" placeholder="Misal: Infaq Juli" required />
+
+      <label for="jumlah">Jumlah Bayar</label>
+      <input type="number" id="jumlah" name="jumlah" required />
+
+      <label for="tanggal">Tanggal Bayar</label>
+      <input type="date" id="tanggal" name="tanggal" required />
+
+      <button type="submit">Simpan Pembayaran</button>
+    </form>
+    <div class="back">
+      <p><a href="dashboard.html">← Kembali ke Dashboard</a></p>
+    </div>
+  </div>
+</body>
+</html>
