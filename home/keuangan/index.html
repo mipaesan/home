@@ -1,1 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laporan Keuangan Siswa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f2fef6;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #1e7e34;
+      margin-bottom: 30px;
+    }
+    .form-wrapper, .table-wrapper {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+    form {
+      display: grid;
+      gap: 15px;
+    }
+    input, select, button {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      border: none;
+    }
+    button:hover {
+      background: #218838;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    th {
+      background: #d4edda;
+      color: #155724;
+    }
+  </style>
+</head>
+<body>
+  <h1>Laporan Keuangan Siswa</h1>
+
+  <div class="form-wrapper">
+    <form id="formPembayaran">
+      <select id="kelas" required>
+        <option value="">Pilih Kelas</option>
+        <option value="Kelas 1">Kelas 1</option>
+        <option value="Kelas 2">Kelas 2</option>
+        <option value="Kelas 3">Kelas 3</option>
+        <option value="Kelas 4">Kelas 4</option>
+        <option value="Kelas 5">Kelas 5</option>
+        <option value="Kelas 6">Kelas 6</option>
+      </select>
+      <input type="text" id="nama" placeholder="Nama Siswa" required />
+      <input type="text" id="tagihan" placeholder="Jenis Tagihan (misal: Infaq Juli)" required />
+      <input type="number" id="jumlah" placeholder="Jumlah Bayar" required />
+      <button type="submit">Tambah Pembayaran</button>
+    </form>
+  </div>
+
+  <div class="table-wrapper">
+    <table id="tabelKeuangan">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Kelas</th>
+          <th>Nama Siswa</th>
+          <th>Tagihan</th>
+          <th>Jumlah</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const form = document.getElementById('formPembayaran');
+    const tbody = document.querySelector('#tabelKeuangan tbody');
+    let data = JSON.parse(localStorage.getItem('pembayaranData') || '[]');
+
+    function renderTable() {
+      tbody.innerHTML = '';
+      data.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${item.kelas}</td>
+          <td>${item.nama}</td>
+          <td>${item.tagihan}</td>
+          <td>Rp ${parseInt(item.jumlah).toLocaleString()}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const kelas = document.getElementById('kelas').value;
+      const nama = document.getElementById('nama').value.trim();
+      const tagihan = document.getElementById('tagihan').value.trim();
+      const jumlah = document.getElementById('jumlah').value;
+
+      data.push({ kelas, nama, tagihan, jumlah });
+      localStorage.setItem('pembayaranData', JSON.stringify(data));
+      renderTable();
+      form.reset();
+    });
+
+    renderTable();
+  </script>
+</body>
+</html>
 
