@@ -2,66 +2,76 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Keuangan</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f0f8ff;
+      background: #f4fbff;
       margin: 0;
       padding: 0;
     }
     header {
-      background: #007bff;
+      background-color: #007bff;
       color: white;
       padding: 20px;
       text-align: center;
     }
-    nav {
-      background: #e9f0ff;
-      padding: 15px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
     }
-    nav a {
-      text-decoration: none;
-      padding: 10px 18px;
-      color: white;
-      border-radius: 6px;
-      font-weight: bold;
-      transition: background 0.3s;
+    .grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
-    nav a.input { background: #28a745; }      /* Hijau */
-    nav a.siswa { background: #17a2b8; }      /* Biru Muda */
-    nav a.rekap { background: #ffc107; color: #333; }  /* Kuning */
-    nav a.cetak { background: #6f42c1; }      /* Ungu */
-    nav a.logout { background: #dc3545; }     /* Merah */
-    nav a:hover {
-      filter: brightness(1.1);
-    }
-    .konten {
+    .card {
+      background-color: white;
+      border-radius: 10px;
       padding: 30px;
       text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      text-decoration: none;
+      color: #333;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card.green { background: #d4edda; }
+    .card.blue { background: #cce5ff; }
+    .card.orange { background: #fff3cd; }
+    .card.purple { background: #e2d5f8; }
+    .card.red { background: #f8d7da; }
+    .card.teal { background: #d1ecf1; }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #666;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Dashboard Keuangan Siswa</h1>
-    <p>MI Salafiyatul Ma'muroh Paesan</p>
+    <h2>Dashboard Keuangan Siswa</h2>
   </header>
-  <nav>
-    <a href="#" class="input">Input Pembayaran</a>
-    <a href="#" class="siswa">Data Siswa</a>
-    <a href="#" class="rekap">Rekap Kelas</a>
-    <a href="#" class="cetak">Cetak</a>
-    <a href="index-keuangan.html" class="logout">Logout</a>
-  </nav>
-  <div class="konten">
-    <h2>Selamat datang, Bendahara MI Salafiyatul Ma'muroh!</h2>
-    <p>Silakan pilih menu di atas untuk mulai mengelola keuangan siswa.</p>
+  <div class="container">
+    <div class="grid">
+      <a class="card green" href="input-pembayaran.html">Input Pembayaran</a>
+      <a class="card blue" href="data-siswa.html">Data Siswa</a>
+      <a class="card orange" href="rekap-kelas.html">Rekap Kelas</a>
+      <a class="card purple" href="cetak-per-siswa.html">Cetak Per Siswa</a>
+      <a class="card red" href="data-tagihan.html">Data Tagihan</a>
+      <a class="card teal" href="logout.html">Keluar</a>
+    </div>
   </div>
+  <footer>
+    &copy; 2025 MI Salafiyatul Ma'muroh Paesan
+  </footer>
 </body>
 </html>
