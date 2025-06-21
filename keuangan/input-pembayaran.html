@@ -1,153 +1,159 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Input Pembayaran Siswa</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembayaran Siswa</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f0fbff;
+      background: #f5f9ff;
+      margin: 0;
       padding: 20px;
     }
-    h2 {
+    h1 {
       text-align: center;
-      color: #0a5783;
+      color: #2c3e50;
     }
-    form {
-      max-width: 500px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    .kelas-btn {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 20px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .kelas-btn:hover {
+      background: #2980b9;
+    }
+    #siswa-list, #form-bayar {
+      margin-top: 20px;
+      display: none;
+    }
+    .siswa-item {
+      padding: 8px;
+      background: #ecf0f1;
+      border: 1px solid #bdc3c7;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+    .siswa-item:hover {
+      background: #d0e6f7;
     }
     label {
       display: block;
-      margin-top: 15px;
-      font-weight: bold;
+      margin-top: 10px;
     }
-    select, input[type="number"] {
+    input, select, button {
+      padding: 8px;
       width: 100%;
-      padding: 10px;
-      margin-top: 6px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
     }
-    button {
-      margin-top: 20px;
-      width: 48%;
-      padding: 12px;
-      font-weight: bold;
+    button[type="submit"] {
+      background: #27ae60;
+      color: white;
       border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .submit-btn {
-      background-color: #28a745;
-      color: white;
-    }
-    .cancel-btn {
-      background-color: #dc3545;
-      color: white;
-      float: right;
-    }
-    .message {
       margin-top: 20px;
-      text-align: center;
+    }
+    .back-btn {
+      background: #c0392b;
+      color: white;
+      border: none;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
+  <h1>Pembayaran Siswa</h1>
+  <div id="kelas-buttons"></div>
 
-<h2>Input Pembayaran Siswa</h2>
-<form id="pembayaranForm">
-  <label for="kelas">Pilih Kelas</label>
-  <select id="kelas" required></select>
+  <div id="siswa-list"></div>
 
-  <label for="nama">Nama Siswa</label>
-  <select id="nama" required></select>
+  <form id="form-bayar">
+    <input type="hidden" id="kelas" name="kelas">
+    <input type="hidden" id="nama" name="nama">
 
-  <label for="tagihan">Jenis Tagihan</label>
-  <select id="tagihan" required></select>
+    <label for="tagihan">Jenis Tagihan</label>
+    <select id="tagihan" name="tagihan" required></select>
 
-  <label for="jumlah">Jumlah Bayar (Rp)</label>
-  <input type="number" id="jumlah" min="0" required>
+    <label for="nominal">Nominal Dibayar</label>
+    <input type="number" id="nominal" name="nominal" required>
 
-  <div>
-    <button type="submit" class="submit-btn">Simpan</button>
-    <button type="button" class="cancel-btn" onclick="window.location.href='dashboard.html'">Batal</button>
-  </div>
+    <button type="submit">Simpan</button>
+    <button type="button" class="back-btn" onclick="kembaliKeSiswa()">Batal</button>
+  </form>
 
-  <div class="message" id="message"></div>
-</form>
+  <script>
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwjIljWEvSGCA9m9n1lkWdELYGd16aPVR9ms0qm-95ISM8tC6rtQymIfGt-BDF2uV8h/exec';
 
-<script>
-  const url = "https://script.google.com/macros/s/AKfycbwjIljWEvSGCA9m9n1lkWdELYGd16aPVR9ms0qm-95ISM8tC6rtQymIfGt-BDF2uV8h/exec";
+    const kelasButtons = ['1', '2', '3', '4', '5', '6'];
+    const btnContainer = document.getElementById('kelas-buttons');
 
-  const kelasSelect = document.getElementById("kelas");
-  const namaSelect = document.getElementById("nama");
-  const tagihanSelect = document.getElementById("tagihan");
-  const messageDiv = document.getElementById("message");
+    kelasButtons.forEach(kelas => {
+      const btn = document.createElement('button');
+      btn.textContent = `Kelas ${kelas}`;
+      btn.className = 'kelas-btn';
+      btn.onclick = () => pilihKelas(kelas);
+      btnContainer.appendChild(btn);
+    });
 
-  // Ambil data siswa dan tagihan dari Sheets
-  fetch(url + "?action=data")
-    .then(res => res.json())
-    .then(data => {
-      // Filter kelas unik
-      const kelasList = [...new Set(data.siswa.map(s => s.kelas))];
-      kelasList.forEach(kelas => {
-        const option = document.createElement("option");
-        option.value = kelas;
-        option.textContent = kelas;
-        kelasSelect.appendChild(option);
-      });
+    function pilihKelas(kelas) {
+      fetch(`${scriptUrl}?action=data`)
+        .then(res => res.json())
+        .then(data => {
+          const siswa = data.siswa.filter(s => s.kelas === kelas);
+          const tagihan = data.tagihan;
 
-      // Isi jenis tagihan
-      data.tagihan.forEach(t => {
-        const option = document.createElement("option");
+          const siswaDiv = document.getElementById('siswa-list');
+          siswaDiv.innerHTML = `<h2>Daftar Siswa Kelas ${kelas}</h2>`;
+          siswa.forEach(s => {
+            const item = document.createElement('div');
+            item.className = 'siswa-item';
+            item.textContent = s.nama;
+            item.onclick = () => tampilFormBayar(kelas, s.nama, tagihan);
+            siswaDiv.appendChild(item);
+          });
+          siswaDiv.style.display = 'block';
+          document.getElementById('form-bayar').style.display = 'none';
+        });
+    }
+
+    function tampilFormBayar(kelas, nama, tagihan) {
+      document.getElementById('kelas').value = kelas;
+      document.getElementById('nama').value = nama;
+
+      const tagihanSelect = document.getElementById('tagihan');
+      tagihanSelect.innerHTML = '';
+      tagihan.forEach(t => {
+        const option = document.createElement('option');
         option.value = t.jenis;
-        option.textContent = t.jenis;
+        option.textContent = `${t.jenis} (${t.nominal ? 'Rp' + t.nominal : 'Tanpa Nominal'})`;
         tagihanSelect.appendChild(option);
       });
 
-      // Event ketika kelas dipilih
-      kelasSelect.addEventListener("change", () => {
-        namaSelect.innerHTML = "<option value=''>Pilih Siswa</option>";
-        const siswaPerKelas = data.siswa.filter(s => s.kelas === kelasSelect.value);
-        siswaPerKelas.forEach(s => {
-          const option = document.createElement("option");
-          option.value = s.nama;
-          option.textContent = s.nama;
-          namaSelect.appendChild(option);
+      document.getElementById('siswa-list').style.display = 'none';
+      document.getElementById('form-bayar').style.display = 'block';
+    }
+
+    function kembaliKeSiswa() {
+      document.getElementById('form-bayar').style.display = 'none';
+      document.getElementById('siswa-list').style.display = 'block';
+    }
+
+    document.getElementById('form-bayar').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = new FormData(this);
+      fetch(scriptUrl, { method: 'POST', body: data })
+        .then(res => res.text())
+        .then(response => {
+          alert('Pembayaran berhasil disimpan!');
+          kembaliKeSiswa();
+          this.reset();
         });
-      });
-    })
-    .catch(err => {
-      console.error("Gagal mengambil data:", err);
-      messageDiv.innerHTML = "<span style='color:red'>Gagal mengambil data!</span>";
     });
-
-  // Kirim data ke Spreadsheet
-  document.getElementById("pembayaranForm").addEventListener("submit", e => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    fetch(url, {
-      method: "POST",
-      body: formData
-    })
-    .then(res => res.text())
-    .then(result => {
-      messageDiv.innerHTML = "<span style='color:green'>Berhasil disimpan!</span>";
-      e.target.reset();
-      namaSelect.innerHTML = "";
-    })
-    .catch(err => {
-      console.error("Gagal menyimpan:", err);
-      messageDiv.innerHTML = "<span style='color:red'>Gagal menyimpan!</span>";
-    });
-  });
-</script>
-
+  </script>
 </body>
 </html>
