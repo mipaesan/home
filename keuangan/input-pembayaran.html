@@ -75,16 +75,27 @@
     }
 
     document.getElementById("kelas").addEventListener("change", () => {
-      const kelas = document.getElementById("kelas").value;
-      const namaSelect = document.getElementById("nama");
-      namaSelect.innerHTML = "";
-      siswaData.filter(s => s.kelas === kelas).forEach(s => {
-        const opt = document.createElement("option");
-        opt.value = s.nisn;
-        opt.textContent = s.nama;
-        namaSelect.appendChild(opt);
-      });
-    });
+  const kelasDipilih = document.getElementById("kelas").value.trim();
+  const namaSelect = document.getElementById("nama");
+  namaSelect.innerHTML = "<option value=''>-- Pilih Siswa --</option>";
+
+  const siswaKelas = siswaData.filter(s => s.kelas.trim() === kelasDipilih);
+  if (siswaKelas.length === 0) {
+    const opt = document.createElement("option");
+    opt.textContent = "Tidak ada siswa";
+    opt.disabled = true;
+    namaSelect.appendChild(opt);
+    return;
+  }
+
+  siswaKelas.forEach(s => {
+    const opt = document.createElement("option");
+    opt.value = s.nisn;
+    opt.textContent = s.nama;
+    namaSelect.appendChild(opt);
+  });
+});
+
 
     document.getElementById("formPembayaran").addEventListener("submit", e => {
       e.preventDefault();
