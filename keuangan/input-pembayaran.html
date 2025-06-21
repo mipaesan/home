@@ -4,163 +4,158 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Input Pembayaran Siswa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 20px;
-      background-color: #f0f8ff;
+      background: #f7fdfc;
+      color: #333;
     }
     h1 {
       text-align: center;
-      color: #2c3e50;
+      color: #1e88e5;
     }
     .kelas-buttons {
-      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
       margin-bottom: 20px;
     }
     .kelas-buttons button {
-      margin: 5px;
       padding: 10px 20px;
       font-size: 16px;
       border: none;
       border-radius: 8px;
-      background-color: #3498db;
+      background-color: #1e88e5;
       color: white;
       cursor: pointer;
-      transition: background-color 0.3s ease;
     }
     .kelas-buttons button:hover {
-      background-color: #2980b9;
+      background-color: #1565c0;
     }
-    .siswa-list, .form-pembayaran {
+    .siswa-container {
       max-width: 600px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin: auto;
+    }
+    .siswa-list {
+      margin-top: 20px;
     }
     .siswa-item {
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
       cursor: pointer;
+      transition: background 0.3s;
     }
     .siswa-item:hover {
-      background-color: #f0f0f0;
+      background: #e3f2fd;
     }
-    label {
-      display: block;
-      margin: 10px 0 5px;
+    .form-section {
+      margin-top: 20px;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    input, select {
+    .form-section input, .form-section select {
       width: 100%;
-      padding: 8px;
-      font-size: 1rem;
+      padding: 10px;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 6px;
     }
-    .form-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-    .form-buttons button {
+    .form-section button {
       padding: 10px 20px;
+      background: #1e88e5;
+      color: white;
       border: none;
-      border-radius: 8px;
-      font-size: 16px;
+      border-radius: 6px;
       cursor: pointer;
     }
-    .submit-btn {
-      background-color: #2ecc71;
-      color: white;
+    .form-section button:hover {
+      background: #1565c0;
     }
-    .cancel-btn {
-      background-color: #e74c3c;
-      color: white;
+    .kembali {
+      display: block;
+      margin: 30px auto;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <h1>Input Pembayaran Siswa</h1>
   <div class="kelas-buttons">
-    <button onclick="tampilSiswa('1')">Kelas 1</button>
-    <button onclick="tampilSiswa('2')">Kelas 2</button>
-    <button onclick="tampilSiswa('3')">Kelas 3</button>
-    <button onclick="tampilSiswa('4')">Kelas 4</button>
-    <button onclick="tampilSiswa('5')">Kelas 5</button>
-    <button onclick="tampilSiswa('6')">Kelas 6</button>
-    <button onclick="location.href='../index.html'" class="cancel-btn">Keluar</button>
+    <button onclick="tampilkanSiswa('1')">Kelas 1</button>
+    <button onclick="tampilkanSiswa('2')">Kelas 2</button>
+    <button onclick="tampilkanSiswa('3')">Kelas 3</button>
+    <button onclick="tampilkanSiswa('4')">Kelas 4</button>
+    <button onclick="tampilkanSiswa('5')">Kelas 5</button>
+    <button onclick="tampilkanSiswa('6')">Kelas 6</button>
+  </div>
+  
+  <div class="siswa-container">
+    <div id="siswa-list" class="siswa-list"></div>
+    <div id="form-pembayaran" class="form-section" style="display:none;"></div>
   </div>
 
-  <div class="siswa-list" id="daftarSiswa"></div>
-  <div class="form-pembayaran" id="formPembayaran" style="display:none;"></div>
+  <div class="kembali">
+    <a href="dashboard.html">&larr; Kembali ke Dashboard</a>
+  </div>
 
   <script>
-    const sheetUrl = 'https://script.google.com/macros/s/AKfycbwjIljWEvSGCA9m9n1lkWdELYGd16aPVR9ms0qm-95ISM8tC6rtQymIfGt-BDF2uV8h/exec';
     let siswaData = [];
-    let tagihanData = [];
-    let siswaDipilih = null;
 
-    async function fetchData() {
-      const res = await fetch(sheetUrl + '?action=data');
-      const json = await res.json();
-      siswaData = json.siswa;
-      tagihanData = json.tagihan;
+    function tampilkanSiswa(kelas) {
+      const listEl = document.getElementById("siswa-list");
+      const formEl = document.getElementById("form-pembayaran");
+      formEl.style.display = 'none';
+      listEl.innerHTML = "<strong>Memuat data...</strong>";
+
+      fetch('https://script.google.com/macros/s/AKfycbwjIljWEvSGCA9m9n1lkWdELYGd16aPVR9ms0qm-95ISM8tC6rtQymIfGt-BDF2uV8h/exec?action=data')
+        .then(res => res.json())
+        .then(data => {
+          siswaData = data.filter(s => s.kelas === kelas);
+          if (siswaData.length === 0) {
+            listEl.innerHTML = `<p>Tidak ada siswa di kelas ${kelas}.</p>`;
+          } else {
+            listEl.innerHTML = `<h3>Daftar Siswa Kelas ${kelas}</h3>` + siswaData.map((s, i) => `
+              <div class="siswa-item" onclick="isiForm(${i})">
+                ${s.nama} - NISN: ${s.nisn}
+              </div>`).join('');
+          }
+        });
     }
 
-    async function tampilSiswa(kelas) {
-      if (siswaData.length === 0) await fetchData();
-      const daftar = document.getElementById('daftarSiswa');
-      const form = document.getElementById('formPembayaran');
-      form.style.display = 'none';
-      daftar.innerHTML = '<h3>Daftar Siswa Kelas ' + kelas + '</h3>';
-      const siswaKelas = siswaData.filter(s => s.kelas === kelas);
-      siswaKelas.forEach(s => {
-        const div = document.createElement('div');
-        div.className = 'siswa-item';
-        div.textContent = s.nama;
-        div.onclick = () => pilihSiswa(s);
-        daftar.appendChild(div);
-      });
-    }
+    function isiForm(index) {
+      const siswa = siswaData[index];
+      const formEl = document.getElementById("form-pembayaran");
 
-    function pilihSiswa(siswa) {
-      siswaDipilih = siswa;
-      document.getElementById('daftarSiswa').innerHTML = '';
-      const form = document.getElementById('formPembayaran');
-      form.style.display = 'block';
-      let html = `
-        <h3>Input Pembayaran untuk ${siswa.nama} (${siswa.kelas})</h3>
-        <form onsubmit="kirimData(event)">
+      formEl.innerHTML = `
+        <h3>Form Pembayaran: ${siswa.nama}</h3>
+        <form action="https://script.google.com/macros/s/AKfycbwjIljWEvSGCA9m9n1lkWdELYGd16aPVR9ms0qm-95ISM8tC6rtQymIfGt-BDF2uV8h/exec" method="POST">
+          <input type="hidden" name="nisn" value="${siswa.nisn}" />
+          <input type="hidden" name="nama" value="${siswa.nama}" />
+          <input type="hidden" name="kelas" value="${siswa.kelas}" />
+
           <label>Jenis Tagihan</label>
-          <select id="jenis">
-            ${tagihanData.map(t => `<option value="${t.jenis}">${t.jenis}</option>`).join('')}
+          <select name="tagihan">
+            <option value="Infaq Juli">Infaq Juli</option>
+            <option value="Infaq Agustus">Infaq Agustus</option>
+            <option value="Seragam">Seragam</option>
+            <option value="Kegiatan">Kegiatan</option>
           </select>
-          <label>Nominal Dibayar</label>
-          <input type="number" id="nominal" required>
-          <div class="form-buttons">
-            <button type="submit" class="submit-btn">Simpan</button>
-            <button type="button" class="cancel-btn" onclick="formPembayaran.style.display='none';">Batal</button>
-          </div>
-        </form>`;
-      form.innerHTML = html;
-    }
 
-    async function kirimData(e) {
-      e.preventDefault();
-      const jenis = document.getElementById('jenis').value;
-      const nominal = document.getElementById('nominal').value;
-      const body = new FormData();
-      body.append('action', 'input');
-      body.append('nama', siswaDipilih.nama);
-      body.append('kelas', siswaDipilih.kelas);
-      body.append('jenis', jenis);
-      body.append('nominal', nominal);
-      const res = await fetch(sheetUrl, { method: 'POST', body });
-      alert('Pembayaran berhasil disimpan');
-      location.reload();
+          <label>Nominal Bayar (Rp)</label>
+          <input type="number" name="jumlah" required />
+
+          <button type="submit">Simpan Pembayaran</button>
+        </form>`;
+      formEl.style.display = 'block';
     }
   </script>
 </body>
