@@ -2,171 +2,158 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Input Pembayaran</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #f2fef6;
-      padding: 30px;
-      margin: 0;
+      background-color: #f1fff5;
+      font-family: Arial, sans-serif;
+      padding: 20px;
     }
     .container {
-      max-width: 600px;
-      margin: auto;
-      background: white;
+      max-width: 500px;
+      margin: 40px auto;
       padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     h2 {
       text-align: center;
-      color: #1e7e34;
+      color: #228B22;
     }
     label {
-      display: block;
-      margin-top: 20px;
-      margin-bottom: 5px;
       font-weight: bold;
+      display: block;
+      margin: 15px 0 5px;
     }
-    select, input[type="number"] {
+    select, input {
       width: 100%;
       padding: 10px;
-      font-size: 1em;
-      border-radius: 8px;
+      margin-bottom: 10px;
       border: 1px solid #ccc;
+      border-radius: 5px;
     }
     .button-group {
-      margin-top: 30px;
       display: flex;
       justify-content: space-between;
     }
-    button {
+    .btn {
       padding: 10px 20px;
       border: none;
-      border-radius: 8px;
-      font-size: 1em;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .simpan {
-      background: #28a745;
+      border-radius: 5px;
       color: white;
+      cursor: pointer;
     }
-    .batal {
-      background: #ffc107;
+    .btn-simpan {
+      background-color: #28a745;
+    }
+    .btn-batal {
+      background-color: #ffc107;
       color: black;
-    }
-    .loading {
-      margin-top: 20px;
-      text-align: center;
-      color: #999;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>Form Input Pembayaran</h2>
-    <form id="formPembayaran">
+    <form id="paymentForm">
       <label for="kelas">Pilih Kelas</label>
-      <select id="kelas" name="kelas" required>
+      <select id="kelas" required onchange="filterSiswa()">
         <option value="">-- Pilih Kelas --</option>
       </select>
 
-      <label for="nama">Pilih Nama Siswa</label>
-      <select id="nama" name="nama" required>
+      <label for="siswa">Pilih Nama Siswa</label>
+      <select id="siswa" required>
         <option value="">-- Pilih Siswa --</option>
       </select>
 
       <label for="tagihan">Jenis Tagihan</label>
-      <select id="tagihan" name="tagihan" required>
+      <select id="tagihan" required>
         <option value="">-- Pilih Tagihan --</option>
       </select>
 
       <label for="nominal">Nominal Pembayaran</label>
-      <input type="number" id="nominal" name="nominal" placeholder="Masukkan nominal" required>
+      <input type="number" id="nominal" required placeholder="Masukkan nominal" />
 
       <div class="button-group">
-        <button type="submit" class="simpan">Simpan</button>
-        <button type="button" class="batal" onclick="window.location.href='dashboard.html'">Batal</button>
+        <button type="submit" class="btn btn-simpan">Simpan</button>
+        <button type="button" class="btn btn-batal" onclick="window.location.href='dashboard.html'">Batal</button>
       </div>
-
-      <div class="loading" id="loading" style="display:none">Menyimpan data...</div>
     </form>
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzLmdz7sraoDF5qsoZlcVZwSw15Rz9ndsyij2MH-D42kld45JteOQlAb2ls03SAlib0/exec';
+    const URL = 'https://script.google.com/macros/s/AKfycbx4L27H2hGNmLwOvRAbEDOoXarUjr9kBB6X8ay1YV6y4fm-ICR4Hlwu10J-cWy76TQA/exec';
 
-    const kelasSelect = document.getElementById('kelas');
-    const namaSelect = document.getElementById('nama');
-    const tagihanSelect = document.getElementById('tagihan');
+    const siswaData = [];
 
-    const siswa = {};
-    const tagihan = [];
-
-    // Load data awal
-    fetch(scriptURL + '?action=getsiswa')
+    fetch(URL + '?action=getData')
       .then(res => res.json())
       .then(data => {
-        const kelasList = [...new Set(data.map(s => s.kelas))];
-        kelasList.forEach(k => {
-          const opt = document.createElement('option');
-          opt.value = k;
-          opt.textContent = k;
-          kelasSelect.appendChild(opt);
-        });
-        data.forEach(s => {
-          if (!siswa[s.kelas]) siswa[s.kelas] = [];
-          siswa[s.kelas].push(s.nama);
-        });
-      });
+        const kelasSet = new Set();
+        const tagihanSelect = document.getElementById('tagihan');
 
-    fetch(scriptURL + '?action=gettagihan')
-      .then(res => res.json())
-      .then(data => {
-        data.forEach(t => {
+        // Isi siswa dan kelas
+        data.siswa.forEach(s => {
+          siswaData.push(s);
+          kelasSet.add(s.kelas);
+        });
+
+        kelasSet.forEach(kls => {
           const opt = document.createElement('option');
-          opt.value = t.nama;
-          opt.textContent = `${t.nama} - Rp${parseInt(t.nominal).toLocaleString()}`;
+          opt.value = kls;
+          opt.textContent = kls;
+          document.getElementById('kelas').appendChild(opt);
+        });
+
+        // Isi tagihan
+        data.tagihan.forEach(tagih => {
+          const opt = document.createElement('option');
+          opt.value = tagih.kode;
+          opt.textContent = `${tagih.nama} - Rp${Number(tagih.nominal).toLocaleString()}`;
           tagihanSelect.appendChild(opt);
         });
       });
 
-    // Saat kelas dipilih
-    kelasSelect.addEventListener('change', () => {
-      namaSelect.innerHTML = '<option value="">-- Pilih Siswa --</option>';
-      const siswaKelas = siswa[kelasSelect.value] || [];
-      siswaKelas.forEach(n => {
-        const opt = document.createElement('option');
-        opt.value = n;
-        opt.textContent = n;
-        namaSelect.appendChild(opt);
-      });
-    });
+    function filterSiswa() {
+      const selectedKelas = document.getElementById('kelas').value;
+      const siswaSelect = document.getElementById('siswa');
 
-    // Kirim data
-    document.getElementById('formPembayaran').addEventListener('submit', e => {
+      siswaSelect.innerHTML = '<option value="">-- Pilih Siswa --</option>';
+
+      siswaData.filter(s => s.kelas === selectedKelas)
+        .forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s.nisn;
+          opt.textContent = s.nama;
+          siswaSelect.appendChild(opt);
+        });
+    }
+
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      document.getElementById('loading').style.display = 'block';
+      const tanggal = new Date().toISOString().split('T')[0];
 
-      const formData = new FormData(e.target);
-      formData.append('action', 'tambah');
+      const data = {
+        tanggal: tanggal,
+        nisn: document.getElementById('siswa').value,
+        kelas: document.getElementById('kelas').value,
+        tagihan: document.getElementById('tagihan').value,
+        nominal: document.getElementById('nominal').value,
+      };
 
-      fetch(scriptURL, {
+      fetch(URL, {
         method: 'POST',
-        body: formData
-      })
-      .then(res => {
-        document.getElementById('loading').textContent = 'Berhasil disimpan!';
-        setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 1200);
-      })
-      .catch(() => {
-        document.getElementById('loading').textContent = 'Gagal menyimpan!';
-      });
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(r => r.text())
+        .then(response => {
+          alert('Data berhasil disimpan');
+          document.getElementById('paymentForm').reset();
+        });
     });
   </script>
 </body>
