@@ -2,161 +2,150 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Input Pembayaran Siswa</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f8fc;
       padding: 20px;
-      background: #f7fdfc;
       color: #333;
     }
-    h1 {
+    h2 {
       text-align: center;
-      color: #1e88e5;
+      color: #2c3e50;
     }
-    .kelas-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .kelas-buttons button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #1e88e5;
-      color: white;
-      cursor: pointer;
-    }
-    .kelas-buttons button:hover {
-      background-color: #1565c0;
-    }
-    .siswa-container {
+    .container {
       max-width: 600px;
       margin: auto;
-    }
-    .siswa-list {
-      margin-top: 20px;
-    }
-    .siswa-item {
-      padding: 10px 15px;
-      margin-bottom: 10px;
-      background: #ffffff;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .siswa-item:hover {
-      background: #e3f2fd;
-    }
-    .form-section {
-      margin-top: 20px;
-      background: #ffffff;
+      background: #fff;
+      padding: 25px;
       border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    .form-section input, .form-section select {
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    select, input[type="number"] {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
+      margin-top: 5px;
+      border-radius: 5px;
       border: 1px solid #ccc;
-      border-radius: 6px;
     }
-    .form-section button {
-      padding: 10px 20px;
-      background: #1e88e5;
-      color: white;
+    button {
+      margin-top: 20px;
+      padding: 12px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 16px;
       cursor: pointer;
     }
-    .form-section button:hover {
-      background: #1565c0;
-    }
-    .kembali {
-      display: block;
-      margin: 30px auto;
+    #submitBtn { background: #28a745; color: white; }
+    #cancelBtn { background: #dc3545; color: white; margin-top: 10px; }
+    #status {
       text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>Input Pembayaran Siswa</h1>
-  <div class="kelas-buttons">
-    <button onclick="tampilkanSiswa('1')">Kelas 1</button>
-    <button onclick="tampilkanSiswa('2')">Kelas 2</button>
-    <button onclick="tampilkanSiswa('3')">Kelas 3</button>
-    <button onclick="tampilkanSiswa('4')">Kelas 4</button>
-    <button onclick="tampilkanSiswa('5')">Kelas 5</button>
-    <button onclick="tampilkanSiswa('6')">Kelas 6</button>
-  </div>
-  
-  <div class="siswa-container">
-    <div id="siswa-list" class="siswa-list"></div>
-    <div id="form-pembayaran" class="form-section" style="display:none;"></div>
-  </div>
+  <div class="container">
+    <h2>Form Pembayaran Siswa</h2>
+    <label for="kelas">Pilih Kelas:</label>
+    <select id="kelas">
+      <option value="">-- Pilih Kelas --</option>
+    </select>
 
-  <div class="kembali">
-    <a href="dashboard.html">&larr; Kembali ke Dashboard</a>
+    <label for="siswa">Pilih Siswa:</label>
+    <select id="siswa">
+      <option value="">-- Pilih Siswa --</option>
+    </select>
+
+    <label for="tagihan">Jenis Tagihan:</label>
+    <select id="tagihan">
+      <option value="">-- Pilih Tagihan --</option>
+    </select>
+
+    <label for="nominal">Jumlah Dibayar (Rp):</label>
+    <input type="number" id="nominal" />
+
+    <button id="submitBtn">Simpan Pembayaran</button>
+    <button id="cancelBtn" onclick="window.location.href='dashboard.html'">Batal</button>
+
+    <div id="status"></div>
   </div>
 
   <script>
-    let siswaData = [];
+    const URL = "https://script.google.com/macros/s/AKfycbwjIljWEvSGCA9m9n1lkWdELYGd16aPVR9ms0qm-95ISM8tC6rtQymIfGt-BDF2uV8h/exec";
 
-    function tampilkanSiswa(kelas) {
-      const listEl = document.getElementById("siswa-list");
-      const formEl = document.getElementById("form-pembayaran");
-      formEl.style.display = 'none';
-      listEl.innerHTML = "<strong>Memuat data...</strong>";
+    let dataSiswa = [];
+    let dataTagihan = [];
 
-      fetch('https://script.google.com/macros/s/AKfycbwjIljWEvSGCA9m9n1lkWdELYGd16aPVR9ms0qm-95ISM8tC6rtQymIfGt-BDF2uV8h/exec?action=data')
-        .then(res => res.json())
-        .then(data => {
-          siswaData = data.filter(s => s.kelas === kelas);
-          if (siswaData.length === 0) {
-            listEl.innerHTML = `<p>Tidak ada siswa di kelas ${kelas}.</p>`;
-          } else {
-            listEl.innerHTML = `<h3>Daftar Siswa Kelas ${kelas}</h3>` + siswaData.map((s, i) => `
-              <div class="siswa-item" onclick="isiForm(${i})">
-                ${s.nama} - NISN: ${s.nisn}
-              </div>`).join('');
-          }
-        });
+    async function ambilData() {
+      const res = await fetch(`${URL}?action=data`);
+      const json = await res.json();
+      dataSiswa = json.siswa;
+      dataTagihan = json.tagihan;
+
+      let kelasUnik = [...new Set(dataSiswa.map(s => s.kelas))];
+      kelasUnik.forEach(kls => {
+        const opt = document.createElement("option");
+        opt.value = kls;
+        opt.textContent = kls;
+        document.getElementById("kelas").appendChild(opt);
+      });
+
+      dataTagihan.forEach(t => {
+        const opt = document.createElement("option");
+        opt.value = t.nama;
+        opt.textContent = `${t.nama} - Rp${t.nominal.toLocaleString()}`;
+        document.getElementById("tagihan").appendChild(opt);
+      });
     }
 
-    function isiForm(index) {
-      const siswa = siswaData[index];
-      const formEl = document.getElementById("form-pembayaran");
+    document.getElementById("kelas").addEventListener("change", function() {
+      const kelas = this.value;
+      const siswaSelect = document.getElementById("siswa");
+      siswaSelect.innerHTML = '<option value="">-- Pilih Siswa --</option>';
+      dataSiswa.filter(s => s.kelas === kelas).forEach(s => {
+        const opt = document.createElement("option");
+        opt.value = s.nisn;
+        opt.textContent = `${s.nama} (${s.nisn})`;
+        siswaSelect.appendChild(opt);
+      });
+    });
 
-      formEl.innerHTML = `
-        <h3>Form Pembayaran: ${siswa.nama}</h3>
-        <form action="https://script.google.com/macros/s/AKfycbwjIljWEvSGCA9m9n1lkWdELYGd16aPVR9ms0qm-95ISM8tC6rtQymIfGt-BDF2uV8h/exec" method="POST">
-          <input type="hidden" name="nisn" value="${siswa.nisn}" />
-          <input type="hidden" name="nama" value="${siswa.nama}" />
-          <input type="hidden" name="kelas" value="${siswa.kelas}" />
+    document.getElementById("submitBtn").addEventListener("click", async function() {
+      const nisn = document.getElementById("siswa").value;
+      const tagihan = document.getElementById("tagihan").value;
+      const nominal = document.getElementById("nominal").value;
 
-          <label>Jenis Tagihan</label>
-          <select name="tagihan">
-            <option value="Infaq Juli">Infaq Juli</option>
-            <option value="Infaq Agustus">Infaq Agustus</option>
-            <option value="Seragam">Seragam</option>
-            <option value="Kegiatan">Kegiatan</option>
-          </select>
+      if (!nisn || !tagihan || !nominal) {
+        document.getElementById("status").textContent = "Semua field wajib diisi!";
+        return;
+      }
 
-          <label>Nominal Bayar (Rp)</label>
-          <input type="number" name="jumlah" required />
+      const body = new URLSearchParams();
+      body.append("nisn", nisn);
+      body.append("tagihan", tagihan);
+      body.append("nominal", nominal);
 
-          <button type="submit">Simpan Pembayaran</button>
-        </form>`;
-      formEl.style.display = 'block';
-    }
+      const res = await fetch(URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString()
+      });
+
+      const result = await res.text();
+      document.getElementById("status").textContent = result;
+      document.getElementById("nominal").value = "";
+    });
+
+    ambilData();
   </script>
 </body>
 </html>
