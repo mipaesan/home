@@ -5,107 +5,118 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Input Pembayaran Siswa</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f0f8ff; }
-    h2 { text-align: center; color: #2c3e50; }
-    form { max-width: 500px; margin: auto; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
-    label { display: block; margin: 10px 0 5px; font-weight: bold; }
-    select, input[type="number"], input[type="text"] {
-      width: 100%; padding: 10px; margin-bottom: 15px;
-      border: 1px solid #ccc; border-radius: 6px;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2fef6;
+      padding: 20px;
     }
-    button { padding: 10px 20px; background: #28a745; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
-    button:hover { background: #218838; }
-    .back { margin-top: 10px; background: #6c757d; }
-    .back:hover { background: #5a6268; }
+    h2 {
+      text-align: center;
+      color: #1e7e34;
+    }
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 12px 0 5px;
+    }
+    select, input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
   </style>
 </head>
 <body>
   <h2>Form Pembayaran Siswa</h2>
-  <form id="formPembayaran">
+  <form id="paymentForm">
     <label for="kelas">Pilih Kelas:</label>
-    <select id="kelas" required></select>
+    <select id="kelas" required>
+      <option value="">-- Pilih Kelas --</option>
+      <option value="1">Kelas 1</option>
+      <option value="2">Kelas 2</option>
+    </select>
 
-    <label for="nama">Pilih Siswa:</label>
-    <select id="nama" required></select>
+    <label for="nama">Nama Siswa:</label>
+    <select id="nama" name="nama" required>
+      <option value="">-- Pilih Siswa --</option>
+    </select>
 
     <label for="tagihan">Jenis Tagihan:</label>
-    <select id="tagihan" required></select>
+    <select id="tagihan" name="tagihan" required>
+      <option value="">-- Pilih Tagihan --</option>
+      <option value="Infaq Juni 2025">Infaq Juni 2025</option>
+      <option value="Seragam Putih">Seragam Putih</option>
+      <option value="Buku Tematik">Buku Tematik</option>
+    </select>
 
-    <label for="nominal">Nominal Dibayar:</label>
-    <input type="number" id="nominal" required min="0" />
+    <label for="nominal">Nominal Bayar (Rp):</label>
+    <input type="number" id="nominal" name="nominal" required>
 
-    <button type="submit">Simpan</button>
-    <button type="button" class="back" onclick="window.location.href='dashboard.html'">Kembali</button>
+    <button type="submit">Simpan Pembayaran</button>
   </form>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwYBkaCJsLB9F2qeug8YbZWLF0gC0u1KAUNC_IV4fzNKtdSMPUSb-g9LdmYyQVCG56lMg/exec";
+    const siswa = {
+      "1": ["Ali", "Budi", "Cici"],
+      "2": ["Dedi", "Eka", "Fira"]
+    };
 
-    let siswaData = [];
-    let tagihanData = [];
-
-    async function fetchData() {
-      const res = await fetch(`${scriptURL}?action=data`);
-      const json = await res.json();
-      siswaData = json.siswa;
-      tagihanData = json.tagihan;
-      isiKelas();
-      isiTagihan();
-    }
-
-    function isiKelas() {
-      const kelasSet = new Set(siswaData.map(s => s.kelas));
-      const kelasSelect = document.getElementById("kelas");
-      kelasSet.forEach(k => {
-        const opt = document.createElement("option");
-        opt.value = k;
-        opt.textContent = k;
-        kelasSelect.appendChild(opt);
-      });
-    }
-
-    function isiTagihan() {
-      const tagihanSelect = document.getElementById("tagihan");
-      tagihanData.forEach(t => {
-        const opt = document.createElement("option");
-        opt.value = t.nama;
-        opt.textContent = t.nama;
-        tagihanSelect.appendChild(opt);
-      });
-    }
-
-    document.getElementById("kelas").addEventListener("change", () => {
-  const kelasDipilih = document.getElementById("kelas").value.trim();
-  const namaSelect = document.getElementById("nama");
-  namaSelect.innerHTML = "<option value=''>-- Pilih Siswa --</option>";
-
-  const siswaKelas = siswaData.filter(s => s.kelas.trim() === kelasDipilih);
-  if (siswaKelas.length === 0) {
-    const opt = document.createElement("option");
-    opt.textContent = "Tidak ada siswa";
-    opt.disabled = true;
-    namaSelect.appendChild(opt);
-    return;
-  }
-
-  siswaKelas.forEach(s => {
-    const opt = document.createElement("option");
-    opt.value = s.nisn;
-    opt.textContent = s.nama;
-    namaSelect.appendChild(opt);
-  });
-});
-
-
-    document.getElementById("formPembayaran").addEventListener("submit", e => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      fetch(scriptURL, { method: "POST", body: formData })
-        .then(() => alert("Data berhasil disimpan!"))
-        .catch(() => alert("Gagal menyimpan data!"));
+    document.getElementById('kelas').addEventListener('change', function () {
+      const kelas = this.value;
+      const namaSelect = document.getElementById('nama');
+      namaSelect.innerHTML = '<option value="">-- Pilih Siswa --</option>';
+      if (siswa[kelas]) {
+        siswa[kelas].forEach(nama => {
+          const opt = document.createElement('option');
+          opt.value = nama;
+          opt.textContent = nama;
+          namaSelect.appendChild(opt);
+        });
+      }
     });
 
-    fetchData();
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = {
+        nama: document.getElementById('nama').value,
+        kelas: document.getElementById('kelas').value,
+        tagihan: document.getElementById('tagihan').value,
+        nominal: document.getElementById('nominal').value
+      };
+
+      fetch('https://script.google.com/macros/s/AKfycbxTE-XyLTXju9cAhDXwkuC2ry1XBcI2nkTYBkOJsy1YjPZBHyfUsWz786O_mlPPuPMw/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      alert("Pembayaran berhasil disimpan!");
+      this.reset();
+    });
   </script>
 </body>
 </html>
