@@ -1,151 +1,100 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Input Pembayaran Siswa</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f8fc;
-      padding: 20px;
-      color: #333;
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f0f8ff; }
+    h2 { text-align: center; color: #2c3e50; }
+    form { max-width: 500px; margin: auto; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
+    label { display: block; margin: 10px 0 5px; font-weight: bold; }
+    select, input[type="number"], input[type="text"] {
+      width: 100%; padding: 10px; margin-bottom: 15px;
+      border: 1px solid #ccc; border-radius: 6px;
     }
-    h2 {
-      text-align: center;
-      color: #2c3e50;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-    }
-    select, input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      width: 100%;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    #submitBtn { background: #28a745; color: white; }
-    #cancelBtn { background: #dc3545; color: white; margin-top: 10px; }
-    #status {
-      text-align: center;
-      margin-top: 20px;
-      font-weight: bold;
-    }
+    button { padding: 10px 20px; background: #28a745; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #218838; }
+    .back { margin-top: 10px; background: #6c757d; }
+    .back:hover { background: #5a6268; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Form Pembayaran Siswa</h2>
+  <h2>Form Pembayaran Siswa</h2>
+  <form id="formPembayaran">
     <label for="kelas">Pilih Kelas:</label>
-    <select id="kelas">
-      <option value="">-- Pilih Kelas --</option>
-    </select>
+    <select id="kelas" required></select>
 
-    <label for="siswa">Pilih Siswa:</label>
-    <select id="siswa">
-      <option value="">-- Pilih Siswa --</option>
-    </select>
+    <label for="nama">Pilih Siswa:</label>
+    <select id="nama" required></select>
 
     <label for="tagihan">Jenis Tagihan:</label>
-    <select id="tagihan">
-      <option value="">-- Pilih Tagihan --</option>
-    </select>
+    <select id="tagihan" required></select>
 
-    <label for="nominal">Jumlah Dibayar (Rp):</label>
-    <input type="number" id="nominal" />
+    <label for="nominal">Nominal Dibayar:</label>
+    <input type="number" id="nominal" required min="0" />
 
-    <button id="submitBtn">Simpan Pembayaran</button>
-    <button id="cancelBtn" onclick="window.location.href='dashboard.html'">Batal</button>
-
-    <div id="status"></div>
-  </div>
+    <button type="submit">Simpan</button>
+    <button type="button" class="back" onclick="window.location.href='dashboard.html'">Kembali</button>
+  </form>
 
   <script>
-    const URL = "https://script.google.com/macros/s/AKfycbwjIljWEvSGCA9m9n1lkWdELYGd16aPVR9ms0qm-95ISM8tC6rtQymIfGt-BDF2uV8h/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwYBkaCJsLB9F2qeug8YbZWLF0gC0u1KAUNC_IV4fzNKtdSMPUSb-g9LdmYyQVCG56lMg/exec";
 
-    let dataSiswa = [];
-    let dataTagihan = [];
+    let siswaData = [];
+    let tagihanData = [];
 
-    async function ambilData() {
-      const res = await fetch(`${URL}?action=data`);
+    async function fetchData() {
+      const res = await fetch(`${scriptURL}?action=data`);
       const json = await res.json();
-      dataSiswa = json.siswa;
-      dataTagihan = json.tagihan;
+      siswaData = json.siswa;
+      tagihanData = json.tagihan;
+      isiKelas();
+      isiTagihan();
+    }
 
-      let kelasUnik = [...new Set(dataSiswa.map(s => s.kelas))];
-      kelasUnik.forEach(kls => {
+    function isiKelas() {
+      const kelasSet = new Set(siswaData.map(s => s.kelas));
+      const kelasSelect = document.getElementById("kelas");
+      kelasSet.forEach(k => {
         const opt = document.createElement("option");
-        opt.value = kls;
-        opt.textContent = kls;
-        document.getElementById("kelas").appendChild(opt);
-      });
-
-      dataTagihan.forEach(t => {
-        const opt = document.createElement("option");
-        opt.value = t.nama;
-        opt.textContent = `${t.nama} - Rp${t.nominal.toLocaleString()}`;
-        document.getElementById("tagihan").appendChild(opt);
+        opt.value = k;
+        opt.textContent = k;
+        kelasSelect.appendChild(opt);
       });
     }
 
-    document.getElementById("kelas").addEventListener("change", function() {
-      const kelas = this.value;
-      const siswaSelect = document.getElementById("siswa");
-      siswaSelect.innerHTML = '<option value="">-- Pilih Siswa --</option>';
-      dataSiswa.filter(s => s.kelas === kelas).forEach(s => {
+    function isiTagihan() {
+      const tagihanSelect = document.getElementById("tagihan");
+      tagihanData.forEach(t => {
+        const opt = document.createElement("option");
+        opt.value = t.nama;
+        opt.textContent = t.nama;
+        tagihanSelect.appendChild(opt);
+      });
+    }
+
+    document.getElementById("kelas").addEventListener("change", () => {
+      const kelas = document.getElementById("kelas").value;
+      const namaSelect = document.getElementById("nama");
+      namaSelect.innerHTML = "";
+      siswaData.filter(s => s.kelas === kelas).forEach(s => {
         const opt = document.createElement("option");
         opt.value = s.nisn;
-        opt.textContent = `${s.nama} (${s.nisn})`;
-        siswaSelect.appendChild(opt);
+        opt.textContent = s.nama;
+        namaSelect.appendChild(opt);
       });
     });
 
-    document.getElementById("submitBtn").addEventListener("click", async function() {
-      const nisn = document.getElementById("siswa").value;
-      const tagihan = document.getElementById("tagihan").value;
-      const nominal = document.getElementById("nominal").value;
-
-      if (!nisn || !tagihan || !nominal) {
-        document.getElementById("status").textContent = "Semua field wajib diisi!";
-        return;
-      }
-
-      const body = new URLSearchParams();
-      body.append("nisn", nisn);
-      body.append("tagihan", tagihan);
-      body.append("nominal", nominal);
-
-      const res = await fetch(URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString()
-      });
-
-      const result = await res.text();
-      document.getElementById("status").textContent = result;
-      document.getElementById("nominal").value = "";
+    document.getElementById("formPembayaran").addEventListener("submit", e => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      fetch(scriptURL, { method: "POST", body: formData })
+        .then(() => alert("Data berhasil disimpan!"))
+        .catch(() => alert("Gagal menyimpan data!"));
     });
 
-    ambilData();
+    fetchData();
   </script>
 </body>
 </html>
