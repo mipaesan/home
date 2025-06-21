@@ -1,46 +1,168 @@
-const SHEET_SISWA = 'DataSiswa';
-const SHEET_TAGIHAN = 'Tagihan';
-const SHEET_PEMBAYARAN = 'Pembayaran';
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Input Pembayaran Siswa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      max-width: 500px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #2c7a7b;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select, input[type="number"], input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .buttons {
+      margin-top: 25px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .buttons button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .btn-submit {
+      background-color: #28a745;
+      color: white;
+    }
+    .btn-cancel {
+      background-color: #dc3545;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Input Pembayaran Siswa</h2>
+    <form id="formPembayaran">
+      <label for="kelas">Kelas</label>
+      <select id="kelas" name="kelas" required>
+        <option value="">Pilih Kelas</option>
+      </select>
 
-function doGet(e) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet();
-  const siswaData = sheet.getSheetByName(SHEET_SISWA).getDataRange().getValues();
-  const tagihanData = sheet.getSheetByName(SHEET_TAGIHAN).getDataRange().getValues();
+      <label for="nama">Nama Siswa</label>
+      <select id="nama" name="nama" required>
+        <option value="">Pilih Siswa</option>
+      </select>
 
-  const kelasUnik = [...new Set(siswaData.slice(1).map(row => row[2]))]; // Ambil kelas
-  const siswaPerKelas = {};
+      <label for="tanggal">Tanggal Pembayaran</label>
+      <input type="date" id="tanggal" name="tanggal" required>
 
-  kelasUnik.forEach(kelas => {
-    siswaPerKelas[kelas] = siswaData.slice(1)
-      .filter(row => row[2] === kelas)
-      .map(row => ({ nama: row[1], nisn: row[0] }));
-  });
+      <label for="tagihan">Jenis Tagihan</label>
+      <select id="tagihan" name="tagihan" required>
+        <option value="">Pilih Tagihan</option>
+      </select>
 
-  const tagihanList = tagihanData.slice(1).map(row => ({
-    nama: row[0],
-    nominal: row[1]
-  }));
+      <label for="nominal">Nominal Bayar (Rp)</label>
+      <input type="number" id="nominal" name="nominal" min="0" required>
 
-  return ContentService.createTextOutput(JSON.stringify({
-    kelas: kelasUnik,
-    siswa: siswaPerKelas,
-    tagihan: tagihanList
-  })).setMimeType(ContentService.MimeType.JSON);
-}
+      <div class="buttons">
+        <button type="submit" class="btn-submit">Simpan</button>
+        <button type="button" class="btn-cancel" onclick="window.location.href='dashboard.html'">Batal</button>
+      </div>
+    </form>
+  </div>
 
-function doPost(e) {
-  const data = JSON.parse(e.postData.contents);
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_PEMBAYARAN);
+  <script>
+    const URL = "https://script.google.com/macros/s/AKfycbxTE-XyLTXju9cAhDXwkuC2ry1XBcI2nkTYBkOJsy1YjPZBHyfUsWz786O_mlPPuPMw/exec";
 
-  sheet.appendRow([
-    new Date(),
-    data.kelas,
-    data.nama,
-    data.nisn,
-    data.jenis,
-    data.nominal,
-    data.keterangan || ''
-  ]);
+    // Ambil data kelas, siswa, dan tagihan
+    fetch(URL + '?action=init')
+      .then(res => res.json())
+      .then(data => {
+        // Kelas
+        data.kelas.forEach(k => {
+          const option = document.createElement('option');
+          option.value = k;
+          option.textContent = k;
+          document.getElementById('kelas').appendChild(option);
+        });
 
-  return ContentService.createTextOutput('Sukses').setMimeType(ContentService.MimeType.TEXT);
-}
+        // Tagihan
+        data.tagihan.forEach(t => {
+          const option = document.createElement('option');
+          option.value = t.nama;
+          option.textContent = `${t.nama} - Rp${t.nominal.toLocaleString('id-ID')}`;
+          option.dataset.nominal = t.nominal;
+          document.getElementById('tagihan').appendChild(option);
+        });
+
+        // Simpan data siswa
+        window.dataSiswa = data.siswa;
+      });
+
+    // Saat pilih kelas → update siswa
+    document.getElementById('kelas').addEventListener('change', () => {
+      const kelas = document.getElementById('kelas').value;
+      const siswaSelect = document.getElementById('nama');
+      siswaSelect.innerHTML = '<option value="">Pilih Siswa</option>';
+      if (window.dataSiswa && window.dataSiswa[kelas]) {
+        window.dataSiswa[kelas].forEach(nama => {
+          const option = document.createElement('option');
+          option.value = nama;
+          option.textContent = nama;
+          siswaSelect.appendChild(option);
+        });
+      }
+    });
+
+    // Saat pilih tagihan → isi nominal otomatis
+    document.getElementById('tagihan').addEventListener('change', () => {
+      const selected = document.querySelector('#tagihan option:checked');
+      document.getElementById('nominal').value = selected?.dataset.nominal || '';
+    });
+
+    // Submit form
+    document.getElementById('formPembayaran').addEventListener('submit', e => {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+      data.action = "simpan";
+
+      fetch(URL, {
+        method: "POST",
+        body: JSON.stringify(data),
+      })
+      .then(res => res.json())
+      .then(response => {
+        if (response.result === "success") {
+          alert("Pembayaran berhasil disimpan!");
+          document.getElementById('formPembayaran').reset();
+        } else {
+          alert("Gagal menyimpan data.");
+        }
+      })
+      .catch(err => {
+        console.error("Error:", err);
+        alert("Terjadi kesalahan.");
+      });
+    });
+  </script>
+</body>
+</html>
