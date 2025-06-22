@@ -5,58 +5,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Input Pembayaran</title>
   <style>
-    body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
-    h1 { text-align: center; color: #2c3e50; }
-    .kelas-container { text-align: center; margin-bottom: 20px; }
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .kelas-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
     .kelas-button {
-      margin: 5px; padding: 10px 20px;
-      background-color: #3498db; color: white;
-      border: none; border-radius: 8px; cursor: pointer; font-weight: bold;
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
     }
     .siswa-grid {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      justify-content: center; margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
     }
     .siswa-card {
-      background-color: #fff; border-radius: 10px;
+      background-color: #ffffff;
+      border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 15px 20px; text-align: center;
-      cursor: pointer; min-width: 120px;
+      padding: 15px 20px;
+      text-align: center;
+      cursor: pointer;
+      min-width: 120px;
     }
     .modal {
-      display: none; position: fixed; z-index: 99;
-      left: 0; top: 0; width: 100%; height: 100%;
+      display: none;
+      position: fixed;
+      z-index: 99;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
       background-color: rgba(0,0,0,0.5);
     }
     .modal-content {
-      background-color: #fff; margin: 10% auto;
-      padding: 20px; border-radius: 8px;
-      width: 90%; max-width: 400px;
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
     }
     .close {
-      float: right; font-size: 24px; cursor: pointer; color: #aaa;
+      float: right;
+      font-size: 24px;
+      cursor: pointer;
+      color: #aaa;
     }
     label, select, input {
-      display: block; margin-top: 10px; width: 100%;
+      display: block;
+      margin-top: 10px;
+      width: 100%;
     }
     button.submit-btn {
-      margin-top: 15px; background-color: #28a745;
-      color: white; border: none; padding: 10px;
-      border-radius: 6px; cursor: pointer;
+      margin-top: 15px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <h1>Input Pembayaran Siswa</h1>
   <div class="kelas-container">
-    <button class="kelas-button" onclick="tampilkanSiswa('Kelas1')">Kelas 1</button>
-    <button class="kelas-button" onclick="tampilkanSiswa('Kelas2')">Kelas 2</button>
-    <button class="kelas-button" onclick="tampilkanSiswa('Kelas3')">Kelas 3</button>
-    <button class="kelas-button" onclick="tampilkanSiswa('Kelas4')">Kelas 4</button>
-    <button class="kelas-button" onclick="tampilkanSiswa('Kelas5')">Kelas 5</button>
-    <button class="kelas-button" onclick="tampilkanSiswa('Kelas6')">Kelas 6</button>
+    <button class="kelas-button" onclick="tampilkanSiswa('1')">Kelas 1</button>
+    <button class="kelas-button" onclick="tampilkanSiswa('2')">Kelas 2</button>
+    <button class="kelas-button" onclick="tampilkanSiswa('3')">Kelas 3</button>
+    <button class="kelas-button" onclick="tampilkanSiswa('4')">Kelas 4</button>
+    <button class="kelas-button" onclick="tampilkanSiswa('5')">Kelas 5</button>
+    <button class="kelas-button" onclick="tampilkanSiswa('6')">Kelas 6</button>
   </div>
-
   <div class="siswa-grid" id="siswaGrid"></div>
 
   <!-- Modal -->
@@ -68,7 +107,11 @@
         <input type="hidden" id="namaSiswa" name="nama">
         <input type="hidden" id="kelasSiswa" name="kelas">
         <label for="tagihan">Jenis Tagihan</label>
-        <select name="tagihan" id="tagihan"></select>
+        <select name="tagihan" id="tagihan">
+          <option value="Infaq Juli">Infaq Juli</option>
+          <option value="Infaq Agustus">Infaq Agustus</option>
+          <option value="Uang Seragam">Uang Seragam</option>
+        </select>
         <label for="nominal">Nominal (Rp)</label>
         <input type="number" id="nominal" name="nominal" required>
         <button class="submit-btn" type="submit">Simpan</button>
@@ -77,24 +120,25 @@
   </div>
 
   <script>
-    const sheetID = '19G784JN7taZxFdut1wHarcbl5WfKnIDYmlmRMHTt6O8';
-    const apiKey = 'AIzaSyBZJnjGD85CDiRh96jwj_KxoWhFdq04rvU';
-    const siswaGrid = document.getElementById('siswaGrid');
+    const dataSiswa = {
+      '1': Array.from({length:15}, (_,i)=>`Siswa 1.${i+1}`),
+      '2': Array.from({length:15}, (_,i)=>`Siswa 2.${i+1}`),
+      '3': Array.from({length:15}, (_,i)=>`Siswa 3.${i+1}`),
+      '4': Array.from({length:15}, (_,i)=>`Siswa 4.${i+1}`),
+      '5': Array.from({length:15}, (_,i)=>`Siswa 5.${i+1}`),
+      '6': Array.from({length:15}, (_,i)=>`Siswa 6.${i+1}`),
+    };
 
-    function tampilkanSiswa(sheetName) {
-      fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/${sheetName}?key=${apiKey}`)
-        .then(res => res.json())
-        .then(data => {
-          siswaGrid.innerHTML = '';
-          const siswa = data.values.slice(1); // skip header
-          siswa.forEach(baris => {
-            const div = document.createElement('div');
-            div.className = 'siswa-card';
-            div.textContent = baris[1]; // kolom Nama
-            div.onclick = () => bukaForm(baris[1], sheetName);
-            siswaGrid.appendChild(div);
-          });
-        });
+    function tampilkanSiswa(kelas) {
+      const grid = document.getElementById('siswaGrid');
+      grid.innerHTML = '';
+      dataSiswa[kelas].forEach(nama => {
+        const div = document.createElement('div');
+        div.className = 'siswa-card';
+        div.textContent = nama;
+        div.onclick = () => bukaForm(nama, kelas);
+        grid.appendChild(div);
+      });
     }
 
     function bukaForm(nama, kelas) {
@@ -108,28 +152,12 @@
       document.getElementById('formModal').style.display = 'none';
     }
 
-    function loadTagihan() {
-      fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/Tagihan?key=${apiKey}`)
-        .then(res => res.json())
-        .then(data => {
-          const select = document.getElementById('tagihan');
-          select.innerHTML = '';
-          const list = data.values.slice(1);
-          list.forEach(row => {
-            const option = document.createElement('option');
-            option.value = row[0];
-            option.text = row[0];
-            select.appendChild(option);
-          });
-        });
-    }
-
     function kirimData(e) {
       e.preventDefault();
       const form = document.getElementById('formPembayaran');
       const data = new FormData(form);
 
-      fetch('https://script.google.com/macros/s/AKfycbxTE-XyLTXju9cAhDXwkuC2ry1XBcI2nkTYBkOJsy1YjPZBHyfUsWz786O_mlPPuPMw/exec', {
+      fetch('https://script.google.com/macros/s/AKfycbwNVkTRdQcRWEJCA4caasaj89lPsJiOE9F-lMEY-Sk0_Ri-vhK1SmmBRwd28pb7KY2PsA/exec', {
         method: 'POST',
         body: data
       })
@@ -141,8 +169,6 @@
       })
       .catch(err => alert("Gagal mengirim data: " + err));
     }
-
-    loadTagihan(); // panggil saat awal
   </script>
 </body>
 </html>
