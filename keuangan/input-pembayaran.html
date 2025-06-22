@@ -108,11 +108,7 @@
         <input type="hidden" id="namaSiswa" name="nama">
         <input type="hidden" id="kelasSiswa" name="kelas">
         <label for="tagihan">Jenis Tagihan</label>
-        <select name="tagihan" id="tagihan">
-          <option value="Infaq Juli">Infaq Juli</option>
-          <option value="Infaq Agustus">Infaq Agustus</option>
-          <option value="Uang Seragam">Uang Seragam</option>
-        </select>
+        <select name="tagihan" id="tagihan"></select>
         <label for="nominal">Nominal (Rp)</label>
         <input type="number" id="nominal" name="nominal" required>
         <button class="submit-btn" type="submit">Simpan</button>
@@ -121,24 +117,43 @@
   </div>
 
   <script>
-    const dataSiswa = {
-      '1': Array.from({length:15}, (_,i)=>`Siswa 1.${i+1}`),
-      '2': Array.from({length:15}, (_,i)=>`Siswa 2.${i+1}`),
-      '3': Array.from({length:15}, (_,i)=>`Siswa 3.${i+1}`),
-      '4': Array.from({length:15}, (_,i)=>`Siswa 4.${i+1}`),
-      '5': Array.from({length:15}, (_,i)=>`Siswa 5.${i+1}`),
-      '6': Array.from({length:15}, (_,i)=>`Siswa 6.${i+1}`),
-    };
+    const sheetID = 'GANTI_DENGAN_ID_SHEET_ANDA';
+    const apiKey = 'GANTI_DENGAN_API_KEY_ANDA';
 
-    function tampilkanSiswa(kelas) {
+    async function ambilData(sheetName) {
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/${sheetName}?key=${apiKey}`;
+      const res = await fetch(url);
+      const json = await res.json();
+      return json.values || [];
+    }
+
+    async function tampilkanSiswa(kelasNomor) {
+      const sheetName = 'Kelas' + kelasNomor;
+      const siswa = await ambilData(sheetName);
       const grid = document.getElementById('siswaGrid');
       grid.innerHTML = '';
-      dataSiswa[kelas].forEach(nama => {
+
+      siswa.slice(1).forEach(row => {
+        const [nisn, nama] = row;
         const div = document.createElement('div');
         div.className = 'siswa-card';
         div.textContent = nama;
-        div.onclick = () => bukaForm(nama, kelas);
+        div.onclick = () => bukaForm(nama, kelasNomor);
         grid.appendChild(div);
+      });
+    }
+
+    async function isiTagihan() {
+      const tagihan = await ambilData('Tagihan');
+      const select = document.getElementById('tagihan');
+      select.innerHTML = '';
+
+      tagihan.slice(1).forEach(row => {
+        const [kode, namaTagihan, jumlah] = row;
+        const option = document.createElement('option');
+        option.value = namaTagihan;
+        option.textContent = `${namaTagihan} - Rp${parseInt(jumlah).toLocaleString()}`;
+        select.appendChild(option);
       });
     }
 
@@ -168,8 +183,10 @@
         tutupModal();
         form.reset();
       })
-      .catch(err => alert("Gagal mengirim data"));
+      .catch(err => alert("Gagal mengirim data")); 
     }
+
+    window.onload = isiTagihan;
   </script>
 </body>
 </html>
