@@ -19,9 +19,19 @@
     h1 {
       text-align: center;
       color: #1e7e34;
+      margin-bottom: 20px;
+    }
+    #pencarian {
+      width: 100%;
+      padding: 10px 15px;
       margin-bottom: 30px;
+      border: 2px solid #1e7e34;
+      border-radius: 8px;
+      font-size: 1em;
     }
     .berita-item {
+      display: flex;
+      gap: 20px;
       background: #ffffff;
       padding: 20px;
       border-radius: 10px;
@@ -31,6 +41,18 @@
     }
     .berita-item:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .berita-img {
+      flex: 0 0 150px;
+    }
+    .berita-img img {
+      width: 150px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .berita-teks {
+      flex: 1;
     }
     .judul {
       font-size: 1.2em;
@@ -60,40 +82,89 @@
     .baca-selengkapnya:hover {
       background-color: #155724;
     }
+
+    @media (max-width: 600px) {
+      .berita-item {
+        flex-direction: column;
+        align-items: center;
+      }
+      .berita-img img {
+        width: 100%;
+        height: auto;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Daftar Berita</h1>
+    <input type="text" id="pencarian" placeholder="Cari berita...">
     <div id="daftar-berita">
       <p>Memuat berita...</p>
     </div>
   </div>
 
   <script>
-    fetch('berita.json') // ganti path jika perlu, misal: 'data/berita.json'
+    let semuaBerita = [];
+
+    fetch('berita.json')
       .then(res => res.json())
       .then(data => {
-        const container = document.getElementById('daftar-berita');
-        container.innerHTML = '';
+        semuaBerita = data;
 
-        data.forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'berita-item';
-
-          div.innerHTML = `
-            <div class="judul">${item.judul}</div>
-            <div class="tanggal">${item.tanggal}</div>
-            <div class="ringkasan">${item.ringkasan}</div>
-            <a href="detail.html?id=${item.id}" class="baca-selengkapnya">Baca Selengkapnya</a>
-          `;
-
-          container.appendChild(div);
+        // Urutkan berdasarkan tanggal (terbaru dulu)
+        semuaBerita.sort((a, b) => {
+          const tglA = new Date(a.tanggal.split(' ').reverse().join(' '));
+          const tglB = new Date(b.tanggal.split(' ').reverse().join(' '));
+          return tglB - tglA;
         });
+
+        tampilkanBerita(semuaBerita);
       })
       .catch(() => {
         document.getElementById('daftar-berita').innerHTML = '<p>Gagal memuat daftar berita.</p>';
       });
+
+    // Fungsi menampilkan berita
+    function tampilkanBerita(beritaList) {
+      const container = document.getElementById('daftar-berita');
+      container.innerHTML = '';
+
+      if (beritaList.length === 0) {
+        container.innerHTML = '<p>Tidak ada berita yang cocok.</p>';
+        return;
+      }
+
+      beritaList.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'berita-item';
+
+        div.innerHTML = `
+          <div class="berita-img">
+            <img src="${item.gambar}" alt="${item.judul}">
+          </div>
+          <div class="berita-teks">
+            <div class="judul">${item.judul}</div>
+            <div class="tanggal">${item.tanggal}</div>
+            <div class="ringkasan">${item.ringkasan}</div>
+            <a href="detail.html?id=${item.id}" class="baca-selengkapnya">Baca Selengkapnya</a>
+          </div>
+        `;
+
+        container.appendChild(div);
+      });
+    }
+
+    // Fungsi pencarian
+    const inputCari = document.getElementById('pencarian');
+    inputCari.addEventListener('input', () => {
+      const keyword = inputCari.value.toLowerCase();
+      const hasil = semuaBerita.filter(item =>
+        item.judul.toLowerCase().includes(keyword) ||
+        item.ringkasan.toLowerCase().includes(keyword)
+      );
+      tampilkanBerita(hasil);
+    });
   </script>
 </body>
 </html>
