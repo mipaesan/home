@@ -314,7 +314,7 @@
             <h3>${item.judul}</h3>
             <div class="tanggal">${item.tanggal}</div>
             <div class="ringkasan">${item.ringkasan}</div>
-            <button onclick="toggleIsi(${index})">Selengkapnya</button>
+            <a href="berita.html?id=${item.id}"><button>Selengkapnya</button></a>
             <div id="isi-${index}" style="display:none; margin-top:10px;">${isiUtuh}</div>
           `;
           carousel.appendChild(div);
