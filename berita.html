@@ -2,84 +2,97 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Detail Berita</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daftar Berita</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: #f8fdf9;
+      background-color: #f0fdf4;
       margin: 0;
       padding: 20px;
-      color: #333;
     }
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: auto;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      padding: 30px;
     }
     h1 {
-      font-size: 1.8em;
+      text-align: center;
       color: #1e7e34;
-      margin-bottom: 10px;
+      margin-bottom: 30px;
+    }
+    .berita-item {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+    .berita-item:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .judul {
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #155724;
+      margin-bottom: 5px;
     }
     .tanggal {
-      color: #888;
       font-size: 0.9em;
-      margin-bottom: 20px;
+      color: #888;
+      margin-bottom: 10px;
     }
-    img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    p {
-      line-height: 1.6;
+    .ringkasan {
+      font-size: 1em;
       margin-bottom: 15px;
-      white-space: pre-line;
     }
-    a.kembali {
-      display: inline-block;
-      margin-top: 20px;
-      color: #1e7e34;
+    .baca-selengkapnya {
+      background-color: #1e7e34;
+      color: #fff;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
+      transition: 0.2s;
+    }
+    .baca-selengkapnya:hover {
+      background-color: #155724;
     }
   </style>
 </head>
 <body>
-  <div class="container" id="berita-detail">
-    <p>Memuat berita...</p>
+  <div class="container">
+    <h1>Daftar Berita</h1>
+    <div id="daftar-berita">
+      <p>Memuat berita...</p>
+    </div>
   </div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-
-    fetch('berita.json')
+    fetch('berita.json') // ganti path jika perlu, misal: 'data/berita.json'
       .then(res => res.json())
       .then(data => {
-        const berita = data.find(b => b.id == id);
-        const container = document.getElementById('berita-detail');
+        const container = document.getElementById('daftar-berita');
+        container.innerHTML = '';
 
-        if (!berita) {
-          container.innerHTML = '<p>Berita tidak ditemukan.</p>';
-          return;
-        }
+        data.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'berita-item';
 
-        container.innerHTML = `
-          <h1>${berita.judul}</h1>
-          <div class="tanggal">${berita.tanggal}</div>
-          <img src="${berita.gambar}" alt="${berita.judul}">
-          <p>${berita.isi}</p>
-          <a href="index.html" class="kembali">&larr; Kembali ke Beranda</a>
-        `;
+          div.innerHTML = `
+            <div class="judul">${item.judul}</div>
+            <div class="tanggal">${item.tanggal}</div>
+            <div class="ringkasan">${item.ringkasan}</div>
+            <a href="detail.html?id=${item.id}" class="baca-selengkapnya">Baca Selengkapnya</a>
+          `;
+
+          container.appendChild(div);
+        });
       })
       .catch(() => {
-        document.getElementById('berita-detail').innerHTML = '<p>Gagal memuat berita.</p>';
+        document.getElementById('daftar-berita').innerHTML = '<p>Gagal memuat daftar berita.</p>';
       });
   </script>
 </body>
