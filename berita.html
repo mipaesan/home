@@ -107,17 +107,27 @@
   <script>
     let semuaBerita = [];
 
+    // Peta nama bulan Indonesia ke angka
+    const bulanMap = {
+      "Januari": "01", "Februari": "02", "Maret": "03",
+      "April": "04", "Mei": "05", "Juni": "06",
+      "Juli": "07", "Agustus": "08", "September": "09",
+      "Oktober": "10", "November": "11", "Desember": "12"
+    };
+
+    // Konversi string "24 Juni 2025" → Date("2025-06-24")
+    function parseTanggal(tanggalStr) {
+      const [tgl, bln, thn] = tanggalStr.split(' ');
+      return new Date(`${thn}-${bulanMap[bln]}-${tgl.padStart(2, '0')}`);
+    }
+
     fetch('berita.json')
       .then(res => res.json())
       .then(data => {
         semuaBerita = data;
 
-        // Urutkan berdasarkan tanggal (terbaru dulu)
-        semuaBerita.sort((a, b) => {
-          const tglA = new Date(a.tanggal.split(' ').reverse().join(' '));
-          const tglB = new Date(b.tanggal.split(' ').reverse().join(' '));
-          return tglB - tglA;
-        });
+        // Urutkan berdasarkan tanggal terbaru
+        semuaBerita.sort((a, b) => parseTanggal(b.tanggal) - parseTanggal(a.tanggal));
 
         tampilkanBerita(semuaBerita);
       })
@@ -125,17 +135,16 @@
         document.getElementById('daftar-berita').innerHTML = '<p>Gagal memuat daftar berita.</p>';
       });
 
-    // Fungsi menampilkan berita
-    function tampilkanBerita(beritaList) {
+    function tampilkanBerita(daftar) {
       const container = document.getElementById('daftar-berita');
       container.innerHTML = '';
 
-      if (beritaList.length === 0) {
+      if (daftar.length === 0) {
         container.innerHTML = '<p>Tidak ada berita yang cocok.</p>';
         return;
       }
 
-      beritaList.forEach(item => {
+      daftar.forEach(item => {
         const div = document.createElement('div');
         div.className = 'berita-item';
 
@@ -155,10 +164,9 @@
       });
     }
 
-    // Fungsi pencarian
-    const inputCari = document.getElementById('pencarian');
-    inputCari.addEventListener('input', () => {
-      const keyword = inputCari.value.toLowerCase();
+    // Fitur pencarian
+    document.getElementById('pencarian').addEventListener('input', function() {
+      const keyword = this.value.toLowerCase();
       const hasil = semuaBerita.filter(item =>
         item.judul.toLowerCase().includes(keyword) ||
         item.ringkasan.toLowerCase().includes(keyword)
