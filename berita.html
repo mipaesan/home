@@ -29,6 +29,12 @@
     .tanggal {
       color: #888;
       font-size: 0.9em;
+      margin-bottom: 5px;
+    }
+    .penulis {
+      font-style: italic;
+      color: #555;
+      font-size: 0.9em;
       margin-bottom: 20px;
     }
     img {
@@ -59,11 +65,6 @@
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
-    const bulanMap = {
-      "Januari": "01", "Februari": "02", "Maret": "03", "April": "04", "Mei": "05", "Juni": "06",
-      "Juli": "07", "Agustus": "08", "September": "09", "Oktober": "10", "November": "11", "Desember": "12"
-    };
-
     fetch('berita.json')
       .then(res => res.json())
       .then(data => {
@@ -75,12 +76,15 @@
           return;
         }
 
-        const isiUtuh = berita.isi.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('');
+        const isiUtuh = berita.isi
+          .split('\n\n')
+          .map(paragraf => `<p>${paragraf.trim()}</p>`)
+          .join('');
+
         container.innerHTML = `
-          container.innerHTML = `
           <h1>${berita.judul}</h1>
           <div class="tanggal">${berita.tanggal}</div>
-          <div style="font-style: italic; color: #555; margin-bottom: 20px;">oleh: Pak Guru</div>
+          <div class="penulis">oleh: Admin</div>
           <img src="${berita.gambar}" alt="${berita.judul}">
           ${isiUtuh}
           <a href="index.html" class="kembali">&larr; Kembali ke Beranda</a>
