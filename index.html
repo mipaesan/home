@@ -59,7 +59,6 @@
     }
     .pengumuman { background: #28a745; color: white; }
     .ppdb { background: #ffc107; color: #222; }
-    .keuangan { background: #007bff; color: white; }
 
     @keyframes pulse {
       0% { transform: scale(1); }
@@ -94,50 +93,66 @@
       color: #1e7e34;
     }
 
-    .grid { display: grid; gap: 20px; }
-    .berita-kartu {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    .carousel-container {
+      overflow-x: auto;
+      padding: 10px;
     }
-
-    .berita-item {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      overflow: hidden;
-      transition: transform 0.3s ease;
+    .carousel {
+      display: flex;
+      gap: 20px;
+      scroll-snap-type: x mandatory;
+      overflow-x: auto;
+      padding-bottom: 10px;
     }
-    .berita-item:hover { transform: translateY(-5px); }
-    .berita-item img {
-      width: 100%; height: 180px;
+    .berita-box {
+      scroll-snap-align: start;
+      background: white;
+      flex: 0 0 300px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .berita-box img {
+      width: 100%;
+      height: 150px;
       object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
     }
-    .berita-item .konten {
-      padding: 15px;
-    }
-    .berita-item h4 {
-      margin: 0 0 10px;
+    .berita-box h3 {
       font-size: 1.1em;
+      margin: 0 0 10px;
       color: #1e7e34;
     }
-    .berita-item p {
-      font-size: 0.95em;
-      color: #555;
-      line-height: 1.5;
-      margin-bottom: 12px;
+    .berita-box .tanggal {
+      font-size: 0.85em;
+      color: #888;
+      margin-bottom: 10px;
     }
-    .berita-item .tanggal {
-      font-size: 0.8em;
-      color: #999;
-      margin-bottom: 6px;
+    .berita-box .ringkasan {
+      font-size: 0.9em;
+      margin-bottom: 10px;
     }
-    .berita-item a {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: bold;
+    .berita-box button {
+      background-color: #1e7e34;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    .berita-box button:hover {
+      background-color: #145c26;
     }
 
     .programs {
+      display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
     }
     .card {
       background: white;
@@ -208,6 +223,7 @@
   </style>
 </head>
 <body>
+
   <header>
     <h1>MI Salafiyatul Ma'muroh Paesan</h1>
     <p>Iso Ngaji, Iso Teknologi</p>
@@ -219,7 +235,9 @@
 
   <section>
     <h2 class="section-title">Berita Terbaru</h2>
-    <div id="berita-container" class="grid berita-kartu"></div>
+    <div class="carousel-container">
+      <div class="carousel" id="berita-carousel"></div>
+    </div>
   </section>
 
   <section class="visi-misi">
@@ -235,7 +253,7 @@
 
   <section>
     <h2 class="section-title">Program Unggulan</h2>
-    <div class="grid programs">
+    <div class="programs">
       <div class="card"><img src="rebana.png" alt="Rebana" style="width:70px; margin-bottom:12px;"><h3>Rebana</h3><p>Melatih keterampilan musik islami dan kerja sama tim.</p></div>
       <div class="card"><img src="drumband.png" alt="Drumband" style="width:70px; margin-bottom:12px;"><h3>Drumband</h3><p>Menumbuhkan kedisiplinan dan semangat kebersamaan.</p></div>
       <div class="card"><img src="robotik.png" alt="Robotik" style="width:70px; margin-bottom:12px;"><h3>Robotik</h3><p>Mengenalkan teknologi dan logika pemrograman sejak dini.</p></div>
@@ -270,25 +288,43 @@
       slides[current].classList.add('active');
     }, 4000);
 
+    const bulanMap = {
+      "Januari": "01", "Februari": "02", "Maret": "03", "April": "04", "Mei": "05", "Juni": "06",
+      "Juli": "07", "Agustus": "08", "September": "09", "Oktober": "10", "November": "11", "Desember": "12"
+    };
+
+    function parseTanggal(tanggalStr) {
+      const [tgl, bln, thn] = tanggalStr.split(' ');
+      return new Date(`${thn}-${bulanMap[bln]}-${tgl.padStart(2, '0')}`);
+    }
+
     fetch('berita.json')
       .then(res => res.json())
       .then(data => {
-        const container = document.getElementById('berita-container');
-        data.forEach(berita => {
-          const el = document.createElement('div');
-          el.className = 'berita-item';
-          el.innerHTML = `
-            <img src="${berita.gambar}" alt="${berita.judul}">
-            <div class="konten">
-              <div class="tanggal">${berita.tanggal}</div>
-              <h4>${berita.judul}</h4>
-              <p>${berita.ringkasan}</p>
-              <a href="berita.html?id=${berita.id}">Lihat Selengkapnya</a>
-            </div>
+        data.sort((a, b) => parseTanggal(b.tanggal) - parseTanggal(a.tanggal));
+        const carousel = document.getElementById('berita-carousel');
+        const terbaru = data.slice(0, 3);
+
+        terbaru.forEach((item, index) => {
+          const isiUtuh = item.isi.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('');
+          const div = document.createElement('div');
+          div.className = 'berita-box';
+          div.innerHTML = `
+            <img src="${item.gambar}" alt="${item.judul}">
+            <h3>${item.judul}</h3>
+            <div class="tanggal">${item.tanggal}</div>
+            <div class="ringkasan">${item.ringkasan}</div>
+            <button onclick="toggleIsi(${index})">Selengkapnya</button>
+            <div id="isi-${index}" style="display:none; margin-top:10px;">${isiUtuh}</div>
           `;
-          container.appendChild(el);
+          carousel.appendChild(div);
         });
       });
+
+    function toggleIsi(index) {
+      const isiDiv = document.getElementById(`isi-${index}`);
+      isiDiv.style.display = (isiDiv.style.display === 'none') ? 'block' : 'none';
+    }
   </script>
 </body>
 </html>
