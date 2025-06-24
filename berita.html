@@ -77,8 +77,10 @@
 
         const isiUtuh = berita.isi.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('');
         container.innerHTML = `
+          container.innerHTML = `
           <h1>${berita.judul}</h1>
           <div class="tanggal">${berita.tanggal}</div>
+          <div style="font-style: italic; color: #555; margin-bottom: 20px;">oleh: Pak Guru</div>
           <img src="${berita.gambar}" alt="${berita.judul}">
           ${isiUtuh}
           <a href="index.html" class="kembali">&larr; Kembali ke Beranda</a>
