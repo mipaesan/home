@@ -2,177 +2,91 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Daftar Berita</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Berita</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #f0fdf4;
+      background: #f8fdf9;
       margin: 0;
       padding: 20px;
+      color: #333;
     }
     .container {
-      max-width: 1000px;
+      max-width: 800px;
       margin: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 30px;
     }
     h1 {
-      text-align: center;
+      font-size: 1.8em;
       color: #1e7e34;
-      margin-bottom: 20px;
-    }
-    #pencarian {
-      width: 100%;
-      padding: 10px 15px;
-      margin-bottom: 30px;
-      border: 2px solid #1e7e34;
-      border-radius: 8px;
-      font-size: 1em;
-    }
-    .berita-item {
-      display: flex;
-      gap: 20px;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      transition: 0.3s;
-    }
-    .berita-item:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-    .berita-img {
-      flex: 0 0 150px;
-    }
-    .berita-img img {
-      width: 150px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .berita-teks {
-      flex: 1;
-    }
-    .judul {
-      font-size: 1.2em;
-      font-weight: 600;
-      color: #155724;
-      margin-bottom: 5px;
-    }
-    .tanggal {
-      font-size: 0.9em;
-      color: #888;
       margin-bottom: 10px;
     }
-    .ringkasan {
-      font-size: 1em;
-      margin-bottom: 15px;
+    .tanggal {
+      color: #888;
+      font-size: 0.9em;
+      margin-bottom: 20px;
     }
-    .baca-selengkapnya {
-      background-color: #1e7e34;
-      color: #fff;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 6px;
+    img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+      white-space: pre-line;
+    }
+    a.kembali {
+      display: inline-block;
+      margin-top: 20px;
+      color: #1e7e34;
       text-decoration: none;
       font-weight: bold;
-      transition: 0.2s;
-    }
-    .baca-selengkapnya:hover {
-      background-color: #155724;
-    }
-
-    @media (max-width: 600px) {
-      .berita-item {
-        flex-direction: column;
-        align-items: center;
-      }
-      .berita-img img {
-        width: 100%;
-        height: auto;
-      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Daftar Berita</h1>
-    <input type="text" id="pencarian" placeholder="Cari berita...">
-    <div id="daftar-berita">
-      <p>Memuat berita...</p>
-    </div>
+  <div class="container" id="berita-detail">
+    <p>Memuat berita...</p>
   </div>
 
   <script>
-    let semuaBerita = [];
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
 
-    // Peta nama bulan Indonesia ke angka
     const bulanMap = {
-      "Januari": "01", "Februari": "02", "Maret": "03",
-      "April": "04", "Mei": "05", "Juni": "06",
-      "Juli": "07", "Agustus": "08", "September": "09",
-      "Oktober": "10", "November": "11", "Desember": "12"
+      "Januari": "01", "Februari": "02", "Maret": "03", "April": "04", "Mei": "05", "Juni": "06",
+      "Juli": "07", "Agustus": "08", "September": "09", "Oktober": "10", "November": "11", "Desember": "12"
     };
-
-    // Konversi string "24 Juni 2025" → Date("2025-06-24")
-    function parseTanggal(tanggalStr) {
-      const [tgl, bln, thn] = tanggalStr.split(' ');
-      return new Date(`${thn}-${bulanMap[bln]}-${tgl.padStart(2, '0')}`);
-    }
 
     fetch('berita.json')
       .then(res => res.json())
       .then(data => {
-        semuaBerita = data;
+        const berita = data.find(b => b.id == id);
+        const container = document.getElementById('berita-detail');
 
-        // Urutkan berdasarkan tanggal terbaru
-        semuaBerita.sort((a, b) => parseTanggal(b.tanggal) - parseTanggal(a.tanggal));
+        if (!berita) {
+          container.innerHTML = '<p>Berita tidak ditemukan.</p>';
+          return;
+        }
 
-        tampilkanBerita(semuaBerita);
+        const isiUtuh = berita.isi.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('');
+        container.innerHTML = `
+          <h1>${berita.judul}</h1>
+          <div class="tanggal">${berita.tanggal}</div>
+          <img src="${berita.gambar}" alt="${berita.judul}">
+          ${isiUtuh}
+          <a href="index.html" class="kembali">&larr; Kembali ke Beranda</a>
+        `;
       })
       .catch(() => {
-        document.getElementById('daftar-berita').innerHTML = '<p>Gagal memuat daftar berita.</p>';
+        document.getElementById('berita-detail').innerHTML = '<p>Gagal memuat berita.</p>';
       });
-
-    function tampilkanBerita(daftar) {
-      const container = document.getElementById('daftar-berita');
-      container.innerHTML = '';
-
-      if (daftar.length === 0) {
-        container.innerHTML = '<p>Tidak ada berita yang cocok.</p>';
-        return;
-      }
-
-      daftar.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'berita-item';
-
-        div.innerHTML = `
-          <div class="berita-img">
-            <img src="${item.gambar}" alt="${item.judul}">
-          </div>
-          <div class="berita-teks">
-            <div class="judul">${item.judul}</div>
-            <div class="tanggal">${item.tanggal}</div>
-            <div class="ringkasan">${item.ringkasan}</div>
-            <a href="detail.html?id=${item.id}" class="baca-selengkapnya">Baca Selengkapnya</a>
-          </div>
-        `;
-
-        container.appendChild(div);
-      });
-    }
-
-    // Fitur pencarian
-    document.getElementById('pencarian').addEventListener('input', function() {
-      const keyword = this.value.toLowerCase();
-      const hasil = semuaBerita.filter(item =>
-        item.judul.toLowerCase().includes(keyword) ||
-        item.ringkasan.toLowerCase().includes(keyword)
-      );
-      tampilkanBerita(hasil);
-    });
   </script>
 </body>
 </html>
