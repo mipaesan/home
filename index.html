@@ -14,7 +14,8 @@
       color: #333;
     }
     header {
-      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('header_optimized_16by9.png') center center / cover no-repeat;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                  url('header_optimized_16by9.png') center center / cover no-repeat;
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -149,12 +150,9 @@
     }
 
     .programs {
-      display: flex;
-      flex-wrap: nowrap;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
       gap: 20px;
-      overflow-x: auto;
-      padding-bottom: 10px;
-      justify-content: center;
     }
     .card {
       background: white;
@@ -163,8 +161,6 @@
       padding: 20px;
       text-align: center;
       transition: transform 0.2s ease;
-      min-width: 200px;
-      flex-shrink: 0;
     }
     .card:hover {
       transform: scale(1.03);
@@ -223,6 +219,9 @@
       header h1 { font-size: 2em; }
       .cta-button { width: 100%; text-align: center; }
       .slideshow-container { height: 220px; }
+      .programs {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      }
     }
   </style>
 </head>
@@ -308,6 +307,7 @@
         data.sort((a, b) => parseTanggal(b.tanggal) - parseTanggal(a.tanggal));
         const carousel = document.getElementById('berita-carousel');
         const terbaru = data.slice(0, 3);
+
         terbaru.forEach((item, index) => {
           const isiUtuh = item.isi.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('');
           const div = document.createElement('div');
