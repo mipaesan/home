@@ -61,6 +61,21 @@
     .pengumuman { background: #28a745; color: white; }
     .ppdb { background: #ffc107; color: #222; }
 
+    /* Gaya untuk tombol non-aktif */
+    .cta-button.disabled {
+      background-color: #cccccc; /* Warna abu-abu */
+      color: #666666; /* Warna teks lebih gelap */
+      cursor: not-allowed; /* Kursor "tidak diizinkan" */
+      opacity: 0.7; /* Sedikit transparan */
+      animation: none; /* Hentikan animasi pulse */
+      pointer-events: none; /* Mencegah klik pada tautan */
+    }
+    .cta-button.disabled:hover {
+      transform: none; /* Hentikan efek hover */
+      box-shadow: none; /* Hentikan bayangan hover */
+    }
+
+
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
@@ -246,7 +261,7 @@
     <h1>MI Salafiyatul Ma'muroh Paesan</h1>
     <p>Iso Ngaji, Iso Teknologi</p>
     <div class="button-group">
-      <a class="cta-button pengumuman" href="sambutan.html">Pengumuman Kelulusan</a>
+      <a class="cta-button pengumuman disabled" id="pengumuman-button" title="Pengumuman telah berakhir">Pengumuman Kelulusan</a>
       <a class="cta-button ppdb" href="formulir.html">Formulir PPDB 2025/2026</a>
     </div>
   </header>
@@ -329,6 +344,23 @@
     document.addEventListener('DOMContentLoaded', () => {
       showSlide(currentIndex);
       startSlideshow();
+
+      // Logika untuk tombol Pengumuman Kelulusan
+      const pengumumanButton = document.getElementById('pengumuman-button');
+      // Anda bisa menentukan tanggal berakhirnya pengumuman di sini
+      const tanggalBerakhirPengumuman = new Date('2025-06-26T23:59:59'); // Contoh: 26 Juni 2025, 23:59:59 WIB
+      const tanggalSekarang = new Date();
+
+      if (tanggalSekarang > tanggalBerakhirPengumuman) {
+        pengumumanButton.classList.add('disabled');
+        // Hapus href agar tidak bisa diklik dan mengarah ke halaman lain
+        pengumumanButton.removeAttribute('href');
+        // Tambahkan event listener untuk alert kustom jika diinginkan
+        pengumumanButton.addEventListener('click', (event) => {
+          event.preventDefault(); // Mencegah perilaku default jika href masih ada
+          alert("Mohon maaf, pengumuman kelulusan telah berakhir.");
+        });
+      }
     });
 
     // Event listener saat GLightbox dibuka
