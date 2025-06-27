@@ -61,12 +61,11 @@
     .pengumuman { background: #28a745; color: white; }
     .ppdb { background: #ffc107; color: #222; }
 
-    /* Gaya untuk tombol pengumuman yang non-aktif secara fungsional */
-    /* Kita hanya akan mengubah kursor dan pointer-events, tapi mempertahankan warna dan animasi */
-    .cta-button.pengumuman.disabled-range { /* Mengganti nama kelas agar lebih spesifik */
+    /* Gaya untuk tombol yang non-aktif secara fungsional */
+    .cta-button.disabled-range {
         cursor: not-allowed; /* Kursor "tidak diizinkan" */
     }
-    .cta-button.pengumuman.disabled-range:hover {
+    .cta-button.disabled-range:hover {
         transform: scale(1.05); /* Tetap ada animasi hover */
         box-shadow: 0 0 12px rgba(0,0,0,0.3); /* Tetap ada bayangan hover */
     }
@@ -258,7 +257,7 @@
     <p>Iso Ngaji, Iso Teknologi</p>
     <div class="button-group">
       <a class="cta-button pengumuman" id="pengumuman-button" href="sambutan.html" title="Pengumuman Kelulusan">Pengumuman Kelulusan</a>
-      <a class="cta-button ppdb" href="formulir.html">Formulir PPDB 2025/2026</a>
+      <a class="cta-button ppdb" id="ppdb-button" href="formulir.html" title="Formulir PPDB 2025/2026">Formulir PPDB 2025/2026</a>
     </div>
   </header>
 
@@ -336,48 +335,55 @@
       clearInterval(slideshowInterval);
     }
 
-    // Inisialisasi galeri saat halaman dimuat
+    // Fungsi untuk mengelola status aktif/non-aktif tombol berdasarkan rentang tanggal
+    function manageButtonActivity(buttonId, startDate, endDate, inactiveMessage) {
+      const button = document.getElementById(buttonId);
+      if (!button) return; // Keluar jika tombol tidak ditemukan
+
+      const originalHref = button.href;
+      const originalTitle = button.title;
+      const tanggalSekarang = new Date();
+
+      // Cek apakah tanggal sekarang berada DI LUAR rentang aktif
+      if (tanggalSekarang < startDate || tanggalSekarang > endDate) {
+        // Jika di luar rentang, non-aktifkan secara fungsional
+        button.classList.add('disabled-range'); // Tambahkan kelas untuk kursor
+        button.href = "#"; // Ubah href agar tidak berpindah halaman
+        button.title = inactiveMessage; // Ubah title untuk tooltip
+
+        // Tambahkan event listener hanya jika belum ada
+        if (!button.dataset.listenerAdded) {
+          button.addEventListener('click', function(event) {
+            event.preventDefault(); // Mencegah perilaku default dari 'a' tag
+            alert(this.title); // Menampilkan tooltip sebagai alert
+          });
+          button.dataset.listenerAdded = true; // Tandai bahwa listener sudah ditambahkan
+        }
+      } else {
+        // Jika di dalam rentang aktif, pastikan tombol aktif
+        button.classList.remove('disabled-range');
+        button.href = originalHref; // Kembalikan href asli
+        button.title = originalTitle; // Kembalikan title asli
+        // Tidak perlu menghapus listener, karena href asli akan berfungsi normal
+        // dan alert akan muncul hanya jika href="#" masih ada (yang tidak terjadi di sini)
+      }
+    }
+
+    // Inisialisasi galeri dan tombol saat halaman dimuat
     document.addEventListener('DOMContentLoaded', () => {
       showSlide(currentIndex);
       startSlideshow();
 
-      // Logika untuk tombol Pengumuman Kelulusan
-      const pengumumanButton = document.getElementById('pengumuman-button');
-      const originalHref = pengumumanButton.href; // Simpan href asli
-      const originalTitle = pengumumanButton.title; // Simpan title asli
+      // --- PENGATURAN TANGGAL UNTUK TOMBOL PENGUMUMAN KELULUSAN ---
+      // Current time is Friday, June 27, 2025 at 10:47:39 PM WIB.
+      const tglMulaiPengumuman = new Date('2025-06-01T00:00:00'); // Contoh: Aktif mulai 1 Juni 2025
+      const tglAkhirPengumuman = new Date('2025-06-30T23:59:59'); // Contoh: Aktif sampai 30 Juni 2025
+      manageButtonActivity('pengumuman-button', tglMulaiPengumuman, tglAkhirPengumuman, "Pengumuman tidak aktif saat ini");
 
-      // --- PENTING: SESUAIKAN TANGGAL INI ---
-      const tanggalMulaiAktif = new Date('2025-06-01T00:00:00'); // Contoh: Aktif mulai 1 Juni 2025, jam 00:00:00
-      const tanggalBerakhirAktif = new Date('2025-06-30T23:59:59'); // Contoh: Aktif sampai 30 Juni 2025, jam 23:59:59
-      // --- AKHIR PENTING ---
-
-      const tanggalSekarang = new Date(); // Dapatkan tanggal dan waktu saat ini
-
-      // Cek apakah tanggal sekarang berada DI LUAR rentang aktif
-      if (tanggalSekarang < tanggalMulaiAktif || tanggalSekarang > tanggalBerakhirAktif) {
-        // Jika di luar rentang, non-aktifkan secara fungsional
-        pengumumanButton.classList.add('disabled-range'); // Tambahkan kelas untuk kursor
-        pengumumanButton.href = "#"; // Ubah href agar tidak berpindah halaman
-        pengumumanButton.title = "Maaf, Pengumuman telah berakhir"; // Ubah title untuk tooltip
-
-        // Pastikan event listener hanya ditambahkan sekali
-        // dan hanya jika tombol dalam kondisi non-aktif
-        if (!pengumumanButton.dataset.listenerAdded) { // Cek apakah listener sudah ditambahkan
-          pengumumanButton.addEventListener('click', function(event) {
-            event.preventDefault(); // Mencegah perilaku default dari 'a' tag
-            alert(this.title); // Menampilkan tooltip sebagai alert
-          });
-          pengumumanButton.dataset.listenerAdded = true; // Tandai bahwa listener sudah ditambahkan
-        }
-      } else {
-        // Jika di dalam rentang aktif, pastikan tombol aktif
-        pengumumanButton.classList.remove('disabled-range');
-        pengumumanButton.href = originalHref; // Kembalikan href asli
-        pengumumanButton.title = originalTitle; // Kembalikan title asli
-        // Pastikan tidak ada event listener non-aktif yang menggangu
-        // (Ini agak lebih kompleks untuk menghapus listener yang spesifik,
-        //  tapi karena kita mengembalikan href asli, klik akan berfungsi normal)
-      }
+      // --- PENGATURAN TANGGAL UNTUK TOMBOL PPDB ---
+      const tglMulaiPpdb = new Date('2025-06-01T00:00:00'); // Contoh: Aktif mulai 1 Juni 2025
+      const tglAkhirPpdb = new Date('2025-07-31T23:59:59'); // Contoh: Aktif sampai 31 Juli 2025
+      manageButtonActivity('ppdb-button', tglMulaiPpdb, tglAkhirPpdb, "Pendaftaran PPDB belum/sudah berakhir");
     });
 
     // Event listener saat GLightbox dibuka
