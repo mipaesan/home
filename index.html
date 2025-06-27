@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MI Salafiyatul Ma'muroh Paesan</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; }
     body {
@@ -267,17 +268,17 @@
 
   <section>
     <h2 class="section-title">Galeri Kegiatan</h2>
-    <div class="slideshow-container">
-      <img src="galeri1.jpg" class="active" alt="Kegiatan 1">
-      <img src="galeri2.jpg" alt="Kegiatan 2">
-      <img src="galeri3.jpg" alt="Kegiatan 3">
-      <img src="galeri4.jpg" alt="Kegiatan 4">
-      <img src="galeri5.jpg" alt="Kegiatan 5">
-      <img src="galeri6.jpg" alt="Kegiatan 6">
-      <img src="galeri7.jpg" alt="Kegiatan 7">
-      <img src="galeri8.jpg" alt="Kegiatan 8">
-      <img src="galeri9.jpg" alt="Kegiatan 9">
-      <img src="galeri10.jpg" alt="Kegiatan 10">
+    <div class="galeri-wrapper" id="galeri">
+      <a href="galeri1.jpg" class="glightbox"><img src="galeri1.jpg" alt="Galeri 1"></a>
+      <a href="galeri2.jpg" class="glightbox"><img src="galeri2.jpg" alt="Galeri 2"></a>
+      <a href="galeri3.jpg" class="glightbox"><img src="galeri3.jpg" alt="Galeri 3"></a>
+      <a href="galeri4.jpg" class="glightbox"><img src="galeri4.jpg" alt="Galeri 4"></a>
+      <a href="galeri5.jpg" class="glightbox"><img src="galeri5.jpg" alt="Galeri 5"></a>
+      <a href="galeri6.jpg" class="glightbox"><img src="galeri6.jpg" alt="Galeri 6"></a>
+      <a href="galeri7.jpg" class="glightbox"><img src="galeri7.jpg" alt="Galeri 7"></a>
+      <a href="galeri8.jpg" class="glightbox"><img src="galeri8.jpg" alt="Galeri 8"></a>
+      <a href="galeri9.jpg" class="glightbox"><img src="galeri9.jpg" alt="Galeri 9"></a>
+      <a href="galeri10.jpg" class="glightbox"><img src="galeri10.jpg" alt="Galeri 10"></a>
     </div>
   </section>
 
@@ -286,14 +287,21 @@
     <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
-    const slides = document.querySelectorAll('.slideshow-container img');
-    let current = 0;
+    const lightbox = GLightbox({ selector: '.glightbox' });
+    const galeriItems = document.querySelectorAll('#galeri a');
+    let currentIndex = 0;
+    function showSlide(index) {
+      galeriItems.forEach((el, i) => {
+        el.classList.toggle('show', i === index);
+      });
+    }
     setInterval(() => {
-      slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
+      currentIndex = (currentIndex + 1) % galeriItems.length;
+      showSlide(currentIndex);
     }, 4000);
+    showSlide(currentIndex);
 
     const bulanMap = {
       "Januari": "01", "Februari": "02", "Maret": "03", "April": "04", "Mei": "05", "Juni": "06",
