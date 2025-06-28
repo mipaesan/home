@@ -1,83 +1,99 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Judul Berita Default - MI Salafiyatul Ma'muroh Paesan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f8fdf9;
-      margin: 0;
-      padding: 20px;
-      color: #333;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      padding: 30px;
-    }
-    h1 {
-      font-size: 1.8em;
-      color: #1e7e34;
-      margin-bottom: 10px;
-    }
-    .tanggal {
-      color: #888;
-      font-size: 0.9em;
-      margin-bottom: 5px;
-    }
-    .penulis {
-      font-style: italic;
-      color: #555;
-      font-size: 0.9em;
-      margin-bottom: 20px;
-    }
-    img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    p {
-      line-height: 1.6;
-      margin-bottom: 15px;
-    }
-    a.kembali {
-      display: inline-block;
-      margin-top: 20px;
-      color: #1e7e34;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
-
-  <meta property="og:title" content="Judul Berita Anda" />
-  <meta property="og:description" content="Ringkasan singkat berita Anda (maksimal 2-3 kalimat)." />
-  <meta property="og:image" content="https://mipaesan.github.io/home/gambar-artikel/nama-gambar-berita-anda.jpg" />
-  <meta property="og:url" content="https://mipaesan.github.io/home/berita/nama-file-berita-anda.html" />
-  <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="MI Salafiyatul Ma'muroh Paesan" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Judul Berita Anda" />
-  <meta name="twitter:description" content="Ringkasan singkat berita Anda (maksimal 2-3 kalimat)." />
-  <meta name="twitter:image" content="https://mipaesan.github.io/home/gambar-artikel/nama-gambar-berita-anda.jpg" />
-  </head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{judul}} - MI Salafiyatul Ma'muroh Paesan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: #f2fef6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .header-berita {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header-berita h1 {
+            font-size: 2.2em;
+            color: #1e7e34;
+            margin-bottom: 10px;
+        }
+        .header-berita .info {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .header-berita img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            object-fit: cover; /* Pastikan gambar menyesuaikan */
+        }
+        .content-berita p {
+            margin-bottom: 1em;
+            text-align: justify;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #1e7e34;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #145c26;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: #222;
+            color: white;
+            font-size: 0.85em;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+            .header-berita h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
 <body>
-  <div class="container">
-    <h1>Judul Berita Utama Anda</h1>
-    <div class="tanggal">Tanggal Publikasi (Contoh: 28 Juni 2025)</div>
-    <div class="penulis">oleh: Penulis Berita</div>
-    <img src="../../gambar-artikel/nama-gambar-berita-anda.png" alt="Deskripsi Gambar">
-    
-    <p>Ini adalah paragraf pertama dari berita Anda. Tuliskan isi berita selengkapnya di sini. Anda bisa membuat beberapa paragraf.</p>
-    <p>Pastikan setiap paragraf baru dimulai dengan tag &lt;p&gt; dan diakhiri dengan &lt;/p&gt;.</p>
-    <p>Anda bisa menambahkan lebih banyak konten teks dan gambar di sini jika diperlukan.</p>
-    <a href="../../index.html" class="kembali">&larr; Kembali ke Beranda</a>
-  </div>
+    <div class="container">
+        <div class="header-berita">
+            <h1>{{judul}}</h1>
+            <p class="info">Tanggal: {{tanggal}} | Penulis: {{penulis}}</p>
+            <img src="../gambar-artikel/{{gambar}}" alt="{{judul}}" style="width: 100%; max-height: 350px;"> </div>
+        <div class="content-berita">
+            {{isi}}
+        </div>
+        <a href="../index.html" class="back-button">Kembali ke Beranda</a> </div>
+
+    <footer>
+        <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
+        <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
+    </footer>
 </body>
 </html>
