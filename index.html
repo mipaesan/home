@@ -70,7 +70,6 @@
         box-shadow: 0 0 12px rgba(0,0,0,0.3); /* Tetap ada bayangan hover */
     }
 
-
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
@@ -104,21 +103,33 @@
       color: #1e7e34;
     }
 
+    /* --- Berita Terbaru Carousel Modifications --- */
     .carousel-container {
-      overflow-x: auto;
+      overflow-x: auto; /* Memungkinkan scroll horizontal */
       padding: 10px;
+      -webkit-overflow-scrolling: touch; /* Untuk scroll yang lebih halus di perangkat sentuh */
+      /* Sembunyikan scrollbar di Firefox */
+      scrollbar-width: none;
     }
+
+    /* Sembunyikan scrollbar di Chrome, Safari, Edge */
+    .carousel-container::-webkit-scrollbar {
+      display: none;
+    }
+
     .carousel {
       display: flex;
       gap: 20px;
-      scroll-snap-type: x mandatory;
-      overflow-x: auto;
-      padding-bottom: 10px;
+      scroll-snap-type: x mandatory; /* Membantu snapping saat geser */
+      padding-bottom: 10px; /* Memberi sedikit ruang di bawah untuk scrollbar jika muncul */
+      min-width: fit-content; /* **PENTING:** Memastikan kontainer flex akan selebar total kontennya */
+      justify-content: flex-start; /* Pastikan item dimulai dari kiri */
     }
+
     .berita-box {
       scroll-snap-align: start;
       background: white;
-      flex: 0 0 300px;
+      flex: 0 0 300px; /* **PENTING:** Memaksa setiap kotak berita memiliki lebar 300px */
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       padding: 20px;
@@ -126,6 +137,8 @@
       flex-direction: column;
       justify-content: space-between;
     }
+    /* --- End Berita Terbaru Carousel Modifications --- */
+
     .berita-box img {
       width: 100%;
       height: 150px;
@@ -338,34 +351,28 @@
     // Fungsi untuk mengelola status aktif/non-aktif tombol berdasarkan rentang tanggal
     function manageButtonActivity(buttonId, startDate, endDate, inactiveMessage) {
       const button = document.getElementById(buttonId);
-      if (!button) return; // Keluar jika tombol tidak ditemukan
+      if (!button) return;
 
       const originalHref = button.href;
       const originalTitle = button.title;
       const tanggalSekarang = new Date();
 
-      // Cek apakah tanggal sekarang berada DI LUAR rentang aktif
       if (tanggalSekarang < startDate || tanggalSekarang > endDate) {
-        // Jika di luar rentang, non-aktifkan secara fungsional
-        button.classList.add('disabled-range'); // Tambahkan kelas untuk kursor
-        button.href = "#"; // Ubah href agar tidak berpindah halaman
-        button.title = inactiveMessage; // Ubah title untuk tooltip
+        button.classList.add('disabled-range');
+        button.href = "#";
+        button.title = inactiveMessage;
 
-        // Tambahkan event listener hanya jika belum ada
         if (!button.dataset.listenerAdded) {
           button.addEventListener('click', function(event) {
-            event.preventDefault(); // Mencegah perilaku default dari 'a' tag
-            alert(this.title); // Menampilkan tooltip sebagai alert
+            event.preventDefault();
+            alert(this.title);
           });
-          button.dataset.listenerAdded = true; // Tandai bahwa listener sudah ditambahkan
+          button.dataset.listenerAdded = true;
         }
       } else {
-        // Jika di dalam rentang aktif, pastikan tombol aktif
         button.classList.remove('disabled-range');
-        button.href = originalHref; // Kembalikan href asli
-        button.title = originalTitle; // Kembalikan title asli
-        // Tidak perlu menghapus listener, karena href asli akan berfungsi normal
-        // dan alert akan muncul hanya jika href="#" masih ada (yang tidak terjadi di sini)
+        button.href = originalHref;
+        button.title = originalTitle;
       }
     }
 
@@ -396,7 +403,7 @@
       startSlideshow(); // Lanjutkan slideshow saat GLightbox ditutup
     });
 
-    // Bagian script berita tetap sama
+    // Bagian script berita
     const bulanMap = {
       "Januari": "01", "Februari": "02", "Maret": "03", "April": "04", "Mei": "05", "Juni": "06",
       "Juli": "07", "Agustus": "08", "September": "09", "Oktober": "10", "November": "11", "Desember": "12"
@@ -410,11 +417,12 @@
     fetch('berita.json')
       .then(res => res.json())
       .then(data => {
+        // Urutkan berita dari terbaru ke terlama
         data.sort((a, b) => parseTanggal(b.tanggal) - parseTanggal(a.tanggal));
         const carousel = document.getElementById('berita-carousel');
-        const terbaru = data.slice(0, 3);
-
-        terbaru.forEach((item, index) => {
+        
+        // Loop melalui SEMUA data berita yang sudah diurutkan
+        data.forEach((item, index) => {
           const isiUtuh = item.isi.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('');
           const div = document.createElement('div');
           div.className = 'berita-box';
