@@ -1,437 +1,420 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MI Salafiyatul Ma'muroh Paesan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f2fef6;
-      color: #333;
-    }
-    header {
-      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-                  url('header_optimized_16by9.png') center center / cover no-repeat; /* Path relatif dari home/ */
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 3em;
-      color: #fff;
-      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
-      margin: 0;
-    }
-    header p {
-      font-size: 1.3em;
-      color: #fff;
-      margin-top: 10px;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-    }
-    .button-group {
-      margin-top: 30px;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .cta-button {
-      padding: 14px 28px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: pulse 2s infinite;
-    }
-    .cta-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 12px rgba(0,0,0,0.3);
-    }
-    .pengumuman { background: #28a745; color: white; }
-    .ppdb { background: #ffc107; color: #222; }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MI Salafiyatul Ma'muroh Paesan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f2fef6;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                        url('header_optimized_16by9.png') center center / cover no-repeat; /* PATH KOREKSI */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+            margin: 0;
+        }
+        header p {
+            font-size: 1.3em;
+            color: #fff;
+            margin-top: 10px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+        .button-group {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .cta-button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(0,0,0,0.3);
+        }
+        .pengumuman { background: #28a745; color: white; }
+        .ppdb { background: #ffc107; color: #222; }
 
-    /* Gaya untuk tombol yang non-aktif secara fungsional */
-    .cta-button.disabled-range {
-        cursor: not-allowed;
-    }
-    .cta-button.disabled-range:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 12px rgba(0,0,0,0.3);
-    }
+        /* Gaya untuk tombol yang non-aktif secara fungsional */
+        .cta-button.disabled-range {
+            cursor: not-allowed;
+        }
+        .cta-button.disabled-range:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(0,0,0,0.3);
+        }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
 
-    section {
-      padding: 50px 20px;
-      max-width: 1000px;
-      margin: 20px auto;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s ease forwards;
-    }
-    section:nth-of-type(2) { animation-delay: 0.2s; }
-    section:nth-of-type(3) { animation-delay: 0.4s; }
-    section:nth-of-type(4) { animation-delay: 0.6s; }
-    section:nth-of-type(5) { animation-delay: 0.8s; }
+        section {
+            padding: 50px 20px;
+            max-width: 1000px;
+            margin: 20px auto;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+        section:nth-of-type(2) { animation-delay: 0.2s; }
+        section:nth-of-type(3) { animation-delay: 0.4s; }
+        section:nth-of-type(4) { animation-delay: 0.6s; }
+        section:nth-of-type(5) { animation-delay: 0.8s; }
 
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
 
-    .section-title {
-      text-align: center;
-      font-size: 2em;
-      margin-bottom: 30px;
-      color: #1e7e34;
-    }
+        .section-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #1e7e34;
+        }
 
-    /* --- Berita Terbaru Carousel Modifications --- */
-    .carousel-container {
-      overflow-x: auto;
-      padding: 10px;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
+        /* --- Berita Terbaru Carousel Modifications --- */
+        .carousel-container {
+            overflow-x: auto;
+            padding: 10px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
 
-    .carousel-container::-webkit-scrollbar {
-      display: none;
-    }
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
 
-    .carousel {
-      display: flex;
-      gap: 20px;
-      scroll-snap-type: x mandatory;
-      padding-bottom: 10px;
-      min-width: fit-content;
-      justify-content: flex-start;
-    }
+        .carousel {
+            display: flex;
+            gap: 20px;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 10px;
+            min-width: fit-content;
+            justify-content: flex-start;
+        }
 
-    .berita-box {
-      scroll-snap-align: start;
-      background: white;
-      flex: 0 0 300px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    /* --- End Berita Terbaru Carousel Modifications --- */
+        .berita-box {
+            scroll-snap-align: start;
+            background: white;
+            flex: 0 0 300px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        /* --- End Berita Terbaru Carousel Modifications --- */
 
-    .berita-box img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-    .berita-box h3 {
-      font-size: 1.1em;
-      margin: 0 0 10px;
-      color: #1e7e34;
-    }
-    .berita-box .tanggal {
-      font-size: 0.85em;
-      color: #888;
-      margin-bottom: 10px;
-    }
-    .berita-box .ringkasan {
-      font-size: 0.9em;
-      margin-bottom: 10px;
-    }
-    .berita-box button {
-      background-color: #1e7e34;
-      color: white;
-      border: none;
-      padding: 8px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.9em;
-    }
-    .berita-box button:hover {
-      background-color: #145c26;
-    }
+        .berita-box img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .berita-box h3 {
+            font-size: 1.1em;
+            margin: 0 0 10px;
+            color: #1e7e34;
+        }
+        .berita-box .tanggal {
+            font-size: 0.85em;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        .berita-box .ringkasan {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .berita-box button {
+            background-color: #1e7e34;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .berita-box button:hover {
+            background-color: #145c26;
+        }
 
-    .programs {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 20px;
-    }
-    .card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      padding: 20px;
-      text-align: center;
-      transition: transform 0.2s ease;
-    }
-    .card:hover {
-      transform: scale(1.03);
-    }
+        .programs {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+        .card:hover {
+            transform: scale(1.03);
+        }
 
-    /* CSS baru untuk galeri otomatis */
-    .galeri-wrapper {
-      position: relative;
-      max-width: 600px;
-      height: 340px;
-      margin: auto;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      background-color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        /* CSS baru untuk galeri otomatis */
+        .galeri-wrapper {
+            position: relative;
+            max-width: 600px;
+            height: 340px;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .galeri-wrapper .galeri-item {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-      cursor: pointer;
-    }
+        .galeri-wrapper .galeri-item {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            cursor: pointer;
+        }
 
-    .galeri-wrapper .galeri-item.active {
-      opacity: 1;
-      position: relative;
-      z-index: 1;
-    }
+        .galeri-wrapper .galeri-item.active {
+            opacity: 1;
+            position: relative;
+            z-index: 1;
+        }
 
-    .galeri-wrapper .galeri-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+        .galeri-wrapper .galeri-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
 
-    .visi-misi {
-      background: linear-gradient(135deg, #e0ffe0, #f2fff2);
-      border-radius: 12px;
-      padding: 40px 30px;
-    }
-    .visi {
-      font-size: 1.2em;
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .misi {
-      padding-left: 20px;
-    }
-    .misi li {
-      margin-bottom: 10px;
-    }
+        .visi-misi {
+            background: linear-gradient(135deg, #e0ffe0, #f2fff2);
+            border-radius: 12px;
+            padding: 40px 30px;
+        }
+        .visi {
+            font-size: 1.2em;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .misi {
+            padding-left: 20px;
+        }
+        .misi li {
+            margin-bottom: 10px;
+        }
 
-    footer {
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 25px;
-      font-size: 0.9em;
-    }
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 0.9em;
+        }
 
-    @media screen and (max-width: 600px) {
-      header h1 { font-size: 2em; }
-      .cta-button { width: 100%; text-align: center; }
-      .galeri-wrapper { height: 220px; }
-      .programs {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      }
-    }
-  </style>
+        @media screen and (max-width: 600px) {
+            header h1 { font-size: 2em; }
+            .cta-button { width: 100%; text-align: center; }
+            .galeri-wrapper { height: 220px; }
+            .programs {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>MI Salafiyatul Ma'muroh Paesan</h1>
-    <p>Iso Ngaji, Iso Teknologi</p>
-    <div class="button-group">
-      <a class="cta-button pengumuman" id="pengumuman-button" href="sambutan.html" title="Pengumuman Kelulusan">Pengumuman Kelulusan</a>
-      <a class="cta-button ppdb" id="ppdb-button" href="formulir.html" title="Formulir PPDB 2025/2026">Formulir PPDB 2025/2026</a>
-    </div>
-  </header>
+    <header>
+        <h1>MI Salafiyatul Ma'muroh Paesan</h1>
+        <p>Iso Ngaji, Iso Teknologi</p>
+        <div class="button-group">
+            <a class="cta-button pengumuman" id="pengumuman-button" href="sambutan.html" title="Pengumuman Kelulusan">Pengumuman Kelulusan</a> <a class="cta-button ppdb" id="ppdb-button" href="formulir.html" title="Formulir PPDB 2025/2026">Formulir PPDB 2025/2026</a> </div>
+    </header>
 
-  <section>
-    <h2 class="section-title">Berita Terbaru</h2>
-    <div class="carousel-container">
-      <div class="carousel" id="berita-carousel"></div>
-    </div>
-  </section>
+    <section>
+        <h2 class="section-title">Berita Terbaru</h2>
+        <div class="carousel-container">
+            <div class="carousel" id="berita-carousel"></div>
+        </div>
+    </section>
 
-  <section class="visi-misi">
-    <h2 class="section-title">Visi & Misi</h2>
-    <div class="visi">"MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI"</div>
-    <ul class="misi">
-      <li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li>
-      <li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa.</li>
-      <li>Menjalin kerjasama yang baik dengan warga madrasah dan masyarakat.</li>
-      <li>Menerapkan manajemen partisipatif dan transparan.</li>
-    </ul>
-  </section>
+    <section class="visi-misi">
+        <h2 class="section-title">Visi & Misi</h2>
+        <div class="visi">"MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI"</div>
+        <ul class="misi">
+            <li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li>
+            <li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa.</li>
+            <li>Menjalin kerjasama yang baik dengan warga madrasah dan masyarakat.</li>
+            <li>Menerapkan manajemen partisipatif dan transparan.</li>
+        </ul>
+    </section>
 
-  <section>
-    <h2 class="section-title">Program Unggulan</h2>
-    <div class="programs">
-      <div class="card"><img src="rebana.png" alt="Rebana" style="width:70px; margin-bottom:12px;"><h3>Rebana</h3><p>Melatih keterampilan musik islami dan kerja sama tim.</p></div>
-      <div class="card"><img src="drumband.png" alt="Drumband" style="width:70px; margin-bottom:12px;"><h3>Drumband</h3><p>Menumbuhkan kedisiplinan dan semangat kebersamaan.</p></div>
-      <div class="card"><img src="robotik.png" alt="Robotik" style="width:70px; margin-bottom:12px;"><h3>Robotik</h3><p>Mengenalkan teknologi dan logika pemrograman sejak dini.</p></div>
-      <div class="card"><img src="komputer.png" alt="Komputer Dasar" style="width:70px; margin-bottom:12px;"><h3>Komputer Dasar</h3><p>Belajar keterampilan dasar komputer untuk masa depan digital.</p></div>
-      <div class="card"><img src="pramuka.png" alt="Pramuka" style="width:70px; margin-bottom:12px;"><h3>Pramuka</h3><p>Membentuk karakter, tanggung jawab, dan cinta tanah air.</p></div>
-    </div>
-  </section>
+    <section>
+        <h2 class="section-title">Program Unggulan</h2>
+        <div class="programs">
+            <div class="card"><img src="rebana.png" alt="Rebana" style="width:70px; margin-bottom:12px;"><h3>Rebana</h3><p>Melatih keterampilan musik islami dan kerja sama tim.</p></div> <div class="card"><img src="drumband.png" alt="Drumband" style="width:70px; margin-bottom:12px;"><h3>Drumband</h3><p>Menumbuhkan kedisiplinan dan semangat kebersamaan.</p></div> <div class="card"><img src="robotik.png" alt="Robotik" style="width:70px; margin-bottom:12px;"><h3>Robotik</h3><p>Mengenalkan teknologi dan logika pemrograman sejak dini.</p></div> <div class="card"><img src="komputer.png" alt="Komputer Dasar" style="width:70px; margin-bottom:12px;"><h3>Komputer Dasar</h3><p>Belajar keterampilan dasar komputer untuk masa depan digital.</p></div> <div class="card"><img src="pramuka.png" alt="Pramuka" style="width:70px; margin-bottom:12px;"><h3>Pramuka</h3><p>Membentuk karakter, tanggung jawab, dan cinta tanah air.</p></div> </div>
+    </section>
 
-  <section>
-    <h2 class="section-title">Galeri Kegiatan</h2>
-    <div class="galeri-wrapper" id="galeri-wrapper">
-      <a href="galeri1.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 1"><img src="galeri1.jpg" alt="Galeri 1"></a>
-      <a href="galeri2.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 2"><img src="galeri2.jpg" alt="Galeri 2"></a>
-      <a href="galeri3.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 3"><img src="galeri3.jpg" alt="Galeri 3"></a>
-      <a href="galeri4.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 4"><img src="galeri4.jpg" alt="Galeri 4"></a>
-      <a href="galeri5.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 5"><img src="galeri5.jpg" alt="Galeri 5"></a>
-      <a href="galeri6.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 6"><img src="galeri6.jpg" alt="Galeri 6"></a>
-      <a href="galeri7.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 7"><img src="galeri7.jpg" alt="Galeri 7"></a>
-      <a href="galeri8.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 8"><img src="galeri8.jpg" alt="Galeri 8"></a>
-      <a href="galeri9.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 9"><img src="galeri9.jpg" alt="Galeri 9"></a>
-      <a href="galeri10.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 10"><img src="galeri10.jpg" alt="Galeri 10"></a>
-    </div>
-  </section>
+    <section>
+        <h2 class="section-title">Galeri Kegiatan</h2>
+        <div class="galeri-wrapper" id="galeri-wrapper">
+            <a href="galeri1.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 1"><img src="galeri1.jpg" alt="Galeri 1"></a> <a href="galeri2.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 2"><img src="galeri2.jpg" alt="Galeri 2"></a> <a href="galeri3.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 3"><img src="galeri3.jpg" alt="Galeri 3"></a> <a href="galeri4.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 4"><img src="galeri4.jpg" alt="Galeri 4"></a> <a href="galeri5.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 5"><img src="galeri5.jpg" alt="Galeri 5"></a> <a href="galeri6.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 6"><img src="galeri6.jpg" alt="Galeri 6"></a> <a href="galeri7.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 7"><img src="galeri7.jpg" alt="Galeri 7"></a> <a href="galeri8.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 8"><img src="galeri8.jpg" alt="Galeri 8"></a> <a href="galeri9.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 9"><img src="galeri9.jpg" alt="Galeri 9"></a> <a href="galeri10.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 10"><img src="galeri10.jpg" alt="Galeri 10"></a> </div>
+    </section>
 
-  <footer>
-    <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
-    <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
-  </footer>
+    <footer>
+        <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
+        <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
+    </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-  <script>
-    const lightbox = GLightbox({ selector: '.glightbox' });
-    const galeriItems = document.querySelectorAll('.galeri-item');
-    let currentIndex = 0;
-    let slideshowInterval;
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    <script>
+        const lightbox = GLightbox({ selector: '.glightbox' });
+        const galeriItems = document.querySelectorAll('.galeri-item');
+        let currentIndex = 0;
+        let slideshowInterval;
 
-    function showSlide(index) {
-      galeriItems.forEach((el, i) => {
-        el.classList.toggle('active', i === index);
-      });
-    }
+        function showSlide(index) {
+            galeriItems.forEach((el, i) => {
+                el.classList.toggle('active', i === index);
+            });
+        }
 
-    function startSlideshow() {
-      slideshowInterval = setInterval(() => {
-        currentIndex = (currentIndex + 1) % galeriItems.length;
-        showSlide(currentIndex);
-      }, 3000); // Ganti setiap 3 detik
-    }
+        function startSlideshow() {
+            slideshowInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % galeriItems.length;
+                showSlide(currentIndex);
+            }, 3000); // Ganti setiap 3 detik
+        }
 
-    function stopSlideshow() {
-      clearInterval(slideshowInterval);
-    }
+        function stopSlideshow() {
+            clearInterval(slideshowInterval);
+        }
 
-    // Fungsi untuk mengelola status aktif/non-aktif tombol berdasarkan rentang tanggal
-    function manageButtonActivity(buttonId, startDate, endDate, inactiveMessage) {
-      const button = document.getElementById(buttonId);
-      if (!button) return;
+        // Fungsi untuk mengelola status aktif/non-aktif tombol berdasarkan rentang tanggal
+        function manageButtonActivity(buttonId, startDate, endDate, inactiveMessage) {
+            const button = document.getElementById(buttonId);
+            if (!button) return;
 
-      const originalHref = button.href;
-      const originalTitle = button.title;
-      const tanggalSekarang = new Date();
+            const originalHref = button.href;
+            const originalTitle = button.title;
+            const tanggalSekarang = new Date();
 
-      if (tanggalSekarang < startDate || tanggalSekarang > endDate) {
-        button.classList.add('disabled-range');
-        button.href = "#";
-        button.title = inactiveMessage;
+            if (tanggalSekarang < startDate || tanggalSekarang > endDate) {
+                button.classList.add('disabled-range');
+                button.href = "#";
+                button.title = inactiveMessage;
 
-        if (!button.dataset.listenerAdded) {
-          button.addEventListener('click', function(event) {
-            event.preventDefault();
-            alert(this.title);
-          });
-          button.dataset.listenerAdded = true;
-        }
-      } else {
-        button.classList.remove('disabled-range');
-        button.href = originalHref;
-        button.title = originalTitle;
-      }
-    }
+                if (!button.dataset.listenerAdded) {
+                    button.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        alert(this.title);
+                    });
+                    button.dataset.listenerAdded = true;
+                }
+            } else {
+                button.classList.remove('disabled-range');
+                button.href = originalHref;
+                button.title = originalTitle;
+            }
+        }
 
-    // Inisialisasi galeri dan tombol saat halaman dimuat
-    document.addEventListener('DOMContentLoaded', () => {
-      showSlide(currentIndex);
-      startSlideshow();
+        // Inisialisasi galeri dan tombol saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlide(currentIndex);
+            startSlideshow();
 
-      // --- PENGATURAN TANGGAL UNTUK TOMBOL PENGUMUMAN KELULUSAN ---
-      const tglMulaiPengumuman = new Date('2025-06-01T00:00:00');
-      const tglAkhirPengumuman = new Date('2025-06-30T23:59:59');
-      manageButtonActivity('pengumuman-button', tglMulaiPengumuman, tglAkhirPengumuman, "Pengumuman tidak aktif saat ini");
+            // --- PENGATURAN TANGGAL UNTUK TOMBOL PENGUMUMAN KELULUSAN ---
+            const tglMulaiPengumuman = new Date('2025-06-01T00:00:00');
+            const tglAkhirPengumuman = new Date('2025-06-30T23:59:59');
+            manageButtonActivity('pengumuman-button', tglMulaiPengumuman, tglAkhirPengumuman, "Pengumuman tidak aktif saat ini");
 
-      // --- PENGATURAN TANGGAL UNTUK TOMBOL PPDB ---
-      const tglMulaiPpdb = new Date('2025-06-01T00:00:00');
-      const tglAkhirPpdb = new Date('2025-07-31T23:59:59');
-      manageButtonActivity('ppdb-button', tglMulaiPpdb, tglAkhirPpdb, "Pendaftaran PPDB belum/sudah berakhir");
-    });
+            // --- PENGATURAN TANGGAL UNTUK TOMBOL PPDB ---
+            const tglMulaiPpdb = new Date('2025-06-01T00:00:00');
+            const tglAkhirPpdb = new Date('2025-07-31T23:59:59');
+            manageButtonActivity('ppdb-button', tglMulaiPpdb, tglAkhirPpdb, "Pendaftaran PPDB belum/sudah berakhir");
+        });
 
-    // Event listener saat GLightbox dibuka
-    lightbox.on('open', () => {
-      stopSlideshow();
-    });
+        // Event listener saat GLightbox dibuka
+        lightbox.on('open', () => {
+            stopSlideshow();
+        });
 
-    // Event listener saat GLightbox ditutup
-    lightbox.on('close', () => {
-      startSlideshow();
-    });
+        // Event listener saat GLightbox ditutup
+        lightbox.on('close', () => {
+            startSlideshow();
+        });
 
-    // Bagian script berita
-    const bulanMap = {
-      "Januari": "01", "Februari": "02", "Maret": "03", "April": "04", "Mei": "05", "Juni": "06",
-      "Juli": "07", "Agustus": "08", "September": "09", "Oktober": "10", "November": "11", "Desember": "12"
-    };
+        // Bagian script berita
+        const bulanMap = {
+            "Januari": "01", "Februari": "02", "Maret": "03", "April": "04", "Mei": "05", "Juni": "06",
+            "Juli": "07", "Agustus": "08", "September": "09", "Oktober": "10", "November": "11", "Desember": "12"
+        };
 
-    function parseTanggal(tanggalStr) {
-      const [tgl, bln, thn] = tanggalStr.split(' ');
-      return new Date(`${thn}-${bulanMap[bln]}-${tgl.padStart(2, '0')}`);
-    }
+        function parseTanggal(tanggalStr) {
+            const [tgl, bln, thn] = tanggalStr.split(' ');
+            return new Date(`${thn}-${bulanMap[bln]}-${tgl.padStart(2, '0')}`);
+        }
 
-    fetch('berita.json') /* Path relatif dari home/ */
-      .then(res => res.json())
-      .then(data => {
-        // Urutkan berita dari terbaru ke terlama
-        data.sort((a, b) => parseTanggal(b.tanggal) - parseTanggal(a.tanggal));
-        const carousel = document.getElementById('berita-carousel');
-        
-        // Loop melalui SEMUA data berita yang sudah diurutkan
-        data.forEach((item, index) => {
-          const isiUtuh = item.isi.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('');
-          const div = document.createElement('div');
-          div.className = 'berita-box';
-          div.innerHTML = `
-            <img src="gambar-artikel/${item.gambar}" alt="${item.judul}">             <h3>${item.judul}</h3>
-            <div class="tanggal">${item.tanggal}</div>
-            <div class="ringkasan">${item.ringkasan}</div>
-            <a href="berita/${item.slug}.html"><button>Selengkapnya</button></a>             <div id="isi-${index}" style="display:none; margin-top:10px;">${isiUtuh}</div>
-          `;
-          carousel.appendChild(div);
-        });
-      });
-  </script>
+        fetch('berita.json') /* PATH KOREKSI */
+            .then(res => res.json())
+            .then(data => {
+                // Urutkan berita dari terbaru ke terlama
+                data.sort((a, b) => parseTanggal(b.tanggal) - parseTanggal(a.tanggal));
+                const carousel = document.getElementById('berita-carousel');
+                
+                // Loop melalui SEMUA data berita yang sudah diurutkan
+                data.forEach((item, index) => {
+                    const isiUtuh = item.isi.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('');
+                    const div = document.createElement('div');
+                    div.className = 'berita-box';
+                    div.innerHTML = `
+                        <img src="gambar-artikel/${item.gambar}" alt="${item.judul}"> <h3>${item.judul}</h3>
+                        <div class="tanggal">${item.tanggal}</div>
+                        <div class="ringkasan">${item.ringkasan}</div>
+                        <a href="berita/${item.slug}.html"><button>Selengkapnya</button></a> <div id="isi-${index}" style="display:none; margin-top:10px;">${isiUtuh}</div>
+                    `;
+                    carousel.appendChild(div);
+                });
+            });
+    </script>
 </body>
 </html>
