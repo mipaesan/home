@@ -65,6 +65,52 @@
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
+    // --- FUNGSI UNTUK MEMPERBARUI META TAGS ---
+    function updateMetaTags(berita) {
+        const head = document.head;
+
+        // Hapus meta tags OG/Twitter yang mungkin sudah ada (jika ada template statis)
+        document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]').forEach(el => el.remove());
+        
+        // --- BASE URL UNTUK GITHUB PAGES ANDA ---
+        const BASE_URL = 'https://mipaesan.github.io/'; 
+        
+        const fullImageUrl = `${BASE_URL}${berita.gambar.startsWith('/') ? berita.gambar.substring(1) : berita.gambar}`;
+        const fullUrl = `${BASE_URL}berita.html?id=${berita.id}`;
+
+        // Update Judul Halaman
+        document.title = `${berita.judul} - MI Salafiyatul Ma'muroh Paesan`;
+
+        // Tambahkan Open Graph Meta Tags
+        function addMeta(property, content, nameType = 'property') {
+            const meta = document.createElement('meta');
+            meta.setAttribute(nameType, property);
+            meta.setAttribute('content', content);
+            head.appendChild(meta);
+        }
+
+        addMeta('og:title', berita.judul);
+        addMeta('og:description', berita.ringkasan); 
+        addMeta('og:image', fullImageUrl);
+        addMeta('og:url', fullUrl);
+        addMeta('og:type', 'article');
+        addMeta('og:site_name', 'MI Salafiyatul Ma\'muroh Paesan');
+
+        // Tambahkan Twitter Card Meta Tags (untuk kompatibilitas Twitter/X)
+        addMeta('twitter:card', 'summary_large_image', 'name');
+        addMeta('twitter:title', berita.judul, 'name');
+        addMeta('twitter:description', berita.ringkasan, 'name');
+        addMeta('twitter:image', fullImageUrl, 'name');
+
+        console.log("Meta tags updated:", {
+            title: berita.judul,
+            description: berita.ringkasan,
+            image: fullImageUrl,
+            url: fullUrl
+        });
+    }
+    // --- AKHIR FUNGSI UNTUK MEMPERBARUI META TAGS ---
+
     fetch('berita.json')
       .then(res => res.json())
       .then(data => {
@@ -73,6 +119,14 @@
 
         if (!berita) {
           container.innerHTML = '<p>Berita tidak ditemukan.</p>';
+          // Jika berita tidak ditemukan, atur meta tags default/error
+          document.title = "Berita Tidak Ditemukan - MI Salafiyatul Ma'muroh Paesan";
+          updateMetaTags({
+            judul: "Berita Tidak Ditemukan",
+            ringkasan: "Maaf, berita yang Anda cari tidak ada.",
+            gambar: "https://mipaesan.github.io/gambar/default_berita.jpg", // Gambar default jika berita tidak ada (pastikan Anda punya gambar ini)
+            id: "" 
+          });
           return;
         }
 
@@ -89,9 +143,21 @@
           ${isiUtuh}
           <a href="index.html" class="kembali">&larr; Kembali ke Beranda</a>
         `;
+        
+        // --- Panggil fungsi updateMetaTags setelah konten berita dimuat ---
+        updateMetaTags(berita);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error("Gagal memuat berita:", error);
         document.getElementById('berita-detail').innerHTML = '<p>Gagal memuat berita.</p>';
+        // Atur meta tags default/error jika fetch gagal
+        document.title = "Gagal Memuat Berita - MI Salafiyatul Ma'muroh Paesan";
+        updateMetaTags({
+          judul: "Gagal Memuat Berita",
+          ringkasan: "Terjadi kesalahan saat memuat konten berita. Silakan coba lagi.",
+          gambar: "https://mipaesan.github.io/gambar/error.jpg", // Gambar default untuk error (pastikan Anda punya gambar ini)
+          id: ""
+        });
       });
   </script>
 </body>
