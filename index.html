@@ -373,7 +373,10 @@
 
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
+    // Inisialisasi GLightbox
     const lightbox = GLightbox({ selector: '.glightbox' });
+
+    // Variabel dan fungsi untuk slideshow galeri
     const galeriItems = document.querySelectorAll('.galeri-item');
     let currentIndex = 0;
     let slideshowInterval;
@@ -423,13 +426,25 @@
       }
     }
 
-    // Inisialisasi galeri dan tombol saat halaman dimuat
+    // Bagian script berita
+    const bulanMap = {
+      "Januari": "01", "Februari": "02", "Maret": "03", "April": "04", "Mei": "05", "Juni": "06",
+      "Juli": "07", "Agustus": "08", "September": "09", "Oktober": "10", "November": "11", "Desember": "12"
+    };
+
+    function parseTanggal(tanggalStr) {
+      const [tgl, bln, thn] = tanggalStr.split(' ');
+      return new Date(`${thn}-${bulanMap[bln]}-${tgl.padStart(2, '0')}`);
+    }
+
+    // --- Inisialisasi DOMContentLoaded untuk memastikan semua elemen tersedia ---
     document.addEventListener('DOMContentLoaded', () => {
+      // Inisialisasi slideshow galeri
       showSlide(currentIndex);
       startSlideshow();
 
       // --- PENGATURAN TANGGAL UNTUK TOMBOL PENGUMUMAN KELULUSAN ---
-      // Current time is Saturday, June 28, 2025 at 10:52:42 AM WIB.
+      // Current time is Saturday, June 28, 2025 at 10:55:14 AM WIB.
       const tglMulaiPengumuman = new Date('2025-06-01T00:00:00'); // Contoh: Aktif mulai 1 Juni 2025
       const tglAkhirPengumuman = new Date('2025-06-30T23:59:59'); // Contoh: Aktif sampai 30 Juni 2025
       manageButtonActivity('pengumuman-button', tglMulaiPengumuman, tglAkhirPengumuman, "Pengumuman tidak aktif saat ini");
@@ -438,6 +453,38 @@
       const tglMulaiPpdb = new Date('2025-06-01T00:00:00'); // Contoh: Aktif mulai 1 Juni 2025
       const tglAkhirPpdb = new Date('2025-07-31T23:59:59'); // Contoh: Aktif sampai 31 Juli 2025
       manageButtonActivity('ppdb-button', tglMulaiPpdb, tglAkhirPpdb, "Pendaftaran PPDB belum/sudah berakhir");
+
+      // --- Fungsionalitas Navigasi Carousel Berita (Pastikan di sini) ---
+      const beritaCarousel = document.getElementById('berita-carousel');
+      const carouselPrevBtn = document.getElementById('carousel-prev');
+      const carouselNextBtn = document.getElementById('carousel-next');
+
+      // Fungsi untuk menggulir carousel
+      function scrollCarousel(direction) {
+          // Lebar berita-box (300px) + gap (20px) = 320px
+          const scrollAmount = 320; 
+
+          if (direction === 'next') {
+              beritaCarousel.scrollBy({
+                  left: scrollAmount,
+                  behavior: 'smooth' // Gulir dengan animasi halus
+              });
+          } else if (direction === 'prev') {
+              beritaCarousel.scrollBy({
+                  left: -scrollAmount,
+                  behavior: 'smooth'
+              });
+          }
+      }
+
+      // Event Listeners untuk tombol
+      // Memastikan tombol ada sebelum menambahkan event listener
+      if (carouselPrevBtn) {
+        carouselPrevBtn.addEventListener('click', () => scrollCarousel('prev'));
+      }
+      if (carouselNextBtn) {
+        carouselNextBtn.addEventListener('click', () => scrollCarousel('next'));
+      }
     });
 
     // Event listener saat GLightbox dibuka
@@ -450,17 +497,7 @@
       startSlideshow(); // Lanjutkan slideshow saat GLightbox ditutup
     });
 
-    // Bagian script berita
-    const bulanMap = {
-      "Januari": "01", "Februari": "02", "Maret": "03", "April": "04", "Mei": "05", "Juni": "06",
-      "Juli": "07", "Agustus": "08", "September": "09", "Oktober": "10", "November": "11", "Desember": "12"
-    };
-
-    function parseTanggal(tanggalStr) {
-      const [tgl, bln, thn] = tanggalStr.split(' ');
-      return new Date(`${thn}-${bulanMap[bln]}-${tgl.padStart(2, '0')}`);
-    }
-
+    // Fetch berita.json dan tampilkan di carousel
     fetch('berita.json')
       .then(res => res.json())
       .then(data => {
@@ -485,32 +522,6 @@
         });
       });
 
-    // --- Fungsionalitas Navigasi Carousel Berita ---
-    const beritaCarousel = document.getElementById('berita-carousel');
-    const carouselPrevBtn = document.getElementById('carousel-prev');
-    const carouselNextBtn = document.getElementById('carousel-next');
-
-    // Fungsi untuk menggulir carousel
-    function scrollCarousel(direction) {
-        // Lebar berita-box (300px) + gap (20px) = 320px
-        const scrollAmount = 320; 
-
-        if (direction === 'next') {
-            beritaCarousel.scrollBy({
-                left: scrollAmount,
-                behavior: 'smooth' // Gulir dengan animasi halus
-            });
-        } else if (direction === 'prev') {
-            beritaCarousel.scrollBy({
-                left: -scrollAmount,
-                behavior: 'smooth'
-            });
-        }
-    }
-
-    // Event Listeners untuk tombol
-    carouselPrevBtn.addEventListener('click', () => scrollCarousel('prev'));
-    carouselNextBtn.addEventListener('click', () => scrollCarousel('next'));
   </script>
 </body>
 </html>
