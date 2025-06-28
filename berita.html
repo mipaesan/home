@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Detail Berita</title>
+  <title>Detail Berita - MI Salafiyatul Ma'muroh Paesan</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -55,25 +55,28 @@
       font-weight: bold;
     }
   </style>
-</head>
-<body>
-  <div class="container" id="berita-detail">
-    <p>Memuat berita...</p>
-  </div>
 
-  <script>
+  <meta property="og:title" content="Berita Terbaru MI Salafiyatul Ma'muroh Paesan" />
+  <meta property="og:description" content="Kunjungi website resmi MI Salafiyatul Ma'muroh Paesan untuk berita, program unggulan, dan informasi PPDB." />
+  <meta property="og:image" content="https://mipaesan.github.io/logo_madrasah_square.png" /> <meta property="og:url" content="https://mipaesan.github.io/" /> <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MI Salafiyatul Ma'muroh Paesan" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Berita Terbaru MI Salafiyatul Ma'muroh Paesan" />
+  <meta name="twitter:description" content="Kunjungi website resmi MI Salafiyatul Ma'muroh Paesan untuk berita, program unggulan, dan informasi PPDB." />
+  <meta name="twitter:image" content="https://mipaesan.github.io/logo_madrasah_square.png" /> <script>
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
+
+    // --- BASE URL UNTUK GITHUB PAGES ANDA ---
+    const BASE_URL = 'https://mipaesan.github.io/'; 
 
     // --- FUNGSI UNTUK MEMPERBARUI META TAGS ---
     function updateMetaTags(berita) {
         const head = document.head;
 
-        // Hapus meta tags OG/Twitter yang mungkin sudah ada (jika ada template statis)
+        // Hapus meta tags OG/Twitter yang mungkin sudah ada dari default
         document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]').forEach(el => el.remove());
-        
-        // --- BASE URL UNTUK GITHUB PAGES ANDA ---
-        const BASE_URL = 'https://mipaesan.github.io/'; 
         
         const fullImageUrl = `${BASE_URL}${berita.gambar.startsWith('/') ? berita.gambar.substring(1) : berita.gambar}`;
         const fullUrl = `${BASE_URL}berita.html?id=${berita.id}`;
@@ -81,7 +84,7 @@
         // Update Judul Halaman
         document.title = `${berita.judul} - MI Salafiyatul Ma'muroh Paesan`;
 
-        // Tambahkan Open Graph Meta Tags
+        // Tambahkan Open Graph Meta Tags (Spesifik Berita)
         function addMeta(property, content, nameType = 'property') {
             const meta = document.createElement('meta');
             meta.setAttribute(nameType, property);
@@ -96,7 +99,7 @@
         addMeta('og:type', 'article');
         addMeta('og:site_name', 'MI Salafiyatul Ma\'muroh Paesan');
 
-        // Tambahkan Twitter Card Meta Tags (untuk kompatibilitas Twitter/X)
+        // Tambahkan Twitter Card Meta Tags (Spesifik Berita)
         addMeta('twitter:card', 'summary_large_image', 'name');
         addMeta('twitter:title', berita.judul, 'name');
         addMeta('twitter:description', berita.ringkasan, 'name');
@@ -111,54 +114,50 @@
     }
     // --- AKHIR FUNGSI UNTUK MEMPERBARUI META TAGS ---
 
-    fetch('berita.json')
-      .then(res => res.json())
-      .then(data => {
-        const berita = data.find(b => b.id == id);
-        const container = document.getElementById('berita-detail');
+    // Gunakan DOMContentLoaded untuk memastikan elemen body sudah ada sebelum diisi
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('berita.json')
+        .then(res => res.json())
+        .then(data => {
+            const berita = data.find(b => b.id == id);
+            const container = document.getElementById('berita-detail');
 
-        if (!berita) {
-          container.innerHTML = '<p>Berita tidak ditemukan.</p>';
-          // Jika berita tidak ditemukan, atur meta tags default/error
-          document.title = "Berita Tidak Ditemukan - MI Salafiyatul Ma'muroh Paesan";
-          updateMetaTags({
-            judul: "Berita Tidak Ditemukan",
-            ringkasan: "Maaf, berita yang Anda cari tidak ada.",
-            gambar: "https://mipaesan.github.io/gambar/default_berita.jpg", // Gambar default jika berita tidak ada (pastikan Anda punya gambar ini)
-            id: "" 
-          });
-          return;
-        }
+            if (!berita) {
+                container.innerHTML = '<p>Berita tidak ditemukan.</p>';
+                document.title = "Berita Tidak Ditemukan - MI Salafiyatul Ma'muroh Paesan";
+                // Jika berita tidak ditemukan, meta tags akan tetap default
+                return;
+            }
 
-        const isiUtuh = berita.isi
-          .split('\n\n')
-          .map(paragraf => `<p>${paragraf.trim()}</p>`)
-          .join('');
+            const isiUtuh = berita.isi
+                .split('\n\n')
+                .map(paragraf => `<p>${paragraf.trim()}</p>`)
+                .join('');
 
-        container.innerHTML = `
-          <h1>${berita.judul}</h1>
-          <div class="tanggal">${berita.tanggal}</div>
-          <div class="penulis">oleh: kholillicious</div>
-          <img src="${berita.gambar}" alt="${berita.judul}">
-          ${isiUtuh}
-          <a href="index.html" class="kembali">&larr; Kembali ke Beranda</a>
-        `;
-        
-        // --- Panggil fungsi updateMetaTags setelah konten berita dimuat ---
-        updateMetaTags(berita);
-      })
-      .catch((error) => {
-        console.error("Gagal memuat berita:", error);
-        document.getElementById('berita-detail').innerHTML = '<p>Gagal memuat berita.</p>';
-        // Atur meta tags default/error jika fetch gagal
-        document.title = "Gagal Memuat Berita - MI Salafiyatul Ma'muroh Paesan";
-        updateMetaTags({
-          judul: "Gagal Memuat Berita",
-          ringkasan: "Terjadi kesalahan saat memuat konten berita. Silakan coba lagi.",
-          gambar: "https://mipaesan.github.io/gambar/error.jpg", // Gambar default untuk error (pastikan Anda punya gambar ini)
-          id: ""
+            container.innerHTML = `
+                <h1>${berita.judul}</h1>
+                <div class="tanggal">${berita.tanggal}</div>
+                <div class="penulis">oleh: kholillicious</div>
+                <img src="${berita.gambar}" alt="${berita.judul}">
+                ${isiUtuh}
+                <a href="index.html" class="kembali">&larr; Kembali ke Beranda</a>
+            `;
+            
+            // Panggil fungsi updateMetaTags setelah konten berita dimuat
+            updateMetaTags(berita);
+        })
+        .catch((error) => {
+            console.error("Gagal memuat berita:", error);
+            document.getElementById('berita-detail').innerHTML = '<p>Gagal memuat berita.</p>';
+            document.title = "Gagal Memuat Berita - MI Salafiyatul Ma'muroh Paesan";
+            // Jika gagal memuat, meta tags akan tetap default
         });
-      });
+    }); // Akhir DOMContentLoaded
   </script>
+</head>
+<body>
+  <div class="container" id="berita-detail">
+    <p>Memuat berita...</p>
+  </div>
 </body>
 </html>
