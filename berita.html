@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Detail Berita - MI Salafiyatul Ma'muroh Paesan</title>
+  <title>Detail Berita</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -56,15 +56,7 @@
     }
   </style>
 
-  <meta property="og:title" content="Berita Terbaru MI Salafiyatul Ma'muroh Paesan" />
-  <meta property="og:description" content="Kunjungi website resmi MI Salafiyatul Ma'muroh Paesan untuk berita, program unggulan, dan informasi PPDB." />
-  <meta property="og:image" content="https://mipaesan.github.io/logo_madrasah_square.png" /> <meta property="og:url" content="https://mipaesan.github.io/" /> <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="MI Salafiyatul Ma'muroh Paesan" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Berita Terbaru MI Salafiyatul Ma'muroh Paesan" />
-  <meta name="twitter:description" content="Kunjungi website resmi MI Salafiyatul Ma'muroh Paesan untuk berita, program unggulan, dan informasi PPDB." />
-  <meta name="twitter:image" content="https://mipaesan.github.io/logo_madrasah_square.png" /> <script>
+  <script>
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
@@ -75,16 +67,17 @@
     function updateMetaTags(berita) {
         const head = document.head;
 
-        // Hapus meta tags OG/Twitter yang mungkin sudah ada dari default
+        // Hapus meta tags OG/Twitter yang mungkin sudah ada dari default atau sebelumnya
         document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]').forEach(el => el.remove());
         
+        // Pastikan URL gambar adalah absolute dan benar
         const fullImageUrl = `${BASE_URL}${berita.gambar.startsWith('/') ? berita.gambar.substring(1) : berita.gambar}`;
         const fullUrl = `${BASE_URL}berita.html?id=${berita.id}`;
 
         // Update Judul Halaman
         document.title = `${berita.judul} - MI Salafiyatul Ma'muroh Paesan`;
 
-        // Tambahkan Open Graph Meta Tags (Spesifik Berita)
+        // Tambahkan Open Graph Meta Tags
         function addMeta(property, content, nameType = 'property') {
             const meta = document.createElement('meta');
             meta.setAttribute(nameType, property);
@@ -92,18 +85,19 @@
             head.appendChild(meta);
         }
 
+        // --- MENGGUNAKAN DATA BERITA UNTUK META TAGS ---
         addMeta('og:title', berita.judul);
         addMeta('og:description', berita.ringkasan); 
-        addMeta('og:image', fullImageUrl);
+        addMeta('og:image', fullImageUrl); // Ini yang penting! Mengambil gambar dari berita
         addMeta('og:url', fullUrl);
         addMeta('og:type', 'article');
         addMeta('og:site_name', 'MI Salafiyatul Ma\'muroh Paesan');
 
-        // Tambahkan Twitter Card Meta Tags (Spesifik Berita)
+        // Tambahkan Twitter Card Meta Tags
         addMeta('twitter:card', 'summary_large_image', 'name');
         addMeta('twitter:title', berita.judul, 'name');
         addMeta('twitter:description', berita.ringkasan, 'name');
-        addMeta('twitter:image', fullImageUrl, 'name');
+        addMeta('twitter:image', fullImageUrl, 'name'); // Ini yang penting! Mengambil gambar dari berita
 
         console.log("Meta tags updated:", {
             title: berita.judul,
@@ -114,18 +108,59 @@
     }
     // --- AKHIR FUNGSI UNTUK MEMPERBARUI META TAGS ---
 
-    // Gunakan DOMContentLoaded untuk memastikan elemen body sudah ada sebelum diisi
+    // Fungsi ini akan dipanggil untuk mengatur meta tag default jika berita tidak ditemukan atau gagal dimuat
+    function setDefaultMetaTags() {
+        const head = document.head;
+        document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]').forEach(el => el.remove());
+
+        // Ini adalah meta tag default jika berita spesifik tidak ditemukan/error
+        // Menggunakan gambar umum yang Anda miliki di root
+        const defaultImageUrl = `${BASE_URL}default_berita.jpg`; // <-- INI SUDAH DIUBAH KE ROOT!
+        const defaultPageUrl = `${BASE_URL}`; // URL ke homepage atau halaman umum
+
+        document.title = "MI Salafiyatul Ma'muroh Paesan";
+
+        function addMeta(property, content, nameType = 'property') {
+            const meta = document.createElement('meta');
+            meta.setAttribute(nameType, property);
+            meta.setAttribute('content', content);
+            head.appendChild(meta);
+        }
+
+        addMeta('og:title', "MI Salafiyatul Ma'muroh Paesan");
+        addMeta('og:description', "Situs resmi MI Salafiyatul Ma'muroh Paesan: Iso Ngaji, Iso Teknologi.");
+        addMeta('og:image', defaultImageUrl);
+        addMeta('og:url', defaultPageUrl);
+        addMeta('og:type', 'website');
+        addMeta('og:site_name', 'MI Salafiyatul Ma\'muroh Paesan');
+
+        addMeta('twitter:card', 'summary_large_image', 'name');
+        addMeta('twitter:title', "MI Salafiyatul Ma'muroh Paesan", 'name');
+        addMeta('twitter:description', "Situs resmi MI Salafiyatul Ma'muroh Paesan: Iso Ngaji, Iso Teknologi.", 'name');
+        addMeta('twitter:image', defaultImageUrl, 'name');
+        
+        console.log("Default meta tags set.");
+    }
+
+
+    // Eksekusi ketika DOM sudah siap
     document.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById('berita-detail');
+
+        if (!id) { // Jika tidak ada ID di URL
+            container.innerHTML = '<p>ID Berita tidak ditemukan di URL.</p>';
+            setDefaultMetaTags(); // Set meta tags default
+            return;
+        }
+
         fetch('berita.json')
         .then(res => res.json())
         .then(data => {
             const berita = data.find(b => b.id == id);
-            const container = document.getElementById('berita-detail');
 
             if (!berita) {
                 container.innerHTML = '<p>Berita tidak ditemukan.</p>';
-                document.title = "Berita Tidak Ditemukan - MI Salafiyatul Ma'muroh Paesan";
-                // Jika berita tidak ditemukan, meta tags akan tetap default
+                setDefaultMetaTags(); // Set meta tags default jika berita tidak ada
                 return;
             }
 
@@ -148,9 +183,8 @@
         })
         .catch((error) => {
             console.error("Gagal memuat berita:", error);
-            document.getElementById('berita-detail').innerHTML = '<p>Gagal memuat berita.</p>';
-            document.title = "Gagal Memuat Berita - MI Salafiyatul Ma'muroh Paesan";
-            // Jika gagal memuat, meta tags akan tetap default
+            container.innerHTML = '<p>Gagal memuat berita.</p>';
+            setDefaultMetaTags(); // Set meta tags default jika fetch gagal
         });
     }); // Akhir DOMContentLoaded
   </script>
