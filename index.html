@@ -59,7 +59,7 @@
       box-shadow: 0 0 12px rgba(0,0,0,0.3);
     }
     .pengumuman { background: #28a745; color: white; }
-    .ppdb { background: #ffc107; color: #222; }
+    .pmbm { background: #ffc107; color: #222; }
 
     /* Gaya untuk tombol yang non-aktif secara fungsional */
     .cta-button.disabled-range {
@@ -388,10 +388,10 @@
       const tglAkhirPengumuman = new Date('2026-06-30T23:59:59'); // Contoh: Aktif sampai 30 Juni 2025
       manageButtonActivity('pengumuman-button', tglMulaiPengumuman, tglAkhirPengumuman, "Pengumuman tidak aktif saat ini");
 
-      // --- PENGATURAN TANGGAL UNTUK TOMBOL PPDB ---
-      const tglMulaiPpdb = new Date('2026-06-01T00:00:00'); // Contoh: Aktif mulai 1 Juni 2025
-      const tglAkhirPpdb = new Date('2026-07-31T23:59:59'); // Contoh: Aktif sampai 31 Juli 2025
-      manageButtonActivity('ppdb-button', tglMulaiPpdb, tglAkhirPpdb, "Pendaftaran PMBM belum/sudah berakhir");
+      // --- PENGATURAN TANGGAL UNTUK TOMBOL PMBM ---
+      const tglMulaiPmbm = new Date('2026-06-01T00:00:00'); // Contoh: Aktif mulai 1 Juni 2025
+      const tglAkhirPmbm = new Date('2026-07-31T23:59:59'); // Contoh: Aktif sampai 31 Juli 2025
+      manageButtonActivity('pmbm-button', tglMulaiPmbm, tglAkhirPmbm, "Pendaftaran PMBM belum/sudah berakhir");
     });
 
     // Event listener saat GLightbox dibuka
