@@ -19,25 +19,29 @@
     h1 {
       text-align: center;
       color: #1e7e34;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
-    .back-button {
+    .back-button, .link-button {
       display: inline-block;
       margin-bottom: 20px;
-      padding: 10px 18px;
-      background: #007bff;
-      color: white;
+      padding: 12px 20px;
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
       transition: background 0.3s;
+      color: white;
+      text-align: center;
     }
-    .back-button:hover {
-      background: #0056b3;
-    }
+    .back-button { background: #6c757d; }
+    .back-button:hover { background: #5a6268; }
+    
+    .link-button { background: #28a745; margin-bottom: 30px; width: 100%; box-sizing: border-box; }
+    .link-button:hover { background: #1e7e34; }
+    
     iframe {
       width: 100%;
       border: none;
+      min-height: 800px;
     }
   </style>
 </head>
@@ -46,8 +50,18 @@
     <a href="index.html" class="back-button">← Kembali ke Beranda</a>
     <h1>Formulir Pendaftaran Murid Baru Madrasah 2026/2027</h1>
 
-    <!-- JotForm Smart Embed -->
-    <script type="text/javascript" src="https://form.jotform.com/jsform/251568713800053"></script>
+    <a href="https://form.jotform.com/251568713800053" target="_blank" class="link-button">
+      Klik di sini jika formulir lambat dimuat (Buka di Tab Baru)
+    </a>
+
+    <iframe
+      id="JotFormIFrame-251568713800053"
+      title="Formulir Pendaftaran PMBM 2026/2027"
+      src="https://form.jotform.com/251568713800053"
+      frameborder="0"
+      allow="geolocation; microphone; camera; fullscreen"
+      loading="lazy">
+    </iframe>
   </div>
 </body>
 </html>
