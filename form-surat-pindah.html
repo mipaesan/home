@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Surat Keterangan Pindah Sekolah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.4/pizzip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.49.0/docxtemplater.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: #f2fef6; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+    header { background: #1e7e34; color: white; padding: 30px 20px; text-align: center; }
+    header h1 { font-size: 2em; margin: 0 0 10px; }
+    .container { flex: 1; max-width: 600px; margin: 30px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); width: 90%; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; color: #1e7e34; }
+    input, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.95em; }
+    input:focus, textarea:focus { outline: none; border-color: #1e7e34; }
+    .btn-submit { background-color: #1e7e34; color: white; border: none; padding: 14px; width: 100%; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1em; }
+    .btn-submit:hover { background-color: #145c26; }
+    .back-container { text-align: center; margin: 20px 0 40px; }
+    .btn-back { color: #1e7e34; text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Form Surat Keterangan Pindah Sekolah</h1>
+    <p>Lengkapi data siswa yang akan pindah</p>
+  </header>
+
+  <div class="container">
+    <form id="pindahForm">
+      <div class="form-group">
+        <label>Nomor Surat (Bagian Depan)</label>
+        <input type="text" id="nomor" required placeholder="Contoh: 046">
+      </div>
+      <div class="form-group">
+        <label>Bulan Romawi</label>
+        <input type="text" id="bulan-romawi" required placeholder="Contoh: II">
+      </div>
+      <div class="form-group">
+        <label>Tahun</label>
+        <input type="text" id="tahun" required placeholder="Contoh: 2026">
+      </div>
+      <div class="form-group">
+        <label>Nama Siswa</label>
+        <input type="text" id="nama-siswa" required placeholder="Nama lengkap siswa">
+      </div>
+      <div class="form-group">
+        <label>NISN</label>
+        <input type="text" id="nisn" required placeholder="Nomor Induk Siswa Nasional">
+      </div>
+      <div class="form-group">
+        <label>Jenis Kelamin</label>
+        <input type="text" id="kelamin" required placeholder="Laki-laki / Perempuan">
+      </div>
+      <div class="form-group">
+        <label>Kelas</label>
+        <input type="text" id="kelas" required placeholder="Contoh: V (Lima)">
+      </div>
+      <div class="form-group">
+        <label>Nama Orang Tua / Wali</label>
+        <input type="text" id="nama-orang-tua" required placeholder="Nama orang tua/wali murid">
+      </div>
+      <div class="form-group">
+        <label>Pekerjaan Orang Tua</label>
+        <input type="text" id="pekerjaan-orang-tua" required placeholder="Contoh: Petani / Wiraswasta">
+      </div>
+      <div class="form-group">
+        <label>Sekolah Tujuan</label>
+        <input type="text" id="sekolah-tujuan" required placeholder="Nama madrasah/sekolah baru tujuan">
+      </div>
+      <div class="form-group">
+        <label>Alasan Pindah</label>
+        <textarea id="alasan-pindah" rows="2" required placeholder="Contoh: Mengikuti kepindahan domisili orang tua"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Tanggal Surat Dibuat</label>
+        <input type="text" id="tanggal-surat" required placeholder="Contoh: 18 Februari 2026">
+      </div>
+      <button type="button" class="btn-submit" onclick="generateDoc()">Unduh Surat Pindah (.docx)</button>
+    </form>
+  </div>
+
+  <div class="back-container">
+    <a href="pilih-surat.html" class="btn-back">&larr; Kembali ke Pilihan Surat</a>
+  </div>
+
+  <script>
+    function generateDoc() {
+      const formData = {
+        nomor: document.getElementById('nomor').value,
+        'bulan-romawi': document.getElementById('bulan-romawi').value,
+        'tahun': document.getElementById('tahun').value,
+        'nama-siswa': document.getElementById('nama-siswa').value,
+        'nisn': document.getElementById('nisn').value,
+        'kelamin': document.getElementById('kelamin').value,
+        'kelas': document.getElementById('kelas').value,
+        'nama-orang-tua': document.getElementById('nama-orang-tua').value,
+        'pekerjaan-orang-tua': document.getElementById('pekerjaan-orang-tua').value,
+        'sekolah-tujuan': document.getElementById('sekolah-tujuan').value,
+        'alasan-pindah': document.getElementById('alasan-pindah').value,
+        'tanggal-surat': document.getElementById('tanggal-surat').value
+      };
+
+      fetch('template/template-surat-pindah.docx')
+        .then(res => { if(!res.ok) throw new Error("Template surat pindah tidak ditemukan di dalam folder template"); return res.arrayBuffer(); })
+        .then(content => {
+          const zip = new PizZip(content);
+          const doc = new window.docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
+          doc.render(formData);
+          const out = doc.getZip().generate({ type: "blob", mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(out);
+          link.download = `Surat_Pindah_${formData['nama-siswa'].replace(/\s+/g, '_')}.docx`;
+          link.click();
+        })
+        .catch(err => alert('Gagal: ' + err.message));
+    }
+  </script>
+</body>
+</html>
