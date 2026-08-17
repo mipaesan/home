@@ -32,16 +32,8 @@
   <div class="container">
     <form id="tugasForm">
       <div class="form-group">
-        <label>Nomor Surat (Bagian Depan)</label>
-        <input type="text" id="nomor" required placeholder="Contoh: 045">
-      </div>
-      <div class="form-group">
-        <label>Bulan Romawi</label>
-        <input type="text" id="bulan-romawi" required placeholder="Contoh: II">
-      </div>
-      <div class="form-group">
-        <label>Tahun</label>
-        <input type="text" id="tahun" required placeholder="Contoh: 2026">
+        <label>Tanggal Surat (Bulan & Tahun otomatis terisi)</label>
+        <input type="date" id="tanggal_input" required>
       </div>
       <div class="form-group">
         <label>Nama Guru / Pegawai</label>
@@ -67,10 +59,6 @@
         <label>Alamat Tempat Tugas</label>
         <input type="text" id="alamat-tempat-tugas" required placeholder="Contoh: Jl. Merbabu No. 1 Boyolali">
       </div>
-      <div class="form-group">
-        <label>Tanggal Surat Dibuat</label>
-        <input type="text" id="tanggal-surat" required placeholder="Contoh: 18 Februari 2026">
-      </div>
       <button type="button" class="btn-submit" onclick="generateDoc()">Unduh Surat Tugas (.docx)</button>
     </form>
   </div>
@@ -81,17 +69,36 @@
 
   <script>
     function generateDoc() {
+      const tanggalVal = document.getElementById('tanggal_input').value;
+      if (!tanggalVal) {
+        alert('Mohon pilih tanggal surat terlebih dahulu!');
+        return;
+      }
+
+      // Konversi tanggal dari input (YYYY-MM-DD)
+      const d = new Date(tanggalVal);
+      const tahun = d.getFullYear();
+      const monthIndex = d.getMonth(); // 0 - 11
+      const day = d.getDate();
+
+      // Array Bulan Romawi
+      const romanMonths = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
+      const bulanRomawi = romanMonths[monthIndex];
+
+      // Array Bulan Indonesia
+      const indoMonths = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      const tanggalSuratFormatted = `${day} ${indoMonths[monthIndex]} ${tahun}`;
+
       const formData = {
-        nomor: document.getElementById('nomor').value,
-        'bulan-romawi': document.getElementById('bulan-romawi').value,
-        'tahun': document.getElementById('tahun').value,
+        'bulan-romawi': bulanRomawi,
+        'tahun': tahun.toString(),
+        'tanggal-surat': tanggalSuratFormatted,
         'nama-guru': document.getElementById('nama-guru').value,
         'jabatan': document.getElementById('jabatan').value,
         'nama-tugas': document.getElementById('nama-tugas').value,
         'waktu-tugas': document.getElementById('waktu-tugas').value,
         'tempat-tugas': document.getElementById('tempat-tugas').value,
-        'alamat-tempat-tugas': document.getElementById('alamat-tempat-tugas').value,
-        'tanggal-surat': document.getElementById('tanggal-surat').value
+        'alamat-tempat-tugas': document.getElementById('alamat-tempat-tugas').value
       };
 
       fetch('template/template-surat-tugas.docx')
