@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Surat Undangan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.4/dist/pizzip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docxtemplater@3.49.0/build/docxtemplater.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: #fff8f0; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+    header { background: #d97706; color: white; padding: 30px 20px; text-align: center; }
+    header h1 { font-size: 2em; margin: 0 0 10px; }
+    .container { flex: 1; max-width: 600px; margin: 30px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); width: 90%; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; color: #d97706; }
+    input, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.95em; background: #fff; }
+    input:focus, textarea:focus { outline: none; border-color: #d97706; }
+    .btn-submit { background-color: #d97706; color: white; border: none; padding: 14px; width: 100%; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1em; }
+    .btn-submit:hover { background-color: #b45309; }
+    .back-container { text-align: center; margin: 20px 0 40px; }
+    .btn-back { color: #d97706; text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Form Pembuatan Surat Undangan</h1>
+    <p>Lengkapi data acara atau kegiatan di bawah ini</p>
+  </header>
+
+  <div class="container">
+    <form id="undanganForm">
+      <div class="form-group">
+        <label>Tanggal Surat (Bulan & Tahun otomatis terisi)</label>
+        <input type="date" id="tanggal_input" required>
+      </div>
+      <div class="form-group">
+        <label>Hari Undangan</label>
+        <input type="text" id="hari-undangan" required placeholder="Contoh: Senin">
+      </div>
+      <div class="form-group">
+        <label>Tanggal Pelaksanaan Acara</label>
+        <input type="text" id="tanggal-undangan" required placeholder="Contoh: 25 Februari 2026">
+      </div>
+      <div class="form-group">
+        <label>Waktu / Jam</label>
+        <input type="text" id="waktu" required placeholder="Contoh: 08.00 WIB - selesai">
+      </div>
+      <div class="form-group">
+        <label>Keperluan / Perihal Acara</label>
+        <textarea id="keperluan" rows="3" required placeholder="Contoh: Rapat Pleno Komite Madrasah dan Pembagian Rapor Semester Ganjil"></textarea>
+      </div>
+      <button type="button" class="btn-submit" onclick="generateDoc()">Unduh Surat Undangan (.docx)</button>
+    </form>
+  </div>
+
+  <div class="back-container">
+    <a href="pilih-surat.html" class="btn-back">&larr; Kembali ke Pilihan Surat</a>
+  </div>
+
+  <script>
+    function generateDoc() {
+      const tanggalVal = document.getElementById('tanggal_input').value;
+      if (!tanggalVal) {
+        alert('Mohon pilih tanggal surat terlebih dahulu!');
+        return;
+      }
+
+      const d = new Date(tanggalVal);
+      const tahun = d.getFullYear();
+      const monthIndex = d.getMonth();
+      const day = d.getDate();
+
+      const romanMonths = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
+      const bulanRomawi = romanMonths[monthIndex];
+
+      const indoMonths = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      const tanggalSuratFormatted = `${day} ${indoMonths[monthIndex]} ${tahun}`;
+
+      const formData = {
+        'bulan-romawi': bulanRomawi,
+        'tahun': tahun.toString(),
+        'tanggal-surat': tanggalSuratFormatted,
+        'hari-undangan': document.getElementById('hari-undangan').value,
+        'tanggal-undangan': document.getElementById('tanggal-undangan').value,
+        'waktu': document.getElementById('waktu').value,
+        'keperluan': document.getElementById('keperluan').value
+      };
+
+      fetch('template/template-surat-undangan.docx')
+        .then(res => { if(!res.ok) throw new Error("Template surat undangan tidak ditemukan di dalam folder template"); return res.arrayBuffer(); })
+        .then(content => {
+          const zip = new PizZip(content);
+          const doc = new window.docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
+          doc.render(formData);
+          const out = doc.getZip().generate({ type: "blob", mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(out);
+          link.download = `Surat_Undangan_Wali_Siswa.docx`;
+          link.click();
+        })
+        .catch(err => alert('Gagal: ' + err.message));
+    }
+  </script>
+</body>
+</html>
