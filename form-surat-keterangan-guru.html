@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Surat Keterangan Guru</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.4/dist/pizzip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docxtemplater@3.49.0/build/docxtemplater.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: #f0f4ff; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+    header { background: #4f46e5; color: white; padding: 30px 20px; text-align: center; }
+    header h1 { font-size: 2em; margin: 0 0 10px; }
+    .container { flex: 1; max-width: 600px; margin: 30px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); width: 90%; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; color: #4f46e5; }
+    input, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.95em; background: #fff; }
+    input:focus, textarea:focus { outline: none; border-color: #4f46e5; }
+    .btn-submit { background-color: #4f46e5; color: white; border: none; padding: 14px; width: 100%; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1em; }
+    .btn-submit:hover { background-color: #4338ca; }
+    .back-container { text-align: center; margin: 20px 0 40px; }
+    .btn-back { color: #4f46e5; text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Form Surat Keterangan Guru</h1>
+    <p>Lengkapi data guru / pegawai di bawah ini</p>
+  </header>
+
+  <div class="container">
+    <form id="keteranganGuruForm">
+      <div class="form-group">
+        <label>Tanggal Surat (Bulan & Tahun otomatis terisi)</label>
+        <input type="date" id="tanggal_input" required>
+      </div>
+      <div class="form-group">
+        <label>Nama Guru / Pegawai</label>
+        <input type="text" id="nama-guru" required placeholder="Nama lengkap beserta gelar">
+      </div>
+      <div class="form-group">
+        <label>Tempat Lahir</label>
+        <input type="text" id="tempat-lahir" required placeholder="Contoh: Boyolali">
+      </div>
+      <div class="form-group">
+        <label>Tanggal Lahir</label>
+        <input type="date" id="tanggal-lahir-input" required>
+      </div>
+      <div class="form-group">
+        <label>Pendidikan Terakhir</label>
+        <input type="text" id="pendidikan" required placeholder="Contoh: S1 Pendidikan Agama Islam">
+      </div>
+      <div class="form-group">
+        <label>Keterangan / Status</label>
+        <textarea id="keterangan" rows="3" required placeholder="Contoh: benar-benar guru tetap yayasan yang aktif mengajar di MI Salafiyatul Ma’muroh Paesan"></textarea>
+      </div>
+      <button type="button" class="btn-submit" onclick="generateDoc()">Unduh Surat Keterangan Guru (.docx)</button>
+    </form>
+  </div>
+
+  <div class="back-container">
+    <a href="pilih-surat.html" class="btn-back">&larr; Kembali ke Pilihan Surat</a>
+  </div>
+
+  <script>
+    const indoMonths = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    const romanMonths = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
+
+    function generateDoc() {
+      const tanggalVal = document.getElementById('tanggal_input').value;
+      const tglLahirVal = document.getElementById('tanggal-lahir-input').value;
+
+      if (!tanggalVal || !tglLahirVal) {
+        alert('Mohon lengkapi tanggal surat dan tanggal lahir terlebih dahulu!');
+        return;
+      }
+
+      // Format Tanggal Surat & Nomor
+      const dSurat = new Date(tanggalVal);
+      const tahun = dSurat.getFullYear();
+      const monthIndexSurat = dSurat.getMonth();
+      const bulanRomawi = romanMonths[monthIndexSurat];
+      const tanggalSuratFormatted = `${dSurat.getDate()} ${indoMonths[monthIndexSurat]} ${tahun}`;
+
+      // Format Tanggal Lahir
+      const dLahir = new Date(tglLahirVal);
+      const tanggalLahirFormatted = `${dLahir.getDate()} ${indoMonths[dLahir.getMonth()]} ${dLahir.getFullYear()}`;
+
+      const formData = {
+        'bulan-romawi': bulanRomawi,
+        'tahun': tahun.toString(),
+        'tanggal-surat': tanggalSuratFormatted,
+        'nama-guru': document.getElementById('nama-guru').value,
+        'tempat-lahir': document.getElementById('tempat-lahir').value,
+        'tanggal-lahir': tanggalLahirFormatted,
+        'pendidikan': document.getElementById('pendidikan').value,
+        'keterangan': document.getElementById('keterangan').value
+      };
+
+      fetch('template/template-surat-keterangan-guru.docx')
+        .then(res => { if(!res.ok) throw new Error("Template surat keterangan guru tidak ditemukan di dalam folder template"); return res.arrayBuffer(); })
+        .then(content => {
+          const zip = new PizZip(content);
+          const doc = new window.docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
+          doc.render(formData);
+          const out = doc.getZip().generate({ type: "blob", mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(out);
+          link.download = `Surat_Keterangan_Guru_${formData['nama-guru'].replace(/\s+/g, '_')}.docx`;
+          link.click();
+        })
+        .catch(err => alert('Gagal: ' + err.message));
+    }
+  </script>
+</body>
+</html>
