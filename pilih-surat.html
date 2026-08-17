@@ -1,123 +1,47 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pilih Layanan Surat - MI Salafiyatul Ma'muroh Paesan</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilih Jenis Surat - MI Salafiyatul Ma’muroh</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f2fef6;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header {
-      background: #1e7e34;
-      color: white;
-      padding: 30px 20px;
-      text-align: center;
-    }
-    header h1 { font-size: 2.2em; margin: 0 0 10px; }
-    header p { font-size: 1.1em; margin: 0; opacity: 0.9; }
-    .container {
-      flex: 1;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-      width: 100%;
-    }
-    .surat-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-    .surat-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      padding: 25px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border-top: 5px solid #1e7e34;
-    }
-    .surat-card h3 {
-      font-size: 1.2em;
-      color: #1e7e34;
-      margin-top: 0;
-      margin-bottom: 12px;
-    }
-    .surat-card p {
-      font-size: 0.9em;
-      color: #666;
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-    .btn-buat {
-      background-color: #1e7e34;
-      color: white;
-      text-decoration: none;
-      text-align: center;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.95em;
-    }
-    .btn-buat:hover { background-color: #145c26; }
-    .back-container { text-align: center; margin: 30px 0; }
-    .btn-back {
-      background-color: #6c757d;
-      color: white;
-      text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 0.95em;
-    }
-    .btn-back:hover { background-color: #5a6268; }
-    footer { background: #222; color: white; text-align: center; padding: 20px; font-size: 0.9em; }
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: #f8f9fa; color: #333; display: flex; flex-direction: column; min-height: 100vh; align-items: center; justify-content: center; }
+    .container { max-width: 500px; width: 90%; background: white; padding: 40px 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); text-align: center; }
+    h1 { font-size: 1.8em; color: #1e7e34; margin-bottom: 10px; }
+    p { color: #666; margin-bottom: 30px; }
+    .menu-list { display: flex; flex-direction: column; gap: 15px; }
+    
+    /* Tombol dengan warna berbeda-beda */
+    .btn-surat { display: block; text-decoration: none; padding: 16px; border-radius: 8px; font-weight: 600; color: white; font-size: 1.05em; transition: opacity 0.2s, transform 0.1s; }
+    .btn-surat:hover { opacity: 0.9; transform: translateY(-2px); }
+    
+    .btn-tugas { background-color: #1e7e34; } /* Hijau */
+    .btn-pindah { background-color: #007bff; } /* Biru */
+    .btn-undangan { background-color: #d97706; } /* Oranye */
+    
+    .footer-back { margin-top: 25px; }
+    .footer-back a { color: #666; text-decoration: none; font-size: 0.9em; }
+    .footer-back a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Layanan Surat Mandiri</h1>
-    <p>Pilih jenis surat administrasi resmi madrasah</p>
-  </header>
-
   <div class="container">
-    <div class="surat-grid">
-      <!-- Surat Tugas -->
-      <div class="surat-card">
-        <div>
-          <h3>Surat Tugas</h3>
-          <p>Digunakan untuk penugasan resmi guru atau tenaga kependidikan dalam menjalankan kegiatan kedinasan[cite: 1].</p>
-        </div>
-        <a href="form-surat-tugas.html" class="btn-buat">Buat Surat Ini</a>
-      </div>
-
-      <!-- Surat Keterangan Pindah Sekolah -->
-      <div class="surat-card">
-        <div>
-          <h3>Surat Keterangan Pindah Sekolah</h3>
-          <p>Digunakan untuk proses administrasi kepindahan siswa ke sekolah atau madrasah tujuan baru[cite: 2].</p>
-        </div>
-        <a href="form-surat-pindah.html" class="btn-buat">Buat Surat Ini</a>
-      </div>
+    <h1>Pilih Layanan Surat</h1>
+    <p>Silakan pilih jenis surat yang ingin Anda buat</p>
+    
+    <div class="menu-list">
+      <a href="form-surat-tugas.html" class="btn-surat btn-tugas">Surat Tugas</a>
+      <a href="form-surat-pindah.html" class="btn-surat btn-pindah">Surat Keterangan Pindah Sekolah</a>
+      <a href="form-surat-undangan.html" class="btn-surat btn-undangan">Surat Undangan Wali Siswa</a>
     </div>
 
-    <div class="back-container">
-      <a href="index.html" class="btn-back">&larr; Kembali ke Beranda Utama</a>
+    <div class="footer-back">
+      <a href="index.html">&larr; Kembali ke Beranda Utama</a>
     </div>
   </div>
-
-  <footer>
-    <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
-  </footer>
 
 </body>
 </html>
