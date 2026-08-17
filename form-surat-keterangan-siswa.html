@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Surat Keterangan Siswa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.4/dist/pizzip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docxtemplater@3.49.0/build/docxtemplater.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: #eef2ff; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+    header { background: #0284c7; color: white; padding: 30px 20px; text-align: center; }
+    header h1 { font-size: 2em; margin: 0 0 10px; }
+    .container { flex: 1; max-width: 600px; margin: 30px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); width: 90%; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; color: #0284c7; }
+    input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.95em; background: #fff; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #0284c7; }
+    .btn-submit { background-color: #0284c7; color: white; border: none; padding: 14px; width: 100%; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1em; }
+    .btn-submit:hover { background-color: #0369a1; }
+    .back-container { text-align: center; margin: 20px 0 40px; }
+    .btn-back { color: #0284c7; text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Form Surat Keterangan Siswa</h1>
+    <p>Lengkapi data siswa di bawah ini</p>
+  </header>
+
+  <div class="container">
+    <form id="keteranganSiswaForm">
+      <div class="form-group">
+        <label>Tanggal Surat (Bulan & Tahun otomatis terisi)</label>
+        <input type="date" id="tanggal_input" required>
+      </div>
+      <div class="form-group">
+        <label>Nama Siswa</label>
+        <input type="text" id="nama-siswa" required[cite: 5] placeholder="Nama lengkap siswa">
+      </div>
+      <div class="form-group">
+        <label>NISN</label>
+        <input type="text" id="nisn" required[cite: 5] placeholder="Nomor Induk Siswa Nasional">
+      </div>
+      <div class="form-group">
+        <label>Kelas</label>
+        <select id="kelas" required[cite: 5]>
+          <option value="" disabled selected>Pilih Kelas</option>
+          <option value="I (Satu)">I (Satu)</option>
+          <option value="II (Dua)">II (Dua)</option>
+          <option value="III (Tiga)">III (Tiga)</option>
+          <option value="IV (Empat)">IV (Empat)</option>
+          <option value="V (Lima)">V (Lima)</option>
+          <option value="VI (Enam)">VI (Enam)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Nama Ayah</label>
+        <input type="text" id="nama-ayah" required[cite: 5] placeholder="Nama ayah kandung/wali">
+      </div>
+      <div class="form-group">
+        <label>Nama Ibu</label>
+        <input type="text" id="nama-ibu" required[cite: 5] placeholder="Nama ibu kandung/wali">
+      </div>
+      <div class="form-group">
+        <label>Keterangan / Status Siswa</label>
+        <textarea id="keterangan" rows="3" required[cite: 5] placeholder="Contoh: adalah benar-benar siswa aktif di MI Salafiyatul Ma’muroh Paesan Tahun Pelajaran 2025/2026"></textarea>
+      </div>
+      <button type="button" class="btn-submit" onclick="generateDoc()">Unduh Surat Keterangan Siswa (.docx)</button>
+    </form>
+  </div>
+
+  <div class="back-container">
+    <a href="pilih-surat.html" class="btn-back">&larr; Kembali ke Pilihan Surat</a>
+  </div>
+
+  <script>
+    const indoMonths = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    const romanMonths = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
+
+    function generateDoc() {
+      const tanggalVal = document.getElementById('tanggal_input').value;
+      if (!tanggalVal) {
+        alert('Mohon pilih tanggal surat terlebih dahulu!');
+        return;
+      }
+
+      const dSurat = new Date(tanggalVal);
+      const tahun = dSurat.getFullYear();
+      const monthIndexSurat = dSurat.getMonth();
+      const bulanRomawi = romanMonths[monthIndexSurat];
+      const tanggalSuratFormatted = `${dSurat.getDate()} ${indoMonths[monthIndexSurat]} ${tahun}`;
+
+      const formData = {
+        'bulan-romawi': bulanRomawi,
+        'tahun': tahun.toString(),
+        'tanggal-surat': tanggalSuratFormatted,
+        'nama-siswa': document.getElementById('nama-siswa').value,
+        'nisn': document.getElementById('nisn').value,
+        'kelas': document.getElementById('kelas').value,
+        'nama-ayah': document.getElementById('nama-ayah').value,
+        'nama-ibu': document.getElementById('nama-ibu').value,
+        'keterangan': document.getElementById('keterangan').value
+      };
+
+      fetch('template/template-surat-keterangan-siswa.docx')
+        .then(res => { if(!res.ok) throw new Error("Template surat keterangan siswa tidak ditemukan di dalam folder template"); return res.arrayBuffer(); })
+        .then(content => {
+          const zip = new PizZip(content);
+          const doc = new window.docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
+          doc.render(formData);
+          const out = doc.getZip().generate({ type: "blob", mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(out);
+          link.download = `Surat_Keterangan_Siswa_${formData['nama-siswa'].replace(/\s+/g, '_')}.docx`;
+          link.click();
+        })
+        .catch(err => alert('Gagal: ' + err.message));
+    }
+  </script>
+</body>
+</html>
