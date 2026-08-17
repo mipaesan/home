@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Form Surat Tugas</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.4/pizzip.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.49.0/docxtemplater.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.4/dist/pizzip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docxtemplater@3.49.0/build/docxtemplater.js"></script>
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; font-family: 'Poppins', sans-serif; background: #f2fef6; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
@@ -75,17 +75,14 @@
         return;
       }
 
-      // Konversi tanggal dari input (YYYY-MM-DD)
       const d = new Date(tanggalVal);
       const tahun = d.getFullYear();
-      const monthIndex = d.getMonth(); // 0 - 11
+      const monthIndex = d.getMonth();
       const day = d.getDate();
 
-      // Array Bulan Romawi
       const romanMonths = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
       const bulanRomawi = romanMonths[monthIndex];
 
-      // Array Bulan Indonesia
       const indoMonths = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
       const tanggalSuratFormatted = `${day} ${indoMonths[monthIndex]} ${tahun}`;
 
