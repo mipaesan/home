@@ -1,5 +1,61 @@
 [
   {
+    "id": "b017",
+    "judul": "Pendidikan Pancasila Kelas 6",
+    "kategori": "kelas6",
+    "penulis": "Mohamad Alwi Lutfi, Listia, Khristina Antariningsih",
+    "cover": "buku/kelas6/Pendidikan-Pancasila-BS-KLS-VI-Cover.png",
+    "file": "buku/kelas6/Pendidikan-Pancasila-BS-KLS-VI-Rev.pdf"
+  }, 
+  {
+    "id": "b016",
+    "judul": "Bahasa Indonesia Kelas 6",
+    "kategori": "kelas6",
+    "penulis": "Nisa Yustisia, Darwanto, M. Arif",
+    "cover": "buku/kelas6/Indonesia_BG_KLS_VI_Rev_Cover.png",
+    "file": "buku/kelas6/Indonesia_BG_KLS_VI_Rev.pdf"
+  },
+  {
+    "id": "b015",
+    "judul": "IPAS Kelas 6",
+    "kategori": "kelas6",
+    "penulis": "Amalia Fitri, Ati Haviati Oktora, Ekatannia Tresnasari, Maria Jeanindya Wahyudi",
+    "cover": "buku/kelas6/IPAS_BS_KLS_VI_Rev_Cover.png",
+    "file": "buku/kelas6/IPAS_BS_KLS_VI_Rev.pdf"
+  },
+  {
+    "id": "b014",
+    "judul": "Pendidikan Pancasila Kelas 5",
+    "kategori": "kelas5",
+    "penulis": "Adi Darma Indra, Abdul Azis, Luh Gede Maya Wirastuti Dewi",
+    "cover": "buku/kelas5/Pendidikan-Pancasila-BS-KLS-V-Cover.png",
+    "file": "buku/kelas5/Pendidikan-Pancasila-BS-KLS-V.pdf"
+  },
+  {
+    "id": "b013",
+    "judul": "Matematika Kelas 5",
+    "kategori": "kelas5",
+    "penulis": "KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI",
+    "cover": "buku/kelas5/Matematika-BS-KLS-V-Cover.png",
+    "file": "buku/kelas5/Matematika-BS-KLS-V.pdf"
+  }, 
+  {
+    "id": "b012",
+    "judul": "Bahasa Indonesia Kelas 5",
+    "kategori": "kelas5",
+    "penulis": "Maya Lestari Gf, Zulqarnain",
+    "cover": "buku/kelas5/Indonesia_BS_KLS_V_Rev_Cover.png",
+    "file": "buku/kelas5/Indonesia_BS_KLS_V_Rev.pdf"
+  }, 
+  {
+    "id": "b011",
+    "judul": "IPAS Kelas 5",
+    "kategori": "kelas5",
+    "penulis": "Amalia Fitri Ghaniem, Ati Haviati Oktora, Maria Jeanindya Wahyudi, Ekatannia Tresnasari",
+    "cover": "buku/kelas5/IPAS_BS_KLS_V_Rev_Cover.png",
+    "file": "buku/kelas5/IPAS_BS_KLS_V_Rev.pdf"
+  },
+  {
     "id": "b010",
     "judul": "Pendidikan Pancasila Kelas 4",
     "kategori": "kelas4",
