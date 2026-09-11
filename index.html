@@ -256,6 +256,47 @@
       font-size: 0.9em;
     }
 
+    /* CSS tambahan untuk Pop-up Login Layanan Surat */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 380px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      text-align: center;
+      position: relative;
+    }
+    .modal-box h3 { margin-top: 0; color: #007bff; }
+    .modal-box input {
+      width: 100%;
+      padding: 10px 12px;
+      margin: 8px 0 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: inherit;
+    }
+    .modal-box button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn-login-submit { background: #007bff; color: white; margin-bottom: 8px; }
+    .btn-login-cancel { background: #e0e0e0; color: #333; }
+
     @media screen and (max-width: 600px) {
       header h1 { font-size: 2em; }
       .cta-button { width: 100%; text-align: center; }
@@ -274,10 +315,22 @@
     <div class="button-group">
       <a class="cta-button pengumuman" id="pengumuman-button" href="sambutan.html" title="Pengumuman Kelulusan">Pengumuman Kelulusan</a>
       <a class="cta-button pmbm" id="pmbm-button" href="formulir.html" title="Formulir PMBM 2026/2027">Formulir PMBM 2026/2027</a>
-      <a class="cta-button persuratan" href="pilih-surat.html" title="Layanan Pembuatan Surat Mandiri">Layanan Surat Mandiri</a>
+      <a class="cta-button persuratan" id="persuratan-button" href="#" title="Layanan Pembuatan Surat Mandiri">Layanan Surat Mandiri</a>
       <a class="cta-button perpustakaan" href="perpustakaan.html" title="Perpustakaan Digital">Perpustakaan Digital</a>
     </div>
   </header>
+
+  <!-- Modal Pop-up Login Layanan Surat -->
+  <div class="modal-overlay" id="surat-modal">
+    <div class="modal-box">
+      <h3>Akses Layanan Surat</h3>
+      <p style="font-size:0.85em; color:#666; margin-bottom:15px;">Masukkan Username & Password dari Madrasah</p>
+      <input type="text" id="surat-user" placeholder="Username" />
+      <input type="password" id="surat-pass" placeholder="Password" />
+      <button class="btn-login-submit" onclick="prosesLoginSurat()">Masuk</button>
+      <button class="btn-login-cancel" onclick="tutupModalSurat()">Batal</button>
+    </div>
+  </div>
 
   <section>
     <h2 class="section-title">Berita Terbaru</h2>
@@ -378,6 +431,33 @@
         button.classList.remove('disabled-range');
         button.href = originalHref;
         button.title = originalTitle;
+      }
+    }
+
+    /* Fungsi Login Layanan Surat Mandiri */
+    document.getElementById('persuratan-button').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('surat-modal').style.display = 'flex';
+    });
+
+    function tutupModalSurat() {
+      document.getElementById('surat-modal').style.display = 'none';
+      document.getElementById('surat-user').value = '';
+      document.getElementById('surat-pass').value = '';
+    }
+
+    function prosesLoginSurat() {
+      const user = document.getElementById('surat-user').value;
+      const pass = document.getElementById('surat-pass').value;
+
+      // ATUR USERNAME & PASSWORD DI SINI
+      const usernameBenar = "admin";
+      const passwordBenar = "@mip4354n";
+
+      if (user === usernameBenar && pass === passwordBenar) {
+        window.location.href = "pilih-surat.html";
+      } else {
+        alert("Username atau Password salah!");
       }
     }
 
