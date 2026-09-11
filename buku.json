@@ -1,7 +1,71 @@
 [
   {
+    "id": "b010",
+    "judul": "Pendidikan Pancasila Kelas 4",
+    "kategori": "kelas4",
+    "penulis": "Dede Kurniawan, Dwi Nanta Priharto, Yusnawan Lubis",
+    "cover": "buku/kelas4/Pendidikan-Pancasila-BS-KLS-IV-Cover.png",
+    "file": "buku/kelas4/Pendidikan-Pancasila-BS-KLS-IV.pdf"
+  },
+  {
+    "id": "b009",
+    "judul": "Matematika Kelas 4",
+    "kategori": "kelas4",
+    "penulis": "Amalia Fitri, dkk.",
+    "cover": "buku/kelas4/Matematika-BS-KLS-IV-cover.png",
+    "file": "buku/kelas4/Matematika-BS-KLS-IV.pdf"
+  },
+  {
+    "id": "b008",
+    "judul": "IPAS Kelas 4",
+    "kategori": "kelas4",
+    "penulis": "Amalia Fitri, dkk.",
+    "cover": "buku/kelas4/IPAS_BS_KLS_IV_Rev_Cover.png",
+    "file": "buku/kelas4/IPAS_BS_KLS_IV_Rev.pdf"
+  },
+  {
+    "id": "b007",
+    "judul": "Bahasa Indonesia Kelas 4",
+    "kategori": "kelas4",
+    "penulis": "Eva Yulia Nukman, Cicilia Erni Setyowati",
+    "cover": "buku/kelas4/Bahasa_Indonesia_BS_KLS_IV_Rev_Cover.png",
+    "file": "buku/kelas4/Bahasa_Indonesia_BS_KLS_IV_Rev.pdf"
+  },
+  {
+    "id": "b006",
+    "judul": "Pendidikan Pancasila Kelas 3",
+    "kategori": "kelas3",
+    "penulis": "Ressi Kartika Dewi, Kamala Rahayu Candra Sary, Hani Hanifah",
+    "cover": "buku/kelas3/Pendidikan-Pancasila-BS-KLS-III-Cover.png",
+    "file": "buku/kelas3/Pendidikan-Pancasila-BS-KLS-III.pdf"
+  },
+  {
+    "id": "b005",
+    "judul": "Bahasa Indonesia Kelas 3",
+    "kategori": "kelas3",
+    "penulis": "Gantino Habibi, S. Nailul Muna Aljamaliah",
+    "cover": "buku/kelas3/Indonesia_BS_KLS_III_Rev_Cover.png",
+    "file": "buku/kelas3/Indonesia_BS_KLS_III_Revv.pdf"
+  },
+  {
+    "id": "b004",
+    "judul": "IPAS Kelas 3",
+    "kategori": "kelas3",
+    "penulis": "Aldilla Kusumawardhani, Kristianti Fatimah, Nur Ilmi Setianingsih",
+    "cover": "buku/kelas3/IPAS_BS_KLS_III_Cover.png",
+    "file": "buku/kelas3/IPAS_BS_KLS_III.pdf"
+  },
+  {
+    "id": "b003",
+    "judul": "Pendidikan Pancasila Kelas 2",
+    "kategori": "kelas2",
+    "penulis": "Shoia Nurun Alanur S, Resha Hadi Sucipto, Soeharti",
+    "cover": "buku/kelas2/Pendidikan-Pancasila-BS-KLS-II-Cover.png",
+    "file": "buku/kelas2/Pendidikan-Pancasila-BS-KLS-II.pdf"
+  },
+  {
     "id": "b002",
-    "judul": "Bahasa Indonesia Kelas 1 (Revisi)",
+    "judul": "Bahasa Indonesia Kelas 1",
     "kategori": "kelas1",
     "penulis": "Sofie Dewayani",
     "cover": "buku/kelas1/Bahasa_Indonesia_BS_KLS_I_Rev_Cover.png",
