@@ -1,5 +1,45 @@
 [
   {
+    "id": "b022",
+    "judul": "Kapal Nabi Sulaiman dan Pasukan Semut",
+    "kategori": "cerita",
+    "penulis": "Nida",
+    "cover": "buku/cerita/kisah-nabi-sulaiman-dengan-pasukan-semut-cover.png",
+    "file": "buku/cerita/kisah-nabi-sulaiman-dengan-pasukan-semut.pdf"
+  },
+  {
+    "id": "b021",
+    "judul": "Kapal Nabi Nuh",
+    "kategori": "cerita",
+    "penulis": "Nida",
+    "cover": "buku/cerita/kisah-nabi-nuh-cover.png",
+    "file": "buku/cerita/kisah-nabi-nuh.pdf"
+  },
+  {
+    "id": "b020",
+    "judul": "Kisah Nabi Idris",
+    "kategori": "cerita",
+    "penulis": "Aqil Shidiq Hammami",
+    "cover": "buku/cerita/kisah-nabi-idris-cover.png",
+    "file": "buku/cerita/kisah-nabi-idris.pdf"
+  },
+  {
+    "id": "b019",
+    "judul": "Ikan Nabi Yunus",
+    "kategori": "cerita",
+    "penulis": "Nida",
+    "cover": "buku/cerita/ikan-nabi-yunus-cover.png",
+    "file": "buku/cerita/ikan-nabi-yunus.pdf"
+  },
+  {
+    "id": "b018",
+    "judul": "Burung Hud-Hud",
+    "kategori": "cerita",
+    "penulis": "-",
+    "cover": "buku/cerita/burung-hud-hud-cover.png",
+    "file": "buku/cerita/burung-hud-hud.pdf"
+  },
+  {
     "id": "b017",
     "judul": "Pendidikan Pancasila Kelas 6",
     "kategori": "kelas6",
