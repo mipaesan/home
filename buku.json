@@ -1,5 +1,37 @@
 [
   {
+    "id": "b027",
+    "judul": "Matematika Kelas 6",
+    "kategori": "kelas6",
+    "penulis": "Dickayasu, dkk.",
+    "cover": "buku/kelas6/Matematika-BS-KLS-IV-cover.png",
+    "file": "https://drive.google.com/file/d/17NL994dgPmnDel9RX3xwmNZQJb72VvwZ/preview"
+  },
+  {
+    "id": "b026",
+    "judul": "Matematika Kelas 3",
+    "kategori": "kelas3",
+    "penulis": "Susanto, Subchan, A. Tri Sulistyawati",
+    "cover": "buku/kelas3/Matematika_BS_KLS_III_Cover.png",
+    "file": "https://drive.google.com/file/d/1TieHzvsbDHQAoA21V3JRHQZzc2KrRom-/preview"
+  },
+  {
+    "id": "b025",
+    "judul": "Bahasa Indonesia Kelas 2",
+    "kategori": "kelas2",
+    "penulis": "Widjati Hartiningtyas, Eni Priyanti",
+    "cover": "buku/kelas2/Indonesia_BS_KLS_II_Rev_Cover.png",
+    "file": "https://drive.google.com/file/d/1yk9DRmtbbfk4iVxF4YdRvdRzcRwnFmWj/preview"
+  },
+  {
+    "id": "b024",
+    "judul": "Matematika Kelas 2",
+    "kategori": "kelas2",
+    "penulis": "Dara Retno Wulan, Rasfaniwaty",
+    "cover": "buku/kelas2/Matematika-BS-KLS-II-Cover.png",
+    "file": "https://drive.google.com/file/d/1-5v7Tq_u2xrADojyH_oORmmQvCgXjoiU/preview"
+  },
+  {
     "id": "b023",
     "judul": "Matematika Kelas 1",
     "kategori": "kelas1",
