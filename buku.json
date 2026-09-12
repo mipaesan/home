@@ -1,5 +1,13 @@
 [
   {
+    "id": "b028",
+    "judul": "Sehari Satu Dongeng",
+    "kategori": "cerita",
+    "penulis": "Lisma Laurel, dkk",
+    "cover": "buku/cerita/sehari-satu-dongeng.png",
+    "file": "buku/cerita/sehari-satu-dongeng.pdf"
+  },
+  {
     "id": "b027",
     "judul": "Matematika Kelas 6",
     "kategori": "kelas6",
