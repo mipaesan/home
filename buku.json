@@ -1,5 +1,53 @@
 [
   {
+    "id": "b034",
+    "judul": "AKidah Akhlak Kelas 6",
+    "kategori": "kelas6",
+    "penulis": "Mahdum",
+    "cover": "buku/kelas6/AKIDAH_AKHLAK_ MI_ KELAS_VI_KSKK_2020.png",
+    "file": "buku/kelas6/AKIDAH_AKHLAK_ MI_ KELAS_VI_KSKK_2020.pdf"
+  },
+  {
+    "id": "b033",
+    "judul": "AKidah Akhlak Kelas 5",
+    "kategori": "kelas5",
+    "penulis": "Mahdum",
+    "cover": "buku/kelas5/AKIDAH_AKHLAK_ MI_ KELAS_V_KSKK_2020.png",
+    "file": "buku/kelas5/AKIDAH_AKHLAK_ MI_ KELAS_V_KSKK_2020.pdf"
+  },
+  {
+    "id": "b032",
+    "judul": "AKidah Akhlak Kelas 4",
+    "kategori": "kelas4",
+    "penulis": "Subkhiatin Noor",
+    "cover": "buku/kelas4/AKIDAH_AKHLAK_ MI_ KELAS_IV_KSKK_2020.png",
+    "file": "buku/kelas4/AKIDAH_AKHLAK_ MI_ KELAS_IV_KSKK_2020.pdf"
+  },
+  {
+    "id": "b031",
+    "judul": "AKidah Akhlak Kelas 3",
+    "kategori": "kelas3",
+    "penulis": "Khoirul Mujahiddin",
+    "cover": "buku/kelas3/AKIDAH_AKHLAK_ MI_ KELAS_III_KSKK_2020.png",
+    "file": "buku/kelas3/AKIDAH_AKHLAK_ MI_ KELAS_III_KSKK_2020.pdf"
+  },
+  {
+    "id": "b030",
+    "judul": "AKidah Akhlak Kelas 2",
+    "kategori": "kelas2",
+    "penulis": "Munashikhah",
+    "cover": "buku/kelas2/AKIDAH_AKHLAK_ MI_ KELAS_II_KSKK_2020.png",
+    "file": "buku/kelas2/AKIDAH_AKHLAK_ MI_ KELAS_II_KSKK_2020.pdf"
+  },
+  {
+    "id": "b029",
+    "judul": "AKidah Akhlak Kelas 1",
+    "kategori": "kelas1",
+    "penulis": "Ida Herlina",
+    "cover": "buku/kelas1/AKIDAH_AKHLAK_ MI_ KELAS_I_KSKK_2020.png",
+    "file": "buku/kelas1/AKIDAH_AKHLAK_ MI_ KELAS_I_KSKK_2020.pdf"
+  },
+  {
     "id": "b028",
     "judul": "Sehari Satu Dongeng",
     "kategori": "cerita",
