@@ -25,12 +25,16 @@
       margin-bottom: 25px;
     }
     header h1 {
-      color: #075e54;
+      color: #d97706; /* Warna alternatif: Kuning Keemasan / Amber */
+      font-size: 32px;
       margin-bottom: 8px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
     }
     header p {
-      color: #666;
-      font-size: 14px;
+      color: #064e3b; /* Warna Hijau Tegas */
+      font-size: 16px;
+      font-weight: 700; /* Tegas / Bold */
+      letter-spacing: 0.3px;
     }
     
     /* Area Filter & Pencarian */
@@ -233,7 +237,7 @@
         // Label Kategori
         let katLabel = buku.kategori || '';
 
-        // Penanganan fleksibel untuk sumber link (Mendukung properti: file, link, url, atau pdf)
+        // Penanganan fleksibel untuk sumber link
         let linkBuku = buku.file || buku.link || buku.url || buku.pdf || '#';
 
         html += `
@@ -265,19 +269,14 @@
     // Kombinasi Filter Kategori + Pencarian Teks
     function filterSemua() {
       const kataKunci = document.getElementById('inputCari').value.toLowerCase().trim();
-      
-      // Mengabaikan spasi untuk pencocokan kategori (contoh tombol: "Kelas 1" -> dicocokkan sebagai "kelas1")
       const katTargetAbaikanSpasi = kategoriAktif.toLowerCase().replace(/\s+/g, '');
 
       const hasil = semuaBuku.filter(buku => {
-        // 1. Cek Pencarian Teks (Judul & Penulis)
         const cocokJudul = (buku.judul || '').toLowerCase().includes(kataKunci);
         const cocokPenulis = (buku.penulis || '').toLowerCase().includes(kataKunci);
         const cocokTeks = cocokJudul || cocokPenulis;
 
-        // 2. Cek Kategori
         let cocokKategori = false;
-        
         if (kategoriAktif === 'Semua Buku') {
           cocokKategori = true;
         } else if (buku.kategori) {
