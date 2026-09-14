@@ -32,14 +32,21 @@
       color: #666;
       font-size: 14px;
     }
-    .search-bar {
-      margin-bottom: 20px;
+    
+    /* Area Filter & Pencarian */
+    .filter-section {
+      margin-bottom: 25px;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    .search-bar {
+      width: 100%;
+      max-width: 500px;
     }
     .search-bar input {
       width: 100%;
-      max-width: 500px;
       padding: 12px 16px;
       border: 1px solid #ccc;
       border-radius: 25px;
@@ -50,6 +57,30 @@
     .search-bar input:focus {
       border-color: #075e54;
     }
+    
+    /* Tombol Kategori Filter */
+    .category-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-filter {
+      background-color: #fff;
+      border: 1px solid #075e54;
+      color: #075e54;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-filter:hover, .btn-filter.active {
+      background-color: #075e54;
+      color: #fff;
+    }
+
+    /* Grid Kartu Buku */
     .grid-buku {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -92,6 +123,16 @@
       color: #777;
       margin-bottom: 12px;
     }
+    .kategori-tag {
+      display: inline-block;
+      font-size: 11px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      align-self: flex-start;
+    }
     .btn-baca {
       margin-top: auto;
       display: block;
@@ -124,8 +165,23 @@
       <p>Koleksi Buku Bacaan &amp; Pembelajaran MI Salafiyatul Ma'muroh</p>
     </header>
 
-    <div class="search-bar">
-      <input type="text" id="inputCari" placeholder="Cari judul buku atau penulis..." onkeyup="cariBuku()">
+    <div class="filter-section">
+      <!-- Input Pencarian -->
+      <div class="search-bar">
+        <input type="text" id="inputCari" placeholder="Cari judul buku atau penulis..." onkeyup="filterSemua()">
+      </div>
+
+      <!-- Tombol Filter Kategori (Semua Buku, Kelas 1-6, Cerita) -->
+      <div class="category-buttons" id="areaFilter">
+        <button class="btn-filter active" onclick="pilihKategori('Semua Buku', this)">Semua Buku</button>
+        <button class="btn-filter" onclick="pilihKategori('Kelas 1', this)">Kelas 1</button>
+        <button class="btn-filter" onclick="pilihKategori('Kelas 2', this)">Kelas 2</button>
+        <button class="btn-filter" onclick="pilihKategori('Kelas 3', this)">Kelas 3</button>
+        <button class="btn-filter" onclick="pilihKategori('Kelas 4', this)">Kelas 4</button>
+        <button class="btn-filter" onclick="pilihKategori('Kelas 5', this)">Kelas 5</button>
+        <button class="btn-filter" onclick="pilihKategori('Kelas 6', this)">Kelas 6</button>
+        <button class="btn-filter" onclick="pilihKategori('Cerita', this)">Cerita</button>
+      </div>
     </div>
 
     <div class="grid-buku" id="daftarBuku">
@@ -135,8 +191,9 @@
 
   <script>
     let semuaBuku = [];
+    let kategoriAktif = 'Semua Buku';
 
-    // Fungsi untuk mengacak urutan array (Fisher-Yates Shuffle)
+    // Fungsi Pengacak Urutan Buku
     function acakBuku(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -145,30 +202,28 @@
       return array;
     }
 
-    // Mengambil data dari buku.json
+    // Ambil Data dari buku.json
     fetch('buku.json')
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Gagal mengambil data buku.json');
-        }
+        if (!response.ok) throw new Error('Gagal memuat buku.json');
         return response.json();
       })
       .then(data => {
-        // 🎲 Mengacak daftar buku setiap kali halaman dibuka
+        // Acak urutan buku saat pertama kali halaman dibuka
         semuaBuku = acakBuku(data);
         tampilkanBuku(semuaBuku);
       })
       .catch(error => {
         console.error(error);
-        document.getElementById('daftarBuku').innerHTML = '<div class="pesan-kosong">Gagal memuat daftar buku. Pastikan file buku.json tersedia.</div>';
+        document.getElementById('daftarBuku').innerHTML = '<div class="pesan-kosong">Gagal memuat data buku.</div>';
       });
 
-    // Menampilkan buku ke elemen HTML
+    // Tampilkan Kartu Buku
     function tampilkanBuku(listBuku) {
       const container = document.getElementById('daftarBuku');
       
       if (listBuku.length === 0) {
-        container.innerHTML = '<div class="pesan-kosong">Buku yang dicari tidak ditemukan.</div>';
+        container.innerHTML = '<div class="pesan-kosong">Buku tidak ditemukan.</div>';
         return;
       }
 
@@ -178,6 +233,7 @@
           <div class="card-buku">
             <img class="cover-buku" src="${buku.cover || 'https://via.placeholder.com/200x260?text=No+Cover'}" alt="${buku.judul}">
             <div class="info-buku">
+              ${buku.kategori ? `<span class="kategori-tag">${buku.kategori}</span>` : ''}
               <div class="judul-buku">${buku.judul}</div>
               <div class="penulis-buku">${buku.penulis || 'Penulis tidak diketahui'}</div>
               <a href="${buku.link || '#'}" target="_blank" class="btn-baca">Baca Buku</a>
@@ -189,15 +245,32 @@
       container.innerHTML = html;
     }
 
-    // Fungsi Pencarian Buku
-    function cariBuku() {
+    // Fungsi saat Tombol Kategori Diklik
+    function pilihKategori(kategori, el) {
+      kategoriAktif = kategori;
+      
+      // Ubah tampilan tombol aktif
+      document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+      el.classList.add('active');
+
+      filterSemua();
+    }
+
+    // Kombinasi Filter Kategori + Pencarian Teks
+    function filterSemua() {
       const kataKunci = document.getElementById('inputCari').value.toLowerCase();
-      const hasilFilter = semuaBuku.filter(buku => {
-        const judul = (buku.judul || '').toLowerCase();
-        const penulis = (buku.penulis || '').toLowerCase();
-        return judul.includes(kataKunci) || penulis.includes(kataKunci);
+
+      const hasil = semuaBuku.filter(buku => {
+        const cocokJudul = (buku.judul || '').toLowerCase().includes(kataKunci);
+        const cocokPenulis = (buku.penulis || '').toLowerCase().includes(kataKunci);
+        
+        const cocokKategori = kategoriAktif === 'Semua Buku' || 
+                              (buku.kategori || '').toLowerCase().trim() === kategoriAktif.toLowerCase().trim();
+
+        return (cocokJudul || cocokPenulis) && cocokKategori;
       });
-      tampilkanBuku(hasilFilter);
+
+      tampilkanBuku(hasil);
     }
   </script>
 
