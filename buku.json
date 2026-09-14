@@ -1,5 +1,53 @@
 [
   {
+    "id": "b046",
+    "judul": "Fikih Kelas 6",
+    "kategori": "kelas6",
+    "penulis": "Muhammad Anas",
+    "cover": "buku/kelas6/FIKIH_ MI_ KELAS_ VI_KSKK_2020.png",
+    "file": "buku/kelas6/FIKIH_ MI_ KELAS_ VI_KSKK_2020.pdf"
+  },
+  {
+    "id": "b045",
+    "judul": "Fikih Kelas 5",
+    "kategori": "kelas5",
+    "penulis": "Markaban",
+    "cover": "buku/kelas5/FIKIH_ MI_ KELAS_ V_KSKK_2020.png",
+    "file": "buku/kelas5/FIKIH_ MI_ KELAS_ V_KSKK_2020.pdf"
+  },
+  {
+    "id": "b044",
+    "judul": "Fikih Kelas 4",
+    "kategori": "kelas4",
+    "penulis": "Siti Nurul Anjumil Muniroh",
+    "cover": "buku/kelas4/FIKIH_ MI_ KELAS_ IV_KSKK_2020.png",
+    "file": "buku/kelas4/FIKIH_ MI_ KELAS_ IV_KSKK_2020.pdf"
+  },
+  {
+    "id": "b043",
+    "judul": "Fikih Kelas 3",
+    "kategori": "kelas3",
+    "penulis": "Sutrisno",
+    "cover": "buku/kelas3/FIKIH_ MI_ KELAS_ III_KSKK_2020.png",
+    "file": "buku/kelas3/FIKIH_ MI_ KELAS_ III_KSKK_2020.pdf"
+  },
+  {
+    "id": "b042",
+    "judul": "Fikih Kelas 2",
+    "kategori": "kelas2",
+    "penulis": "Mujadi",
+    "cover": "buku/kelas2/FIKIH_ MI_ KELAS_ II_KSKK_2020.png",
+    "file": "buku/kelas2/FIKIH_ MI_ KELAS_ II_KSKK_2020.pdf"
+  },
+  {
+    "id": "b041",
+    "judul": "Fikih Kelas 1",
+    "kategori": "kelas1",
+    "penulis": "Rahmat Kamal",
+    "cover": "buku/kelas1/FIKIH_ MI_ KELAS_ I_KSKK_2020.png",
+    "file": "buku/kelas1/FIKIH_ MI_ KELAS_ I_KSKK_2020.pdf"
+  },
+  {
     "id": "b040",
     "judul": "Bahasa Arab Kelas 6",
     "kategori": "kelas6",
