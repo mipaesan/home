@@ -25,15 +25,15 @@
       margin-bottom: 25px;
     }
     header h1 {
-      color: #d97706; /* Warna alternatif: Kuning Keemasan / Amber */
+      color: #d97706;
       font-size: 32px;
       margin-bottom: 8px;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
     }
     header p {
-      color: #064e3b; /* Warna Hijau Tegas */
+      color: #064e3b;
       font-size: 16px;
-      font-weight: 700; /* Tegas / Bold */
+      font-weight: 700;
       letter-spacing: 0.3px;
     }
     
@@ -144,13 +144,14 @@
       text-align: center;
       background-color: #075e54;
       color: #fff;
-      text-decoration: none;
       padding: 8px 12px;
       border-radius: 6px;
       font-size: 13px;
       font-weight: 500;
       transition: background 0.2s;
       cursor: pointer;
+      border: none;
+      width: 100%;
     }
     .btn-baca:hover {
       background-color: #128c7e;
@@ -160,6 +161,67 @@
       grid-column: 1 / -1;
       padding: 40px;
       color: #888;
+    }
+
+    /* Styles Pop-up Reader PDF */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.75);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+    .modal-container {
+      background: #fff;
+      width: 100%;
+      max-width: 900px;
+      height: 90vh;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    .modal-header {
+      background-color: #075e54;
+      color: #fff;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 80%;
+    }
+    .btn-close {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 5px;
+    }
+    .modal-body {
+      flex: 1;
+      background: #525659;
+    }
+    .modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
@@ -195,11 +257,24 @@
     </div>
   </div>
 
+  <!-- Pop-Up Reader -->
+  <div class="modal-overlay" id="modalBaca">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title" id="modalJudul">Membaca Buku</div>
+        <button class="btn-close" onclick="tutupModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <iframe id="iframePdf" src="" allow="autoplay"></iframe>
+      </div>
+    </div>
+  </div>
+
   <script>
     let semuaBuku = [];
     let kategoriAktif = 'Semua Buku';
 
-    // Algoritma Pengacak Urutan Buku (Fisher-Yates)
+    // Algoritma Pengacak Urutan Buku
     function acakBuku(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -223,7 +298,7 @@
         document.getElementById('daftarBuku').innerHTML = '<div class="pesan-kosong">Gagal memuat data buku. Pastikan file buku.json tersedia.</div>';
       });
 
-    // Tampilkan Kartu Buku ke Elemen Grid
+    // Tampilkan Kartu Buku ke Grid
     function tampilkanBuku(listBuku) {
       const container = document.getElementById('daftarBuku');
       
@@ -234,11 +309,11 @@
 
       let html = '';
       listBuku.forEach(buku => {
-        // Label Kategori
         let katLabel = buku.kategori || '';
-
-        // Penanganan fleksibel untuk sumber link
-        let linkBuku = buku.file || buku.link || buku.url || buku.pdf || '#';
+        let linkBuku = buku.file || buku.link || buku.url || buku.pdf || '';
+        
+        let judulAman = (buku.judul || '').replace(/'/g, "\\'");
+        let linkAman = linkBuku.replace(/'/g, "\\'");
 
         html += `
           <div class="card-buku">
@@ -247,7 +322,7 @@
               ${katLabel ? `<span class="kategori-tag">${katLabel}</span>` : ''}
               <div class="judul-buku">${buku.judul}</div>
               <div class="penulis-buku">${buku.penulis || 'Penulis tidak diketahui'}</div>
-              <a href="${linkBuku}" target="_blank" rel="noopener noreferrer" class="btn-baca">Baca Buku</a>
+              <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}')">Baca Buku</button>
             </div>
           </div>
         `;
@@ -256,7 +331,44 @@
       container.innerHTML = html;
     }
 
-    // Fungsi saat Tombol Kategori Diklik
+    // Fungsi Buka Pop-Up
+    function bukaModal(url, judul) {
+      const modal = document.getElementById('modalBaca');
+      const iframe = document.getElementById('iframePdf');
+      const modalJudul = document.getElementById('modalJudul');
+
+      modalJudul.innerText = judul;
+      
+      // Jika file PDF lokal, sembunyikan toolbar browser (tombol print/download)
+      if (!url.includes('drive.google.com') && !url.includes('#')) {
+        iframe.src = url + '#toolbar=0';
+      } else {
+        iframe.src = url;
+      }
+
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Fungsi Tutup Pop-Up
+    function tutupModal() {
+      const modal = document.getElementById('modalBaca');
+      const iframe = document.getElementById('iframePdf');
+
+      modal.style.display = 'none';
+      iframe.src = '';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Tutup Pop-Up saat area luar diklik
+    window.onclick = function(event) {
+      const modal = document.getElementById('modalBaca');
+      if (event.target === modal) {
+        tutupModal();
+      }
+    }
+
+    // Fungsi Pilih Kategori Filter
     function pilihKategori(kategori, el) {
       kategoriAktif = kategori;
       
@@ -266,7 +378,7 @@
       filterSemua();
     }
 
-    // Kombinasi Filter Kategori + Pencarian Teks
+    // Kombinasi Filter Kategori & Pencarian
     function filterSemua() {
       const kataKunci = document.getElementById('inputCari').value.toLowerCase().trim();
       const katTargetAbaikanSpasi = kategoriAktif.toLowerCase().replace(/\s+/g, '');
