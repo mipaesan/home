@@ -272,6 +272,9 @@
   </div>
 
   <script>
+    // URL Google Apps Script untuk pencatat statistik pembaca
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5jf0YBUogzpPMlR8WVNkBjJZ9MEGJeILXSa5aM5hgmWS7yoAxhCkKBv5qYw4PjnNa/exec";
+
     let semuaBuku = [];
     let kategoriAktif = 'Semua Buku';
 
@@ -314,6 +317,7 @@
         let linkBuku = buku.file || buku.link || buku.url || buku.pdf || '';
         
         let judulAman = (buku.judul || '').replace(/'/g, "\\'");
+        let katAman = (katLabel || 'Umum').replace(/'/g, "\\'");
         let linkAman = linkBuku.replace(/'/g, "\\'");
 
         html += `
@@ -323,7 +327,7 @@
               ${katLabel ? `<span class="kategori-tag">${katLabel}</span>` : ''}
               <div class="judul-buku">${buku.judul}</div>
               <div class="penulis-buku">${buku.penulis || 'Penulis tidak diketahui'}</div>
-              <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}')">Baca Buku</button>
+              <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}')">Baca Buku</button>
             </div>
           </div>
         `;
@@ -332,8 +336,25 @@
       container.innerHTML = html;
     }
 
+    // Fungsi Mengirim Rekap Pembaca ke Google Sheets
+    function catatPembaca(judul, kategori) {
+      if (!SCRIPT_URL) return;
+      const formData = new FormData();
+      formData.append('judul', judul);
+      formData.append('kategori', kategori);
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      }).catch(err => console.log('Gagal mencatat statistik:', err));
+    }
+
     // Fungsi Buka Pop-Up (Optimasi untuk HP)
-    function bukaModal(url, judul) {
+    function bukaModal(url, judul, kategori) {
+      // Panggil pencatat statistik pembaca ke Google Sheets
+      catatPembaca(judul, kategori);
+
       const modal = document.getElementById('modalBaca');
       const iframe = document.getElementById('iframePdf');
       const modalJudul = document.getElementById('modalJudul');
