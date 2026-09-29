@@ -140,8 +140,10 @@
     }
     .btn-baca {
       margin-top: auto;
-      display: block;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       background-color: #075e54;
       color: #fff;
       padding: 8px 12px;
@@ -155,6 +157,11 @@
     }
     .btn-baca:hover {
       background-color: #128c7e;
+    }
+    .btn-baca svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
     }
     .pesan-kosong {
       text-align: center;
@@ -327,7 +334,10 @@
               ${katLabel ? `<span class="kategori-tag">${katLabel}</span>` : ''}
               <div class="judul-buku">${buku.judul}</div>
               <div class="penulis-buku">${buku.penulis || 'Penulis tidak diketahui'}</div>
-              <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}')">Baca Buku</button>
+              <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}')">
+                <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                Baca Buku
+              </button>
             </div>
           </div>
         `;
