@@ -3,498 +3,315 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perpustakaan Digital - MI Salafiyatul Ma'muroh</title>
+  <title>Perpustakaan Digital MI Salafiyatul Ma'muroh</title>
   <style>
-    * {
-      box-sizing: border-box;
+    :root {
+      --primary-color: #0d6efd;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #212529;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       margin: 0;
       padding: 0;
     }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f9;
-      color: #333;
-      padding: 20px;
-    }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+
     header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1.5rem 1rem;
       text-align: center;
-      margin-bottom: 25px;
-    }
-    header h1 {
-      color: #d97706;
-      font-size: 32px;
-      margin-bottom: 8px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
-    }
-    header p {
-      color: #064e3b;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-    }
-    
-    /* Area Filter & Pencarian */
-    .filter-section {
-      margin-bottom: 25px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-    .search-bar {
-      width: 100%;
-      max-width: 500px;
-    }
-    .search-bar input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1px solid #ccc;
-      border-radius: 25px;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .search-bar input:focus {
-      border-color: #075e54;
-    }
-    
-    /* Tombol Kategori Filter */
-    .category-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-    }
-    .btn-filter {
-      background-color: #fff;
-      border: 1px solid #075e54;
-      color: #075e54;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-filter:hover, .btn-filter.active {
-      background-color: #075e54;
-      color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    /* Grid Kartu Buku */
-    .grid-buku {
+    header h1 {
+      margin: 0 0 10px 0;
+      font-size: 1.8rem;
+    }
+
+    .controls {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .search-filter {
+      display: flex;
+      gap: 10px;
+      flex: 1;
+      min-width: 280px;
+    }
+
+    input[type="text"], select {
+      padding: 10px 14px;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    input[type="text"] {
+      flex: 1;
+    }
+
+    button.btn-acak {
+      background-color: #198754;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    button.btn-acak:hover {
+      background-color: #157347;
+    }
+
+    .container-buku {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 15px;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 20px;
     }
+
     .card-buku {
-      background: #fff;
+      background: var(--card-bg);
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
       display: flex;
       flex-direction: column;
-      position: relative;
+      justify-content: space-between;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+
     .card-buku:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.12);
     }
-    .cover-buku {
+
+    .img-container {
       width: 100%;
       height: 260px;
-      object-fit: cover;
-      background-color: #eee;
+      background-color: #e9ecef;
+      overflow: hidden;
     }
-    .info-buku {
-      padding: 15px;
+
+    .card-buku img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 12px 15px;
+      flex-grow: 1;
       display: flex;
       flex-direction: column;
-      flex-grow: 1;
-    }
-
-    /* Header Kartu (Kategori & Jumlah Baca) */
-    .meta-card {
-      display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-    .kategori-tag {
-      font-size: 11px;
-      background: #e8f5e9;
-      color: #2e7d32;
-      padding: 2px 8px;
-      border-radius: 4px;
-      text-transform: capitalize;
-    }
-    .view-count {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      color: #555;
-      background-color: #f0f0f0;
-      padding: 2px 7px;
-      border-radius: 10px;
-      font-weight: 600;
-    }
-    .view-count svg {
-      width: 13px;
-      height: 13px;
-      fill: #075e54;
     }
 
-    .judul-buku {
-      font-size: 15px;
-      font-weight: bold;
-      color: #222;
-      margin-bottom: 6px;
+    .card-body h3 {
+      font-size: 1rem;
+      margin: 0 0 8px 0;
       line-height: 1.3;
     }
-    .penulis-buku {
-      font-size: 12px;
-      color: #777;
+
+    .kategori-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      background: #e7f1ff;
+      color: var(--primary-color);
+      padding: 3px 8px;
+      border-radius: 4px;
       margin-bottom: 12px;
-    }
-    .btn-baca {
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      background-color: #075e54;
-      color: #fff;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 500;
-      transition: background 0.2s;
-      cursor: pointer;
-      border: none;
-      width: 100%;
-    }
-    .btn-baca:hover {
-      background-color: #128c7e;
-    }
-    .btn-baca svg {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
-    }
-    .pesan-kosong {
-      text-align: center;
-      grid-column: 1 / -1;
-      padding: 40px;
-      color: #888;
+      align-self: flex-start;
+      font-weight: 600;
     }
 
-    /* Styles Pop-up Reader PDF */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.75);
-      z-index: 1000;
-      justify-content: center;
+    .card-footer {
+      display: flex;
       align-items: center;
-      padding: 10px;
-    }
-    .modal-container {
-      background: #fff;
-      width: 100%;
-      max-width: 900px;
-      height: 92vh;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    }
-    .modal-header {
-      background-color: #075e54;
-      color: #fff;
-      padding: 12px 20px;
-      display: flex;
       justify-content: space-between;
-      align-items: center;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #f1f1f1;
     }
-    .modal-title {
-      font-size: 16px;
+
+    .view-count {
+      font-size: 0.85rem;
+      color: #6c757d;
+      font-weight: 500;
+    }
+
+    .btn-baca {
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
       font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 80%;
     }
-    .btn-close {
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 24px;
-      cursor: pointer;
-      line-height: 1;
-      padding: 0 5px;
-    }
-    .modal-body {
-      flex: 1;
-      background: #fff;
-      -webkit-overflow-scrolling: touch;
-    }
-    .modal-body iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+
+    .btn-baca:hover {
+      background-color: #0b5ed7;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <h1>Perpustakaan Digital</h1>
-      <p>Koleksi Buku Bacaan &amp; Pembelajaran MI Salafiyatul Ma'muroh</p>
-    </header>
+  <header>
+    <h1>Perpustakaan Digital MI Salafiyatul Ma'muroh</h1>
+  </header>
 
-    <div class="filter-section">
-      <!-- Input Pencarian Teks -->
-      <div class="search-bar">
-        <input type="text" id="inputCari" placeholder="Cari judul buku atau penulis..." onkeyup="filterSemua()">
-      </div>
-
-      <!-- Tombol Filter Kategori -->
-      <div class="category-buttons" id="areaFilter">
-        <button class="btn-filter active" onclick="pilihKategori('Semua Buku', this)">Semua Buku</button>
-        <button class="btn-filter" onclick="pilihKategori('Kelas 1', this)">Kelas 1</button>
-        <button class="btn-filter" onclick="pilihKategori('Kelas 2', this)">Kelas 2</button>
-        <button class="btn-filter" onclick="pilihKategori('Kelas 3', this)">Kelas 3</button>
-        <button class="btn-filter" onclick="pilihKategori('Kelas 4', this)">Kelas 4</button>
-        <button class="btn-filter" onclick="pilihKategori('Kelas 5', this)">Kelas 5</button>
-        <button class="btn-filter" onclick="pilihKategori('Kelas 6', this)">Kelas 6</button>
-        <button class="btn-filter" onclick="pilihKategori('Cerita', this)">Cerita</button>
-      </div>
+  <div class="controls">
+    <div class="search-filter">
+      <input type="text" id="inputCari" placeholder="Cari judul buku..." oninput="filterBuku()">
+      <select id="selectKategori" onchange="filterBuku()">
+        <option value="">Semua Kategori</option>
+      </select>
     </div>
-
-    <div class="grid-buku" id="daftarBuku">
-      <div class="pesan-kosong">Memuat koleksi buku...</div>
-    </div>
+    <button class="btn-acak" onclick="bukuAcak()">🎲 Rekomendasi Acak</button>
   </div>
 
-  <!-- Pop-Up Reader -->
-  <div class="modal-overlay" id="modalBaca">
-    <div class="modal-container">
-      <div class="modal-header">
-        <div class="modal-title" id="modalJudul">Membaca Buku</div>
-        <button class="btn-close" onclick="tutupModal()">&times;</button>
-      </div>
-      <div class="modal-body">
-        <iframe id="iframePdf" src="" allow="autoplay"></iframe>
-      </div>
-    </div>
-  </div>
+  <main class="container-buku" id="containerBuku"></main>
 
   <script>
-    // URL Google Apps Script untuk pencatat statistik pembaca
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqD7kOaUxx3OnA81LsWdwauDOAEUTwi4hWBduyPLCHC2HJFlV701hcJfmoxKmX49-6/exec";
-
+    // URL Web App Apps Script milik kamu
+    const SCRIPT_URL = "URL_GOOGLE_APPS_SCRIPT_KAMU"; 
+    
     let semuaBuku = [];
-    let kategoriAktif = 'Semua Buku';
-    let dataStatistik = {}; // Menyimpan data rekapitulasi jumlah pembaca per id buku
 
-    // Algoritma Pengacak Urutan Buku
-    function acakBuku(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-
-    // Ambil Data Rekapitulasi dari Google Sheets
-    function ambilStatistik() {
-      if (!SCRIPT_URL) return Promise.resolve();
-      
-      return fetch(SCRIPT_URL)
+    // 1. Inisialisasi: Load data buku lokal dari buku.json
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch('buku.json')
         .then(res => res.json())
         .then(data => {
-          dataStatistik = data || {};
+          semuaBuku = data;
+          isiKategoriOption(semuaBuku);
+          tampilkanBuku(semuaBuku);
         })
-        .catch(err => {
-          console.log('Belum ada statistik atau jaringan error, default ke 0:', err);
-          dataStatistik = {};
-        });
-    }
-
-    // Ambil Data dari buku.json dan Google Sheets
-    Promise.all([
-      fetch('buku.json').then(res => res.json()),
-      ambilStatistik()
-    ])
-    .then(([dataBuku]) => {
-      semuaBuku = acakBuku(dataBuku);
-      tampilkanBuku(semuaBuku);
-    })
-    .catch(error => {
-      console.error(error);
-      document.getElementById('daftarBuku').innerHTML = '<div class="pesan-kosong">Gagal memuat data buku. Pastikan file buku.json tersedia.</div>';
+        .catch(err => console.error("Gagal memuat katalog buku:", err));
     });
 
-    // Tampilkan Kartu Buku ke Grid
-    function tampilkanBuku(listBuku) {
-      const container = document.getElementById('daftarBuku');
-      
-      if (listBuku.length === 0) {
-        container.innerHTML = '<div class="pesan-kosong">Buku tidak ditemukan.</div>';
+    // 2. Tampilkan Daftar Buku (Instan & Ringan dengan Lazy Loading)
+    function tampilkanBuku(daftar) {
+      const container = document.getElementById('containerBuku');
+      container.innerHTML = '';
+
+      if (daftar.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align:center;">Buku tidak ditemukan.</p>';
         return;
       }
 
-      let html = '';
-      listBuku.forEach(buku => {
-        let katLabel = buku.kategori || '';
-        let linkBuku = buku.file || buku.link || buku.url || buku.pdf || '';
-        
-        let judulAman = (buku.judul || '').replace(/'/g, "\\'");
-        let katAman = (katLabel || 'Umum').replace(/'/g, "\\'");
-        let linkAman = linkBuku.replace(/'/g, "\\'");
-        let idBuku = buku.id || buku.judul; // Menggunakan ID atau Judul sebagai kunci statistik
-
-        // Ambil jumlah pembaca (Default = 0)
-        let totalBaca = dataStatistik[buku.judul] || dataStatistik[idBuku] || 0;
-
-        html += `
+      daftar.forEach((buku, idx) => {
+        const idBuku = buku.id || `buku-${idx}`;
+        const cardHtml = `
           <div class="card-buku">
-            <img class="cover-buku" src="${buku.cover || 'https://via.placeholder.com/200x260?text=No+Cover'}" alt="${buku.judul}">
-            <div class="info-buku">
-              <div class="meta-card">
-                ${katLabel ? `<span class="kategori-tag">${katLabel}</span>` : '<span></span>'}
-                <span class="view-count" title="Jumlah pembaca">
-                  <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                  <span id="count-${buku.id}">${totalBaca}</span>
-                </span>
+            <div class="img-container">
+              <!-- Loading Lazy agar gambar di-load saat di-scroll -->
+              <img src="${buku.cover}" alt="${buku.judul}" loading="lazy" width="100%" height="auto">
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>${buku.judul}</h3>
+                <span class="kategori-badge">${buku.kategori}</span>
               </div>
-              <div class="judul-buku">${buku.judul}</div>
-              <div class="penulis-buku">${buku.penulis || 'Penulis tidak diketahui'}</div>
-              <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}', '${buku.id}')">
-                <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                Baca Buku
-              </button>
+              <div class="card-footer">
+                <span class="view-count" id="view-${idBuku}">👁️ <small>...</small></span>
+                <a href="${buku.link}" target="_blank" onclick="catatDibaca('${buku.judul.replace(/'/g, "\\'")}', '${buku.kategori.replace(/'/g, "\\'")}')" class="btn-baca">Baca Buku</a>
+              </div>
             </div>
           </div>
         `;
+        container.insertAdjacentHTML('beforeend', cardHtml);
       });
 
-      container.innerHTML = html;
+      // Panggil statistik views di latar belakang setelah UI selesai digambar
+      muatStatistikView(daftar);
     }
 
-    // Fungsi Mengirim Rekap Pembaca ke Google Sheets
-    function catatPembaca(judul, kategori, idBuku) {
-      if (!SCRIPT_URL) return;
+    // 3. Ambil Statistik View Counts dari Apps Script secara Asinkron (Latar Belakang)
+    async function muatStatistikView(daftar) {
+      try {
+        const response = await fetch(SCRIPT_URL);
+        const dataViews = await response.json();
 
-      // Update Tampilan Angka Pembaca Secara Instan (+1)
-      const elCount = document.getElementById(`count-${idBuku}`);
-      if (elCount) {
-        let valSekarang = parseInt(elCount.innerText) || 0;
-        elCount.innerText = valSekarang + 1;
+        daftar.forEach((buku, idx) => {
+          const idBuku = buku.id || `buku-${idx}`;
+          const elView = document.getElementById(`view-${idBuku}`);
+          if (elView) {
+            const total = dataViews[buku.judul] || 0;
+            elView.innerHTML = `👁️ ${total}`;
+          }
+        });
+      } catch (error) {
+        console.error("Gagal memuat statistik view:", error);
+        daftar.forEach((buku, idx) => {
+          const idBuku = buku.id || `buku-${idx}`;
+          const elView = document.getElementById(`view-${idBuku}`);
+          if (elView && elView.innerHTML.includes('...')) {
+            elView.innerHTML = `👁️ 0`;
+          }
+        });
       }
+    }
 
-      // Kirim Data ke Google Sheets
-      const formData = new FormData();
-      formData.append('judul', judul);
-      formData.append('kategori', kategori);
-
+    // 4. Catat Riwayat Pembacaan ke Google Sheets via Apps Script
+    function catatDibaca(judul, kategori) {
       fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors'
-      }).catch(err => console.log('Gagal mencatat statistik:', err));
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ judul: judul, kategori: kategori })
+      }).catch(err => console.error("Gagal mencatat transaksi pembaca:", err));
     }
 
-    // Fungsi Buka Pop-Up (Optimasi untuk HP)
-    function bukaModal(url, judul, kategori, idBuku) {
-      // Panggil pencatat statistik pembaca ke Google Sheets & Update Angka di Layar
-      catatPembaca(judul, kategori, idBuku);
-
-      const modal = document.getElementById('modalBaca');
-      const iframe = document.getElementById('iframePdf');
-      const modalJudul = document.getElementById('modalJudul');
-
-      modalJudul.innerText = judul;
-      
-      if (!url.includes('drive.google.com')) {
-        // Konversi path relatif ke URL absolut untuk Google Docs Viewer
-        const loc = window.location;
-        const baseUrl = loc.protocol + '//' + loc.host + loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
-        const fullUrl = url.startsWith('http') ? url : baseUrl + url;
-        
-        iframe.src = 'https://docs.google.com/viewer?url=' + encodeURIComponent(fullUrl) + '&embedded=true';
-      } else {
-        iframe.src = url;
-      }
-
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
+    // 5. Opsi Filter & Pencarian
+    function isiKategoriOption(daftar) {
+      const select = document.getElementById('selectKategori');
+      const kategoriSet = new Set(daftar.map(b => b.kategori));
+      kategoriSet.forEach(kat => {
+        const opt = document.createElement('option');
+        opt.value = kat;
+        opt.textContent = kat;
+        select.appendChild(opt);
+      });
     }
 
-    // Fungsi Tutup Pop-Up
-    function tutupModal() {
-      const modal = document.getElementById('modalBaca');
-      const iframe = document.getElementById('iframePdf');
-
-      modal.style.display = 'none';
-      iframe.src = '';
-      document.body.style.overflow = 'auto';
-    }
-
-    // Tutup Pop-Up saat area luar diklik
-    window.onclick = function(event) {
-      const modal = document.getElementById('modalBaca');
-      if (event.target === modal) {
-        tutupModal();
-      }
-    }
-
-    // Fungsi Pilih Kategori Filter
-    function pilihKategori(kategori, el) {
-      kategoriAktif = kategori;
-      
-      document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
-      el.classList.add('active');
-
-      filterSemua();
-    }
-
-    // Kombinasi Filter Kategori & Pencarian
-    function filterSemua() {
-      const kataKunci = document.getElementById('inputCari').value.toLowerCase().trim();
-      const katTargetAbaikanSpasi = kategoriAktif.toLowerCase().replace(/\s+/g, '');
+    function filterBuku() {
+      const keyword = document.getElementById('inputCari').value.toLowerCase();
+      const kat = document.getElementById('selectKategori').value;
 
       const hasil = semuaBuku.filter(buku => {
-        const cocokJudul = (buku.judul || '').toLowerCase().includes(kataKunci);
-        const cocokPenulis = (buku.penulis || '').toLowerCase().includes(kataKunci);
-        const cocokTeks = cocokJudul || cocokPenulis;
-
-        let cocokKategori = false;
-        if (kategoriAktif === 'Semua Buku') {
-          cocokKategori = true;
-        } else if (buku.kategori) {
-          const katBukuAbaikanSpasi = String(buku.kategori).toLowerCase().replace(/\s+/g, '');
-          cocokKategori = katBukuAbaikanSpasi.includes(katTargetAbaikanSpasi);
-        }
-
-        return cocokTeks && cocokKategori;
+        const cocokJudul = buku.judul.toLowerCase().includes(keyword);
+        const cocokKat = kat === "" || buku.kategori === kat;
+        return cocokJudul && cocokKat;
       });
 
       tampilkanBuku(hasil);
     }
-  </script>
 
+    // 6. Rekomendasi Buku Acak
+    function bukuAcak() {
+      if (semuaBuku.length === 0) return;
+      const acak = semuaBuku[Math.floor(Math.random() * semuaBuku.length)];
+      tampilkanBuku([acak]);
+    }
+  </script>
 </body>
 </html>
