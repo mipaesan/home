@@ -1,257 +1,500 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perpustakaan Digital</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perpustakaan Digital - MI Salafiyatul Ma'muroh</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      color: #333;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    header h1 {
+      color: #d97706;
+      font-size: 32px;
+      margin-bottom: 8px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    header p {
+      color: #064e3b;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    
+    /* Area Filter & Pencarian */
+    .filter-section {
+      margin-bottom: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    .search-bar {
+      width: 100%;
+      max-width: 500px;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-bar input:focus {
+      border-color: #075e54;
+    }
+    
+    /* Tombol Kategori Filter */
+    .category-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-filter {
+      background-color: #fff;
+      border: 1px solid #075e54;
+      color: #075e54;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-filter:hover, .btn-filter.active {
+      background-color: #075e54;
+      color: #fff;
+    }
 
-        body {
-            background-color: #f4f6f9;
-            color: #333;
-            padding: 20px;
-        }
+    /* Grid Kartu Buku */
+    .grid-buku {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .card-buku {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .card-buku:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    }
+    .cover-buku {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      background-color: #eee;
+    }
+    .info-buku {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
 
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
+    /* Header Kartu (Kategori & Jumlah Baca) */
+    .meta-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .kategori-tag {
+      font-size: 11px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: capitalize;
+    }
+    .view-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: #555;
+      background-color: #f0f0f0;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .view-count svg {
+      width: 13px;
+      height: 13px;
+      fill: #075e54;
+    }
 
-        header h1 {
-            color: #2c3e50;
-            margin-bottom: 8px;
-        }
+    .judul-buku {
+      font-size: 15px;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .penulis-buku {
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 12px;
+    }
+    .btn-baca {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background-color: #075e54;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.2s;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+    }
+    .btn-baca:hover {
+      background-color: #128c7e;
+    }
+    .btn-baca svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+    .pesan-kosong {
+      text-align: center;
+      grid-column: 1 / -1;
+      padding: 40px;
+      color: #888;
+    }
 
-        /* Filter Kategori */
-        .filter-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 25px;
-        }
-
-        .filter-btn {
-            background-color: #fff;
-            border: 1px solid #cbd5e1;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            color: #475569;
-            transition: all 0.2s ease;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            background-color: #2563eb;
-            color: #fff;
-            border-color: #2563eb;
-        }
-
-        /* Grid Buku */
-        .book-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .book-card {
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s ease;
-        }
-
-        .book-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .book-cover {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            background-color: #e2e8f0;
-        }
-
-        .book-info {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .book-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 5px;
-            line-height: 1.3;
-        }
-
-        .book-author {
-            font-size: 0.85rem;
-            color: #64748b;
-            margin-bottom: 12px;
-        }
-
-        .book-meta {
-            margin-top: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 10px;
-            border-top: 1px solid #f1f5f9;
-        }
-
-        .view-count {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #0284c7;
-            background-color: #e0f2fe;
-            padding: 4px 8px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .btn-read {
-            background-color: #16a34a;
-            color: white;
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-align: center;
-            transition: background 0.2s;
-        }
-
-        .btn-read:hover {
-            background-color: #15803d;
-        }
-
-        .loading {
-            text-align: center;
-            grid-column: 1 / -1;
-            padding: 40px;
-            color: #64748b;
-        }
-    </style>
+    /* Styles Pop-up Reader PDF */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.75);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+    .modal-container {
+      background: #fff;
+      width: 100%;
+      max-width: 900px;
+      height: 92vh;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    .modal-header {
+      background-color: #075e54;
+      color: #fff;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 80%;
+    }
+    .btn-close {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 5px;
+    }
+    .modal-body {
+      flex: 1;
+      background: #fff;
+      -webkit-overflow-scrolling: touch;
+    }
+    .modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
 
+  <div class="container">
     <header>
-        <h1>📚 Perpustakaan Digital</h1>
-        <p>Pilih dan baca buku favoritmu online</p>
+      <h1>Perpustakaan Digital</h1>
+      <p>Koleksi Buku Bacaan &amp; Pembelajaran MI Salafiyatul Ma'muroh</p>
     </header>
 
-    <!-- Filter Kategori -->
-    <div class="filter-container">
-        <button class="filter-btn active" onclick="filterBuku('semua', this)">Semua</button>
-        <button class="filter-btn" onclick="filterBuku('cergam', this)">Cergam</button>
-        <button class="filter-btn" onclick="filterBuku('kelas1', this)">Kelas 1</button>
-        <button class="filter-btn" onclick="filterBuku('kelas2', this)">Kelas 2</button>
+    <div class="filter-section">
+      <!-- Input Pencarian Teks -->
+      <div class="search-bar">
+        <input type="text" id="inputCari" placeholder="Cari judul buku atau penulis..." onkeyup="filterSemua()">
+      </div>
+
+      <!-- Tombol Filter Kategori -->
+      <div class="category-buttons" id="areaFilter">
+        <button class="btn-filter active" onclick="pilihKategori('Semua Buku', this)">Semua Buku</button>
+        <button class="btn-filter" onclick="pilihKategori('Kelas 1', this)">Kelas 1</button>
+        <button class="btn-filter" onclick="pilihKategori('Kelas 2', this)">Kelas 2</button>
+        <button class="btn-filter" onclick="pilihKategori('Kelas 3', this)">Kelas 3</button>
+        <button class="btn-filter" onclick="pilihKategori('Kelas 4', this)">Kelas 4</button>
+        <button class="btn-filter" onclick="pilihKategori('Kelas 5', this)">Kelas 5</button>
+        <button class="btn-filter" onclick="pilihKategori('Kelas 6', this)">Kelas 6</button>
+        <button class="btn-filter" onclick="pilihKategori('Cerita', this)">Cerita</button>
+      </div>
     </div>
 
-    <!-- Container Daftar Buku -->
-    <div class="book-grid" id="bookGrid">
-        <div class="loading">Memuat daftar buku...</div>
+    <div class="grid-buku" id="daftarBuku">
+      <div class="pesan-kosong">Memuat koleksi buku...</div>
     </div>
+  </div>
 
-    <script>
-        // URL Apps Script milik Mas Kholil
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5jf0YBUogzpPMlR8WVNkBjJZ9MEGJeILXSa5aM5hgmWS7yoAxhCkKBv5qYw4PjnNa/exec";
+  <!-- Pop-Up Reader -->
+  <div class="modal-overlay" id="modalBaca">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title" id="modalJudul">Membaca Buku</div>
+        <button class="btn-close" onclick="tutupModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <iframe id="iframePdf" src="" allow="autoplay"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // URL Google Apps Script untuk pencatat statistik pembaca
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5jf0YBUogzpPMlR8WVNkBjJZ9MEGJeILXSa5aM5hgmWS7yoAxhCkKBv5qYw4PjnNa/exec";
+
+    let semuaBuku = [];
+    let kategoriAktif = 'Semua Buku';
+    let dataStatistik = {}; // Menyimpan data rekapitulasi jumlah pembaca per id buku
+
+    // Algoritma Pengacak Urutan Buku
+    function acakBuku(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Ambil Data Rekapitulasi dari Google Sheets
+    function ambilStatistik() {
+      if (!SCRIPT_URL) return Promise.resolve();
+      
+      return fetch(SCRIPT_URL)
+        .then(res => res.json())
+        .then(data => {
+          dataStatistik = data || {};
+        })
+        .catch(err => {
+          console.log('Belum ada statistik atau jaringan error, default ke 0:', err);
+          dataStatistik = {};
+        });
+    }
+
+    // Ambil Data dari buku.json dan Google Sheets
+    Promise.all([
+      fetch('buku.json').then(res => res.json()),
+      ambilStatistik()
+    ])
+    .then(([dataBuku]) => {
+      semuaBuku = acakBuku(dataBuku);
+      tampilkanBuku(semuaBuku);
+    })
+    .catch(error => {
+      console.error(error);
+      document.getElementById('daftarBuku').innerHTML = '<div class="pesan-kosong">Gagal memuat data buku. Pastikan file buku.json tersedia.</div>';
+    });
+
+    // Tampilkan Kartu Buku ke Grid
+    function tampilkanBuku(listBuku) {
+      const container = document.getElementById('daftarBuku');
+      
+      if (listBuku.length === 0) {
+        container.innerHTML = '<div class="pesan-kosong">Buku tidak ditemukan.</div>';
+        return;
+      }
+
+      let html = '';
+      listBuku.forEach(buku => {
+        let katLabel = buku.kategori || '';
+        let linkBuku = buku.file || buku.link || buku.url || buku.pdf || '';
         
-        let daftarBuku = [];
-        let rekapDibaca = {};
+        let judulAman = (buku.judul || '').replace(/'/g, "\\'");
+        let katAman = (katLabel || 'Umum').replace(/'/g, "\\'");
+        let linkAman = linkBuku.replace(/'/g, "\\'");
+        let idBuku = buku.id || buku.judul; // Menggunakan ID atau Judul sebagai kunci statistik
 
-        // 1. Ambil data buku & data rekap dibaca dari Google Sheet
-        async function muatData() {
-            try {
-                // Ambil data buku dari file buku.json
-                const resBuku = await fetch('buku.json');
-                daftarBuku = await resBuku.json();
+        // Ambil jumlah pembaca (Default = 0)
+        let totalBaca = dataStatistik[buku.judul] || dataStatistik[idBuku] || 0;
 
-                // Ambil data statistik dari Apps Script Google Sheet
-                const resCounts = await fetch(SCRIPT_URL);
-                rekapDibaca = await resCounts.json();
+        html += `
+          <div class="card-buku">
+            <img class="cover-buku" src="${buku.cover || 'https://via.placeholder.com/200x260?text=No+Cover'}" alt="${buku.judul}">
+            <div class="info-buku">
+              <div class="meta-card">
+                ${katLabel ? `<span class="kategori-tag">${katLabel}</span>` : '<span></span>'}
+                <span class="view-count" title="Jumlah pembaca">
+                  <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                  <span id="count-${buku.id}">${totalBaca}</span>
+                </span>
+              </div>
+              <div class="judul-buku">${buku.judul}</div>
+              <div class="penulis-buku">${buku.penulis || 'Penulis tidak diketahui'}</div>
+              <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}', '${buku.id}')">
+                <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                Baca Buku
+              </button>
+            </div>
+          </div>
+        `;
+      });
 
-            } catch (err) {
-                console.error("Gagal memuat statistik, menampilkan data buku saja:", err);
-            } finally {
-                tampilkanBuku(daftarBuku);
-            }
+      container.innerHTML = html;
+    }
+
+    // Fungsi Mengirim Rekap Pembaca ke Google Sheets
+    function catatPembaca(judul, kategori, idBuku) {
+      if (!SCRIPT_URL) return;
+
+      // Update Tampilan Angka Pembaca Secara Instan (+1)
+      const elCount = document.getElementById(`count-${idBuku}`);
+      if (elCount) {
+        let valSekarang = parseInt(elCount.innerText) || 0;
+        elCount.innerText = valSekarang + 1;
+      }
+
+      // Kirim Data ke Google Sheets
+      const formData = new FormData();
+      formData.append('judul', judul);
+      formData.append('kategori', kategori);
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      }).catch(err => console.log('Gagal mencatat statistik:', err));
+    }
+
+    // Fungsi Buka Pop-Up (Optimasi untuk HP)
+    function bukaModal(url, judul, kategori, idBuku) {
+      // Panggil pencatat statistik pembaca ke Google Sheets & Update Angka di Layar
+      catatPembaca(judul, kategori, idBuku);
+
+      const modal = document.getElementById('modalBaca');
+      const iframe = document.getElementById('iframePdf');
+      const modalJudul = document.getElementById('modalJudul');
+
+      modalJudul.innerText = judul;
+      
+      if (!url.includes('drive.google.com')) {
+        // Konversi path relatif ke URL absolut untuk Google Docs Viewer
+        const loc = window.location;
+        const baseUrl = loc.protocol + '//' + loc.host + loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
+        const fullUrl = url.startsWith('http') ? url : baseUrl + url;
+        
+        iframe.src = 'https://docs.google.com/viewer?url=' + encodeURIComponent(fullUrl) + '&embedded=true';
+      } else {
+        iframe.src = url;
+      }
+
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Fungsi Tutup Pop-Up
+    function tutupModal() {
+      const modal = document.getElementById('modalBaca');
+      const iframe = document.getElementById('iframePdf');
+
+      modal.style.display = 'none';
+      iframe.src = '';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Tutup Pop-Up saat area luar diklik
+    window.onclick = function(event) {
+      const modal = document.getElementById('modalBaca');
+      if (event.target === modal) {
+        tutupModal();
+      }
+    }
+
+    // Fungsi Pilih Kategori Filter
+    function pilihKategori(kategori, el) {
+      kategoriAktif = kategori;
+      
+      document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+      el.classList.add('active');
+
+      filterSemua();
+    }
+
+    // Kombinasi Filter Kategori & Pencarian
+    function filterSemua() {
+      const kataKunci = document.getElementById('inputCari').value.toLowerCase().trim();
+      const katTargetAbaikanSpasi = kategoriAktif.toLowerCase().replace(/\s+/g, '');
+
+      const hasil = semuaBuku.filter(buku => {
+        const cocokJudul = (buku.judul || '').toLowerCase().includes(kataKunci);
+        const cocokPenulis = (buku.penulis || '').toLowerCase().includes(kataKunci);
+        const cocokTeks = cocokJudul || cocokPenulis;
+
+        let cocokKategori = false;
+        if (kategoriAktif === 'Semua Buku') {
+          cocokKategori = true;
+        } else if (buku.kategori) {
+          const katBukuAbaikanSpasi = String(buku.kategori).toLowerCase().replace(/\s+/g, '');
+          cocokKategori = katBukuAbaikanSpasi.includes(katTargetAbaikanSpasi);
         }
 
-        // 2. Fungsi Menampilkan Buku ke Layar
-        function tampilkanBuku(bukuArray) {
-            const grid = document.getElementById('bookGrid');
-            grid.innerHTML = '';
+        return cocokTeks && cocokKategori;
+      });
 
-            if (bukuArray.length === 0) {
-                grid.innerHTML = '<div class="loading">Tidak ada buku dalam kategori ini.</div>';
-                return;
-            }
+      tampilkanBuku(hasil);
+    }
+  </script>
 
-            bukuArray.forEach(buku => {
-                // Ambil jumlah dibaca dari Google Sheet (default 0 jika belum pernah dibaca)
-                const jumlahDibaca = rekapDibaca[buku.judul] || 0;
-
-                const card = document.createElement('div');
-                card.className = 'book-card';
-                card.innerHTML = `
-                    <img src="${buku.cover}" alt="${buku.judul}" class="book-cover">
-                    <div class="book-info">
-                        <div class="book-title">${buku.judul}</div>
-                        <div class="book-author">${buku.penulis || 'Anonim'}</div>
-                        <div class="book-meta">
-                            <span class="view-count">👁️ ${jumlahDibaca}</span>
-                            <a href="${buku.link}" target="_blank" class="btn-read" onclick="catatPembaca('${buku.judul}', '${buku.kategori}')">Baca Buku</a>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // 3. Fungsi Catat Pembaca ke Google Sheet saat tombol "Baca Buku" diklik
-        function catatPembaca(judul, kategori) {
-            // Kirim data ke Google Sheets secara background
-            const url = `${SCRIPT_URL}?judul=${encodeURIComponent(judul)}&kategori=${encodeURIComponent(kategori)}`;
-            
-            fetch(url, { method: 'POST', mode: 'no-cors' })
-                .then(() => console.log('Tercatat di Google Sheet!'))
-                .catch(err => console.error('Gagal mencatat:', err));
-        }
-
-        // 4. Fungsi Filter berdasarkan Kategori
-        function filterBuku(kategori, btn) {
-            // Ubah tampilan tombol aktif
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            if (kategori === 'semua') {
-                tampilkanBuku(daftarBuku);
-            } else {
-                const hasilFilter = daftarBuku.filter(b => b.kategori === kategori);
-                tampilkanBuku(hasilFilter);
-            }
-        }
-
-        // Jalankan fungsi saat halaman pertama dibuka
-        muatData();
-    </script>
 </body>
 </html>
