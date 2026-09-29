@@ -371,7 +371,7 @@
 
         html += `
           <div class="card-buku">
-            <img class="cover-buku" src="${buku.cover || 'https://via.placeholder.com/200x260?text=No+Cover'}" alt="${buku.judul}">
+            <img class="cover-buku" src="${buku.cover || 'https://via.placeholder.com/200x260?text=No+Cover'}" alt="${buku.judul}" loading="lazy">
             <div class="info-buku">
               <div class="meta-card">
                 ${katLabel ? `<span class="kategori-tag">${katLabel}</span>` : '<span></span>'}
