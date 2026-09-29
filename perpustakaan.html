@@ -98,6 +98,7 @@
       transition: transform 0.2s, box-shadow 0.2s;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
     .card-buku:hover {
       transform: translateY(-5px);
@@ -115,6 +116,39 @@
       flex-direction: column;
       flex-grow: 1;
     }
+
+    /* Header Kartu (Kategori & Jumlah Baca) */
+    .meta-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .kategori-tag {
+      font-size: 11px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: capitalize;
+    }
+    .view-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: #555;
+      background-color: #f0f0f0;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .view-count svg {
+      width: 13px;
+      height: 13px;
+      fill: #075e54;
+    }
+
     .judul-buku {
       font-size: 15px;
       font-weight: bold;
@@ -126,17 +160,6 @@
       font-size: 12px;
       color: #777;
       margin-bottom: 12px;
-    }
-    .kategori-tag {
-      display: inline-block;
-      font-size: 11px;
-      background: #e8f5e9;
-      color: #2e7d32;
-      padding: 2px 8px;
-      border-radius: 4px;
-      margin-bottom: 8px;
-      align-self: flex-start;
-      text-transform: capitalize;
     }
     .btn-baca {
       margin-top: auto;
@@ -284,6 +307,7 @@
 
     let semuaBuku = [];
     let kategoriAktif = 'Semua Buku';
+    let dataStatistik = {}; // Menyimpan data rekapitulasi jumlah pembaca per id buku
 
     // Algoritma Pengacak Urutan Buku
     function acakBuku(array) {
@@ -294,20 +318,34 @@
       return array;
     }
 
-    // Ambil Data dari buku.json
-    fetch('buku.json')
-      .then(response => {
-        if (!response.ok) throw new Error('Gagal memuat buku.json');
-        return response.json();
-      })
-      .then(data => {
-        semuaBuku = acakBuku(data);
-        tampilkanBuku(semuaBuku);
-      })
-      .catch(error => {
-        console.error(error);
-        document.getElementById('daftarBuku').innerHTML = '<div class="pesan-kosong">Gagal memuat data buku. Pastikan file buku.json tersedia.</div>';
-      });
+    // Ambil Data Rekapitulasi dari Google Sheets
+    function ambilStatistik() {
+      if (!SCRIPT_URL) return Promise.resolve();
+      
+      return fetch(SCRIPT_URL)
+        .then(res => res.json())
+        .then(data => {
+          dataStatistik = data || {};
+        })
+        .catch(err => {
+          console.log('Belum ada statistik atau jaringan error, default ke 0:', err);
+          dataStatistik = {};
+        });
+    }
+
+    // Ambil Data dari buku.json dan Google Sheets
+    Promise.all([
+      fetch('buku.json').then(res => res.json()),
+      ambilStatistik()
+    ])
+    .then(([dataBuku]) => {
+      semuaBuku = acakBuku(dataBuku);
+      tampilkanBuku(semuaBuku);
+    })
+    .catch(error => {
+      console.error(error);
+      document.getElementById('daftarBuku').innerHTML = '<div class="pesan-kosong">Gagal memuat data buku. Pastikan file buku.json tersedia.</div>';
+    });
 
     // Tampilkan Kartu Buku ke Grid
     function tampilkanBuku(listBuku) {
@@ -326,15 +364,25 @@
         let judulAman = (buku.judul || '').replace(/'/g, "\\'");
         let katAman = (katLabel || 'Umum').replace(/'/g, "\\'");
         let linkAman = linkBuku.replace(/'/g, "\\'");
+        let idBuku = buku.id || buku.judul; // Menggunakan ID atau Judul sebagai kunci statistik
+
+        // Ambil jumlah pembaca (Default = 0)
+        let totalBaca = dataStatistik[buku.judul] || dataStatistik[idBuku] || 0;
 
         html += `
           <div class="card-buku">
             <img class="cover-buku" src="${buku.cover || 'https://via.placeholder.com/200x260?text=No+Cover'}" alt="${buku.judul}">
             <div class="info-buku">
-              ${katLabel ? `<span class="kategori-tag">${katLabel}</span>` : ''}
+              <div class="meta-card">
+                ${katLabel ? `<span class="kategori-tag">${katLabel}</span>` : '<span></span>'}
+                <span class="view-count" title="Jumlah pembaca">
+                  <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                  <span id="count-${buku.id}">${totalBaca}</span>
+                </span>
+              </div>
               <div class="judul-buku">${buku.judul}</div>
               <div class="penulis-buku">${buku.penulis || 'Penulis tidak diketahui'}</div>
-              <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}')">
+              <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}', '${buku.id}')">
                 <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
                 Baca Buku
               </button>
@@ -347,8 +395,17 @@
     }
 
     // Fungsi Mengirim Rekap Pembaca ke Google Sheets
-    function catatPembaca(judul, kategori) {
+    function catatPembaca(judul, kategori, idBuku) {
       if (!SCRIPT_URL) return;
+
+      // Update Tampilan Angka Pembaca Secara Instan (+1)
+      const elCount = document.getElementById(`count-${idBuku}`);
+      if (elCount) {
+        let valSekarang = parseInt(elCount.innerText) || 0;
+        elCount.innerText = valSekarang + 1;
+      }
+
+      // Kirim Data ke Google Sheets
       const formData = new FormData();
       formData.append('judul', judul);
       formData.append('kategori', kategori);
@@ -361,9 +418,9 @@
     }
 
     // Fungsi Buka Pop-Up (Optimasi untuk HP)
-    function bukaModal(url, judul, kategori) {
-      // Panggil pencatat statistik pembaca ke Google Sheets
-      catatPembaca(judul, kategori);
+    function bukaModal(url, judul, kategori, idBuku) {
+      // Panggil pencatat statistik pembaca ke Google Sheets & Update Angka di Layar
+      catatPembaca(judul, kategori, idBuku);
 
       const modal = document.getElementById('modalBaca');
       const iframe = document.getElementById('iframePdf');
