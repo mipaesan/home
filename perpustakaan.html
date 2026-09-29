@@ -177,41 +177,25 @@
         let daftarBuku = [];
         let rekapDibaca = {};
 
-        // 1. Ambil data buku dulu agar LANGSUNG TAMPIL (Tanpa nunggu Apps Script)
+        // 1. Ambil data buku & data rekap dibaca dari Google Sheet
         async function muatData() {
             try {
+                // Ambil data buku dari file buku.json
                 const resBuku = await fetch('buku.json');
                 daftarBuku = await resBuku.json();
-                
-                // Langsung render buku ke layar biar cepat
-                tampilkanBuku(daftarBuku);
 
-                // Baru ambil data statistik dari Apps Script di latar belakang
-                muatStatistik();
-            } catch (err) {
-                console.error("Gagal memuat katalog buku:", err);
-            }
-        }
-
-        // Ambil statistik view counts secara asinkron di latar belakang
-        async function muatStatistik() {
-            try {
+                // Ambil data statistik dari Apps Script Google Sheet
                 const resCounts = await fetch(SCRIPT_URL);
                 rekapDibaca = await resCounts.json();
-                
-                // Update angka 👁️ setelah data selesai di-fetch
-                daftarBuku.forEach(buku => {
-                    const elView = document.getElementById(`view-${encodeURIComponent(buku.judul)}`);
-                    if (elView) {
-                        elView.innerHTML = `👁️ ${rekapDibaca[buku.judul] || 0}`;
-                    }
-                });
+
             } catch (err) {
-                console.error("Gagal memuat statistik view:", err);
+                console.error("Gagal memuat statistik, menampilkan data buku saja:", err);
+            } finally {
+                tampilkanBuku(daftarBuku);
             }
         }
 
-        // 2. Fungsi Menampilkan Buku ke Layar (Menggunakan loading="lazy")
+        // 2. Fungsi Menampilkan Buku ke Layar
         function tampilkanBuku(bukuArray) {
             const grid = document.getElementById('bookGrid');
             grid.innerHTML = '';
@@ -222,18 +206,18 @@
             }
 
             bukuArray.forEach(buku => {
-                const jumlahDibaca = rekapDibaca[buku.judul] !== undefined ? rekapDibaca[buku.judul] : '...';
+                // Ambil jumlah dibaca dari Google Sheet (default 0 jika belum pernah dibaca)
+                const jumlahDibaca = rekapDibaca[buku.judul] || 0;
 
                 const card = document.createElement('div');
                 card.className = 'book-card';
                 card.innerHTML = `
-                    <!-- Tambahan loading="lazy" agar gambar di-load saat di-scroll saja -->
-                    <img src="${buku.cover}" alt="${buku.judul}" class="book-cover" loading="lazy">
+                    <img src="${buku.cover}" alt="${buku.judul}" class="book-cover">
                     <div class="book-info">
                         <div class="book-title">${buku.judul}</div>
                         <div class="book-author">${buku.penulis || 'Anonim'}</div>
                         <div class="book-meta">
-                            <span class="view-count" id="view-${encodeURIComponent(buku.judul)}">👁️ ${jumlahDibaca}</span>
+                            <span class="view-count">👁️ ${jumlahDibaca}</span>
                             <a href="${buku.link}" target="_blank" class="btn-read" onclick="catatPembaca('${buku.judul}', '${buku.kategori}')">Baca Buku</a>
                         </div>
                     </div>
@@ -244,6 +228,7 @@
 
         // 3. Fungsi Catat Pembaca ke Google Sheet saat tombol "Baca Buku" diklik
         function catatPembaca(judul, kategori) {
+            // Kirim data ke Google Sheets secara background
             const url = `${SCRIPT_URL}?judul=${encodeURIComponent(judul)}&kategori=${encodeURIComponent(kategori)}`;
             
             fetch(url, { method: 'POST', mode: 'no-cors' })
@@ -253,6 +238,7 @@
 
         // 4. Fungsi Filter berdasarkan Kategori
         function filterBuku(kategori, btn) {
+            // Ubah tampilan tombol aktif
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
