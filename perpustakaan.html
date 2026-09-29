@@ -302,12 +302,21 @@
   </div>
 
   <script>
-    // URL Google Apps Script untuk pencatat statistik pembaca
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5jf0YBUogzpPMlR8WVNkBjJZ9MEGJeILXSa5aM5hgmWS7yoAxhCkKBv5qYw4PjnNa/exec";
 
     let semuaBuku = [];
     let kategoriAktif = 'Semua Buku';
-    let dataStatistik = {}; // Menyimpan data rekapitulasi jumlah pembaca per id buku
+    let dataStatistikNormalized = {}; 
+
+    // Helper untuk membersihkan dan menormalisasi teks agar pencocokan 100% akurat
+    function normalisasi(str) {
+      return String(str || '').toLowerCase().trim().replace(/\s+/g, ' ');
+    }
+
+    // Helper membuat ID DOM yang aman
+    function buatIdAman(str) {
+      return String(str || '').replace(/[^a-zA-Z0-9_-]/g, '_');
+    }
 
     // Algoritma Pengacak Urutan Buku
     function acakBuku(array) {
@@ -325,11 +334,16 @@
       return fetch(SCRIPT_URL)
         .then(res => res.json())
         .then(data => {
-          dataStatistik = data || {};
+          dataStatistikNormalized = {};
+          if (data && typeof data === 'object') {
+            Object.keys(data).forEach(kunci => {
+              dataStatistikNormalized[normalisasi(kunci)] = data[kunci];
+            });
+          }
         })
         .catch(err => {
           console.log('Belum ada statistik atau jaringan error, default ke 0:', err);
-          dataStatistik = {};
+          dataStatistikNormalized = {};
         });
     }
 
@@ -364,10 +378,12 @@
         let judulAman = (buku.judul || '').replace(/'/g, "\\'");
         let katAman = (katLabel || 'Umum').replace(/'/g, "\\'");
         let linkAman = linkBuku.replace(/'/g, "\\'");
-        let idBuku = buku.id || buku.judul; // Menggunakan ID atau Judul sebagai kunci statistik
+        
+        let domId = buatIdAman(buku.id || buku.judul);
+        let kunciNormal = normalisasi(buku.judul);
 
-        // Ambil jumlah pembaca (Default = 0)
-        let totalBaca = dataStatistik[buku.judul] || dataStatistik[idBuku] || 0;
+        // Ambil jumlah pembaca dari data statistik terpeta
+        let totalBaca = dataStatistikNormalized[kunciNormal] || 0;
 
         html += `
           <div class="card-buku">
@@ -377,12 +393,12 @@
                 ${katLabel ? `<span class="kategori-tag">${katLabel}</span>` : '<span></span>'}
                 <span class="view-count" title="Jumlah pembaca">
                   <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                  <span id="count-${buku.id}">${totalBaca}</span>
+                  <span id="count-${domId}">${totalBaca}</span>
                 </span>
               </div>
               <div class="judul-buku">${buku.judul}</div>
               <div class="penulis-buku">${buku.penulis || 'Penulis tidak diketahui'}</div>
-              <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}', '${buku.id}')">
+              <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}', '${buku.id || buku.judul}')">
                 <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
                 Baca Buku
               </button>
@@ -399,11 +415,16 @@
       if (!SCRIPT_URL) return;
 
       // Update Tampilan Angka Pembaca Secara Instan (+1)
-      const elCount = document.getElementById(`count-${idBuku}`);
+      const domId = buatIdAman(idBuku);
+      const elCount = document.getElementById(`count-${domId}`);
       if (elCount) {
         let valSekarang = parseInt(elCount.innerText) || 0;
         elCount.innerText = valSekarang + 1;
       }
+
+      // Update cache memori lokal agar jika difilter angka tidak reset
+      const kunciNormal = normalisasi(judul);
+      dataStatistikNormalized[kunciNormal] = (dataStatistikNormalized[kunciNormal] || 0) + 1;
 
       // Kirim Data ke Google Sheets
       const formData = new FormData();
@@ -417,9 +438,8 @@
       }).catch(err => console.log('Gagal mencatat statistik:', err));
     }
 
-    // Fungsi Buka Pop-Up (Optimasi untuk HP)
+    // Fungsi Buka Pop-Up Reader
     function bukaModal(url, judul, kategori, idBuku) {
-      // Panggil pencatat statistik pembaca ke Google Sheets & Update Angka di Layar
       catatPembaca(judul, kategori, idBuku);
 
       const modal = document.getElementById('modalBaca');
@@ -429,7 +449,6 @@
       modalJudul.innerText = judul;
       
       if (!url.includes('drive.google.com')) {
-        // Konversi path relatif ke URL absolut untuk Google Docs Viewer
         const loc = window.location;
         const baseUrl = loc.protocol + '//' + loc.host + loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
         const fullUrl = url.startsWith('http') ? url : baseUrl + url;
