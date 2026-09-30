@@ -70,9 +70,25 @@
       transform: translateY(-5px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     }
+    .view-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 0.85em;
+      color: #00a896;
+      background: #e6f7f5;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
     .lab-card .icon {
       font-size: 3em;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
     .lab-card h3 {
       margin: 0 0 10px;
@@ -123,7 +139,7 @@
     <a href="index.html" class="back-btn">&larr; Kembali ke Beranda</a>
 
     <div class="lab-grid" id="lab-container">
-      <!-- Data dari lab.json akan dimuat secara otomatis di sini -->
+      <!-- Data dari lab.json akan dimuat di sini -->
     </div>
   </div>
 
@@ -133,10 +149,10 @@
   </footer>
 
   <script>
-    // URL Web App Google Apps Script milik Anda
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwhI46YnoC7qJ79asE8dH4yM0_vEKlEREsiUs5SNnLWKkjPCA2hDprqYEYD8b7l8d8-/exec";
+    // URL Web App Google Apps Script Terbaru Anda
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLNf-BeIBZ3qTW5Dhj0lTBme_J9Ed6-3LKwsR5jnktjkM238plbApfL1HUUk7f3YKP2g/exec";
 
-    // Fungsi untuk mencatat akses ke Google Sheets
+    // Fungsi mencatat klik ke Google Sheet & menambah angka tampilan secara instan
     function catatAksesLab(id, judul, targetUrl) {
       if (GOOGLE_SCRIPT_URL) {
         fetch(GOOGLE_SCRIPT_URL, {
@@ -148,25 +164,50 @@
             judul: judul,
             waktu: new Date().toLocaleString('id-ID')
           })
-        }).catch(err => console.error('Gagal mencatat statistik:', err));
+        }).catch(err => console.error('Gagal mencatat:', err));
+
+        // Tambah angka di tampilan layar seketika
+        const countElem = document.getElementById(`count-${id}`);
+        if (countElem) {
+          let current = parseInt(countElem.innerText) || 0;
+          countElem.innerText = current + 1;
+        }
       }
       
-      // Buka link modul/simulasi di tab baru
+      // Buka modul di tab baru
       window.open(targetUrl, '_blank');
     }
 
-    // Memuat data dari lab.json
-    fetch('lab.json')
-      .then(response => response.json())
-      .then(data => {
+    // Memuat data JSON & membaca total riil dari Google Sheet saat dibuka/direload
+    async function initLab() {
+      try {
+        const labRes = await fetch('lab.json');
+        const labData = await labRes.json();
+
+        let statsData = {};
+        if (GOOGLE_SCRIPT_URL) {
+          try {
+            const statsRes = await fetch(GOOGLE_SCRIPT_URL);
+            statsData = await statsRes.json();
+          } catch (e) {
+            console.error('Gagal mengambil data dari Google Sheets:', e);
+          }
+        }
+
         const container = document.getElementById('lab-container');
         container.innerHTML = '';
 
-        data.forEach(item => {
+        labData.forEach(item => {
+          // Ambil total klik dari Google Sheet berdasarkan ID modul
+          const totalViews = statsData[item.id] || 0;
+
           const card = document.createElement('div');
           card.className = 'lab-card';
           card.innerHTML = `
             <div>
+              <div class="view-count" title="Jumlah diakses">
+                👁️ <span id="count-${item.id}">${totalViews}</span>x diakses
+              </div>
               <div class="icon">${item.icon || '💻'}</div>
               <h3>${item.judul}</h3>
               <p>${item.deskripsi}</p>
@@ -175,11 +216,14 @@
           `;
           container.appendChild(card);
         });
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Gagal memuat lab.json:', error);
         document.getElementById('lab-container').innerHTML = '<p style="text-align:center;">Gagal memuat daftar simulasi digital.</p>';
-      });
+      }
+    }
+
+    // Jalankan skrip saat halaman dimuat
+    initLab();
   </script>
 </body>
 </html>
