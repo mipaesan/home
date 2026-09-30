@@ -1,38 +1,38 @@
 [
   {
     "id": "lab-006",
-    "icon": "🛹",
-    "judul": "Taman Bermain Energi",
-    "deskripsi": "Melihat perubahan energi potensial dan kinetik secara visual saat lintasan papan seluncur (skate) dimainkan.",
-    "link": "https://phet.colorado.edu/sims/html/energy-skate-park-basics/1.1.25/energy-skate-park-basics_in.html"
+    "icon": "🪐",
+    "judul": "Tata Surya Saya",
+    "deskripsi": "Eksperimen interaktif mengenai gravitasi, orbit planet, dan pergerakan benda-benda langit di tata surya.",
+    "link": "https://phet.colorado.edu/sims/html/my-solar-system/latest/my-solar-system_all.html?locale=in"
   },
   {
     "id": "lab-005",
     "icon": "⚡",
-    "judul": "Listrik Statis (Balon & Listrik)",
+    "judul": "Balon & Listrik Statis",
     "deskripsi": "Eksperimen seru menggosokkan balon ke baju untuk melihat bagaimana muatan listrik statis tarik-menarik.",
-    "link": "https://phet.colorado.edu/sims/html/balloons-and-static-electricity/1.5.7/balloons-and-static-electricity_in.html"
+    "link": "https://phet.colorado.edu/sims/html/balloons-and-static-electricity/latest/balloons-and-static-electricity_in.html"
   },
   {
     "id": "lab-004",
     "icon": "💡",
-    "judul": "Simulasi Listrik Sederhana",
-    "deskripsi": "Belajar merangkai sakelar, kabel, baterai, dan lampu untuk memahami bagaimana arus listrik mengalir.",
-    "link": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc-virtual-lab/1.2.1/circuit-construction-kit-dc-virtual-lab_in.html"
+    "judul": "Kit Rangkaian Listrik Arus Searah",
+    "deskripsi": "Belajar merangkai kabel, baterai, sakelar, dan lampu untuk memahami aliran listrik secara langsung.",
+    "link": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc/latest/circuit-construction-kit-dc_all.html?locale=in"
   },
   {
     "id": "lab-003",
     "icon": "⚖️",
-    "judul": "Laboratorium Papan Keseimbangan",
-    "deskripsi": "Eksperimen jungkat-jungkit untuk memahami konsep timbangan, beban, dan keseimbangan secara praktis.",
-    "link": "https://phet.colorado.edu/sims/html/balancing-act/1.1.18/balancing-act_in.html"
+    "judul": "Keseimbangan Beban",
+    "deskripsi": "Eksperimen jungkat-jungkit untuk memahami konsep timbangan, beban, dan Keseimbangan secara praktis.",
+    "link": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_in.html"
   },
   {
     "id": "lab-002",
-    "icon": "🍰",
-    "judul": "Konsep Dasar Pecahan",
-    "deskripsi": "Belajar mengenal bagian-bagian pecahan secara visual menggunakan gambar kue, lingkaran, dan balok warna.",
-    "link": "https://phet.colorado.edu/sims/html/fractions-intro/1.0.3/fractions-intro_in.html"
+    "icon": "⚖️",
+    "judul": "Kesetaraan Pecahan",
+    "deskripsi": "Eksperimen visual untuk memahami pecahan senilai dan membandingkan besaran nilai pecahan.",
+    "link": "https://phet.colorado.edu/sims/html/fractions-equality/latest/fractions-equality_all.html?locale=in"
   },
   {
     "id": "lab-001",
