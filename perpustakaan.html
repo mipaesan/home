@@ -20,6 +20,38 @@
       max-width: 1100px;
       margin: 0 auto;
     }
+
+    /* Header Navigasi Tambahan */
+    .nav-top {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 15px;
+    }
+    .btn-beranda {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #ffffff;
+      color: #075e54;
+      border: 1px solid #075e54;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .btn-beranda:hover {
+      background-color: #075e54;
+      color: #ffffff;
+    }
+    .btn-beranda svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
     header {
       text-align: center;
       margin-bottom: 25px;
@@ -193,6 +225,21 @@
       color: #888;
     }
 
+    /* Spinner Loading */
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e0e0e0;
+      border-top: 3px solid #075e54;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     /* Styles Pop-up Reader PDF */
     .modal-overlay {
       display: none;
@@ -259,6 +306,14 @@
 <body>
 
   <div class="container">
+    <!-- Navigasi Kembali ke Beranda -->
+    <div class="nav-top">
+      <a href="https://mipaesan.github.io/home/" class="btn-beranda">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        Kembali ke Beranda
+      </a>
+    </div>
+
     <header>
       <h1>Perpustakaan Digital</h1>
       <p>Koleksi Buku Bacaan &amp; Pembelajaran MI Salafiyatul Ma'muroh</p>
@@ -267,7 +322,7 @@
     <div class="filter-section">
       <!-- Input Pencarian Teks -->
       <div class="search-bar">
-        <input type="text" id="inputCari" placeholder="Cari judul buku atau penulis..." onkeyup="filterSemua()">
+        <input type="text" id="inputCari" placeholder="Cari judul buku atau penulis..." oninput="tanganiPencarian()">
       </div>
 
       <!-- Tombol Filter Kategori -->
@@ -284,7 +339,10 @@
     </div>
 
     <div class="grid-buku" id="daftarBuku">
-      <div class="pesan-kosong">Memuat koleksi buku...</div>
+      <div class="pesan-kosong">
+        <div class="spinner"></div>
+        <div>Memuat koleksi buku...</div>
+      </div>
     </div>
   </div>
 
@@ -296,7 +354,7 @@
         <button class="btn-close" onclick="tutupModal()">&times;</button>
       </div>
       <div class="modal-body">
-        <iframe id="iframePdf" src="" allow="autoplay"></iframe>
+        <iframe id="iframePdf" src="" allow="autoplay" loading="lazy"></iframe>
       </div>
     </div>
   </div>
@@ -307,8 +365,9 @@
     let semuaBuku = [];
     let kategoriAktif = 'Semua Buku';
     let dataStatistikNormalized = {}; 
+    let timerPencarian;
 
-    // Helper untuk membersihkan dan menormalisasi teks agar pencocokan 100% akurat
+    // Helper untuk membersihkan dan menormalisasi teks
     function normalisasi(str) {
       return String(str || '').toLowerCase().trim().replace(/\s+/g, ' ');
     }
@@ -325,6 +384,33 @@
         [array[i], array[j]] = [array[j], array[i]];
       }
       return array;
+    }
+
+    // Cache Fetching untuk buku.json
+    function ambilDataBuku() {
+      const cachedData = localStorage.getItem('cache_buku');
+      const cachedTime = localStorage.getItem('cache_buku_time');
+      const masaBerlaku = 10 * 60 * 1000; // Cache 10 menit
+
+      if (cachedData && cachedTime && (Date.now() - Number(cachedTime) < masaBerlaku)) {
+        try {
+          return Promise.resolve(JSON.parse(cachedData));
+        } catch (e) {
+          localStorage.removeItem('cache_buku');
+        }
+      }
+
+      return fetch('buku.json')
+        .then(res => res.json())
+        .then(data => {
+          try {
+            localStorage.setItem('cache_buku', JSON.stringify(data));
+            localStorage.setItem('cache_buku_time', Date.now().toString());
+          } catch (e) {
+            console.log('LocalStorage penuh/terbatasi');
+          }
+          return data;
+        });
     }
 
     // Ambil Data Rekapitulasi dari Google Sheets
@@ -347,9 +433,9 @@
         });
     }
 
-    // Ambil Data dari buku.json dan Google Sheets
+    // Ambil Data gabungan
     Promise.all([
-      fetch('buku.json').then(res => res.json()),
+      ambilDataBuku(),
       ambilStatistik()
     ])
     .then(([dataBuku]) => {
@@ -382,7 +468,6 @@
         let domId = buatIdAman(buku.id || buku.judul);
         let kunciNormal = normalisasi(buku.judul);
 
-        // Ambil jumlah pembaca dari data statistik terpeta
         let totalBaca = dataStatistikNormalized[kunciNormal] || 0;
 
         html += `
@@ -410,11 +495,18 @@
       container.innerHTML = html;
     }
 
-    // Fungsi Mengirim Rekap Pembaca ke Google Sheets
+    // Penanganan Debounce saat Pengetikan
+    function tanganiPencarian() {
+      clearTimeout(timerPencarian);
+      timerPencarian = setTimeout(() => {
+        filterSemua();
+      }, 200);
+    }
+
+    // Mengirim Rekap Pembaca ke Google Sheets
     function catatPembaca(judul, kategori, idBuku) {
       if (!SCRIPT_URL) return;
 
-      // Update Tampilan Angka Pembaca Secara Instan (+1)
       const domId = buatIdAman(idBuku);
       const elCount = document.getElementById(`count-${domId}`);
       if (elCount) {
@@ -422,11 +514,9 @@
         elCount.innerText = valSekarang + 1;
       }
 
-      // Update cache memori lokal agar jika difilter angka tidak reset
       const kunciNormal = normalisasi(judul);
       dataStatistikNormalized[kunciNormal] = (dataStatistikNormalized[kunciNormal] || 0) + 1;
 
-      // Kirim Data ke Google Sheets
       const formData = new FormData();
       formData.append('judul', judul);
       formData.append('kategori', kategori);
@@ -472,7 +562,6 @@
       document.body.style.overflow = 'auto';
     }
 
-    // Tutup Pop-Up saat area luar diklik
     window.onclick = function(event) {
       const modal = document.getElementById('modalBaca');
       if (event.target === modal) {
@@ -480,7 +569,6 @@
       }
     }
 
-    // Fungsi Pilih Kategori Filter
     function pilihKategori(kategori, el) {
       kategoriAktif = kategori;
       
@@ -490,7 +578,6 @@
       filterSemua();
     }
 
-    // Kombinasi Filter Kategori & Pencarian
     function filterSemua() {
       const kataKunci = document.getElementById('inputCari').value.toLowerCase().trim();
       const katTargetAbaikanSpasi = kategoriAktif.toLowerCase().replace(/\s+/g, '');
