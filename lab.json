@@ -1,5 +1,26 @@
 [
   {
+    "id": "lab-009",
+    "icon": "🧠",
+    "judul": "Model 3D Otak Manusia",
+    "deskripsi": "Visualisasi 3D interaktif bagian-bagian otak manusia yang dapat diputar dan diamati secara detail.",
+    "link": "https://sketchfab.com/3d-models/31-mozgani-2bbc701b70504b6ba2a0d0de0e9b5bc5"
+  },
+  {
+    "id": "lab-008",
+    "icon": "🫀",
+    "judul": "Organ Dalam Tubuh Manusia 3D",
+    "deskripsi": "Eksplorasi interaktif 3D organ dalam tubuh manusia untuk mengenalkan posisi dan bentuk organ.",
+    "link": "https://sketchfab.com/3d-models/organ-dalam-tubuh-manusia-434403eab8254348868e0c2dc8a5c900"
+  },
+  {
+    "id": "lab-007",
+    "icon": "🦴",
+    "judul": "Rangka Manusia 3D",
+    "deskripsi": "Model interaktif 3D susunan tulang dan rangka tubuh manusia yang dapat diputar 360 derajat.",
+    "link": "https://sketchfab.com/3d-models/rangka-manusia-03ad4459c54f4a1fbbb60ff1a777e109"
+  },
+  {
     "id": "lab-006",
     "icon": "🪐",
     "judul": "Tata Surya Saya",
@@ -22,9 +43,9 @@
   },
   {
     "id": "lab-003",
-    "icon": "⚖️",
+    "icon": "⚖️️",
     "judul": "Keseimbangan Beban",
-    "deskripsi": "Eksperimen jungkat-jungkit untuk memahami konsep timbangan, beban, dan Keseimbangan secara praktis.",
+    "deskripsi": "Eksperimen jungkat-jungkit untuk memahami konsep timbangan, beban, dan keseimbangan secara praktis.",
     "link": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_in.html"
   },
   {
