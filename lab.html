@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lab Digital - MI Salafiyatul Ma'muroh Paesan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f2fef6;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('header_optimized_16by9.png') center center / cover no-repeat;
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    }
+    header p {
+      margin-top: 10px;
+      font-size: 1.1em;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    }
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background: #00a896;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .back-btn:hover {
+      background: #008072;
+    }
+    .lab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+    .lab-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .lab-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    .lab-card .icon {
+      font-size: 3em;
+      margin-bottom: 15px;
+    }
+    .lab-card h3 {
+      margin: 0 0 10px;
+      color: #00a896;
+    }
+    .lab-card p {
+      font-size: 0.95em;
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .lab-card a.btn-akses {
+      background: #00a896;
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 0.9em;
+      display: inline-block;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+    .lab-card a.btn-akses:hover {
+      background: #008072;
+    }
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      font-size: 0.9em;
+      margin-top: 50px;
+    }
+    @media screen and (max-width: 600px) {
+      header h1 { font-size: 1.8em; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Lab Digital Madrasah</h1>
+    <p>Fasilitas Pembelajaran Berbasis Teknologi MI Salafiyatul Ma'muroh Paesan</p>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="back-btn">&larr; Kembali ke Beranda</a>
+
+    <div class="lab-grid" id="lab-container">
+      <!-- Data dari lab.json akan dimuat secara otomatis di sini -->
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
+    <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
+  </footer>
+
+  <script>
+    // URL Web App Google Apps Script milik Anda
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwhI46YnoC7qJ79asE8dH4yM0_vEKlEREsiUs5SNnLWKkjPCA2hDprqYEYD8b7l8d8-/exec";
+
+    // Fungsi untuk mencatat akses ke Google Sheets
+    function catatAksesLab(id, judul, targetUrl) {
+      if (GOOGLE_SCRIPT_URL) {
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: id,
+            judul: judul,
+            waktu: new Date().toLocaleString('id-ID')
+          })
+        }).catch(err => console.error('Gagal mencatat statistik:', err));
+      }
+      
+      // Buka link modul/simulasi di tab baru
+      window.open(targetUrl, '_blank');
+    }
+
+    // Memuat data dari lab.json
+    fetch('lab.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('lab-container');
+        container.innerHTML = '';
+
+        data.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'lab-card';
+          card.innerHTML = `
+            <div>
+              <div class="icon">${item.icon || '💻'}</div>
+              <h3>${item.judul}</h3>
+              <p>${item.deskripsi}</p>
+            </div>
+            <a class="btn-akses" onclick="catatAksesLab('${item.id}', '${item.judul}', '${item.link}')">Buka Modul / Simulasi</a>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(error => {
+        console.error('Gagal memuat lab.json:', error);
+        document.getElementById('lab-container').innerHTML = '<p style="text-align:center;">Gagal memuat daftar simulasi digital.</p>';
+      });
+  </script>
+</body>
+</html>
