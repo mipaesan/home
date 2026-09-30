@@ -1,5 +1,37 @@
 [
   {
+    "id": "b060",
+    "judul": "Seri Panca Indra (Hidung)",
+    "kategori": "cerita",
+    "penulis": "Noli",
+    "cover": "buku/cerita/seri_panca_indra_hidung_cover.png",
+    "file": "buku/cerita/seri_panca_indra_hidung.pdf"
+  },
+  {
+    "id": "b059",
+    "judul": "Seri Panca Indra (Telinga)",
+    "kategori": "cerita",
+    "penulis": "Noli",
+    "cover": "buku/cerita/seri_panca_indra_telinga_cover.png",
+    "file": "buku/cerita/seri_panca_indra_telinga.pdf"
+  },
+  {
+    "id": "b058",
+    "judul": "Seri Panca Indra (Mata)",
+    "kategori": "cerita",
+    "penulis": "Noli",
+    "cover": "buku/cerita/seri_panca_indra_mata_cover.png",
+    "file": "buku/cerita/seri_panca_indra_mata.pdf"
+  },
+  {
+    "id": "b057",
+    "judul": "Binatang di Sekitarku",
+    "kategori": "cerita",
+    "penulis": "Miranti Pratiwi",
+    "cover": "buku/cerita/binatang-di-sekitarku_cover.png",
+    "file": "buku/cerita/binatang-di-sekitarku.pdf"
+  },
+  {
     "id": "b056",
     "judul": "SKI Kelas 6",
     "kategori": "kelas6",
