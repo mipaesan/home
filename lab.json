@@ -1,5 +1,12 @@
 [
   {
+    "id": "lab-010",
+    "icon": "🚀",
+    "judul": "Solar System Scope 3D",
+    "deskripsi": "Simulasi 3D interaktif tata surya yang sangat keren dan responsif di HP untuk mengeksplorasi planet dan bintang.",
+    "link": "https://www.solarsystemscope.com/"
+  },
+  {
     "id": "lab-009",
     "icon": "🧠",
     "judul": "Model 3D Otak Manusia",
@@ -43,14 +50,14 @@
   },
   {
     "id": "lab-003",
-    "icon": "⚖️️",
+    "icon": "⚖️",
     "judul": "Keseimbangan Beban",
     "deskripsi": "Eksperimen jungkat-jungkit untuk memahami konsep timbangan, beban, dan keseimbangan secara praktis.",
     "link": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_in.html"
   },
   {
     "id": "lab-002",
-    "icon": "⚖️",
+    "icon": "🍕",
     "judul": "Kesetaraan Pecahan",
     "deskripsi": "Eksperimen visual untuk memahami pecahan senilai dan membandingkan besaran nilai pecahan.",
     "link": "https://phet.colorado.edu/sims/html/fractions-equality/latest/fractions-equality_all.html?locale=in"
