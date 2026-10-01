@@ -1,10 +1,10 @@
 [
   {
     "id": "lab-010",
-    "icon": "🚀",
-    "judul": "Stellarium Web",
-    "deskripsi": "Simulasi 3D interaktif tata surya yang sangat keren dan responsif di HP untuk mengeksplorasi planet dan bintang.",
-    "link": "stellarium-web.org"
+    "icon": "🌌",
+    "judul": "Stellarium - Peta Langit & Bintang",
+    "deskripsi": "Planetarium interaktif 3D di browser untuk mengamati bintang, rasi bintang, planet, dan posisi benda langit.",
+    "link": "https://stellarium-web.org/"
   },
   {
     "id": "lab-009",
