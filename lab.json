@@ -1,5 +1,12 @@
 [
   {
+    "id": "lab-011",
+    "icon": "🔤",
+    "judul": "Game Belajar Bahasa Inggris",
+    "deskripsi": "Permainan interaktif seru untuk melatih kosakata, tata bahasa, dan menyusun kalimat bahasa Inggris.",
+    "link": "https://www.gamestolearnenglish.com/"
+  },
+  {
     "id": "lab-010",
     "icon": "🌌",
     "judul": "Stellarium - Peta Langit & Bintang",
