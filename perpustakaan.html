@@ -150,10 +150,10 @@
       flex-grow: 1;
     }
 
-    /* Header Kartu (Kategori & Jumlah Baca) */
+    /* Header Kartu (Tag Kategori) */
     .meta-card {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       margin-bottom: 10px;
     }
@@ -166,17 +166,6 @@
       font-weight: 600;
       text-transform: capitalize;
     }
-    .view-count {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.8em;
-      color: #00a896;
-      background: #e6f7f5;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-weight: 600;
-    }
 
     .judul-buku {
       font-size: 1.05em;
@@ -188,12 +177,30 @@
     .penulis-buku {
       font-size: 0.85em;
       color: #666;
-      margin-bottom: 18px;
+      margin-bottom: 15px;
     }
 
-    /* Tombol Baca Buku (Sama dengan btn-akses Lab) */
-    .btn-baca {
+    /* Counter Dibaca (Ikon Mata Tepat di Atas Tombol Baca Buku) */
+    .view-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.8em;
+      color: #00a896;
+      background: #e6f7f5;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
       margin-top: auto;
+      margin-bottom: 12px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Tombol Baca Buku */
+    .btn-baca {
       background: #00a896;
       color: white;
       text-decoration: none;
@@ -299,7 +306,7 @@
       border: none;
     }
 
-    /* --- FOOTER (IDENTIK DENGAN LAB.HTML) --- */
+    /* --- FOOTER --- */
     footer {
       background: #222;
       color: white;
@@ -316,7 +323,7 @@
 </head>
 <body>
 
-  <!-- HEADER DENGAN GAMBAR HERO & FORM KALIMAT -->
+  <!-- HEADER HEADER_OPTIMIZED -->
   <header>
     <h1>Perpustakaan Digital</h1>
     <p>Koleksi Buku Bacaan &amp; Pembelajaran MI Salafiyatul Ma'muroh Paesan</p>
@@ -345,7 +352,7 @@
       </div>
     </div>
 
-    <!-- Grid Tempat Kartu Buku Muncul -->
+    <!-- Grid Kartu Buku -->
     <div class="grid-buku" id="daftarBuku">
       <div class="pesan-kosong">
         <div class="spinner"></div>
@@ -367,13 +374,13 @@
     </div>
   </div>
 
-  <!-- FOOTER SAMA IDENTIK -->
+  <!-- FOOTER -->
   <footer>
     <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
     <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
   </footer>
 
-  <!-- JAVASCRIPT SISTEM BUKU & TRACKER GOOGLE SHEETS -->
+  <!-- JAVASCRIPT SISTEM BUKU & TRACKER -->
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzikjVtarxZ2TbMO23OYgbf_wx2FtaE6MRJJJ4dTHLIQB-FqNaK14vw2DCxc2TktJKt/exec";
 
@@ -382,17 +389,14 @@
     let dataStatistikNormalized = {}; 
     let timerPencarian;
 
-    // Helper untuk membersihkan dan menormalisasi teks
     function normalisasi(str) {
       return String(str || '').toLowerCase().trim().replace(/\s+/g, ' ');
     }
 
-    // Helper membuat ID DOM yang aman
     function buatIdAman(str) {
       return String(str || '').replace(/[^a-zA-Z0-9_-]/g, '_');
     }
 
-    // Algoritma Pengacak Urutan Buku
     function acakBuku(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -401,11 +405,10 @@
       return array;
     }
 
-    // Cache Fetching untuk buku.json
     function ambilDataBuku() {
       const cachedData = localStorage.getItem('cache_buku');
       const cachedTime = localStorage.getItem('cache_buku_time');
-      const masaBerlaku = 10 * 60 * 1000; // Cache 10 menit
+      const masaBerlaku = 10 * 60 * 1000;
 
       if (cachedData && cachedTime && (Date.now() - Number(cachedTime) < masaBerlaku)) {
         try {
@@ -428,7 +431,6 @@
         });
     }
 
-    // Ambil Data Rekapitulasi dari Google Sheets
     function ambilStatistik() {
       if (!SCRIPT_URL) return Promise.resolve();
       
@@ -448,7 +450,6 @@
         });
     }
 
-    // Ambil Data gabungan
     Promise.all([
       ambilDataBuku(),
       ambilStatistik()
@@ -462,7 +463,6 @@
       document.getElementById('daftarBuku').innerHTML = '<div class="pesan-kosong">Gagal memuat data buku. Pastikan file buku.json tersedia.</div>';
     });
 
-    // Tampilkan Kartu Buku ke Grid
     function tampilkanBuku(listBuku) {
       const container = document.getElementById('daftarBuku');
       
@@ -491,12 +491,15 @@
             <div class="info-buku">
               <div class="meta-card">
                 ${katLabel ? `<span class="kategori-tag">${katLabel}</span>` : '<span></span>'}
-                <span class="view-count" title="Jumlah dibaca">
-                  👁️️ <span id="count-${domId}">${totalBaca}</span>x dibaca
-                </span>
               </div>
               <div class="judul-buku">${buku.judul}</div>
               <div class="penulis-buku">${buku.penulis || 'Penulis tidak diketahui'}</div>
+              
+              <!-- POSISI COUNTER MATA TERLETAK DI SINI (TEPAT DI ATAS TOMBOL BACA BUKU) -->
+              <div class="view-count" title="Jumlah dibaca">
+                👁️ <span id="count-${domId}">${totalBaca}</span>x dibaca
+              </div>
+
               <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}', '${buku.id || buku.judul}')">
                 Baca Buku
               </button>
@@ -508,7 +511,6 @@
       container.innerHTML = html;
     }
 
-    // Penanganan Debounce saat Pengetikan
     function tanganiPencarian() {
       clearTimeout(timerPencarian);
       timerPencarian = setTimeout(() => {
@@ -516,7 +518,6 @@
       }, 200);
     }
 
-    // Mengirim Rekap Pembaca ke Google Sheets
     function catatPembaca(judul, kategori, idBuku) {
       if (!SCRIPT_URL) return;
 
@@ -541,7 +542,6 @@
       }).catch(err => console.log('Gagal mencatat statistik:', err));
     }
 
-    // Fungsi Buka Pop-Up Reader
     function bukaModal(url, judul, kategori, idBuku) {
       catatPembaca(judul, kategori, idBuku);
 
@@ -565,7 +565,6 @@
       document.body.style.overflow = 'hidden';
     }
 
-    // Fungsi Tutup Pop-Up
     function tutupModal() {
       const modal = document.getElementById('modalBaca');
       const iframe = document.getElementById('iframePdf');
