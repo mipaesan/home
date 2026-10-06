@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perpustakaan Digital - MI Salafiyatul Ma'muroh</title>
+  <title>Perpustakaan Digital - MI Salafiyatul Ma'muroh Paesan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -11,67 +12,62 @@
       padding: 0;
     }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f9;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f2fef6;
       color: #333;
-      padding: 20px;
-    }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    /* Header Navigasi Tambahan */
-    .nav-top {
+      min-height: 100vh;
       display: flex;
-      justify-content: flex-start;
-      margin-bottom: 15px;
-    }
-    .btn-beranda {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background-color: #ffffff;
-      color: #075e54;
-      border: 1px solid #075e54;
-      padding: 7px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    .btn-beranda:hover {
-      background-color: #075e54;
-      color: #ffffff;
-    }
-    .btn-beranda svg {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    header h1 {
-      color: #d97706;
-      font-size: 32px;
-      margin-bottom: 8px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
-    }
-    header p {
-      color: #064e3b;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
+      flex-direction: column;
     }
     
-    /* Area Filter & Pencarian */
-    .filter-section {
+    /* --- HEADER (IDENTIK DENGAN LAB.HTML) --- */
+    header {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('header_optimized_16by9.png') center center / cover no-repeat;
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    }
+    header p {
+      margin-top: 10px;
+      font-size: 1.1em;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    }
+
+    /* --- CONTAINER --- */
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* --- TOMBOL KEMBALI --- */
+    .back-btn {
+      display: inline-block;
       margin-bottom: 25px;
+      padding: 10px 20px;
+      background: #00a896;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .back-btn:hover {
+      background: #008072;
+    }
+
+    /* --- AREA FILTER & PENCARIAN --- */
+    .filter-section {
+      margin-bottom: 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -83,18 +79,20 @@
     }
     .search-bar input {
       width: 100%;
-      padding: 12px 16px;
-      border: 1px solid #ccc;
+      padding: 12px 20px;
+      border: 2px solid #00a896;
       border-radius: 25px;
-      font-size: 14px;
+      font-size: 0.95em;
       outline: none;
-      transition: border-color 0.2s;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
     }
     .search-bar input:focus {
-      border-color: #075e54;
+      box-shadow: 0 4px 12px rgba(0, 168, 150, 0.25);
     }
-    
-    /* Tombol Kategori Filter */
+
+    /* Tombol Filter Kategori */
     .category-buttons {
       display: flex;
       flex-wrap: wrap;
@@ -103,47 +101,50 @@
     }
     .btn-filter {
       background-color: #fff;
-      border: 1px solid #075e54;
-      color: #075e54;
-      padding: 6px 14px;
+      border: 1.5px solid #00a896;
+      color: #00a896;
+      padding: 6px 16px;
       border-radius: 20px;
-      font-size: 13px;
+      font-size: 0.85em;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
     }
     .btn-filter:hover, .btn-filter.active {
-      background-color: #075e54;
+      background-color: #00a896;
       color: #fff;
     }
 
-    /* Grid Kartu Buku */
+    /* --- GRID KARTU BUKU --- */
     .grid-buku {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
     }
     .card-buku {
-      background: #fff;
-      border-radius: 10px;
+      background: white;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
       position: relative;
     }
     .card-buku:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     }
     .cover-buku {
       width: 100%;
-      height: 260px;
+      height: 270px;
       object-fit: cover;
-      background-color: #eee;
+      background-color: #e6f7f5;
     }
     .info-buku {
-      padding: 15px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
@@ -154,83 +155,79 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .kategori-tag {
-      font-size: 11px;
-      background: #e8f5e9;
-      color: #2e7d32;
-      padding: 2px 8px;
-      border-radius: 4px;
+      font-size: 0.75em;
+      background: #e6f7f5;
+      color: #00a896;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
       text-transform: capitalize;
     }
     .view-count {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      color: #555;
-      background-color: #f0f0f0;
-      padding: 2px 7px;
-      border-radius: 10px;
+      gap: 5px;
+      font-size: 0.8em;
+      color: #00a896;
+      background: #e6f7f5;
+      padding: 3px 10px;
+      border-radius: 20px;
       font-weight: 600;
-    }
-    .view-count svg {
-      width: 13px;
-      height: 13px;
-      fill: #075e54;
     }
 
     .judul-buku {
-      font-size: 15px;
-      font-weight: bold;
-      color: #222;
+      font-size: 1.05em;
+      font-weight: 600;
+      color: #00a896;
       margin-bottom: 6px;
       line-height: 1.3;
     }
     .penulis-buku {
-      font-size: 12px;
-      color: #777;
-      margin-bottom: 12px;
+      font-size: 0.85em;
+      color: #666;
+      margin-bottom: 18px;
     }
+
+    /* Tombol Baca Buku (Sama dengan btn-akses Lab) */
     .btn-baca {
       margin-top: auto;
+      background: #00a896;
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 0.9em;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      background-color: #075e54;
-      color: #fff;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 500;
-      transition: background 0.2s;
+      gap: 8px;
+      transition: background 0.3s ease;
       cursor: pointer;
       border: none;
       width: 100%;
+      font-family: 'Poppins', sans-serif;
     }
     .btn-baca:hover {
-      background-color: #128c7e;
+      background: #008072;
     }
-    .btn-baca svg {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
-    }
+
     .pesan-kosong {
       text-align: center;
       grid-column: 1 / -1;
       padding: 40px;
-      color: #888;
+      color: #666;
     }
 
     /* Spinner Loading */
     .spinner {
       width: 32px;
       height: 32px;
-      border: 3px solid #e0e0e0;
-      border-top: 3px solid #075e54;
+      border: 3px solid #e6f7f5;
+      border-top: 3px solid #00a896;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
       margin: 0 auto 12px auto;
@@ -240,7 +237,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Styles Pop-up Reader PDF */
+    /* --- MODAL POP-UP READER PDF --- */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -252,41 +249,41 @@
       z-index: 1000;
       justify-content: center;
       align-items: center;
-      padding: 10px;
+      padding: 15px;
     }
     .modal-container {
       background: #fff;
       width: 100%;
-      max-width: 900px;
+      max-width: 950px;
       height: 92vh;
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       position: relative;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
     .modal-header {
-      background-color: #075e54;
+      background-color: #00a896;
       color: #fff;
-      padding: 12px 20px;
+      padding: 14px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .modal-title {
-      font-size: 16px;
+      font-size: 1em;
       font-weight: 600;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 80%;
+      max-width: 85%;
     }
     .btn-close {
       background: transparent;
       border: none;
       color: #fff;
-      font-size: 24px;
+      font-size: 26px;
       cursor: pointer;
       line-height: 1;
       padding: 0 5px;
@@ -301,23 +298,33 @@
       height: 100%;
       border: none;
     }
+
+    /* --- FOOTER (IDENTIK DENGAN LAB.HTML) --- */
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      font-size: 0.9em;
+      margin-top: 50px;
+    }
+
+    @media screen and (max-width: 600px) {
+      header h1 { font-size: 1.8em; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- HEADER DENGAN GAMBAR HERO & FORM KALIMAT -->
+  <header>
+    <h1>Perpustakaan Digital</h1>
+    <p>Koleksi Buku Bacaan &amp; Pembelajaran MI Salafiyatul Ma'muroh Paesan</p>
+  </header>
+
   <div class="container">
     <!-- Navigasi Kembali ke Beranda -->
-    <div class="nav-top">
-      <a href="https://mipaesan.github.io/home/" class="btn-beranda">
-        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        Kembali ke Beranda
-      </a>
-    </div>
-
-    <header>
-      <h1>Perpustakaan Digital</h1>
-      <p>Koleksi Buku Bacaan &amp; Pembelajaran MI Salafiyatul Ma'muroh</p>
-    </header>
+    <a href="index.html" class="back-btn">&larr; Kembali ke Beranda</a>
 
     <div class="filter-section">
       <!-- Input Pencarian Teks -->
@@ -338,6 +345,7 @@
       </div>
     </div>
 
+    <!-- Grid Tempat Kartu Buku Muncul -->
     <div class="grid-buku" id="daftarBuku">
       <div class="pesan-kosong">
         <div class="spinner"></div>
@@ -346,7 +354,7 @@
     </div>
   </div>
 
-  <!-- Pop-Up Reader -->
+  <!-- Pop-Up Viewer PDF -->
   <div class="modal-overlay" id="modalBaca">
     <div class="modal-container">
       <div class="modal-header">
@@ -359,6 +367,13 @@
     </div>
   </div>
 
+  <!-- FOOTER SAMA IDENTIK -->
+  <footer>
+    <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
+    <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
+  </footer>
+
+  <!-- JAVASCRIPT SISTEM BUKU & TRACKER GOOGLE SHEETS -->
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzikjVtarxZ2TbMO23OYgbf_wx2FtaE6MRJJJ4dTHLIQB-FqNaK14vw2DCxc2TktJKt/exec";
 
@@ -472,19 +487,17 @@
 
         html += `
           <div class="card-buku">
-            <img class="cover-buku" src="${buku.cover || 'https://via.placeholder.com/200x260?text=No+Cover'}" alt="${buku.judul}" loading="lazy">
+            <img class="cover-buku" src="${buku.cover || 'https://via.placeholder.com/200x270?text=No+Cover'}" alt="${buku.judul}" loading="lazy">
             <div class="info-buku">
               <div class="meta-card">
                 ${katLabel ? `<span class="kategori-tag">${katLabel}</span>` : '<span></span>'}
-                <span class="view-count" title="Jumlah pembaca">
-                  <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                  <span id="count-${domId}">${totalBaca}</span>
+                <span class="view-count" title="Jumlah dibaca">
+                  👁️️ <span id="count-${domId}">${totalBaca}</span>x dibaca
                 </span>
               </div>
               <div class="judul-buku">${buku.judul}</div>
               <div class="penulis-buku">${buku.penulis || 'Penulis tidak diketahui'}</div>
               <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}', '${buku.id || buku.judul}')">
-                <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
                 Baca Buku
               </button>
             </div>
