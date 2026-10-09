@@ -230,8 +230,8 @@
   </footer>
 
   <script>
-    // URL Google Apps Script untuk pencatatan dan pemanggilan hitungan klik
-    const SCRIPT_URL = "https://script.google.com/macros/s/YOUR_APPS_SCRIPT_ID/exec";
+    // URL Google Apps Script yang aktif untuk sinkronisasi Google Sheets
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLNf-BeIBZ3qTW5Dhj0lTBme_J9Ed6-3LKwsR5jnktjkM238plbApfL1HUUk7f3YKP2g/exec";
 
     let modulesData = [];
     let clickCounts = {};
@@ -310,7 +310,7 @@
       }
 
       // Kirim sinyal tracking ke Google Apps Script
-      if (SCRIPT_URL && SCRIPT_URL !== "https://script.google.com/macros/s/YOUR_APPS_SCRIPT_ID/exec") {
+      if (SCRIPT_URL) {
         fetch(`${SCRIPT_URL}?id=${id}`, { mode: 'no-cors' }).catch(err => console.error(err));
       }
     }
