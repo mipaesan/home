@@ -1,17 +1,10 @@
 [
   {
-    "id": "lab-017",
+    "id": "lab-016",
     "icon": "🎨",
     "judul": "Autodraw",
     "deskripsi": "Menggambar digital berbasis kecerdasan buatan untuk mengasah kreativitas siswa.",
     "link": "https://www.autodraw.com/"
-  },
-  {
-    "id": "lab-016",
-    "icon": "🔬",
-    "judul": "Mikroskop & Sel Virtual",
-    "deskripsi": "Simulasi interaktif pengamatan mikroskopis struktur sel, mikroorganisme, dan skala ukuran biologis.",
-    "link": "https://learn.genetics.utah.edu/content/cells/scale/"
   },
   {
     "id": "lab-015",
