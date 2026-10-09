@@ -9,9 +9,9 @@
   {
     "id": "lab-016",
     "icon": "🔬",
-    "judul": "Mikroskop Virtual",
-    "deskripsi": "Simulasi pengamatan benda mikro dan sel menggunakan mikroskop digital secara interaktif.",
-    "link": "https://www.ncbionetwork.org/iet/microscope/"
+    "judul": "Mikroskop & Sel Virtual",
+    "deskripsi": "Simulasi interaktif pengamatan mikroskopis struktur sel, mikroorganisme, dan skala ukuran biologis.",
+    "link": "https://learn.genetics.utah.edu/content/cells/scale/"
   },
   {
     "id": "lab-015",
