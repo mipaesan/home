@@ -1,121 +1,322 @@
-[
-  {
-    "id": "lab-017",
-    "icon": "🎨",
-    "judul": "Autodraw",
-    "deskripsi": "Menggambar digital berbasis kecerdasan buatan untuk mengasah kreativitas siswa.",
-    "link": "https://www.autodraw.com/"
-  },
-  {
-    "id": "lab-016",
-    "icon": "🔬",
-    "judul": "Mikroskop Virtual",
-    "deskripsi": "Simulasi pengamatan benda mikro dan sel menggunakan mikroskop digital secara interaktif.",
-    "link": "https://www.ncbionetwork.org/iet/microscope/"
-  },
-  {
-    "id": "lab-015",
-    "icon": "🕌",
-    "judul": "Kuis Tajwid & Hijaiyah",
-    "deskripsi": "Game kuis interaktif untuk melatih pemahaman hukum tajwid dan mengenal huruf hijaiyah.",
-    "link": "https://wordwall.net/id/community/tajwid"
-  },
-  {
-    "id": "lab-014",
-    "icon": "💻",
-    "judul": "Scratch - Pemrograman Anak",
-    "deskripsi": "Media belajar logika pemrograman visual serta membuat animasi atau game sederhana.",
-    "link": "https://scratch.mit.edu/"
-  },
-  {
-    "id": "lab-013",
-    "icon": "🌍",
-    "judul": "Google Maps 3D & Satelit",
-    "deskripsi": "Eksplorasi peta dunia, citra satelit 3D, dan kenampakan alam bumi langsung di browser HP maupun laptop.",
-    "link": "https://www.google.com/maps/@0,0,3z/data=!3m1!1e3"
-  },
-  {
-    "id": "lab-012",
-    "icon": "ꦗ",
-    "judul": "Macaksara - Game Aksara Jawa",
-    "deskripsi": "Game kuis interaktif ing browser kanggo gladhen moco lan ngenal Aksara Jawa kanthi resep lan seru.",
-    "link": "https://adityarahmanda.github.io/macaksara/"
-  },
-  {
-    "id": "lab-011",
-    "icon": "🔤",
-    "judul": "Games to Learn English",
-    "deskripsi": "Permainan interaktif seru untuk melatih kosakata, tata bahasa, dan menyusun kalimat bahasa Inggris.",
-    "link": "https://www.gamestolearnenglish.com/"
-  },
-  {
-    "id": "lab-010",
-    "icon": "🌌",
-    "judul": "Stellarium - Peta Langit & Bintang",
-    "deskripsi": "Planetarium interaktif 3D di browser untuk mengamati bintang, rasi bintang, planet, dan posisi benda langit.",
-    "link": "https://stellarium-web.org/"
-  },
-  {
-    "id": "lab-009",
-    "icon": "🧠",
-    "judul": "Model 3D Otak Manusia",
-    "deskripsi": "Visualisasi interaktif tiga dimensi struktur dan bagian-bagian otak manusia.",
-    "link": "https://sketchfab.com/"
-  },
-  {
-    "id": "lab-008",
-    "icon": "🫀",
-    "judul": "Organ Dalam Tubuh Manusia 3D",
-    "deskripsi": "Eksplorasi model 3D organ dalam tubuh manusia secara detail dan interaktif.",
-    "link": "https://sketchfab.com/"
-  },
-  {
-    "id": "lab-007",
-    "icon": "🦴",
-    "judul": "Rangka Manusia 3D",
-    "deskripsi": "Simulasi interaktif 3D susunan tulang dan rangka tubuh manusia.",
-    "link": "https://sketchfab.com/"
-  },
-  {
-    "id": "lab-006",
-    "icon": "🪐",
-    "judul": "Tata Surya Saya",
-    "deskripsi": "Simulasi interaktif pergerakan planet dan benda langit dalam sistem tata surya.",
-    "link": "https://phet.colorado.edu/in/"
-  },
-  {
-    "id": "lab-005",
-    "icon": "🎈",
-    "judul": "Balon & Listrik Statis",
-    "deskripsi": "Eksperimen interaktif mengenai muatan listrik statis dan muatan atom.",
-    "link": "https://phet.colorado.edu/in/"
-  },
-  {
-    "id": "lab-004",
-    "icon": "⚡",
-    "judul": "Kit Rangkaian Listrik Arus Searah",
-    "deskripsi": "Simulasi merangkai komponen listrik, sakelar, baterai, dan lampu secara virtual.",
-    "link": "https://phet.colorado.edu/in/"
-  },
-  {
-    "id": "lab-003",
-    "icon": "⚖️",
-    "judul": "Keseimbangan Beban",
-    "deskripsi": "Simulasi jungkit-jangkit dan prinsip keseimbangan massa benda.",
-    "link": "https://phet.colorado.edu/in/"
-  },
-  {
-    "id": "lab-002",
-    "icon": "🍕",
-    "judul": "Kesetaraan Pecahan",
-    "deskripsi": "Media visual interaktif untuk memahami nilai pecahan dan kesetaraannya.",
-    "link": "https://phet.colorado.edu/in/"
-  },
-  {
-    "id": "lab-001",
-    "icon": "🧩",
-    "judul": "Mencocokkan Pecahan",
-    "deskripsi": "Permainan mengasah kemampuan memasangkan bentuk visual dengan nilai pecahan.",
-    "link": "https://phet.colorado.edu/in/"
-  }
-]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorium Digital - MI Salafiyatul Ma'muroh</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #00a896;
+      --primary-hover: #008f80;
+      --bg-color: #f4f7f6;
+      --card-bg: #ffffff;
+      --text-color: #2b2d42;
+      --text-muted: #6c757d;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    /* Header Styling */
+    header {
+      background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('header_optimized_16by9.png') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 60px 20px 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.05rem;
+      font-weight: 300;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Container Main */
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* Controls: Search & Category Filters */
+    .controls-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .search-box {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 14px 20px 14px 45px;
+      border: 2px solid #e2e8f0;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      outline: none;
+      transition: var(--transition);
+      background: white;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 168, 150, 0.15);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    /* Grid Layout for Cards */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    /* Module Card */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      box-shadow: var(--box-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      border: 1px solid #edf2f7;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-icon {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text-color);
+      text-align: center;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    /* Read Count (Eye Icon) Above Action Button */
+    .view-count {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .btn-simulasi {
+      width: 100%;
+      padding: 10px 16px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-simulasi:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* Empty state */
+    .no-result {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 50px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Laboratorium Digital Interaktif</h1>
+    <p>MI Salafiyatul Ma'muroh</p>
+  </header>
+
+  <div class="container">
+    <div class="controls-wrapper">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Cari modul laboratorium atau simulasi..." onkeyup="filterModules()">
+      </div>
+    </div>
+
+    <div id="gridContainer" class="grid-container">
+      <!-- Data dari lab.json akan dimuat secara dinamis melalui JavaScript -->
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 MI Salafiyatul Ma'muroh. Hak Cipta Dilindungi.</p>
+  </footer>
+
+  <script>
+    // URL Google Apps Script untuk pencatatan dan pemanggilan hitungan klik
+    const SCRIPT_URL = "https://script.google.com/macros/s/YOUR_APPS_SCRIPT_ID/exec";
+
+    let modulesData = [];
+    let clickCounts = {};
+
+    // Fetch data dari lab.json & Google Sheets secara paralel
+    async function initLab() {
+      try {
+        const [jsonResponse, countsResponse] = await Promise.allSettled([
+          fetch('lab.json').then(res => res.json()),
+          fetch(SCRIPT_URL).then(res => res.json())
+        ]);
+
+        if (jsonResponse.status === 'fulfilled') {
+          modulesData = jsonResponse.value;
+        }
+
+        if (countsResponse.status === 'fulfilled' && countsResponse.value) {
+          clickCounts = countsResponse.value;
+        }
+
+        renderModules(modulesData);
+      } catch (error) {
+        console.error('Gagal memuat data:', error);
+      }
+    }
+
+    // Render kartu modul ke dalam HTML
+    function renderModules(data) {
+      const container = document.getElementById('gridContainer');
+      container.innerHTML = '';
+
+      if (data.length === 0) {
+        container.innerHTML = '<div class="no-result"><i class="fas fa-info-circle fa-2x"></i><p style="margin-top:10px;">Modul tidak ditemukan.</p></div>';
+        return;
+      }
+
+      data.forEach(item => {
+        const count = clickCounts[item.id] || 0;
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-icon">${item.icon || '🧪'}</div>
+          <h2 class="card-title">${item.judul}</h2>
+          <p class="card-desc">${item.deskripsi}</p>
+          <div class="card-footer">
+            <div class="view-count">
+              <i class="far fa-eye"></i> <span id="count-${item.id}">${count}</span> kali diakses
+            </div>
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-simulasi" onclick="trackClick('${item.id}')">
+              <i class="fas fa-external-link-alt"></i> Buka Simulasi
+            </a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Filter modul berdasarkan input pencarian
+    function filterModules() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = modulesData.filter(item => 
+        item.judul.toLowerCase().includes(query) || 
+        item.deskripsi.toLowerCase().includes(query)
+      );
+      renderModules(filtered);
+    }
+
+    // Melakukan tracking klik ke Google Apps Script dan memperbarui tampilan secara real-time
+    function trackClick(id) {
+      // Update angka di layar secara langsung
+      const countEl = document.getElementById(`count-${id}`);
+      if (countEl) {
+        let currentCount = parseInt(countEl.innerText) || 0;
+        countEl.innerText = currentCount + 1;
+      }
+
+      // Kirim sinyal tracking ke Google Apps Script
+      if (SCRIPT_URL && SCRIPT_URL !== "https://script.google.com/macros/s/YOUR_APPS_SCRIPT_ID/exec") {
+        fetch(`${SCRIPT_URL}?id=${id}`, { mode: 'no-cors' }).catch(err => console.error(err));
+      }
+    }
+
+    // Inisialisasi halaman saat dimuat
+    window.addEventListener('DOMContentLoaded', initLab);
+  </script>
+</body>
+</html>
