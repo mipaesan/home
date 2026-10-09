@@ -62,7 +62,7 @@
       padding: 0 20px;
     }
 
-    /* Controls: Search & Category Filters */
+    /* Controls: Search Box */
     .controls-wrapper {
       display: flex;
       flex-direction: column;
@@ -221,7 +221,7 @@
     </div>
 
     <div id="gridContainer" class="grid-container">
-      <!-- Data dari lab.json akan dimuat secara dinamis melalui JavaScript -->
+      <!-- Data dari lab.json akan dimuat secara dinamis via JavaScript -->
     </div>
   </div>
 
@@ -230,7 +230,7 @@
   </footer>
 
   <script>
-    // URL Google Apps Script yang aktif untuk sinkronisasi Google Sheets
+    // URL Google Apps Script yang terhubung langsung ke Google Sheets tracking
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLNf-BeIBZ3qTW5Dhj0lTBme_J9Ed6-3LKwsR5jnktjkM238plbApfL1HUUk7f3YKP2g/exec";
 
     let modulesData = [];
@@ -300,7 +300,7 @@
       renderModules(filtered);
     }
 
-    // Melakukan tracking klik ke Google Apps Script dan memperbarui tampilan secara real-time
+    // Melakukan tracking klik secara andal (Support Mobile & Tab Baru)
     function trackClick(id) {
       // Update angka di layar secara langsung
       const countEl = document.getElementById(`count-${id}`);
@@ -309,9 +309,14 @@
         countEl.innerText = currentCount + 1;
       }
 
-      // Kirim sinyal tracking ke Google Apps Script
+      // Kirim sinyal tracking menggunakan sendBeacon agar tidak terputus saat tab baru dibuka
       if (SCRIPT_URL) {
-        fetch(`${SCRIPT_URL}?id=${id}`, { mode: 'no-cors' }).catch(err => console.error(err));
+        const trackingUrl = `${SCRIPT_URL}?id=${id}`;
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon(trackingUrl);
+        } else {
+          fetch(trackingUrl, { mode: 'no-cors' }).catch(err => console.error(err));
+        }
       }
     }
 
