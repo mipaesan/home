@@ -37,32 +37,8 @@
       background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('header_optimized_16by9.png') no-repeat center center/cover;
       color: white;
       text-align: center;
-      padding: 50px 20px 40px;
+      padding: 60px 20px 40px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      position: relative;
-    }
-
-    /* Tombol Kembali ke Beranda */
-    .btn-home {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      backdrop-filter: blur(5px);
-      transition: var(--transition);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      margin-bottom: 20px;
-    }
-
-    .btn-home:hover {
-      background: rgba(255, 255, 255, 0.35);
-      transform: translateY(-2px);
     }
 
     header h1 {
@@ -84,6 +60,33 @@
       max-width: 1200px;
       margin: 30px auto;
       padding: 0 20px;
+    }
+
+    /* Tombol Kembali ke Beranda (Di Luar Header) */
+    .nav-top {
+      margin-bottom: 20px;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-bg);
+      color: var(--primary-color);
+      padding: 10px 18px;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn-home:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
     }
 
     /* Controls: Search Box */
@@ -232,14 +235,18 @@
 <body>
 
   <header>
-    <a href="index.html" class="btn-home">
-      <i class="fas fa-home"></i> Beranda Utama
-    </a>
     <h1>Laboratorium Digital Interaktif</h1>
     <p>MI Salafiyatul Ma'muroh</p>
   </header>
 
   <div class="container">
+    <!-- Tombol Beranda di Atas Kotak Pencarian -->
+    <div class="nav-top">
+      <a href="index.html" class="btn-home">
+        <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+      </a>
+    </div>
+
     <div class="controls-wrapper">
       <div class="search-box">
         <i class="fas fa-search"></i>
