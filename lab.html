@@ -1,229 +1,121 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lab Digital - MI Salafiyatul Ma'muroh Paesan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f2fef6;
-      color: #333;
-    }
-    header {
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                  url('header_optimized_16by9.png') center center / cover no-repeat;
-      padding: 60px 20px;
-      text-align: center;
-      color: white;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-    }
-    header p {
-      margin-top: 10px;
-      font-size: 1.1em;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-    }
-    .container {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    .back-btn {
-      display: inline-block;
-      margin-bottom: 20px;
-      padding: 10px 20px;
-      background: #00a896;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-    .back-btn:hover {
-      background: #008072;
-    }
-    .lab-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-      margin-top: 20px;
-    }
-    .lab-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      padding: 25px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .lab-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    }
-    .view-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      font-size: 0.85em;
-      color: #00a896;
-      background: #e6f7f5;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .lab-card .icon {
-      font-size: 3em;
-      margin-bottom: 10px;
-    }
-    .lab-card h3 {
-      margin: 0 0 10px;
-      color: #00a896;
-    }
-    .lab-card p {
-      font-size: 0.95em;
-      color: #666;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
-    .lab-card a.btn-akses {
-      background: #00a896;
-      color: white;
-      text-decoration: none;
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 0.9em;
-      display: inline-block;
-      transition: background 0.3s ease;
-      cursor: pointer;
-    }
-    .lab-card a.btn-akses:hover {
-      background: #008072;
-    }
-    footer {
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 25px;
-      font-size: 0.9em;
-      margin-top: 50px;
-    }
-    @media screen and (max-width: 600px) {
-      header h1 { font-size: 1.8em; }
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>Lab Digital Madrasah</h1>
-    <p>Fasilitas Pembelajaran Berbasis Teknologi MI Salafiyatul Ma'muroh Paesan</p>
-  </header>
-
-  <div class="container">
-    <a href="index.html" class="back-btn">&larr; Kembali ke Beranda</a>
-
-    <div class="lab-grid" id="lab-container">
-      <!-- Data dari lab.json akan dimuat di sini -->
-    </div>
-  </div>
-
-  <footer>
-    <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
-    <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
-  </footer>
-
-  <script>
-    // URL Web App Google Apps Script Terbaru Anda
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLNf-BeIBZ3qTW5Dhj0lTBme_J9Ed6-3LKwsR5jnktjkM238plbApfL1HUUk7f3YKP2g/exec";
-
-    // Fungsi mencatat klik ke Google Sheet & menambah angka tampilan secara instan
-    function catatAksesLab(id, judul, targetUrl) {
-      if (GOOGLE_SCRIPT_URL) {
-        fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id: id,
-            judul: judul,
-            waktu: new Date().toLocaleString('id-ID')
-          })
-        }).catch(err => console.error('Gagal mencatat:', err));
-
-        // Tambah angka di tampilan layar seketika
-        const countElem = document.getElementById(`count-${id}`);
-        if (countElem) {
-          let current = parseInt(countElem.innerText) || 0;
-          countElem.innerText = current + 1;
-        }
-      }
-      
-      // Buka modul di tab baru
-      window.open(targetUrl, '_blank');
-    }
-
-    // Memuat data JSON & membaca total riil dari Google Sheet saat dibuka/direload
-    async function initLab() {
-      try {
-        const labRes = await fetch('lab.json');
-        const labData = await labRes.json();
-
-        let statsData = {};
-        if (GOOGLE_SCRIPT_URL) {
-          try {
-            const statsRes = await fetch(GOOGLE_SCRIPT_URL);
-            statsData = await statsRes.json();
-          } catch (e) {
-            console.error('Gagal mengambil data dari Google Sheets:', e);
-          }
-        }
-
-        const container = document.getElementById('lab-container');
-        container.innerHTML = '';
-
-        labData.forEach(item => {
-          // Ambil total klik dari Google Sheet berdasarkan ID modul
-          const totalViews = statsData[item.id] || 0;
-
-          const card = document.createElement('div');
-          card.className = 'lab-card';
-          card.innerHTML = `
-            <div>
-              <div class="view-count" title="Jumlah diakses">
-                👁️ <span id="count-${item.id}">${totalViews}</span>x diakses
-              </div>
-              <div class="icon">${item.icon || '💻'}</div>
-              <h3>${item.judul}</h3>
-              <p>${item.deskripsi}</p>
-            </div>
-            <a class="btn-akses" onclick="catatAksesLab('${item.id}', '${item.judul}', '${item.link}')">Buka Modul / Simulasi</a>
-          `;
-          container.appendChild(card);
-        });
-      } catch (error) {
-        console.error('Gagal memuat lab.json:', error);
-        document.getElementById('lab-container').innerHTML = '<p style="text-align:center;">Gagal memuat daftar simulasi digital.</p>';
-      }
-    }
-
-    // Jalankan skrip saat halaman dimuat
-    initLab();
-  </script>
-</body>
-</html>
+[
+  {
+    "id": "lab-017",
+    "icon": "🎨",
+    "judul": "Autodraw",
+    "deskripsi": "Menggambar digital berbasis kecerdasan buatan untuk mengasah kreativitas siswa.",
+    "link": "https://www.autodraw.com/"
+  },
+  {
+    "id": "lab-016",
+    "icon": "🔬",
+    "judul": "Mikroskop Virtual",
+    "deskripsi": "Simulasi pengamatan benda mikro dan sel menggunakan mikroskop digital secara interaktif.",
+    "link": "https://www.ncbionetwork.org/iet/microscope/"
+  },
+  {
+    "id": "lab-015",
+    "icon": "🕌",
+    "judul": "Kuis Tajwid & Hijaiyah",
+    "deskripsi": "Game kuis interaktif untuk melatih pemahaman hukum tajwid dan mengenal huruf hijaiyah.",
+    "link": "https://wordwall.net/id/community/tajwid"
+  },
+  {
+    "id": "lab-014",
+    "icon": "💻",
+    "judul": "Scratch - Pemrograman Anak",
+    "deskripsi": "Media belajar logika pemrograman visual serta membuat animasi atau game sederhana.",
+    "link": "https://scratch.mit.edu/"
+  },
+  {
+    "id": "lab-013",
+    "icon": "🌍",
+    "judul": "Google Maps 3D & Satelit",
+    "deskripsi": "Eksplorasi peta dunia, citra satelit 3D, dan kenampakan alam bumi langsung di browser HP maupun laptop.",
+    "link": "https://www.google.com/maps/@0,0,3z/data=!3m1!1e3"
+  },
+  {
+    "id": "lab-012",
+    "icon": "ꦗ",
+    "judul": "Macaksara - Game Aksara Jawa",
+    "deskripsi": "Game kuis interaktif ing browser kanggo gladhen moco lan ngenal Aksara Jawa kanthi resep lan seru.",
+    "link": "https://adityarahmanda.github.io/macaksara/"
+  },
+  {
+    "id": "lab-011",
+    "icon": "🔤",
+    "judul": "Games to Learn English",
+    "deskripsi": "Permainan interaktif seru untuk melatih kosakata, tata bahasa, dan menyusun kalimat bahasa Inggris.",
+    "link": "https://www.gamestolearnenglish.com/"
+  },
+  {
+    "id": "lab-010",
+    "icon": "🌌",
+    "judul": "Stellarium - Peta Langit & Bintang",
+    "deskripsi": "Planetarium interaktif 3D di browser untuk mengamati bintang, rasi bintang, planet, dan posisi benda langit.",
+    "link": "https://stellarium-web.org/"
+  },
+  {
+    "id": "lab-009",
+    "icon": "🧠",
+    "judul": "Model 3D Otak Manusia",
+    "deskripsi": "Visualisasi interaktif tiga dimensi struktur dan bagian-bagian otak manusia.",
+    "link": "https://sketchfab.com/"
+  },
+  {
+    "id": "lab-008",
+    "icon": "🫀",
+    "judul": "Organ Dalam Tubuh Manusia 3D",
+    "deskripsi": "Eksplorasi model 3D organ dalam tubuh manusia secara detail dan interaktif.",
+    "link": "https://sketchfab.com/"
+  },
+  {
+    "id": "lab-007",
+    "icon": "🦴",
+    "judul": "Rangka Manusia 3D",
+    "deskripsi": "Simulasi interaktif 3D susunan tulang dan rangka tubuh manusia.",
+    "link": "https://sketchfab.com/"
+  },
+  {
+    "id": "lab-006",
+    "icon": "🪐",
+    "judul": "Tata Surya Saya",
+    "deskripsi": "Simulasi interaktif pergerakan planet dan benda langit dalam sistem tata surya.",
+    "link": "https://phet.colorado.edu/in/"
+  },
+  {
+    "id": "lab-005",
+    "icon": "🎈",
+    "judul": "Balon & Listrik Statis",
+    "deskripsi": "Eksperimen interaktif mengenai muatan listrik statis dan muatan atom.",
+    "link": "https://phet.colorado.edu/in/"
+  },
+  {
+    "id": "lab-004",
+    "icon": "⚡",
+    "judul": "Kit Rangkaian Listrik Arus Searah",
+    "deskripsi": "Simulasi merangkai komponen listrik, sakelar, baterai, dan lampu secara virtual.",
+    "link": "https://phet.colorado.edu/in/"
+  },
+  {
+    "id": "lab-003",
+    "icon": "⚖️",
+    "judul": "Keseimbangan Beban",
+    "deskripsi": "Simulasi jungkit-jangkit dan prinsip keseimbangan massa benda.",
+    "link": "https://phet.colorado.edu/in/"
+  },
+  {
+    "id": "lab-002",
+    "icon": "🍕",
+    "judul": "Kesetaraan Pecahan",
+    "deskripsi": "Media visual interaktif untuk memahami nilai pecahan dan kesetaraannya.",
+    "link": "https://phet.colorado.edu/in/"
+  },
+  {
+    "id": "lab-001",
+    "icon": "🧩",
+    "judul": "Mencocokkan Pecahan",
+    "deskripsi": "Permainan mengasah kemampuan memasangkan bentuk visual dengan nilai pecahan.",
+    "link": "https://phet.colorado.edu/in/"
+  }
+]
