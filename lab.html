@@ -37,8 +37,32 @@
       background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('header_optimized_16by9.png') no-repeat center center/cover;
       color: white;
       text-align: center;
-      padding: 60px 20px 40px;
+      padding: 50px 20px 40px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    /* Tombol Kembali ke Beranda */
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      backdrop-filter: blur(5px);
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .btn-home:hover {
+      background: rgba(255, 255, 255, 0.35);
+      transform: translateY(-2px);
     }
 
     header h1 {
@@ -208,6 +232,9 @@
 <body>
 
   <header>
+    <a href="index.html" class="btn-home">
+      <i class="fas fa-home"></i> Beranda Utama
+    </a>
     <h1>Laboratorium Digital Interaktif</h1>
     <p>MI Salafiyatul Ma'muroh</p>
   </header>
@@ -221,7 +248,7 @@
     </div>
 
     <div id="gridContainer" class="grid-container">
-      <!-- Data dari lab.json akan dimuat secara dinamis via JavaScript -->
+      <!-- Data dari lab.json dimuat secara dinamis via JavaScript -->
     </div>
   </div>
 
@@ -230,7 +257,7 @@
   </footer>
 
   <script>
-    // URL Google Apps Script yang terhubung langsung ke Google Sheets tracking
+    // URL Google Apps Script terhubung langsung ke Google Sheets tracking
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLNf-BeIBZ3qTW5Dhj0lTBme_J9Ed6-3LKwsR5jnktjkM238plbApfL1HUUk7f3YKP2g/exec";
 
     let modulesData = [];
@@ -300,16 +327,14 @@
       renderModules(filtered);
     }
 
-    // Melakukan tracking klik secara andal (Support Mobile & Tab Baru)
+    // Tracking klik andal (Support Mobile & Tab Baru)
     function trackClick(id) {
-      // Update angka di layar secara langsung
       const countEl = document.getElementById(`count-${id}`);
       if (countEl) {
         let currentCount = parseInt(countEl.innerText) || 0;
         countEl.innerText = currentCount + 1;
       }
 
-      // Kirim sinyal tracking menggunakan sendBeacon agar tidak terputus saat tab baru dibuka
       if (SCRIPT_URL) {
         const trackingUrl = `${SCRIPT_URL}?id=${id}`;
         if (navigator.sendBeacon) {
@@ -320,7 +345,6 @@
       }
     }
 
-    // Inisialisasi halaman saat dimuat
     window.addEventListener('DOMContentLoaded', initLab);
   </script>
 </body>
