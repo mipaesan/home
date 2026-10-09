@@ -1,5 +1,40 @@
 [
   {
+    "id": "lab-017",
+    "icon": "🎨",
+    "judul": "Autodraw",
+    "deskripsi": "Menggambar digital berbasis kecerdasan buatan untuk mengasah kreativitas siswa.",
+    "link": "https://www.autodraw.com/"
+  },
+  {
+    "id": "lab-016",
+    "icon": "🔬",
+    "judul": "Mikroskop Virtual",
+    "deskripsi": "Simulasi pengamatan benda mikro dan sel menggunakan mikroskop digital secara interaktif.",
+    "link": "https://www.ncbionetwork.org/iet/microscope/"
+  },
+  {
+    "id": "lab-015",
+    "icon": "🕌",
+    "judul": "Kuis Tajwid & Hijaiyah",
+    "deskripsi": "Game kuis interaktif untuk melatih pemahaman hukum tajwid dan mengenal huruf hijaiyah.",
+    "link": "https://wordwall.net/id/community/tajwid"
+  },
+  {
+    "id": "lab-014",
+    "icon": "💻",
+    "judul": "Scratch - Pemrograman Anak",
+    "deskripsi": "Media belajar logika pemrograman visual serta membuat animasi atau game sederhana.",
+    "link": "https://scratch.mit.edu/"
+  },
+  {
+    "id": "lab-013",
+    "icon": "🌍",
+    "judul": "Google Earth Web",
+    "deskripsi": "Eksplorasi peta 3D, kondisi geografis, dan kenampakan alam bumi secara langsung.",
+    "link": "https://earth.google.com/web/"
+  },
+  {
     "id": "lab-012",
     "icon": "ꦗ",
     "judul": "Macaksara - Game Aksara Jawa",
