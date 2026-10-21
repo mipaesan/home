@@ -1,0 +1,100 @@
+[
+  {
+    "mapel": "Al Qur'an Hadis Kelas 6",
+    "token": "TYVB78",
+    "file_soal": "soal/qurdis-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Akidah Akhlak Kelas 6",
+    "token": "AS9C5A",
+    "file_soal": "soal/akidah-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Fikih Kelas 6",
+    "token": "ZKPC4C",
+    "file_soal": "soal/fikih-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Sejarah Kebudayaan Islam Kelas 6",
+    "token": "79BYT4",
+    "file_soal": "soal/ski-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Bahasa Arab Kelas 6",
+    "token": "PQQDKH",
+    "file_soal": "soal/arab-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Pendidikan Pancasila Kelas 6",
+    "token": "ULYVJX",
+    "file_soal": "soal/pancasila-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Bahasa Indonesia Kelas 6",
+    "token": "BM85AS",
+    "file_soal": "soal/bindo-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Matematika Kelas 6",
+    "token": "CRA58T",
+    "file_soal": "soal/mtk-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Ilmu Pengetahuan Alam dan Sosial Kelas 6",
+    "token": "SHHRPY",
+    "file_soal": "soal/ipas-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Pendidikan Jasmani, Olahraga dan Kesehatan Kelas 6",
+    "token": "2JEGA8",
+    "file_soal": "soal/pjok-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Seni Budaya dan Prakarya Kelas 6",
+    "token": "DRWD9G",
+    "file_soal": "soal/sbdp-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Bahasa Inggris Kelas 6",
+    "token": "859U3F",
+    "file_soal": "soal/bing-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Bahasa Jawa Kelas 6",
+    "token": "MYEFSJ",
+    "file_soal": "soal/bjawa-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  },
+  {
+    "mapel": "Baca Tulis Al Quran Kelas 6",
+    "token": "MNSGUQ",
+    "file_soal": "soal/btq-kls6.json",
+    "durasi_menit": 90,
+    "aktif": true
+  }
+]
