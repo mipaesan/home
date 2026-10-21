@@ -181,7 +181,7 @@
             border-color: #badbcc;
         }
 
-        /* Lembar Ujaan / Soal */
+        /* Lembar Ujian / Soal */
         .soal-container {
             display: none;
         }
@@ -303,19 +303,13 @@
     </header>
 
     <div class="container">
-        <!-- FORM LOGIN / MASUK UJIAN -->
-        <div id="login-section" class="card" style="max-width: 450px; margin: 2rem auto;">
+        <!-- FORM LOGIN / MASUK UJIAN (KEMBALI HANYA ID & TOKEN) -->
+        <div id="login-section" class="card" style="max-width: 420px; margin: 2.5rem auto;">
             <div class="card-title">Login Ujian Siswa</div>
             <form id="form-login" onsubmit="event.preventDefault(); prosesLogin();">
                 <div class="form-group">
                     <label for="input-nis">ID / NIS Siswa</label>
                     <input type="text" id="input-nis" class="form-control" placeholder="Contoh: 6-001" required>
-                </div>
-                <div class="form-group">
-                    <label for="select-mapel">Mata Pelajaran</label>
-                    <select id="select-mapel" class="form-control" required>
-                        <option value="">-- Pilih Mapel --</option>
-                    </select>
                 </div>
                 <div class="form-group">
                     <label for="input-token">Token Ujian (6 Digit)</label>
@@ -364,7 +358,7 @@
                             <!-- Pilihan Ganda / Input Isian di-generate oleh JS -->
                         </div>
 
-                        <div style="display:flex; justify-shadow:space-between; margin-top:2rem; gap:1rem;">
+                        <div style="display:flex; justify-content:space-between; margin-top:2rem; gap:1rem;">
                             <button id="btn-prev" class="btn btn-secondary" onclick="soalSebelumnya()" style="width:auto; padding:0.6rem 1.2rem;">◀ Sebelumnya</button>
                             <button id="btn-next" class="btn" onclick="soalBerikutnya()" style="width:auto; padding:0.6rem 1.2rem; margin-left:auto;">Berikutnya ▶</button>
                         </div>
@@ -409,10 +403,9 @@
         let currentMapel = null;
         let soalData = [];
         let indexSoal = 0;
-        let jawabanSiswa = {}; // { 1: "A", 2: "Jawaban Isian" }
+        let jawabanSiswa = {};
         let timerInterval = null;
 
-        // Fetch Members & Jadwal saat pertama dimuat
         window.onload = function() {
             loadInitialData();
         };
@@ -424,59 +417,37 @@
 
                 const resJadwal = await fetch('jadwal.json');
                 listJadwal = await resJadwal.json();
-
-                populateMapelDropdown();
             } catch (err) {
-                showAlert("Gagal Memuat Data", "Gagal mengambil data jadwal atau members. Pastikan koneksi aman.");
+                showAlert("Gagal Memuat Data", "Gagal mengambil data jadwal atau members.");
             }
         }
 
-        function populateMapelDropdown() {
-            const selectMapel = document.getElementById('select-mapel');
-            selectMapel.innerHTML = '<option value="">-- Pilih Mapel --</option>';
-            
-            listJadwal.forEach((j, index) => {
-                let opt = document.createElement('option');
-                opt.value = index;
-                opt.textContent = j.mapel;
-                selectMapel.appendChild(opt);
-            });
-        }
-
-        // ==========================================
-        // PERBAIKAN LOGIKA VALIDASI WAKTU UTAMA
-        // ==========================================
+        // OTOMATIS MENGENALI MAPEL DARI TOKEN YANG DIKETIK
         function prosesLogin() {
             const nisInput = document.getElementById('input-nis').value.trim();
-            const mapelIndex = document.getElementById('select-mapel').value;
             const tokenInput = document.getElementById('input-token').value.trim().toUpperCase();
 
-            if (mapelIndex === "") {
-                showAlert("Peringatan", "Silakan pilih Mata Pelajaran terlebih dahulu!");
-                return;
-            }
-
-            // 1. Cek Data Siswa
+            // 1. Cek Siswa
             const siswa = listMembers.find(m => m.id === nisInput && m.role === 'siswa');
             if (!siswa) {
-                showAlert("Login Gagal", "ID / NIS Siswa tidak terdaftar di sistem!");
+                showAlert("Login Gagal", "ID / NIS Siswa tidak terdaftar!");
                 return;
             }
 
-            // 2. Cek Mapel & Token
-            const mapelDipilih = listJadwal[mapelIndex];
-            if (mapelDipilih.token !== tokenInput) {
-                showAlert("Token Salah", "Token Ujian yang Anda masukkan tidak sesuai!");
+            // 2. Cek Token di Jadwal (Cari Mapel Otomatis)
+            const mapelDipilih = listJadwal.find(j => j.token === tokenInput);
+            if (!mapelDipilih) {
+                showAlert("Token Salah", "Token Ujian tidak ditemukan atau salah!");
                 return;
             }
 
-            // 3. Validasi Status Aktif
+            // 3. Validasi Aktif
             if (!mapelDipilih.aktif) {
-                showAlert("Ujian Ditutup", "Mata pelajaran ini sedang tidak diaktifkan oleh panitia.");
+                showAlert("Ujian Ditutup", "Mata pelajaran ini sedang tidak diaktifkan.");
                 return;
             }
 
-            // 4. Validasi Jadwal Waktu Buka & Waktu Tutup
+            // 4. Validasi Jadwal Waktu
             const sekarang = new Date();
             const waktuBuka = new Date(mapelDipilih.waktu_buka.replace(' ', 'T'));
             const waktuTutup = new Date(mapelDipilih.waktu_tutup.replace(' ', 'T'));
@@ -487,11 +458,10 @@
             }
 
             if (sekarang > waktuTutup) {
-                showAlert("Ujian Selesai", `Waktu pengerjaan untuk mata pelajaran <strong>${mapelDipilih.mapel}</strong> telah berakhir.<br><br>⏱️ Sesi Berakhir Pada: <strong>${mapelDipilih.waktu_tutup} WIB</strong>`);
+                showAlert("Ujian Selesai", `Waktu ujian untuk <strong>${mapelDipilih.mapel}</strong> telah berakhir.<br><br>⏱️ Berakhir Pada: <strong>${mapelDipilih.waktu_tutup} WIB</strong>`);
                 return;
             }
 
-            // Jika semua lolos, simpan variabel & ambil file soal
             currentSiswa = siswa;
             currentMapel = mapelDipilih;
             loadSoal(mapelDipilih.file_soal, mapelDipilih.durasi_menit);
@@ -504,7 +474,6 @@
                 
                 soalData = await res.json();
 
-                // Setup Tampilan
                 document.getElementById('login-section').style.display = 'none';
                 document.getElementById('exam-section').style.display = 'block';
 
@@ -518,7 +487,7 @@
                 startTimer(durasi * 60);
 
             } catch (err) {
-                showAlert("Error", "File naskah soal belum siap atau belum diunggah oleh guru.");
+                showAlert("Error", "File naskah soal belum siap atau belum diunggah.");
             }
         }
 
@@ -535,7 +504,7 @@
             if (item.tipe === "PG") {
                 let html = '<ul class="options-list">';
                 item.pilihan.forEach((pil, pIdx) => {
-                    const letter = String.fromCharCode(65 + pIdx); // A, B, C, D
+                    const letter = String.fromCharCode(65 + pIdx);
                     const checked = (jawabanSiswa[item.id] === letter) ? 'checked' : '';
                     html += `
                         <li class="option-item" onclick="pilihJawabanPG('${item.id}', '${letter}')">
@@ -584,103 +553,4 @@
             soalData.forEach((s, idx) => {
                 const btn = document.createElement('button');
                 btn.className = 'nav-btn';
-                btn.id = `nav-btn-${idx}`;
-                btn.textContent = idx + 1;
-                btn.onclick = () => { tampilSoal(idx); tutupModalNav(); };
-
-                deskGrid.appendChild(btn);
-                mobGrid.appendChild(btn.cloneNode(true));
-            });
-        }
-
-        function updateNavActiveState() {
-            soalData.forEach((s, idx) => {
-                const isAnswered = jawabanSiswa[s.id] && jawabanSiswa[s.id].trim() !== "";
-                const isActive = (idx === indexSoal);
-
-                ['desktop-nav-grid', 'mobile-nav-grid'].forEach(gridId => {
-                    const grid = document.getElementById(gridId);
-                    if (grid && grid.children[idx]) {
-                        const btn = grid.children[idx];
-                        btn.className = 'nav-btn';
-                        if (isAnswered) btn.classList.add('answered');
-                        if (isActive) btn.classList.add('active');
-                    }
-                });
-            });
-        }
-
-        function startTimer(detik) {
-            let sisa = detik;
-            timerInterval = setInterval(() => {
-                let m = Math.floor(sisa / 60);
-                let s = sisa % 60;
-                document.getElementById('timer-text').textContent = 
-                    `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
-                
-                if (sisa <= 0) {
-                    clearInterval(timerInterval);
-                    showAlert("Waktu Habis", "Waktu ujian Anda telah habis! Jawaban akan dikirim secara otomatis.");
-                    submitJawaban();
-                }
-                sisa--;
-            }, 1000);
-        }
-
-        function konfirmasiSelesai() {
-            showConfirm("Konfirmasi Selesai", "Apakah Anda yakin ingin mengakhiri dan mengirimkan jawaban ujian ini?", () => {
-                submitJawaban();
-            });
-        }
-
-        function submitJawaban() {
-            clearInterval(timerInterval);
-            // Nanti dihubungkan dengan Google Apps Script Web App URL
-            showAlert("Ujian Selesai", "Terima kasih! Jawaban Anda telah berhasil terkirim.", () => {
-                location.reload();
-            });
-        }
-
-        // Helper Modal Alerts
-        function showAlert(title, msg, onOk = null) {
-            document.getElementById('modal-alert-title').textContent = title;
-            document.getElementById('modal-alert-msg').innerHTML = msg;
-            document.getElementById('modal-alert-footer').innerHTML = `<button class="btn" onclick="tutupAlert();">OK</button>`;
-            
-            if (onOk) {
-                document.getElementById('modal-alert-footer').children[0].onclick = () => {
-                    tutupAlert();
-                    onOk();
-                };
-            }
-            document.getElementById('modal-alert').style.display = 'flex';
-        }
-
-        function showConfirm(title, msg, onYes) {
-            document.getElementById('modal-alert-title').textContent = title;
-            document.getElementById('modal-alert-msg').innerHTML = msg;
-            document.getElementById('modal-alert-footer').innerHTML = `
-                <button class="btn btn-secondary" onclick="tutupAlert()">Batal</button>
-                <button class="btn btn-warning" id="btn-confirm-yes">Ya, Kirim</button>
-            `;
-            document.getElementById('btn-confirm-yes').onclick = () => {
-                tutupAlert();
-                onYes();
-            };
-            document.getElementById('modal-alert').style.display = 'flex';
-        }
-
-        function tutupAlert() {
-            document.getElementById('modal-alert').style.display = 'none';
-        }
-
-        function bukaModalNav() {
-            document.getElementById('modal-nav').style.display = 'flex';
-        }
-
-        function tutupModalNav() {
-            document.getElementById('modal-nav').style.display = 'none';
-        }
-    </script>
-</body>
-</html>
+                btn.id
