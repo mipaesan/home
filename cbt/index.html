@@ -241,12 +241,13 @@
             resize: vertical;
         }
 
-        /* Modal Mobile & Alert Custom */
+        /* Modal Custom Popup & Overlay */
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(3px);
             z-index: 999;
             align-items: center;
             justify-content: center;
@@ -255,11 +256,17 @@
 
         .modal-card {
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             max-width: 450px;
             width: 100%;
             padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: popupFade 0.25s ease-out;
+        }
+
+        @keyframes popupFade {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .modal-footer {
@@ -391,13 +398,13 @@
         </div>
     </div>
 
-    <!-- MODAL KONFIRMASI / ALERT CUSTOM -->
+    <!-- MODAL POPUP CUSTOM PERINGATAN / CONFIRM -->
     <div id="modal-alert" class="modal-overlay">
         <div class="modal-card">
-            <div class="card-title" id="modal-alert-title">Informasi</div>
-            <p id="modal-alert-msg" style="font-size:0.95rem; margin:1rem 0;"></p>
+            <div class="card-title" id="modal-alert-title">⚠️ Informasi</div>
+            <div id="modal-alert-msg" style="font-size:0.95rem; margin:1rem 0; line-height: 1.5;"></div>
             <div class="modal-footer" id="modal-alert-footer">
-                <button class="btn" onclick="tutupAlert()">OK</button>
+                <button class="btn" onclick="tutupAlert()">Paham, Mengerti</button>
             </div>
         </div>
     </div>
@@ -424,7 +431,7 @@
                 const resJadwal = await fetch('jadwal.json');
                 listJadwal = await resJadwal.json();
             } catch (err) {
-                alert("Gagal memuat file members.json atau jadwal.json! Pastikan file ada di repositori.");
+                showAlert("🚫 Gagal Memuat System", "Gagal mengambil data <b>members.json</b> atau <b>jadwal.json</b>. Pastikan file ada di repositori GitHub.");
             }
         }
 
@@ -435,35 +442,35 @@
             // 1. Cek Siswa
             const siswa = listMembers.find(m => m.id === nisInput && m.role === 'siswa');
             if (!siswa) {
-                alert("Login Gagal: ID / NIS Siswa (" + nisInput + ") tidak terdaftar di members.json!");
+                showAlert("🔑 Login Gagal", "ID / NIS Siswa (<b>" + nisInput + "</b>) tidak terdaftar di sistem!");
                 return;
             }
 
             // 2. Cek Token di Jadwal
             const mapelDipilih = listJadwal.find(j => j.token === tokenInput);
             if (!mapelDipilih) {
-                alert("Token Salah: Kode token '" + tokenInput + "' tidak ditemukan di jadwal.json!");
+                showAlert("🔑 Token Tidak Valid", "Kode token <b>" + tokenInput + "</b> tidak ditemukan pada jadwal ujian mana pun.");
                 return;
             }
 
             // 3. Validasi Status Aktif
             if (!mapelDipilih.aktif) {
-                alert("Ujian Ditutup: Mata pelajaran " + mapelDipilih.mapel + " sedang tidak diaktifkan.");
+                showAlert("🔒 Ujian Ditutup", "Mata pelajaran <b>" + mapelDipilih.mapel + "</b> sedang ditutup oleh panitia.");
                 return;
             }
 
-            // 4. Validasi Jadwal Waktu Buka/Tutup
+            // 4. Validasi Waktu Buka & Tutup Ujian
             const sekarang = new Date();
             const waktuBuka = new Date(mapelDipilih.waktu_buka.replace(' ', 'T'));
             const waktuTutup = new Date(mapelDipilih.waktu_tutup.replace(' ', 'T'));
 
             if (sekarang < waktuBuka) {
-                alert("Ujian Belum Dibuka!\n\nMata Pelajaran: " + mapelDipilih.mapel + "\nJadwal Buka: " + mapelDipilih.waktu_buka + " WIB");
+                showAlert("⏳ Ujian Belum Dibuka", "Ujian <b>" + mapelDipilih.mapel + "</b> belum dibuka.<br><br>🗓️ <b>Jadwal Akses Buka:</b><br>" + mapelDipilih.waktu_buka + " WIB");
                 return;
             }
 
             if (sekarang > waktuTutup) {
-                alert("Ujian Telah Selesai!\n\nMata Pelajaran: " + mapelDipilih.mapel + "\nBerakhir Pada: " + mapelDipilih.waktu_tutup + " WIB");
+                showAlert("⌛ Waktu Ujian Selesai", "Sesi pengerjaan ujian <b>" + mapelDipilih.mapel + "</b> telah berakhir.<br><br>⏱️ <b>Berakhir Pada:</b><br>" + mapelDipilih.waktu_tutup + " WIB");
                 return;
             }
 
@@ -492,7 +499,7 @@
                 startTimer(durasi * 60);
 
             } catch (err) {
-                alert("Naskah Soal Belum Ada:\n\nFile naskah soal '" + filePath + "' belum diunggah ke folder cbt/soal/.");
+                showAlert("📂 Naskah Soal Belum Ada", "File naskah soal (<b>" + filePath + "</b>) belum diunggah oleh guru ke dalam folder <i>cbt/soal/</i>.");
             }
         }
 
@@ -594,23 +601,63 @@
                 
                 if (sisa <= 0) {
                     clearInterval(timerInterval);
-                    alert("Waktu ujian telah habis! Jawaban Anda terkirim otomatis.");
-                    submitJawaban();
+                    showAlert("⏰ Waktu Habis", "Waktu pengerjaan ujian Anda telah habis! Jawaban Anda otomatis terkirim.", () => {
+                        submitJawaban();
+                    });
                 }
                 sisa--;
             }, 1000);
         }
 
         function konfirmasiSelesai() {
-            if (confirm("Apakah Anda yakin ingin mengakhiri dan mengirimkan jawaban ujian ini?")) {
+            showConfirm("📤 Konfirmasi Selesai", "Apakah Anda yakin ingin menyelesaikan dan mengirimkan seluruh jawaban ujian ini?", () => {
                 submitJawaban();
-            }
+            });
         }
 
         function submitJawaban() {
             clearInterval(timerInterval);
-            alert("Terima kasih! Jawaban Anda telah berhasil terkirim.");
-            location.reload();
+            showAlert("✅ Ujian Selesai", "Terima kasih! Seluruh jawaban Anda telah berhasil terkirim ke server.", () => {
+                location.reload();
+            });
+        }
+
+        // FUNGSI UTAMA POPUP CUSTOM DENGAN TAMPILAN KEREN
+        function showAlert(title, msg, onOk = null) {
+            document.getElementById('modal-alert-title').innerHTML = title;
+            document.getElementById('modal-alert-msg').innerHTML = msg;
+            
+            const footer = document.getElementById('modal-alert-footer');
+            footer.innerHTML = `<button class="btn" id="btn-alert-ok">Mengerti</button>`;
+            
+            document.getElementById('btn-alert-ok').onclick = () => {
+                tutupAlert();
+                if (onOk) onOk();
+            };
+            
+            document.getElementById('modal-alert').style.display = 'flex';
+        }
+
+        function showConfirm(title, msg, onYes) {
+            document.getElementById('modal-alert-title').innerHTML = title;
+            document.getElementById('modal-alert-msg').innerHTML = msg;
+            
+            const footer = document.getElementById('modal-alert-footer');
+            footer.innerHTML = `
+                <button class="btn btn-secondary" onclick="tutupAlert()">Batal</button>
+                <button class="btn btn-warning" id="btn-confirm-yes">Ya, Kirim</button>
+            `;
+            
+            document.getElementById('btn-confirm-yes').onclick = () => {
+                tutupAlert();
+                onYes();
+            };
+            
+            document.getElementById('modal-alert').style.display = 'flex';
+        }
+
+        function tutupAlert() {
+            document.getElementById('modal-alert').style.display = 'none';
         }
 
         function bukaModalNav() {
