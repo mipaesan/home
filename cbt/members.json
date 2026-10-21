@@ -1,0 +1,146 @@
+[
+  {
+    "id": "6-001",
+    "nama": "Ajeng Niki Cantika",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-002",
+    "nama": "Atiqah Mikaila Aisyah",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-003",
+    "nama": "Chazza A'Izzatul Azkiya",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-004",
+    "nama": "Edgar Azka Al Fatikh",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-005",
+    "nama": "Fajar Al Amin",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-006",
+    "nama": "Ihsan Maulana Aditya",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-007",
+    "nama": "Malika Kireina Nadia Farcha",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-008",
+    "nama": "Muhammad Faza Lutfi Alfaris",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-009",
+    "nama": "Nadhira Azka Thalita",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-010",
+    "nama": "Najwa Ashyla Putri",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-011",
+    "nama": "Nella Agustin",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-012",
+    "nama": "Nur Alfiana Putri",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-013",
+    "nama": "Rania Humaira Zidni",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-014",
+    "nama": "Revalia Marsya Anggraini",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-015",
+    "nama": "Riky Nazhar Anugrah",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "6-016",
+    "nama": "Yosiva Putri",
+    "kelas": "6",
+    "role": "siswa"
+  },
+  {
+    "id": "G-001",
+    "nama": "Muh Kholil, S.Pd.I.",
+    "pin": "@Paesan1234",
+    "role": "guru"
+  },
+  {
+    "id": "G-002",
+    "nama": "Siti Ngaisah, S.Pd.I.",
+    "pin": "@Paesan1234",
+    "role": "guru"
+  },
+  {
+    "id": "G-003",
+    "nama": "Sri Rahayu, S.Pd.I.",
+    "pin": "@Paesan1234",
+    "role": "guru"
+  },
+  {
+    "id": "G-004",
+    "nama": "Munawaroh, S.Pd.I.",
+    "pin": "@Paesan1234",
+    "role": "guru"
+  },
+  {
+    "id": "G-005",
+    "nama": "Laila Fajriyah, S.Pd.",
+    "pin": "@Paesan1234",
+    "role": "guru"
+  },
+  {
+    "id": "G-006",
+    "nama": "Umi Rochmatul Ummah, S.Pd.",
+    "pin": "@Paesan1234",
+    "role": "guru"
+  },
+  {
+    "id": "G-007",
+    "nama": "Aprilianti Ningrum, S.Pd.",
+    "pin": "@Paesan1234",
+    "role": "guru"
+  },
+  {
+    "id": "G-008",
+    "nama": "Novita Marisa, S.Pd.",
+    "pin": "@Paesan1234",
+    "role": "guru"
+  }
+]
