@@ -303,7 +303,7 @@
     </header>
 
     <div class="container">
-        <!-- FORM LOGIN / MASUK UJIAN (KEMBALI HANYA ID & TOKEN) -->
+        <!-- FORM LOGIN / MASUK UJIAN SISWA -->
         <div id="login-section" class="card" style="max-width: 420px; margin: 2.5rem auto;">
             <div class="card-title">Login Ujian Siswa</div>
             <form id="form-login" onsubmit="event.preventDefault(); prosesLogin();">
@@ -317,6 +317,12 @@
                 </div>
                 <button type="submit" class="btn">MULAI UJIAN</button>
             </form>
+
+            <div style="margin-top: 1.5rem; text-align: center; border-top: 1px dashed var(--border); padding-top: 1rem;">
+                <a href="guru.html" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
+                    👨‍🏫 Akses Dashboard Guru / Koreksi Nilai
+                </a>
+            </div>
         </div>
 
         <!-- AREA LEMBAR UJIAN -->
@@ -345,7 +351,7 @@
                 <!-- UTAMA: SOAL & PILIHAN JAWABAN -->
                 <div>
                     <div class="soal-header card" style="margin-bottom:1rem;">
-                        <div>Soal No. <span id="no-soal-aktif">1</span> / <span id="total-soal">50</span></div>
+                        <div>Soal No. <span id="no-soal-aktif">1</span> / <span id="total-soal">0</span></div>
                         <div class="timer">⏱️ Sisa Waktu: <span id="timer-text">90:00</span></div>
                     </div>
 
@@ -418,11 +424,10 @@
                 const resJadwal = await fetch('jadwal.json');
                 listJadwal = await resJadwal.json();
             } catch (err) {
-                showAlert("Gagal Memuat Data", "Gagal mengambil data jadwal atau members.");
+                alert("Gagal memuat file members.json atau jadwal.json! Pastikan file ada di repositori.");
             }
         }
 
-        // OTOMATIS MENGENALI MAPEL DARI TOKEN YANG DIKETIK
         function prosesLogin() {
             const nisInput = document.getElementById('input-nis').value.trim();
             const tokenInput = document.getElementById('input-token').value.trim().toUpperCase();
@@ -430,35 +435,35 @@
             // 1. Cek Siswa
             const siswa = listMembers.find(m => m.id === nisInput && m.role === 'siswa');
             if (!siswa) {
-                showAlert("Login Gagal", "ID / NIS Siswa tidak terdaftar!");
+                alert("Login Gagal: ID / NIS Siswa (" + nisInput + ") tidak terdaftar di members.json!");
                 return;
             }
 
-            // 2. Cek Token di Jadwal (Cari Mapel Otomatis)
+            // 2. Cek Token di Jadwal
             const mapelDipilih = listJadwal.find(j => j.token === tokenInput);
             if (!mapelDipilih) {
-                showAlert("Token Salah", "Token Ujian tidak ditemukan atau salah!");
+                alert("Token Salah: Kode token '" + tokenInput + "' tidak ditemukan di jadwal.json!");
                 return;
             }
 
-            // 3. Validasi Aktif
+            // 3. Validasi Status Aktif
             if (!mapelDipilih.aktif) {
-                showAlert("Ujian Ditutup", "Mata pelajaran ini sedang tidak diaktifkan.");
+                alert("Ujian Ditutup: Mata pelajaran " + mapelDipilih.mapel + " sedang tidak diaktifkan.");
                 return;
             }
 
-            // 4. Validasi Jadwal Waktu
+            // 4. Validasi Jadwal Waktu Buka/Tutup
             const sekarang = new Date();
             const waktuBuka = new Date(mapelDipilih.waktu_buka.replace(' ', 'T'));
             const waktuTutup = new Date(mapelDipilih.waktu_tutup.replace(' ', 'T'));
 
             if (sekarang < waktuBuka) {
-                showAlert("Ujian Belum Dibuka", `Ujian <strong>${mapelDipilih.mapel}</strong> belum dibuka.<br><br>🗓️ Jadwal Buka: <strong>${mapelDipilih.waktu_buka} WIB</strong>`);
+                alert("Ujian Belum Dibuka!\n\nMata Pelajaran: " + mapelDipilih.mapel + "\nJadwal Buka: " + mapelDipilih.waktu_buka + " WIB");
                 return;
             }
 
             if (sekarang > waktuTutup) {
-                showAlert("Ujian Selesai", `Waktu ujian untuk <strong>${mapelDipilih.mapel}</strong> telah berakhir.<br><br>⏱️ Berakhir Pada: <strong>${mapelDipilih.waktu_tutup} WIB</strong>`);
+                alert("Ujian Telah Selesai!\n\nMata Pelajaran: " + mapelDipilih.mapel + "\nBerakhir Pada: " + mapelDipilih.waktu_tutup + " WIB");
                 return;
             }
 
@@ -487,7 +492,7 @@
                 startTimer(durasi * 60);
 
             } catch (err) {
-                showAlert("Error", "File naskah soal belum siap atau belum diunggah.");
+                alert("Naskah Soal Belum Ada:\n\nFile naskah soal '" + filePath + "' belum diunggah ke folder cbt/soal/.");
             }
         }
 
@@ -553,4 +558,68 @@
             soalData.forEach((s, idx) => {
                 const btn = document.createElement('button');
                 btn.className = 'nav-btn';
-                btn.id
+                btn.id = `nav-btn-${idx}`;
+                btn.textContent = idx + 1;
+                btn.onclick = () => { tampilSoal(idx); tutupModalNav(); };
+
+                deskGrid.appendChild(btn);
+                mobGrid.appendChild(btn.cloneNode(true));
+            });
+        }
+
+        function updateNavActiveState() {
+            soalData.forEach((s, idx) => {
+                const isAnswered = jawabanSiswa[s.id] && jawabanSiswa[s.id].trim() !== "";
+                const isActive = (idx === indexSoal);
+
+                ['desktop-nav-grid', 'mobile-nav-grid'].forEach(gridId => {
+                    const grid = document.getElementById(gridId);
+                    if (grid && grid.children[idx]) {
+                        const btn = grid.children[idx];
+                        btn.className = 'nav-btn';
+                        if (isAnswered) btn.classList.add('answered');
+                        if (isActive) btn.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        function startTimer(detik) {
+            let sisa = detik;
+            timerInterval = setInterval(() => {
+                let m = Math.floor(sisa / 60);
+                let s = sisa % 60;
+                document.getElementById('timer-text').textContent = 
+                    `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+                
+                if (sisa <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Waktu ujian telah habis! Jawaban Anda terkirim otomatis.");
+                    submitJawaban();
+                }
+                sisa--;
+            }, 1000);
+        }
+
+        function konfirmasiSelesai() {
+            if (confirm("Apakah Anda yakin ingin mengakhiri dan mengirimkan jawaban ujian ini?")) {
+                submitJawaban();
+            }
+        }
+
+        function submitJawaban() {
+            clearInterval(timerInterval);
+            alert("Terima kasih! Jawaban Anda telah berhasil terkirim.");
+            location.reload();
+        }
+
+        function bukaModalNav() {
+            document.getElementById('modal-nav').style.display = 'flex';
+        }
+
+        function tutupModalNav() {
+            document.getElementById('modal-nav').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
