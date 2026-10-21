@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>CBT - MI Salafiyatul Ma'muroh Paesan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none; /* Cegah Blok Teks/Copy */
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f7f6;
+      color: #333;
+    }
+
+    /* --- HALAMAN LOGIN --- */
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #1e7e34 0%, #00a896 100%);
+    }
+
+    .login-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      padding: 30px 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    .login-card h2 {
+      margin: 0 0 5px;
+      color: #1e7e34;
+      font-size: 1.5rem;
+    }
+
+    .login-card p {
+      margin: 0 0 25px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #444;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-user-select: text;
+      user-select: text;
+    }
+
+    .form-group input:focus {
+      border-color: #1e7e34;
+    }
+
+    .btn-start {
+      width: 100%;
+      padding: 14px;
+      background: #fd7e14;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+      transition: transform 0.1s, background 0.2s;
+    }
+
+    .btn-start:active {
+      transform: scale(0.98);
+      background: #e86b05;
+    }
+
+    .teacher-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #007bff;
+      font-size: 0.85rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* --- HALAMAN UJIAN (CBT INTERFACE) --- */
+    .exam-container {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Sticky Header */
+    .exam-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffffff;
+      padding: 12px 20px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .student-info h4 {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #1e7e34;
+    }
+
+    .student-info p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .timer-box {
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    .timer-box.warning {
+      background: #f8d7da;
+      color: #721c24;
+      border-color: #f5c6cb;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0.5; }
+    }
+
+    /* Content Area */
+    .exam-body {
+      flex: 1;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 15px 100px;
+    }
+
+    .question-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .question-number {
+      font-weight: 700;
+      color: #1e7e34;
+      font-size: 1.05rem;
+    }
+
+    .question-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      color: #222;
+      -webkit-user-select: text;
+      user-select: text;
+    }
+
+    /* Style Khusus Teks Arab */
+    .arabic-text {
+      font-family: 'Amiri', serif;
+      direction: rtl;
+      text-align: right;
+      font-size: 1.45rem;
+      line-height: 2.2;
+      margin: 15px 0;
+      background: #f9fbf9;
+      padding: 12px;
+      border-radius: 8px;
+      border-right: 4px solid #1e7e34;
+    }
+
+    .question-image {
+      width: 100%;
+      max-width: 450px;
+      height: auto;
+      border-radius: 8px;
+      margin: 10px 0 20px;
+      display: block;
+      cursor: pointer;
+    }
+
+    /* Opsi Jawaban */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #fafafa;
+    }
+
+    .option-item:hover {
+      border-color: #1e7e34;
+      background: #f2fef6;
+    }
+
+    .option-item.selected {
+      border-color: #1e7e34;
+      background: #e6f4ea;
+      font-weight: 600;
+    }
+
+    .option-prefix {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      margin-right: 12px;
+      flex-shrink: 0;
+      color: #555;
+    }
+
+    .option-item.selected .option-prefix {
+      background: #1e7e34;
+      border-color: #1e7e34;
+      color: white;
+    }
+
+    .option-text {
+      font-size: 0.95rem;
+      flex: 1;
+    }
+
+    .option-text.arabic-option {
+      font-family: 'Amiri', serif;
+      direction: rtl;
+      text-align: right;
+      font-size: 1.25rem;
+    }
+
+    /* Input Isian & Essay */
+    .essay-input {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      resize: vertical;
+      -webkit-user-select: text;
+      user-select: text;
+    }
+
+    .essay-input:focus {
+      border-color: #1e7e34;
+    }
+
+    /* Bottom Navigation Sticky */
+    .exam-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 12px 20px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+
+    .btn-nav {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-prev { background: #e9ecef; color: #495057; }
+    .btn-next { background: #1e7e34; color: white; }
+    .btn-grid { background: #00a896; color: white; }
+    .btn-finish { background: #dc3545; color: white; }
+
+    /* Modal / Pop-up Warning & Grid */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-card {
+      background: white;
+      width: 100%;
+      max-width: 450px;
+      border-radius: 14px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    .modal-card h3 {
+      margin-top: 0;
+      color: #dc3545;
+    }
+
+    .grid-numbers {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .num-btn {
+      padding: 10px;
+      border: 2px solid #ccc;
+      background: white;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .num-btn.answered {
+      background: #1e7e34;
+      color: white;
+      border-color: #1e7e34;
+    }
+
+    .num-btn.active {
+      border-color: #fd7e14;
+      box-shadow: 0 0 0 2px #fd7e14;
+    }
+
+    @media screen and (max-width: 600px) {
+      .exam-header { padding: 10px 12px; }
+      .student-info h4 { font-size: 0.85rem; }
+      .timer-box { font-size: 0.85rem; padding: 4px 8px; }
+      .btn-nav { padding: 8px 12px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false;">
+
+  <!-- 1. HALAMAN LOGIN UTAMA -->
+  <div class="login-container" id="page-login">
+    <div class="login-card">
+      <h2>Portal CBT Kelas 6</h2>
+      <p>MI Salafiyatul Ma'muroh Paesan</p>
+      
+      <form id="form-login" onsubmit="mulaiUjian(event)">
+        <div class="form-group">
+          <label for="input-nis">ID / NIS Short Siswa</label>
+          <input type="text" id="input-nis" placeholder="Contoh: 601" required autocomplete="off">
+        </div>
+        
+        <div class="form-group">
+          <label for="input-token">Token Ujian</label>
+          <input type="text" id="input-token" placeholder="Masukkan Token dari Guru" required autocomplete="off" style="text-transform: uppercase;">
+        </div>
+        
+        <button type="submit" class="btn-start">Mulai Ujian Sekarang</button>
+      </form>
+
+      <a href="guru.html" class="teacher-link">🔑 Akses Guru / Koreksi</a>
+    </div>
+  </div>
+
+  <!-- 2. AN TARMUKA LEMBAR UJIAN SISWA -->
+  <div class="exam-container" id="page-exam">
+    <!-- Header Atas Sticky -->
+    <div class="exam-header">
+      <div class="student-info">
+        <h4 id="display-nama">Ahmad Fauzi (601)</h4>
+        <p id="display-mapel">IPAS Kelas 6</p>
+      </div>
+      <div class="timer-box" id="timer">01:30:00</div>
+    </div>
+
+    <!-- Area Soal -->
+    <div class="exam-body">
+      <div class="question-card">
+        <div class="question-header">
+          <span class="question-number" id="q-number">Soal No. 1</span>
+          <span style="font-size:0.8rem; color:#888;">Nomor Urut Tetap</span>
+        </div>
+
+        <!-- Contoh Teks Soal & Arab -->
+        <div class="question-text" id="q-text">
+          Perhatikan ayat Al-Qur'an berikut!
+        </div>
+
+        <div class="arabic-text" id="q-arabic">
+          اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ
+        </div>
+
+        <div class="question-text">
+          Lanjutan yang tepat untuk potongan ayat di atas adalah...
+        </div>
+
+        <!-- Opsi Pilihan Ganda -->
+        <div class="options-list" id="q-options">
+          <div class="option-item selected" onclick="pilihJawaban(this, 'A')">
+            <div class="option-prefix">A</div>
+            <div class="option-text arabic-option">خَلَقَ الْإِنْسَانَ مِنْ عَلَقٍ</div>
+          </div>
+          <div class="option-item" onclick="pilihJawaban(this, 'B')">
+            <div class="option-prefix">B</div>
+            <div class="option-text arabic-option">اقْرَأْ وَرَبُّكَ الْأَكْرَمُ</div>
+          </div>
+          <div class="option-item" onclick="pilihJawaban(this, 'C')">
+            <div class="option-prefix">C</div>
+            <div class="option-text arabic-option">الَّذِي عَلَّمَ بِالْقَلَمِ</div>
+          </div>
+          <div class="option-item" onclick="pilihJawaban(this, 'D')">
+            <div class="option-prefix">D</div>
+            <div class="option-text arabic-option">عَلَّمَ الْإِنْسَانَ مَا لَمْ يَعْلَمْ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigasi Bawah Sticky -->
+    <div class="exam-footer">
+      <button class="btn-nav btn-prev" onclick="alert('Soal Pertama')">← Sebelum</button>
+      <button class="btn-nav btn-grid" onclick="bukaGridSoal()">📋 Denah Soal</button>
+      <button class="btn-nav btn-next" onclick="alert('Lanjut ke Soal 2')">Berikut →</button>
+    </div>
+  </div>
+
+  <!-- MODAL WARNING PINDAH TAB -->
+  <div class="modal-overlay" id="modal-warning">
+    <div class="modal-card">
+      <h3 style="font-size: 2.5rem; margin-bottom: 10px;">⚠️</h3>
+      <h3 style="color:#dc3545; margin-bottom:10px;">Peringatan Keamanan!</h3>
+      <p style="font-size:0.9rem; color:#555;">Anda terdeteksi meninggalkan halaman ujian/pindah tab! Aktivitas ini telah dicatat sistem.</p>
+      <p style="font-weight:bold; color:#d9534f;" id="warning-count">Pelanggaran: 1 / 3</p>
+      <button class="btn-start" style="margin-top:15px; background:#1e7e34;" onclick="tutupWarning()">Kembali Mengerjakan</button>
+    </div>
+  </div>
+
+  <!-- MODAL DENAH NOMOR SOAL -->
+  <div class="modal-overlay" id="modal-grid">
+    <div class="modal-card">
+      <h3 style="color:#1e7e34;">Denah Nomor Soal</h3>
+      <p style="font-size:0.85em; color:#666;">Hijau: Sudah Dijawab | Putih: Belum</p>
+      <div class="grid-numbers">
+        <button class="num-btn answered active">1</button>
+        <button class="num-btn">2</button>
+        <button class="num-btn">3</button>
+        <button class="num-btn">4</button>
+        <button class="num-btn">5</button>
+        <button class="num-btn">6</button>
+        <button class="num-btn">7</button>
+        <button class="num-btn">8</button>
+        <button class="num-btn">9</button>
+        <button class="num-btn">10</button>
+      </div>
+      <button class="btn-start" style="background:#6c757d;" onclick="tutupGridSoal()">Tutup</button>
+    </div>
+  </div>
+
+  <script>
+    let jumlahPelanggaran = 0;
+    const maxPelanggaran = 3;
+
+    // 1. FUNGSI MASUK UJIAN & FULLSCREEN
+    function mulaiUjian(e) {
+      e.preventDefault();
+      const nis = document.getElementById('input-nis').value;
+      const token = document.getElementById('input-token').value;
+
+      if (!nis || !token) {
+        alert('Mohon isi ID Siswa dan Token Ujian!');
+        return;
+      }
+
+      // Aktifkan Mode Fullscreen
+      mintaFullscreen();
+
+      // Pindah Tampilan
+      document.getElementById('page-login').style.display = 'none';
+      document.getElementById('page-exam').style.display = 'flex';
+      
+      // Jalankan Timer
+      startTimer(90 * 60);
+    }
+
+    function mintaFullscreen() {
+      const doc = document.documentElement;
+      if (doc.requestFullscreen) doc.requestFullscreen();
+      else if (doc.mozRequestFullScreen) doc.mozRequestFullScreen();
+      else if (doc.webkitRequestFullscreen) doc.webkitRequestFullscreen();
+      else if (doc.msRequestFullscreen) doc.msRequestFullscreen();
+    }
+
+    // 2. DETEKSI CEGAH PINDAH TAB (VISIBILITY API)
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden && document.getElementById('page-exam').style.display === 'flex') {
+        jumlahPelanggaran++;
+        document.getElementById('warning-count').innerText = `Pelanggaran: ${jumlahPelanggaran} / ${maxPelanggaran}`;
+        document.getElementById('modal-warning').style.display = 'flex';
+
+        if (jumlahPelanggaran >= maxPelanggaran) {
+          alert('Batas pelanggaran terlampaui! Ujian Anda akan otomatis dikumpulkan.');
+          location.reload();
+        }
+      }
+    });
+
+    function tutupWarning() {
+      document.getElementById('modal-warning').style.display = 'none';
+      mintaFullscreen();
+    }
+
+    // 3. MATIKAN FUNGSI COPY-PASTE & KLIK KANAN
+    document.addEventListener('copy', (e) => e.preventDefault());
+    document.addEventListener('paste', (e) => e.preventDefault());
+    document.addEventListener('keydown', function(e) {
+      // Cegah F12, Ctrl+U, Ctrl+C, Ctrl+V, Alt+Tab
+      if (e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 67 || e.keyCode == 86))) {
+        e.preventDefault();
+      }
+    });
+
+    // 4. LOGIK OPSI JAWABAN
+    function pilihJawaban(element, opsi) {
+      const parent = element.parentElement;
+      const items = parent.querySelectorAll('.option-item');
+      items.forEach(item => item.classList.remove('selected'));
+      element.classList.add('selected');
+    }
+
+    // 5. TIMER UJIAN
+    function startTimer(duration) {
+      let timer = duration, minutes, seconds;
+      const display = document.getElementById('timer');
+      
+      const interval = setInterval(function () {
+        hours = parseInt(timer / 3600, 10);
+        minutes = parseInt((timer % 3600) / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = hours + ":" + minutes + ":" + seconds;
+
+        if (timer < 300) { // Kurang dari 5 menit
+          display.classList.add('warning');
+        }
+
+        if (--timer < 0) {
+          clearInterval(interval);
+          alert('Waktu ujian telah habis!');
+        }
+      }, 1000);
+    }
+
+    // 6. MODAL DENAH SOAL
+    function bukaGridSoal() {
+      document.getElementById('modal-grid').style.display = 'flex';
+    }
+    function tutupGridSoal() {
+      document.getElementById('modal-grid').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
