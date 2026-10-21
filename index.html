@@ -39,20 +39,22 @@
     .button-group {
       margin-top: 30px;
       display: flex;
-      gap: 20px;
+      gap: 12px; /* Disesuaikan agar 6 tombol muat sebaris */
       flex-wrap: wrap;
       justify-content: center;
+      max-width: 95%; /* Memberikan ruang lebih luas di layar PC */
     }
     .cta-button {
-      padding: 14px 28px;
+      padding: 12px 20px; /* Disesuaikan proporsinya agar tetap ringkas */
       border: none;
       border-radius: 10px;
       cursor: pointer;
       font-weight: bold;
       text-decoration: none;
-      font-size: 1rem;
+      font-size: 0.95rem;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       animation: pulse 2s infinite;
+      white-space: nowrap; /* Mencegah teks tombol terlipat 2 baris */
     }
     .cta-button:hover {
       transform: scale(1.05);
@@ -301,7 +303,7 @@
 
     @media screen and (max-width: 600px) {
       header h1 { font-size: 2em; }
-      .cta-button { width: 100%; text-align: center; }
+      .cta-button { width: 100%; text-align: center; white-space: normal; }
       .galeri-wrapper { height: 220px; }
       .programs {
         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
