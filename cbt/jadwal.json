@@ -4,6 +4,8 @@
     "token": "TYVB78",
     "file_soal": "soal/qurdis-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-23 07:30",
+    "waktu_tutup": "2026-11-23 09:00",
     "aktif": true
   },
   {
@@ -11,6 +13,8 @@
     "token": "AS9C5A",
     "file_soal": "soal/akidah-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-23 09:30",
+    "waktu_tutup": "2026-11-23 11:00",
     "aktif": true
   },
   {
@@ -18,6 +22,8 @@
     "token": "ZKPC4C",
     "file_soal": "soal/fikih-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-24 07:30",
+    "waktu_tutup": "2026-11-24 09:00",
     "aktif": true
   },
   {
@@ -25,6 +31,8 @@
     "token": "79BYT4",
     "file_soal": "soal/ski-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-24 09:30",
+    "waktu_tutup": "2026-11-24 11:00",
     "aktif": true
   },
   {
@@ -32,6 +40,8 @@
     "token": "PQQDKH",
     "file_soal": "soal/arab-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-25 07:30",
+    "waktu_tutup": "2026-11-25 09:00",
     "aktif": true
   },
   {
@@ -39,6 +49,8 @@
     "token": "ULYVJX",
     "file_soal": "soal/pancasila-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-25 09:30",
+    "waktu_tutup": "2026-11-25 11:00",
     "aktif": true
   },
   {
@@ -46,6 +58,8 @@
     "token": "BM85AS",
     "file_soal": "soal/bindo-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-26 07:30",
+    "waktu_tutup": "2026-11-26 09:00",
     "aktif": true
   },
   {
@@ -53,6 +67,8 @@
     "token": "CRA58T",
     "file_soal": "soal/mtk-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-26 09:30",
+    "waktu_tutup": "2026-11-26 11:00",
     "aktif": true
   },
   {
@@ -60,6 +76,8 @@
     "token": "SHHRPY",
     "file_soal": "soal/ipas-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-27 07:30",
+    "waktu_tutup": "2026-11-27 09:00",
     "aktif": true
   },
   {
@@ -67,6 +85,8 @@
     "token": "2JEGA8",
     "file_soal": "soal/pjok-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-27 09:30",
+    "waktu_tutup": "2026-11-27 11:00",
     "aktif": true
   },
   {
@@ -74,6 +94,8 @@
     "token": "DRWD9G",
     "file_soal": "soal/sbdp-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-28 07:30",
+    "waktu_tutup": "2026-11-28 09:00",
     "aktif": true
   },
   {
@@ -81,6 +103,8 @@
     "token": "859U3F",
     "file_soal": "soal/bing-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-28 09:30",
+    "waktu_tutup": "2026-11-28 11:00",
     "aktif": true
   },
   {
@@ -88,6 +112,8 @@
     "token": "MYEFSJ",
     "file_soal": "soal/bjawa-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-30 07:30",
+    "waktu_tutup": "2026-11-30 09:00",
     "aktif": true
   },
   {
@@ -95,6 +121,8 @@
     "token": "MNSGUQ",
     "file_soal": "soal/btq-kls6.json",
     "durasi_menit": 90,
+    "waktu_buka": "2026-11-30 09:30",
+    "waktu_tutup": "2026-11-30 11:00",
     "aktif": true
   }
 ]
