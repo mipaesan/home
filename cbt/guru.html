@@ -89,7 +89,6 @@
                 <button type="submit" class="btn" style="width: 100%;">MASUK DASHBOARD</button>
             </form>
             
-            <!-- TOMBOL KEMBALI KE SISWA -->
             <div style="margin-top: 1.5rem; text-align: center; border-top: 1px dashed var(--border); padding-top: 1rem;">
                 <a href="index.html" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
                     ← Kembali ke Portal Ujian Siswa
@@ -105,12 +104,25 @@
                     <button class="btn btn-warning" onclick="location.reload()" style="font-size:0.8rem;">Keluar</button>
                 </div>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end;">
-                    <div class="form-group" style="flex: 1; min-width: 220px; margin-bottom:0;">
-                        <label>Pilih Mata Pelajaran</label>
-                        <select id="select-mapel-rekap" class="form-control">
-                            <option value="">-- Loading Mapel --</option>
+                    <!-- DROP-DOWN FILTER KELAS -->
+                    <div class="form-group" style="flex: 1; min-width: 160px; margin-bottom:0;">
+                        <label>Pilih Kelas</label>
+                        <select id="select-kelas-rekap" class="form-control" onchange="filterMapelByKelas()">
+                            <option value="">-- Semua Kelas --</option>
+                            <option value="4">Kelas 4</option>
+                            <option value="5">Kelas 5</option>
+                            <option value="6" selected>Kelas 6</option>
                         </select>
                     </div>
+
+                    <!-- DROP-DOWN FILTER MAPEL -->
+                    <div class="form-group" style="flex: 2; min-width: 220px; margin-bottom:0;">
+                        <label>Pilih Mata Pelajaran</label>
+                        <select id="select-mapel-rekap" class="form-control">
+                            <option value="">-- Pilih Kelas Terlebih Dahulu --</option>
+                        </select>
+                    </div>
+
                     <button class="btn" onclick="muatDataRekap()">Tampilkan Rekap Nilai</button>
                 </div>
             </div>
@@ -131,7 +143,7 @@
                             </tr>
                         </thead>
                         <tbody id="tabel-rekap-body">
-                            <tr><td colspan="7" style="text-align: center; color: #6c757d;">Pilih mapel untuk menampilkan rekap.</td></tr>
+                            <tr><td colspan="7" style="text-align: center; color: #6c757d;">Pilih kelas dan mapel untuk menampilkan rekap.</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -152,7 +164,6 @@
                 <div style="font-size:1.05rem;">Total Isian/Uraian: <strong id="text-total-koreksi" style="color:#0d6efd; font-size:1.2rem;">0</strong></div>
             </div>
 
-            <!-- CONTAINER LIST SOAL (BARIS SOAL ATAS, 3 KOLOM BAWAH) -->
             <div id="list-koreksi-container" style="flex:1; overflow-y:auto; padding-right:5px;">
                 Loading butir soal...
             </div>
@@ -216,16 +227,24 @@
             document.getElementById('dashboard-section').style.display = 'block';
             document.getElementById('guru-nama').textContent = guru.nama;
 
-            loadDaftarMapel();
+            filterMapelByKelas(); // Load mapel berdasarkan kelas default (Kelas 6)
         }
 
-        function loadDaftarMapel() {
-            const sel = document.getElementById('select-mapel-rekap');
-            sel.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
-            listJadwal.forEach(j => {
+        function filterMapelByKelas() {
+            const kelasDipilih = document.getElementById('select-kelas-rekap').value;
+            const selMapel = document.getElementById('select-mapel-rekap');
+            selMapel.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
+
+            // Filter jadwal sesuai kelas (jika tidak pilih kelas, tampilkan semua)
+            const filteredJadwal = kelasDipilih 
+                ? listJadwal.filter(j => !j.kelas || String(j.kelas) === String(kelasDipilih)) 
+                : listJadwal;
+
+            filteredJadwal.forEach(j => {
                 let opt = document.createElement('option');
-                opt.value = j.mapel; opt.textContent = j.mapel;
-                sel.appendChild(opt);
+                opt.value = j.mapel;
+                opt.textContent = j.mapel;
+                selMapel.appendChild(opt);
             });
         }
 
@@ -249,7 +268,7 @@
                 const json = await res.json();
 
                 if(!json.data || json.data.length <= 1) {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada jawaban siswa yang masuk.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada jawaban siswa yang masuk untuk mapel ini.</td></tr>';
                     return;
                 }
 
@@ -300,26 +319,18 @@
                 const jawabSiswa = jawabanObj[s.id] || "<i>(Tidak dijawab)</i>";
                 html += `
                     <div class="koreksi-item-card">
-                        <!-- TAMPILAN SOAL DI BARIS ATAS -->
                         <div class="soal-header-box">
                             Soal No. ${s.id} (${s.tipe}): ${s.soal}
                         </div>
-
-                        <!-- TAMPILAN 3 KOLOM DI BAWAH SOAL -->
                         <div class="grid-3-kolom">
-                            <!-- KOLOM KIRI: JAWABAN SISWA -->
                             <div class="box-kolom kolom-siswa">
                                 <div class="box-title">📝 Jawaban Siswa</div>
                                 <div>${jawabSiswa}</div>
                             </div>
-
-                            <!-- KOLOM TENGAH: INPUT NILAI -->
                             <div class="box-kolom kolom-nilai">
                                 <div class="box-title">🔢 Nilai</div>
                                 <input type="number" class="input-nilai-num input-skor-item" data-id="${s.id}" value="0" min="0" oninput="hitungTotalOtomatis()">
                             </div>
-
-                            <!-- KOLOM KANAN: KUNCI JAWABAN -->
                             <div class="box-kolom kolom-kunci">
                                 <div class="box-title">🔑 Kunci Jawaban</div>
                                 <div>${s.kunci}</div>
