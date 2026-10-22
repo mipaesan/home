@@ -2,25 +2,181 @@
   {
     "id": 1,
     "tipe": "PG",
-    "soal": "Surah Al-Kafirun diturunkan di kota...",
+    "soal": "Perhatikan ayat berikut dengan cermat!<br><div style='font-size: 1.3rem; font-family: \"Traditional Arabic\", Arial, sans-serif; text-align: right; margin: 15px 0; padding: 10px; background: #f8f9fa; border-right: 4px solid #0f5132;'>قُلْ يَا أَيُّهَا الْكَافِرُونَ</div>Lanjutan arti dari ayat di atas adalah...",
     "pilihan": [
-      "Madinah",
-      "Makkah",
-      "Thif",
-      "Syam"
+      "Katakanlah: Hai orang-orang kafir",
+      "Aku tidak akan menyembah apa yang kamu sembah",
+      "Dan kamu bukan penyembah Tuhan yang aku sembah",
+      "Bagimu agamamu, dan bagimu agamaku"
+    ],
+    "kunci": "A"
+  },
+  {
+    "id": 2,
+    "tipe": "PG",
+    "soal": "Surah Al-Kafirun terdiri atas ... ayat.",
+    "pilihan": [
+      "4 ayat",
+      "5 ayat",
+      "6 ayat",
+      "7 ayat"
+    ],
+    "kunci": "C"
+  },
+  {
+    "id": 3,
+    "tipe": "PG",
+    "soal": "Surah Al-Kafirun diturunkan di kota Makkah, sehingga digolongkan sebagai surah...",
+    "pilihan": [
+      "Madaniyah",
+      "Makkiyah",
+      "Quraisyiyah",
+      "Hijriyah"
     ],
     "kunci": "B"
   },
   {
-    "id": 2,
+    "id": 4,
+    "tipe": "PG",
+    "soal": "Perhatikan potongan ayat berikut:<br><div style='font-size: 1.3rem; font-family: \"Traditional Arabic\", Arial, sans-serif; text-align: right; margin: 15px 0; padding: 10px; background: #f8f9fa; border-right: 4px solid #0f5132;'>وَلَا أَنْتُمْ عَابِدُونَ مَا أَعْبُدُ</div>Ayat tersebut adalah Surah Al-Kafirun ayat ke...",
+    "pilihan": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "kunci": "B"
+  },
+  {
+    "id": 5,
+    "tipe": "PG",
+    "soal": "Pesan pokok yang terkandung dalam Surah Al-Kafirun berkaitan dengan...",
+    "pilihan": [
+      "Anjuran bersedekah kepada fakir miskin",
+      "Toleransi dalam urusan ibadah dan akidah",
+      "Tata cara melaksanakan salat berjemaah",
+      "Kisah umat-umat terdahulu yang ingkar"
+    ],
+    "kunci": "B"
+  },
+  {
+    "id": 6,
+    "tipe": "PG",
+    "soal": "Hukum bacaan nun mati (نْ) atau tanwin apabila bertemu dengan huruf ba (ب) disebut...",
+    "pilihan": [
+      "Idgham Bighunnah",
+      "Iqlab",
+      "Idzhar Halqi",
+      "Ikhfa Syafawi"
+    ],
+    "kunci": "B"
+  },
+  {
+    "id": 7,
+    "tipe": "PG",
+    "soal": "Contoh bacaan Iqlab di dalam Al-Qur'an adalah apabila nun sukun atau tanwin bertemu dengan huruf...",
+    "pilihan": [
+      "ب (Ba)",
+      "م (Mim)",
+      "ن (Nun)",
+      "ل (Lam)"
+    ],
+    "kunci": "A"
+  },
+  {
+    "id": 8,
+    "tipe": "PG",
+    "soal": "Surah An-Nasr diturunkan di kota Madinah, sehingga dinamakan surah...",
+    "pilihan": [
+      "Makkiyah",
+      "Madaniyah",
+      "Hijriyah",
+      "Amaliah"
+    ],
+    "kunci": "B"
+  },
+  {
+    "id": 9,
+    "tipe": "PG",
+    "soal": "Arti dari kata 'النَّصْرُ' dalam Surah An-Nasr adalah...",
+    "pilihan": [
+      "Pertolongan",
+      "Kemenangan",
+      "Kekuasaan",
+      "Petunjuk"
+    ],
+    "kunci": "B"
+  },
+  {
+    "id": 10,
+    "tipe": "PG",
+    "soal": "Perhatikan ayat berikut:<br><div style='font-size: 1.3rem; font-family: \"Traditional Arabic\", Arial, sans-serif; text-align: right; margin: 15px 0; padding: 10px; background: #f8f9fa; border-right: 4px solid #0f5132;'>إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ</div>Surah apakah ayat tersebut?",
+    "pilihan": [
+      "Surah Al-Kafirun",
+      "Surah An-Nasr",
+      "Surah Al-Lahab",
+      "Surah Al-Ikhlas"
+    ],
+    "kunci": "B"
+  },
+  {
+    "id": 11,
     "tipe": "ISIAN",
-    "soal": "Arti dari lafazh 'Lakum dinukum waliyadin' dalam Surah Al-Kafirun adalah...",
+    "soal": "Tuliskan arti dari potongan ayat terakhir Surah Al-Kafirun berikut:<br><div style='font-size: 1.2rem; font-family: \"Traditional Arabic\", Arial, sans-serif; text-align: right; margin: 10px 0;'>لَكُمْ دِينُكُمْ وَلِيَ دِينِ</div>",
     "kunci": "Bagimu agamamu, dan bagimu agamaku"
   },
   {
-    "id": 3,
+    "id": 12,
+    "tipe": "ISIAN",
+    "soal": "Surah Al-Kafirun berada pada urutan surah ke berapa di dalam Al-Qur'an?",
+    "kunci": "109"
+  },
+  {
+    "id": 13,
+    "tipe": "ISIAN",
+    "soal": "Apabila ada nun mati (نْ) bertemu dengan huruf ب (ba), maka cara membacanya harus dibalik menjadi suara huruf...",
+    "kunci": "Mim"
+  },
+  {
+    "id": 14,
+    "tipe": "ISIAN",
+    "soal": "Surah An-Nasr terdiri atas ... ayat.",
+    "kunci": "3"
+  },
+  {
+    "id": 15,
+    "tipe": "ISIAN",
+    "soal": "Perintah yang terdapat dalam Surah An-Nasr apabila pertolongan Allah telah datang adalah bertasbih dan memohon...",
+    "kunci": "Ampunan"
+  },
+  {
+    "id": 16,
     "tipe": "URAIAN",
-    "soal": "Tuliskan pesan pokok yang terkandung dalam Surah Al-Kafirun berkaitan dengan sikap toleransi beragama!",
-    "kunci": "Kebijaksanaan guru (menjelaskan penolakan terhadap kompromi dalam hal akidah/ibadah namun tetap menghormati keyakinan umat lain tanpa saling memaksakan)."
+    "soal": "Tuliskan bunyi Surah Al-Kafirun ayat ke-6 beserta harakatnya yang lengkap!",
+    "kunci": "لَكُمْ دِينُكُمْ وَلِيَ دِينِ"
+  },
+  {
+    "id": 17,
+    "tipe": "URAIAN",
+    "soal": "Jelaskan latar belakang atau sebab diturunkannya Surah Al-Kafirun (Asbabun Nuzul) berkaitan dengan kaum musyrikin Quraisy!",
+    "kunci": "Kebijaksanaan guru."
+  },
+  {
+    "id": 18,
+    "tipe": "URAIAN",
+    "soal": "Apa yang dimaksud dengan hukum bacaan Iqlab? Berikan contohnya beserta alasannya secara singkat!",
+    "kunci": "Kebijaksanaan guru."
+  },
+  {
+    "id": 19,
+    "tipe": "URAIAN",
+    "soal": "Sebutkan isi kandungan utama yang terdapat di dalam Surah An-Nasr ayat 1 sampai 3!",
+    "kunci": "Kebijaksanaan guru."
+  },
+  {
+    "id": 20,
+    "tipe": "URAIAN",
+    "soal": "Bagaimana cara kita menerapkan sikap toleransi beragama di lingkungan sekolah madrasah sehari-hari sesuai ajaran Islam?",
+    "kunci": "Kebijaksanaan guru."
   }
 ]
