@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Guru - CBT MI Salafiyatul Ma'muroh</title>
+    <style>
+        :root {
+            --primary: #0f5132;
+            --primary-light: #198754;
+            --accent: #ffc107;
+            --bg: #f4f6f9;
+            --card-bg: #ffffff;
+            --text: #212529;
+            --border: #dee2e6;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding-bottom: 30px; }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white; padding: 1.2rem 1rem; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 { font-size: 1.4rem; margin-bottom: 0.2rem; }
+        header p { font-size: 0.85rem; opacity: 0.9; }
+
+        .container { max-width: 1100px; margin: 1.5rem auto; padding: 0 1rem; }
+
+        .card {
+            background: var(--card-bg); border-radius: 10px; padding: 1.25rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid var(--border); margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem; font-weight: 600; color: var(--primary);
+            border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; }
+        .form-control { width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; }
+
+        .btn {
+            padding: 0.6rem 1.2rem; background: var(--primary); color: white; border: none;
+            border-radius: 6px; font-weight: 600; cursor: pointer; text-align: center; display: inline-block;
+        }
+        .btn:hover { background: var(--primary-light); }
+        .btn-warning { background: var(--accent); color: #212529; }
+        .btn-secondary { background: #6c757d; color: white; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
+        th, td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
+        th { background: #e9ecef; color: var(--primary); font-weight: 600; }
+        tr:nth-child(even) { background: #f8f9fa; }
+
+        .modal-overlay {
+            display: none; position: fixed; top:0; left:0; right:0; bottom:0;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 999;
+            align-items: center; justify-content: center; padding: 1rem;
+        }
+        .modal-card { background: white; border-radius: 12px; max-width: 600px; width: 100%; padding: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>DASHBOARD GURU & REKAP CBT</h1>
+        <p>MI Salafiyatul Ma'muroh</p>
+    </header>
+
+    <div class="container">
+        <!-- FORM LOGIN GURU -->
+        <div id="login-guru-section" class="card" style="max-width: 400px; margin: 3rem auto;">
+            <div class="card-title">Login Guru</div>
+            <form onsubmit="event.preventDefault(); prosesLoginGuru();">
+                <div class="form-group">
+                    <label>ID Guru</label>
+                    <input type="text" id="input-id-guru" class="form-control" placeholder="Contoh: G-001" required>
+                </div>
+                <div class="form-group">
+                    <label>Password / PIN</label>
+                    <input type="password" id="input-pin-guru" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">MASUK DASHBOARD</button>
+            </form>
+            <div style="margin-top: 1.2rem; text-align: center;">
+                <a href="index.html" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
+                    ← Kembali ke Portal Ujian Siswa
+                </a>
+            </div>
+        </div>
+
+        <!-- DASHBOARD UTAMA GURU -->
+        <div id="dashboard-section" style="display: none;">
+            <div class="card">
+                <div class="card-title">
+                    <span>Selamat Datang, <strong id="guru-nama">-</strong></span>
+                    <button class="btn btn-warning" onclick="location.reload()" style="font-size:0.8rem;">Keluar</button>
+                </div>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end;">
+                    <div class="form-group" style="flex: 1; min-width: 220px; margin-bottom:0;">
+                        <label>Pilih Mata Pelajaran</label>
+                        <select id="select-mapel-rekap" class="form-control">
+                            <option value="">-- Loading Mapel --</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="muatDataRekap()">Tampilkan Rekap Nilai</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Rekap Nilai & Jawaban Siswa</div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;">No</th>
+                                <th>Waktu Kirim</th>
+                                <th>NIS</th>
+                                <th>Nama Siswa</th>
+                                <th>Nilai PG</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabel-rekap-body">
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: #6c757d;">Silakan pilih mata pelajaran lalu klik <b>Tampilkan Rekap Nilai</b>.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DETAIL JAWABAN SISWA -->
+    <div id="modal-koreksi" class="modal-overlay">
+        <div class="modal-card">
+            <div class="card-title">
+                <span>Rincian Jawaban Siswa</span>
+                <button onclick="tutupModalKoreksi()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">✕</button>
+            </div>
+            <div id="detail-jawaban-content" style="max-height:350px; overflow-y:auto; font-size:0.9rem; line-height:1.6;">
+                Loading detail jawaban...
+            </div>
+            <div style="margin-top:1.5rem; text-align:right;">
+                <button class="btn" onclick="tutupModalKoreksi()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URL GOOGLE APPS SCRIPT WEB APP
+        const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxxcs96dxFK_IatVI53R2woXXuxKzxhAxtsAvOY7NXb7gF-iTQ3OKbYvtM8meHC5AgYvQ/exec";
+
+        let listMembers = [];
+        let currentGuru = null;
+
+        window.onload = async function() {
+            try {
+                const res = await fetch('members.json');
+                listMembers = await res.json();
+            } catch(e) {
+                alert("Gagal memuat file members.json!");
+            }
+        };
+
+        function prosesLoginGuru() {
+            const idG = document.getElementById('input-id-guru').value.trim();
+            const pinG = document.getElementById('input-pin-guru').value.trim();
+
+            const guru = listMembers.find(m => m.id === idG && m.role === 'guru');
+            if (!guru) {
+                alert("ID Guru (" + idG + ") tidak terdaftar di members.json!");
+                return;
+            }
+
+            if (guru.pin !== pinG) {
+                alert("Password / PIN Guru salah!");
+                return;
+            }
+
+            currentGuru = guru;
+            document.getElementById('login-guru-section').style.display = 'none';
+            document.getElementById('dashboard-section').style.display = 'block';
+            document.getElementById('guru-nama').textContent = guru.nama;
+
+            loadDaftarMapel();
+        }
+
+        async function loadDaftarMapel() {
+            try {
+                const res = await fetch('jadwal.json');
+                const jadwal = await res.json();
+                const sel = document.getElementById('select-mapel-rekap');
+                sel.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
+                jadwal.forEach(j => {
+                    let opt = document.createElement('option');
+                    opt.value = j.mapel;
+                    opt.textContent = j.mapel;
+                    sel.appendChild(opt);
+                });
+            } catch(e) {
+                alert("Gagal memuat daftar mata pelajaran dari jadwal.json");
+            }
+        }
+
+        async function muatDataRekap() {
+            const mapel = document.getElementById('select-mapel-rekap').value;
+            if(!mapel) {
+                alert("Silakan pilih mata pelajaran terlebih dahulu!");
+                return;
+            }
+
+            const sheetName = "HASIL_" + mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_");
+            const tbody = document.getElementById('tabel-rekap-body');
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Mengambil data rekap dari Google Sheets...</td></tr>';
+
+            try {
+                const res = await fetch(`${GAS_WEBAPP_URL}?action=getData&sheet=${encodeURIComponent(sheetName)}`);
+                const json = await res.json();
+
+                if(!json.data || json.data.length <= 1) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#6c757d;">Belum ada jawaban siswa yang masuk untuk mata pelajaran ini.</td></tr>';
+                    return;
+                }
+
+                let html = '';
+                for(let i = 1; i < json.data.length; i++) {
+                    let row = json.data[i];
+                    let tgl = row[0] ? new Date(row[0]).toLocaleString('id-ID') : '-';
+                    html += `
+                        <tr>
+                            <td>${i}</td>
+                            <td>${tgl}</td>
+                            <td>${row[1]}</td>
+                            <td><strong>${row[2]}</strong></td>
+                            <td><span style="color:#0f5132; font-weight:bold; font-size:1.05rem;">${row[5]}</span></td>
+                            <td>
+                                <button class="btn" style="padding:0.3rem 0.7rem; font-size:0.8rem;" onclick='lihatDetail(${JSON.stringify(row[6])})'>📋 Detail Jawaban</button>
+                            </td>
+                        </tr>
+                    `;
+                }
+                tbody.innerHTML = html;
+
+            } catch(e) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:red;">Gagal mengambil data dari Google Sheets. Pastikan koneksi aman.</td></tr>';
+            }
+        }
+
+        function lihatDetail(rawJsonJawaban) {
+            try {
+                const obj = typeof rawJsonJawaban === 'string' ? JSON.parse(rawJsonJawaban) : rawJsonJawaban;
+                let html = '<strong>Rincian Jawaban Siswa:</strong><ol style="padding-left:1.2rem; margin-top:0.6rem;">';
+                for(let key in obj) {
+                    let val = obj[key];
+                    if (typeof val === 'object' && val !== null) {
+                        val = JSON.stringify(val);
+                    }
+                    html += `<li style="margin-bottom:0.5rem;"><strong>Soal No. ${key}:</strong><br><span style="background:#e9ecef; padding:3px 8px; border-radius:4px; display:inline-block; margin-top:2px;">${val}</span></li>`;
+                }
+                html += '</ol>';
+                document.getElementById('detail-jawaban-content').innerHTML = html;
+            } catch(e) {
+                document.getElementById('detail-jawaban-content').innerHTML = "Jawaban Raw: " + rawJsonJawaban;
+            }
+            document.getElementById('modal-koreksi').style.display = 'flex';
+        }
+
+        function tutupModalKoreksi() {
+            document.getElementById('modal-koreksi').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
