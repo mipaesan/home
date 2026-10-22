@@ -39,7 +39,6 @@
         th, td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
         th { background: #e9ecef; color: var(--primary); font-weight: 600; }
 
-        /* Modal Overlay & Card Cantik */
         .modal-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 999; align-items: center; justify-content: center; padding: 1rem; }
         .modal-card { background: white; border-radius: 12px; max-width: 850px; width: 100%; padding: 1.5rem; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25); animation: popupFade 0.25s ease-out; }
         
@@ -48,11 +47,10 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* Tampilan Item Koreksi 3 Kolom */
         .koreksi-item-card { background: #ffffff; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1.2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.03); }
         .soal-header-box { background: #f8f9fa; border-left: 4px solid var(--primary); padding: 0.6rem 0.8rem; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.8rem; border-radius: 0 6px 6px 0; }
         
-        .grid-3-kolom { display: grid; grid-template-columns: 1fr 140px 1fr; gap: 0.8rem; align-items: stretch; }
+        .grid-3-kolom { display: grid; grid-template-columns: 1fr 150px 1fr; gap: 0.8rem; align-items: stretch; }
         @media (max-width: 768px) { .grid-3-kolom { grid-template-columns: 1fr; } }
 
         .box-kolom { border-radius: 6px; padding: 0.8rem; font-size: 0.88rem; display: flex; flex-direction: column; }
@@ -62,7 +60,7 @@
         .kolom-nilai { background: #fff8e6; border: 1px solid #ffe69c; justify-content: center; align-items: center; text-align: center; }
         .kolom-kunci { background: #eef9f2; border: 1px solid #c3e6cb; color: #0f5132; }
 
-        .input-nilai-num { width: 100%; max-width: 90px; text-align: center; font-size: 1.2rem; font-weight: bold; padding: 0.4rem; border: 2px solid var(--accent); border-radius: 6px; outline: none; }
+        .input-nilai-num { width: 100%; max-width: 80px; text-align: center; font-size: 1.2rem; font-weight: bold; padding: 0.4rem; border: 2px solid var(--accent); border-radius: 6px; outline: none; }
         .input-nilai-num:focus { border-color: var(--primary); }
     </style>
 </head>
@@ -104,7 +102,6 @@
                     <button class="btn btn-warning" onclick="location.reload()" style="font-size:0.8rem;">Keluar</button>
                 </div>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end;">
-                    <!-- DROP-DOWN FILTER KELAS -->
                     <div class="form-group" style="flex: 1; min-width: 160px; margin-bottom:0;">
                         <label>Pilih Kelas</label>
                         <select id="select-kelas-rekap" class="form-control" onchange="filterMapelByKelas()">
@@ -115,7 +112,6 @@
                         </select>
                     </div>
 
-                    <!-- DROP-DOWN FILTER MAPEL -->
                     <div class="form-group" style="flex: 2; min-width: 220px; margin-bottom:0;">
                         <label>Pilih Mata Pelajaran</label>
                         <select id="select-mapel-rekap" class="form-control">
@@ -176,7 +172,7 @@
         </div>
     </div>
 
-    <!-- POPUP NOTIFIKASI / PERINGATAN CANTIK -->
+    <!-- POPUP NOTIFIKASI -->
     <div id="modal-notif" class="modal-overlay" style="z-index: 1000;">
         <div class="modal-card" style="max-width: 420px; text-align: center;">
             <div id="notif-icon" style="font-size: 2.5rem; margin-bottom: 0.5rem;">ℹ️</div>
@@ -227,7 +223,7 @@
             document.getElementById('dashboard-section').style.display = 'block';
             document.getElementById('guru-nama').textContent = guru.nama;
 
-            filterMapelByKelas(); // Load mapel berdasarkan kelas default (Kelas 6)
+            filterMapelByKelas();
         }
 
         function filterMapelByKelas() {
@@ -235,7 +231,6 @@
             const selMapel = document.getElementById('select-mapel-rekap');
             selMapel.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
 
-            // Filter jadwal sesuai kelas (jika tidak pilih kelas, tampilkan semua)
             const filteredJadwal = kelasDipilih 
                 ? listJadwal.filter(j => !j.kelas || String(j.kelas) === String(kelasDipilih)) 
                 : listJadwal;
@@ -317,6 +312,9 @@
             let html = '';
             nonPGSoal.forEach((s) => {
                 const jawabSiswa = jawabanObj[s.id] || "<i>(Tidak dijawab)</i>";
+                // BACA NILAI MAKSIMAL DARI JSON (JIKA TIDAK ADA, DEFAULT = 5 ATAU 10)
+                const maxSkor = s.skor_maksimal || s.bobot || (s.tipe === "URAIAN" ? 10 : 5);
+
                 html += `
                     <div class="koreksi-item-card">
                         <div class="soal-header-box">
@@ -328,8 +326,12 @@
                                 <div>${jawabSiswa}</div>
                             </div>
                             <div class="box-kolom kolom-nilai">
-                                <div class="box-title">🔢 Nilai</div>
-                                <input type="number" class="input-nilai-num input-skor-item" data-id="${s.id}" value="0" min="0" oninput="hitungTotalOtomatis()">
+                                <div class="box-title">🔢 Input Nilai</div>
+                                <div style="display:flex; align-items:center; gap:5px; justify-content:center;">
+                                    <input type="number" class="input-nilai-num input-skor-item" data-id="${s.id}" value="0" min="0" max="${maxSkor}" oninput="hitungTotalOtomatis()">
+                                    <span style="font-weight:bold; color:#6c757d;">/ ${maxSkor}</span>
+                                </div>
+                                <span style="font-size:0.75rem; color:#6c757d; margin-top:4px;">(Maks: ${maxSkor})</span>
                             </div>
                             <div class="box-kolom kolom-kunci">
                                 <div class="box-title">🔑 Kunci Jawaban</div>
