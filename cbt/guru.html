@@ -30,14 +30,20 @@
         .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; }
         .form-control { width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; }
 
-        .btn { padding: 0.61rem 1.2rem; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .btn { padding: 0.61rem 1.2rem; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; display: inline-flex; align-items: center; gap: 6px; }
         .btn:hover { background: var(--primary-light); }
         .btn-warning { background: var(--accent); color: #212529; }
         .btn-secondary { background: #6c757d; color: white; }
+        .btn-info { background: #0dcaf0; color: #000; }
 
         table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
         th, td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
         th { background: #e9ecef; color: var(--primary); font-weight: 600; }
+
+        .badge { padding: 0.3rem 0.6rem; border-radius: 4px; font-weight: 600; font-size: 0.8rem; display: inline-block; }
+        .badge-mudah { background: #d1e7dd; color: #0f5132; }
+        .badge-sedang { background: #fff3cd; color: #664d03; }
+        .badge-sulit { background: #f8d7da; color: #842029; }
 
         .modal-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 999; align-items: center; justify-content: center; padding: 1rem; }
         .modal-card { background: white; border-radius: 12px; max-width: 850px; width: 100%; padding: 1.5rem; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25); animation: popupFade 0.25s ease-out; }
@@ -62,16 +68,24 @@
 
         .input-nilai-num { width: 100%; max-width: 80px; text-align: center; font-size: 1.2rem; font-weight: bold; padding: 0.4rem; border: 2px solid var(--accent); border-radius: 6px; outline: none; }
         .input-nilai-num:focus { border-color: var(--primary); }
+
+        /* Style untuk Cetak Dokumen Analisis */
+        @media print {
+            body * { visibility: hidden; }
+            #area-cetak-analisis, #area-cetak-analisis * { visibility: visible; }
+            #area-cetak-analisis { position: absolute; left: 0; top: 0; width: 100%; }
+            .no-print { display: none !important; }
+        }
     </style>
 </head>
 <body>
 
-    <header>
+    <header class="no-print">
         <h1>DASHBOARD GURU & KOREKSI CBT</h1>
         <p>MI Salafiyatul Ma'muroh</p>
     </header>
 
-    <div class="container">
+    <div class="container no-print">
         <!-- LOGIN GURU -->
         <div id="login-guru-section" class="card" style="max-width: 400px; margin: 3rem auto;">
             <div class="card-title">Login Guru</div>
@@ -119,11 +133,13 @@
                         </select>
                     </div>
 
-                    <button class="btn" onclick="muatDataRekap()">Tampilkan Rekap Nilai</button>
+                    <button class="btn" onclick="muatDataRekap()">📋 Rekap Nilai</button>
+                    <button class="btn btn-info" onclick="muatAnalisisButirSoal()">📊 Analisis Butir Soal</button>
                 </div>
             </div>
 
-            <div class="card">
+            <!-- CARD REKAP NILAI -->
+            <div id="card-rekap-tabel" class="card">
                 <div class="card-title">Rekap Nilai Siswa</div>
                 <div style="overflow-x: auto;">
                     <table>
@@ -142,6 +158,45 @@
                             <tr><td colspan="7" style="text-align: center; color: #6c757d;">Pilih kelas dan mapel untuk menampilkan rekap.</td></tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <!-- CARD ANALISIS BUTIR SOAL -->
+            <div id="card-analisis-tabel" class="card" style="display: none;">
+                <div class="card-title">
+                    <span>Hasil Analisis Butir Soal & Tingkat Kesukaran</span>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn btn-secondary" style="font-size: 0.8rem;" onclick="downloadAnalisisCSV()">📥 Download CSV</button>
+                        <button class="btn btn-warning" style="font-size: 0.8rem;" onclick="cetakDokumenAnalisis()">🖨️ Cetak / PDF</button>
+                    </div>
+                </div>
+
+                <div id="area-cetak-analisis">
+                    <!-- KOP UNTUK CETAK -->
+                    <div style="text-align: center; margin-bottom: 1rem; border-bottom: 2px solid #000; padding-bottom: 0.5rem;">
+                        <h2 style="font-size: 1.2rem; margin: 0;">MI SALAFIYATUL MA'MUROH</h2>
+                        <h3 style="font-size: 1rem; font-weight: normal; margin: 0;">LAPORAN ANALISIS BUTIR SOAL UJIAN CBT</h3>
+                        <p style="font-size: 0.85rem; margin-top: 0.3rem;">Mata Pelajaran: <strong id="analisis-info-mapel">-</strong> | Total Siswa: <strong id="analisis-info-siswa">0</strong></p>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px; text-align: center;">No</th>
+                                    <th style="width: 100px; text-align: center;">Tipe</th>
+                                    <th style="width: 100px; text-align: center;">Kunci</th>
+                                    <th style="text-align: center;">Benar</th>
+                                    <th style="text-align: center;">Salah</th>
+                                    <th style="text-align: center;">% Benar</th>
+                                    <th style="text-align: center;">Tingkat Kesukaran</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel-analisis-body">
+                                <tr><td colspan="7" style="text-align: center; color: #6c757d;">Klik 'Analisis Butir Soal' untuk melihat data.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -187,6 +242,7 @@
 
         let listMembers = [], listJadwal = [];
         let currentGuru = null, selectedNIS = null, currentMapelObj = null, activeSoalData = [];
+        let dataAnalisisGlobal = [];
 
         window.onload = async function() {
             try {
@@ -247,6 +303,9 @@
             const mapel = document.getElementById('select-mapel-rekap').value;
             if(!mapel) return showNotif("Peringatan", "Pilih mata pelajaran terlebih dahulu!", "warning");
 
+            document.getElementById('card-rekap-tabel').style.display = 'block';
+            document.getElementById('card-analisis-tabel').style.display = 'none';
+
             currentMapelObj = listJadwal.find(j => j.mapel === mapel);
 
             try {
@@ -290,6 +349,133 @@
             }
         }
 
+        async function muatAnalisisButirSoal() {
+            const mapel = document.getElementById('select-mapel-rekap').value;
+            if(!mapel) return showNotif("Peringatan", "Pilih mata pelajaran terlebih dahulu!", "warning");
+
+            document.getElementById('card-rekap-tabel').style.display = 'none';
+            document.getElementById('card-analisis-tabel').style.display = 'block';
+
+            currentMapelObj = listJadwal.find(j => j.mapel === mapel);
+
+            try {
+                const resSoal = await fetch(currentMapelObj.file_soal);
+                activeSoalData = await resSoal.json();
+            } catch(e) { 
+                return showNotif("Gagal", "File naskah soal tidak ditemukan.", "error"); 
+            }
+
+            const sheetName = "HASIL_" + mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_");
+            const tbody = document.getElementById('tabel-analisis-body');
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Menganalisis butir soal...</td></tr>';
+
+            try {
+                const res = await fetch(`${GAS_WEBAPP_URL}?action=getData&sheet=${encodeURIComponent(sheetName)}`);
+                const json = await res.json();
+
+                if(!json.data || json.data.length <= 1) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada jawaban siswa yang masuk untuk dianalisis.</td></tr>';
+                    return;
+                }
+
+                const totalSiswa = json.data.length - 1;
+                document.getElementById('analisis-info-mapel').textContent = mapel;
+                document.getElementById('analisis-info-siswa').textContent = totalSiswa;
+
+                // kumpulkan semua objek jawaban siswa (kolom index 6)
+                let allJawabanSiswa = [];
+                for(let i = 1; i < json.data.length; i++) {
+                    let raw = json.data[i][6];
+                    try {
+                        let parsed = typeof raw === 'string' ? JSON.parse(raw) : raw;
+                        allJawabanSiswa.push(parsed);
+                    } catch(e) {}
+                }
+
+                dataAnalisisGlobal = [];
+                let html = '';
+
+                activeSoalData.forEach((soal) => {
+                    let jumlahBenar = 0;
+                    let totalPilihan = allJawabanSiswa.length;
+
+                    allJawabanSiswa.forEach(jwb => {
+                        let ans = jwb[soal.id];
+                        if (ans !== undefined && ans !== null) {
+                            if (Array.isArray(soal.kunci)) {
+                                if (JSON.stringify(ans) === JSON.stringify(soal.kunci)) jumlahBenar++;
+                            } else if (String(ans).trim().toLowerCase() === String(soal.kunci).trim().toLowerCase()) {
+                                jumlahBenar++;
+                            }
+                        }
+                    });
+
+                    let jumlahSalah = totalPilihan - jumlahBenar;
+                    let persentase = totalPilihan > 0 ? Math.round((jumlahBenar / totalPilihan) * 100) : 0;
+
+                    let statusBadg = '';
+                    if (persentase >= 75) {
+                        statusBadg = `<span class="badge badge-mudah">🟢 Mudah</span>`;
+                    } else if (persentase >= 40) {
+                        statusBadg = `<span class="badge badge-sedang">🟡 Sedang</span>`;
+                    } else {
+                        statusBadg = `<span class="badge badge-sulit">🔴 Sulit</span>`;
+                    }
+
+                    let kunciStr = Array.isArray(soal.kunci) ? soal.kunci.join(', ') : soal.kunci;
+
+                    dataAnalisisGlobal.push({
+                        no: soal.id,
+                        tipe: soal.tipe,
+                        kunci: kunciStr,
+                        benar: jumlahBenar,
+                        salah: jumlahSalah,
+                        persen: persentase + "%",
+                        status: persentase >= 75 ? "Mudah" : (persentase >= 40 ? "Sedang" : "Sulit")
+                    });
+
+                    html += `
+                        <tr>
+                            <td style="text-align:center;"><strong>${soal.id}</strong></td>
+                            <td style="text-align:center;">${soal.tipe}</td>
+                            <td style="text-align:center;"><strong>${kunciStr}</strong></td>
+                            <td style="text-align:center; color:#0f5132; font-weight:bold;">${jumlahBenar}</td>
+                            <td style="text-align:center; color:#dc3545;">${jumlahSalah}</td>
+                            <td style="text-align:center; font-weight:bold;">${persentase}%</td>
+                            <td style="text-align:center;">${statusBadg}</td>
+                        </tr>
+                    `;
+                });
+
+                tbody.innerHTML = html;
+
+            } catch(e) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Gagal menganalisis data.</td></tr>';
+            }
+        }
+
+        function downloadAnalisisCSV() {
+            if(dataAnalisisGlobal.length === 0) return showNotif("Peringatan", "Tidak ada data analisis untuk diunduh.", "warning");
+
+            let csv = "No,Tipe Soal,Kunci Jawaban,Menjawab Benar,Menjawab Salah,Persentase Benar,Kategori Kesukaran\n";
+            dataAnalisisGlobal.forEach(d => {
+                csv += `"${d.no}","${d.tipe}","${d.kunci}","${d.benar}","${d.salah}","${d.persen}","${d.status}"\n`;
+            });
+
+            const mapel = document.getElementById('select-mapel-rekap').value || 'Mapel';
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.setAttribute("download", `Analisis_Soal_${mapel.replace(/\s+/g, '_')}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function cetakDokumenAnalisis() {
+            window.print();
+        }
+
         function bukaKoreksi3Kolom(nis, nama, rawJson, catatan) {
             selectedNIS = nis;
             document.getElementById('modal-siswa-nama').textContent = nama;
@@ -312,7 +498,6 @@
             let html = '';
             nonPGSoal.forEach((s) => {
                 const jawabSiswa = jawabanObj[s.id] || "<i>(Tidak dijawab)</i>";
-                // BACA NILAI MAKSIMAL DARI JSON (JIKA TIDAK ADA, DEFAULT = 5 ATAU 10)
                 const maxSkor = s.skor_maksimal || s.bobot || (s.tipe === "URAIAN" ? 10 : 5);
 
                 html += `
