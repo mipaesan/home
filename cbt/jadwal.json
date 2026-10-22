@@ -1,6 +1,7 @@
 [
   {
     "mapel": "Al Qur'an Hadis Kelas 6",
+    "kelas": "6",
     "token": "TYVB78",
     "file_soal": "soal/qurdis-kls6.json",
     "durasi_menit": 90,
@@ -10,6 +11,7 @@
   },
   {
     "mapel": "Akidah Akhlak Kelas 6",
+    "kelas": "6",
     "token": "AS9C5A",
     "file_soal": "soal/akidah-kls6.json",
     "durasi_menit": 90,
@@ -19,6 +21,7 @@
   },
   {
     "mapel": "Fikih Kelas 6",
+    "kelas": "6",
     "token": "ZKPC4C",
     "file_soal": "soal/fikih-kls6.json",
     "durasi_menit": 90,
@@ -28,6 +31,7 @@
   },
   {
     "mapel": "Sejarah Kebudayaan Islam Kelas 6",
+    "kelas": "6",
     "token": "79BYT4",
     "file_soal": "soal/ski-kls6.json",
     "durasi_menit": 90,
@@ -37,6 +41,7 @@
   },
   {
     "mapel": "Bahasa Arab Kelas 6",
+    "kelas": "6",
     "token": "PQQDKH",
     "file_soal": "soal/arab-kls6.json",
     "durasi_menit": 90,
@@ -46,6 +51,7 @@
   },
   {
     "mapel": "Pendidikan Pancasila Kelas 6",
+    "kelas": "6",
     "token": "ULYVJX",
     "file_soal": "soal/pancasila-kls6.json",
     "durasi_menit": 90,
@@ -55,6 +61,7 @@
   },
   {
     "mapel": "Bahasa Indonesia Kelas 6",
+    "kelas": "6",
     "token": "BM85AS",
     "file_soal": "soal/bindo-kls6.json",
     "durasi_menit": 90,
@@ -64,6 +71,7 @@
   },
   {
     "mapel": "Matematika Kelas 6",
+    "kelas": "6",
     "token": "CRA58T",
     "file_soal": "soal/mtk-kls6.json",
     "durasi_menit": 90,
@@ -73,6 +81,7 @@
   },
   {
     "mapel": "Ilmu Pengetahuan Alam dan Sosial Kelas 6",
+    "kelas": "6",
     "token": "SHHRPY",
     "file_soal": "soal/ipas-kls6.json",
     "durasi_menit": 90,
@@ -82,6 +91,7 @@
   },
   {
     "mapel": "Pendidikan Jasmani, Olahraga dan Kesehatan Kelas 6",
+    "kelas": "6",
     "token": "2JEGA8",
     "file_soal": "soal/pjok-kls6.json",
     "durasi_menit": 90,
@@ -91,6 +101,7 @@
   },
   {
     "mapel": "Seni Budaya dan Prakarya Kelas 6",
+    "kelas": "6",
     "token": "DRWD9G",
     "file_soal": "soal/sbdp-kls6.json",
     "durasi_menit": 90,
@@ -100,6 +111,7 @@
   },
   {
     "mapel": "Bahasa Inggris Kelas 6",
+    "kelas": "6",
     "token": "859U3F",
     "file_soal": "soal/bing-kls6.json",
     "durasi_menit": 90,
@@ -109,6 +121,7 @@
   },
   {
     "mapel": "Bahasa Jawa Kelas 6",
+    "kelas": "6",
     "token": "MYEFSJ",
     "file_soal": "soal/bjawa-kls6.json",
     "durasi_menit": 90,
@@ -118,8 +131,291 @@
   },
   {
     "mapel": "Baca Tulis Al Quran Kelas 6",
+    "kelas": "6",
     "token": "MNSGUQ",
     "file_soal": "soal/btq-kls6.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-30 09:30",
+    "waktu_tutup": "2026-11-30 11:00",
+    "aktif": true
+  },
+
+  {
+    "mapel": "Al Qur'an Hadis Kelas 5",
+    "kelas": "5",
+    "token": "QRD523",
+    "file_soal": "soal/qurdis-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-23 07:30",
+    "waktu_tutup": "2026-11-23 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Akidah Akhlak Kelas 5",
+    "kelas": "5",
+    "token": "AKD524",
+    "file_soal": "soal/akidah-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-23 09:30",
+    "waktu_tutup": "2026-11-23 11:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Fikih Kelas 5",
+    "kelas": "5",
+    "token": "FKH525",
+    "file_soal": "soal/fikih-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-24 07:30",
+    "waktu_tutup": "2026-11-24 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Sejarah Kebudayaan Islam Kelas 5",
+    "kelas": "5",
+    "token": "SKI526",
+    "file_soal": "soal/ski-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-24 09:30",
+    "waktu_tutup": "2026-11-24 11:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Bahasa Arab Kelas 5",
+    "kelas": "5",
+    "token": "BAR527",
+    "file_soal": "soal/arab-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-25 07:30",
+    "waktu_tutup": "2026-11-25 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Pendidikan Pancasila Kelas 5",
+    "kelas": "5",
+    "token": "PNC528",
+    "file_soal": "soal/pancasila-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-25 09:30",
+    "waktu_tutup": "2026-11-25 11:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Bahasa Indonesia Kelas 5",
+    "kelas": "5",
+    "token": "BIN529",
+    "file_soal": "soal/bindo-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-26 07:30",
+    "waktu_tutup": "2026-11-26 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Matematika Kelas 5",
+    "kelas": "5",
+    "token": "MTK532",
+    "file_soal": "soal/mtk-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-26 09:30",
+    "waktu_tutup": "2026-11-26 11:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Ilmu Pengetahuan Alam dan Sosial Kelas 5",
+    "kelas": "5",
+    "token": "IPS533",
+    "file_soal": "soal/ipas-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-27 07:30",
+    "waktu_tutup": "2026-11-27 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Pendidikan Jasmani, Olahraga dan Kesehatan Kelas 5",
+    "kelas": "5",
+    "token": "PJK534",
+    "file_soal": "soal/pjok-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-27 09:30",
+    "waktu_tutup": "2026-11-27 11:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Seni Budaya dan Prakarya Kelas 5",
+    "kelas": "5",
+    "token": "SNB535",
+    "file_soal": "soal/sbdp-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-28 07:30",
+    "waktu_tutup": "2026-11-28 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Bahasa Inggris Kelas 5",
+    "kelas": "5",
+    "token": "BIG536",
+    "file_soal": "soal/bing-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-28 09:30",
+    "waktu_tutup": "2026-11-28 11:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Bahasa Jawa Kelas 5",
+    "kelas": "5",
+    "token": "BJW537",
+    "file_soal": "soal/bjawa-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-30 07:30",
+    "waktu_tutup": "2026-11-30 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Baca Tulis Al Quran Kelas 5",
+    "kelas": "5",
+    "token": "BTQ538",
+    "file_soal": "soal/btq-kls5.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-30 09:30",
+    "waktu_tutup": "2026-11-30 11:00",
+    "aktif": true
+  },
+
+  {
+    "mapel": "Al Qur'an Hadis Kelas 4",
+    "kelas": "4",
+    "token": "QRD423",
+    "file_soal": "soal/qurdis-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-23 07:30",
+    "waktu_tutup": "2026-11-23 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Akidah Akhlak Kelas 4",
+    "kelas": "4",
+    "token": "AKD424",
+    "file_soal": "soal/akidah-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-23 09:30",
+    "waktu_tutup": "2026-11-23 11:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Fikih Kelas 4",
+    "kelas": "4",
+    "token": "FKH425",
+    "file_soal": "soal/fikih-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-24 07:30",
+    "waktu_tutup": "2026-11-24 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Sejarah Kebudayaan Islam Kelas 4",
+    "kelas": "4",
+    "token": "SKI426",
+    "file_soal": "soal/ski-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-24 09:30",
+    "waktu_tutup": "2026-11-24 11:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Bahasa Arab Kelas 4",
+    "kelas": "4",
+    "token": "BAR427",
+    "file_soal": "soal/arab-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-25 07:30",
+    "waktu_tutup": "2026-11-25 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Pendidikan Pancasila Kelas 4",
+    "kelas": "4",
+    "token": "PNC428",
+    "file_soal": "soal/pancasila-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-25 09:30",
+    "waktu_tutup": "2026-11-25 11:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Bahasa Indonesia Kelas 4",
+    "kelas": "4",
+    "token": "BIN429",
+    "file_soal": "soal/bindo-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-26 07:30",
+    "waktu_tutup": "2026-11-26 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Matematika Kelas 4",
+    "kelas": "4",
+    "token": "MTK432",
+    "file_soal": "soal/mtk-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-26 09:30",
+    "waktu_tutup": "2026-11-26 11:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Ilmu Pengetahuan Alam dan Sosial Kelas 4",
+    "kelas": "4",
+    "token": "IPS433",
+    "file_soal": "soal/ipas-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-27 07:30",
+    "waktu_tutup": "2026-11-27 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Pendidikan Jasmani, Olahraga dan Kesehatan Kelas 4",
+    "kelas": "4",
+    "token": "PJK434",
+    "file_soal": "soal/pjok-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-27 09:30",
+    "waktu_tutup": "2026-11-27 11:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Seni Budaya dan Prakarya Kelas 4",
+    "kelas": "4",
+    "token": "SNB435",
+    "file_soal": "soal/sbdp-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-28 07:30",
+    "waktu_tutup": "2026-11-28 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Bahasa Inggris Kelas 4",
+    "kelas": "4",
+    "token": "BIG436",
+    "file_soal": "soal/bing-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-28 09:30",
+    "waktu_tutup": "2026-11-28 11:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Bahasa Jawa Kelas 4",
+    "kelas": "4",
+    "token": "BJW437",
+    "file_soal": "soal/bjawa-kls4.json",
+    "durasi_menit": 90,
+    "waktu_buka": "2026-11-30 07:30",
+    "waktu_tutup": "2026-11-30 09:00",
+    "aktif": true
+  },
+  {
+    "mapel": "Baca Tulis Al Quran Kelas 4",
+    "kelas": "4",
+    "token": "BTQ438",
+    "file_soal": "soal/btq-kls4.json",
     "durasi_menit": 90,
     "waktu_buka": "2026-11-30 09:30",
     "waktu_tutup": "2026-11-30 11:00",
