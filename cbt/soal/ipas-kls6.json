@@ -13,6 +13,54 @@
   },
   {
     "id": 2,
+    "tipe": "PG",
+    "soal": "Bagian tumbuhan yang berfungsi sebagai tempat berlangsungnya proses fotosintesis adalah...",
+    "pilihan": [
+      "Akar",
+      "Batang",
+      "Daun",
+      "Bunga"
+    ],
+    "kunci": "C"
+  },
+  {
+    "id": 3,
+    "tipe": "PG",
+    "soal": "Hewan yang mengalami metamorfosis sempurna dalam siklus hidupnya adalah...",
+    "pilihan": [
+      "Kecoa",
+      "Belalang",
+      "Kupu-kupu",
+      "Kucing"
+    ],
+    "kunci": "C"
+  },
+  {
+    "id": 4,
+    "tipe": "PG",
+    "soal": "Sumber energi utama bagi seluruh makhluk hidup di bumi adalah...",
+    "pilihan": [
+      "Matahari",
+      "Air",
+      "Angin",
+      "Batu bara"
+    ],
+    "kunci": "A"
+  },
+  {
+    "id": 5,
+    "tipe": "PG",
+    "soal": "Gaya tarik yang dialami oleh benda-benda di permukaan bumi menuju ke pusat bumi disebut gaya...",
+    "pilihan": [
+      "Gesek",
+      "Magnet",
+      "Gravitasi",
+      "Pegas"
+    ],
+    "kunci": "C"
+  },
+  {
+    "id": 6,
     "tipe": "PG_KOMPLEKS",
     "soal": "Manakah di bawah ini yang merupakan sumber energi alternatif ramah lingkungan? (Pilih dua jawaban yang benar)",
     "pilihan": [
@@ -24,7 +72,31 @@
     "kunci": ["A", "C"]
   },
   {
-    "id": 3,
+    "id": 7,
+    "tipe": "PG_KOMPLEKS",
+    "soal": "Ciri-ciri makhluk hidup yang mengalami masa pubertas pada masa remaja meliputi... (Pilih dua jawaban yang benar)",
+    "pilihan": [
+      "Mengalami perubahan suara menjadi lebih berat pada anak laki-laki",
+      "Gigi susu mulai tumbuh kembali",
+      "Mulai aktifnya organ reproduksi",
+      "Ukuran tubuh mengecil kembali"
+    ],
+    "kunci": ["A", "C"]
+  },
+  {
+    "id": 8,
+    "tipe": "PG_KOMPLEKS",
+    "soal": "Komponen biotik dalam suatu ekosistem air tawar terdiri atas... (Pilih dua jawaban yang benar)",
+    "pilihan": [
+      "Ikan",
+      "Batu",
+      "Air",
+      "Tumbuhan Air / Eneng Gondok"
+    ],
+    "kunci": ["A", "D"]
+  },
+  {
+    "id": 9,
     "tipe": "MENJODOHKAN",
     "soal": "Pasangkanlah nama planet di sebelah kiri dengan ciri khasnya di sebelah kanan:",
     "pasangan_kiri": [
@@ -45,15 +117,84 @@
     }
   },
   {
-    "id": 4,
+    "id": 10,
+    "tipe": "MENJODOHKAN",
+    "soal": "Pasangkanlah jenis sendi di tubuh manusia dengan arah gerakannya:",
+    "pasangan_kiri": [
+      "Sendi Engsel",
+      "Sendi Peluru",
+      "Sendi Putar"
+    ],
+    "pilihan_kanan": [
+      "Segala arah",
+      "Satu arah",
+      "Berputar",
+      "Geser"
+    ],
+    "kunci": {
+      "0": "Satu arah",
+      "1": "Segala arah",
+      "2": "Berputar"
+    }
+  },
+  {
+    "id": 11,
     "tipe": "ISIAN",
     "soal": "Alat optik yang digunakan untuk melihat benda-benda yang sangat jauh di angkasa luar adalah...",
     "kunci": "Teleskop"
   },
   {
-    "id": 5,
+    "id": 12,
+    "tipe": "ISIAN",
+    "soal": "Perpindahan panas yang disertai dengan perpindahan zat perantaranya disebut perpindahan secara...",
+    "kunci": "Konveksi"
+  },
+  {
+    "id": 13,
+    "tipe": "ISIAN",
+    "soal": "Lapisan udara yang menyelubungi bumi dan melindungi bumi dari radiasi matahari disebut...",
+    "kunci": "Atmosfer"
+  },
+  {
+    "id": 14,
+    "tipe": "ISIAN",
+    "soal": "Hewan yang aktif mencari makan pada malam hari disebut hewan...",
+    "kunci": "Nocturnal"
+  },
+  {
+    "id": 15,
+    "tipe": "ISIAN",
+    "soal": "Organ pernapasan utama pada manusia yang bertukar oksigen dan karbon dioksida adalah...",
+    "kunci": "Paru-paru"
+  },
+  {
+    "id": 16,
     "tipe": "URAIAN",
     "soal": "Jelaskan apa yang dimaksud dengan proses fotosintesis pada tumbuhan hijau dan sebutkan zat apa saja yang dihasilkan!",
+    "kunci": "Kebijaksanaan guru."
+  },
+  {
+    "id": 17,
+    "tipe": "URAIAN",
+    "soal": "Sebutkan tiga contoh pelestarian alam *in situ* dan jelaskan arti pelestarian tersebut secara singkat!",
+    "kunci": "Kebijaksanaan guru."
+  },
+  {
+    "id": 18,
+    "tipe": "URAIAN",
+    "soal": "Mengapa penggunaan energi fosil secara terus-menerus dapat berdampak buruk bagi lingkungan bumi? Jelaskan alasannya!",
+    "kunci": "Kebijaksanaan guru."
+  },
+  {
+    "id": 19,
+    "tipe": "URAIAN",
+    "soal": "Jelaskan perbedaan mendasar antara magnet buatan dengan magnet alam serta berikan masing-masing satu contohnya!",
+    "kunci": "Kebijaksanaan guru."
+  },
+  {
+    "id": 20,
+    "tipe": "URAIAN",
+    "soal": "Bagaimana cara menjaga kesehatan sistem organ pernapasan manusia agar terhindar dari penyakit ISPA? Tuliskan tiga cara!",
     "kunci": "Kebijaksanaan guru."
   }
 ]
