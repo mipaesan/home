@@ -2,12 +2,12 @@
   {
     "id": 1,
     "tipe": "PG",
-    "soal": "Perhatikan komponen ekosistem! Hewan yang menduduki tingkat trofik pertama sebagai produsen adalah...",
+    "soal": "Perhatikan gambar rangkaian listrik berikut!<br><img src='https://images.unsplash.com/photo-1555680202-c86f0e12f086?w=400' style='max-width:300px; border-radius:6px; margin-top:8px;'><br>Berdasarkan gambar di atas, jenis rangkaian listrik yang digunakan adalah...",
     "pilihan": [
-      "Kelinci",
-      "Rumput",
-      "Kucing",
-      "Elang"
+      "Rangkaian Seri",
+      "Rangkaian Paralel",
+      "Rangkaian Campuran",
+      "Rangkaian Terbuka"
     ],
     "kunci": "B"
   },
@@ -26,7 +26,7 @@
   {
     "id": 3,
     "tipe": "MENJODOHKAN",
-    "soal": "Pasangkanlah nama planet di sebelah kiri dengan julukan atau ciri khasnya di sebelah kanan:",
+    "soal": "Pasangkanlah nama planet di sebelah kiri dengan ciri khasnya di sebelah kanan:",
     "pasangan_kiri": [
       "Planet Merah",
       "Planet Terbesar",
@@ -54,6 +54,6 @@
     "id": 5,
     "tipe": "URAIAN",
     "soal": "Jelaskan apa yang dimaksud dengan proses fotosintesis pada tumbuhan hijau dan sebutkan zat apa saja yang dihasilkan!",
-    "kunci": "Kebijaksanaan guru (menilai penjelasan proses pembuatan makanan oleh tumbuhan menggunakan cahaya matahari, air, dan CO2 menghasilkan oksigen dan glukosa)."
+    "kunci": "Kebijaksanaan guru."
   }
 ]
