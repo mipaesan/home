@@ -18,31 +18,52 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--bg); color: var(--text); padding-bottom: 30px; }
 
-        header { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; padding: 1.2rem 1rem; text-align: center; }
-        header h1 { font-size: 1.4rem; }
+        header { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; padding: 1.2rem 1rem; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        header h1 { font-size: 1.4rem; margin-bottom: 0.2rem; }
+        header p { font-size: 0.85rem; opacity: 0.9; }
 
         .container { max-width: 1100px; margin: 1.5rem auto; padding: 0 1rem; }
-        .card { background: white; border-radius: 10px; padding: 1.25rem; border: 1px solid var(--border); margin-bottom: 1.5rem; }
+        .card { background: white; border-radius: 10px; padding: 1.25rem; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem; }
         .card-title { font-size: 1.1rem; font-weight: 600; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
 
         .form-group { margin-bottom: 1rem; }
         .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; }
-        .form-control { width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 6px; }
+        .form-control { width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; }
 
-        .btn { padding: 0.6rem 1.2rem; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .btn { padding: 0.61rem 1.2rem; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .btn:hover { background: var(--primary-light); }
         .btn-warning { background: var(--accent); color: #212529; }
+        .btn-secondary { background: #6c757d; color: white; }
 
         table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
         th, td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
-        th { background: #e9ecef; color: var(--primary); }
+        th { background: #e9ecef; color: var(--primary); font-weight: 600; }
 
-        .modal-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 999; align-items: center; justify-content: center; padding: 1rem; }
-        .modal-card { background: white; border-radius: 12px; max-width: 750px; width: 100%; padding: 1.5rem; max-height: 90vh; display: flex; flex-direction: column; }
+        /* Modal Overlay & Card Cantik */
+        .modal-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 999; align-items: center; justify-content: center; padding: 1rem; }
+        .modal-card { background: white; border-radius: 12px; max-width: 850px; width: 100%; padding: 1.5rem; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25); animation: popupFade 0.25s ease-out; }
+        
+        @keyframes popupFade {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
 
-        .koreksi-item { background: #f8f9fa; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
-        .koreksi-header { font-weight: 600; color: var(--primary); margin-bottom: 0.4rem; display: flex; justify-content: space-between; }
-        .jawaban-box { background: #ffffff; border: 1px dashed var(--border); padding: 0.6rem 0.8rem; border-radius: 6px; margin: 0.4rem 0; font-size: 0.9rem; }
-        .input-nilai-num { width: 90px; text-align: center; font-weight: bold; font-size: 1rem; }
+        /* Tampilan Item Koreksi 3 Kolom */
+        .koreksi-item-card { background: #ffffff; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1.2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.03); }
+        .soal-header-box { background: #f8f9fa; border-left: 4px solid var(--primary); padding: 0.6rem 0.8rem; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.8rem; border-radius: 0 6px 6px 0; }
+        
+        .grid-3-kolom { display: grid; grid-template-columns: 1fr 140px 1fr; gap: 0.8rem; align-items: stretch; }
+        @media (max-width: 768px) { .grid-3-kolom { grid-template-columns: 1fr; } }
+
+        .box-kolom { border-radius: 6px; padding: 0.8rem; font-size: 0.88rem; display: flex; flex-direction: column; }
+        .box-title { font-weight: 700; font-size: 0.8rem; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .kolom-siswa { background: #eef6ff; border: 1px solid #c6e0fe; color: #084298; }
+        .kolom-nilai { background: #fff8e6; border: 1px solid #ffe69c; justify-content: center; align-items: center; text-align: center; }
+        .kolom-kunci { background: #eef9f2; border: 1px solid #c3e6cb; color: #0f5132; }
+
+        .input-nilai-num { width: 100%; max-width: 90px; text-align: center; font-size: 1.2rem; font-weight: bold; padding: 0.4rem; border: 2px solid var(--accent); border-radius: 6px; outline: none; }
+        .input-nilai-num:focus { border-color: var(--primary); }
     </style>
 </head>
 <body>
@@ -111,7 +132,7 @@
         </div>
     </div>
 
-    <!-- MODAL DETAIL & INPUT KOREKSI PER NOMOR -->
+    <!-- MODAL DETAIL & INPUT KOREKSI (3 KOLOM) -->
     <div id="modal-koreksi" class="modal-overlay">
         <div class="modal-card">
             <div class="card-title">
@@ -121,19 +142,29 @@
             
             <div style="background:#e9ecef; padding:0.8rem 1rem; border-radius:6px; margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center;">
                 <div>Siswa: <strong id="modal-siswa-nama">-</strong> (<span id="modal-siswa-nis">-</span>)</div>
-                <div style="font-size:1.05rem;">Total Nilai Isian/Uraian: <strong id="text-total-koreksi" style="color:#0d6efd;">0</strong></div>
+                <div style="font-size:1.05rem;">Total Isian/Uraian: <strong id="text-total-koreksi" style="color:#0d6efd; font-size:1.2rem;">0</strong></div>
             </div>
 
-            <!-- CONTAINER LIST SOAL ISIAN & URAIAN -->
+            <!-- CONTAINER LIST SOAL (BARIS SOAL ATAS, 3 KOLOM BAWAH) -->
             <div id="list-koreksi-container" style="flex:1; overflow-y:auto; padding-right:5px;">
                 Loading butir soal...
             </div>
 
             <div style="margin-top:1rem; padding-top:1rem; border-top:1px solid #dee2e6; display:flex; gap:0.5rem; justify-content:flex-end; align-items:center;">
                 <input type="text" id="input-catatan-guru" class="form-control" placeholder="Catatan Guru (Opsional)" style="max-width:300px;">
-                <button class="btn" style="background:#6c757d;" onclick="tutupModalKoreksi()">Batal</button>
+                <button class="btn btn-secondary" onclick="tutupModalKoreksi()">Batal</button>
                 <button class="btn btn-warning" onclick="simpanKoreksiGuru()">💾 SIMPAN KOREKSI</button>
             </div>
+        </div>
+    </div>
+
+    <!-- POPUP NOTIFIKASI / PERINGATAN CANTIK -->
+    <div id="modal-notif" class="modal-overlay" style="z-index: 1000;">
+        <div class="modal-card" style="max-width: 420px; text-align: center;">
+            <div id="notif-icon" style="font-size: 2.5rem; margin-bottom: 0.5rem;">ℹ️</div>
+            <h3 id="notif-title" style="color: var(--primary); margin-bottom: 0.5rem;">Informasi</h3>
+            <p id="notif-message" style="font-size: 0.95rem; color: #495057; margin-bottom: 1.5rem; line-height: 1.5;"></p>
+            <button class="btn" id="notif-btn-ok" style="width: 100%;">Pengertian</button>
         </div>
     </div>
 
@@ -147,15 +178,31 @@
             try {
                 const res = await fetch('members.json'); listMembers = await res.json();
                 const resJ = await fetch('jadwal.json'); listJadwal = await resJ.json();
-            } catch(e) { alert("Gagal memuat konfigurasi awal"); }
+            } catch(e) { showNotif("🚫 Gagal", "Gagal memuat konfigurasi awal", "error"); }
         };
+
+        function showNotif(title, msg, type = "info", onOk = null) {
+            document.getElementById('notif-title').textContent = title;
+            document.getElementById('notif-message').innerHTML = msg;
+            
+            const iconMap = { success: "✅", warning: "⚠️", error: "❌", info: "ℹ️" };
+            document.getElementById('notif-icon').textContent = iconMap[type] || "ℹ️";
+            
+            const btnOk = document.getElementById('notif-btn-ok');
+            btnOk.onclick = function() {
+                document.getElementById('modal-notif').style.display = 'none';
+                if (onOk) onOk();
+            };
+            
+            document.getElementById('modal-notif').style.display = 'flex';
+        }
 
         function prosesLoginGuru() {
             const idG = document.getElementById('input-id-guru').value.trim();
             const pinG = document.getElementById('input-pin-guru').value.trim();
 
             const guru = listMembers.find(m => m.id === idG && m.role === 'guru');
-            if (!guru || guru.pin !== pinG) return alert("ID Guru atau Password salah!");
+            if (!guru || guru.pin !== pinG) return showNotif("Login Gagal", "ID Guru atau Password yang Anda masukkan salah!", "warning");
 
             currentGuru = guru;
             document.getElementById('login-guru-section').style.display = 'none';
@@ -177,17 +224,14 @@
 
         async function muatDataRekap() {
             const mapel = document.getElementById('select-mapel-rekap').value;
-            if(!mapel) return alert("Pilih mata pelajaran dulu!");
+            if(!mapel) return showNotif("Peringatan", "Pilih mata pelajaran terlebih dahulu!", "warning");
 
             currentMapelObj = listJadwal.find(j => j.mapel === mapel);
 
-            // Fetch naskah soal JSON untuk keperluan koreksi
             try {
                 const resSoal = await fetch(currentMapelObj.file_soal);
                 activeSoalData = await resSoal.json();
-            } catch(e) {
-                activeSoalData = [];
-            }
+            } catch(e) { activeSoalData = []; }
 
             const sheetName = "HASIL_" + mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_");
             const tbody = document.getElementById('tabel-rekap-body');
@@ -198,7 +242,7 @@
                 const json = await res.json();
 
                 if(!json.data || json.data.length <= 1) {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada jawaban siswa.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada jawaban siswa yang masuk.</td></tr>';
                     return;
                 }
 
@@ -214,18 +258,18 @@
                             <td><span style="color:#0d6efd; font-weight:bold;">${row[7] || 0}</span></td>
                             <td><span style="color:#dc3545; font-weight:bold; font-size:1.05rem;">${row[8] || row[5]}</span></td>
                             <td>
-                                <button class="btn" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick='bukaKoreksiPerNomor("${row[1]}", "${row[2]}", ${JSON.stringify(row[6])}, "${row[9]}")'>📝 Koreksi Isian/Uraian</button>
+                                <button class="btn" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick='bukaKoreksi3Kolom("${row[1]}", "${row[2]}", ${JSON.stringify(row[6])}, "${row[9]}")'>📝 Koreksi / Detail</button>
                             </td>
                         </tr>
                     `;
                 }
                 tbody.innerHTML = html;
             } catch(e) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Gagal mengambil data.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Gagal mengambil data dari server.</td></tr>';
             }
         }
 
-        function bukaKoreksiPerNomor(nis, nama, rawJson, catatan) {
+        function bukaKoreksi3Kolom(nis, nama, rawJson, catatan) {
             selectedNIS = nis;
             document.getElementById('modal-siswa-nama').textContent = nama;
             document.getElementById('modal-siswa-nis').textContent = nis;
@@ -234,32 +278,46 @@
             let jawabanObj = {};
             try { jawabanObj = typeof rawJson === 'string' ? JSON.parse(rawJson) : rawJson; } catch(e) {}
 
-            // Filter hanya soal ISIAN dan URAIAN
             const nonPGSoal = activeSoalData.filter(s => s.tipe === "ISIAN" || s.tipe === "URAIAN");
             const container = document.getElementById('list-koreksi-container');
 
             if (nonPGSoal.length === 0) {
-                container.innerHTML = `<div style="text-align:center; color:#6c757d; padding:2rem;">Tidak ada soal tipe Isian Singkat atau Uraian pada mapel ini.</div>`;
+                container.innerHTML = `<div style="text-align:center; color:#6c757d; padding:2rem;">Tidak ada soal tipe Isian Singkat atau Uraian pada mata pelajaran ini.</div>`;
                 document.getElementById('text-total-koreksi').textContent = "0";
                 document.getElementById('modal-koreksi').style.display = 'flex';
                 return;
             }
 
             let html = '';
-            nonPGSoal.forEach((s, idx) => {
+            nonPGSoal.forEach((s) => {
                 const jawabSiswa = jawabanObj[s.id] || "<i>(Tidak dijawab)</i>";
                 html += `
-                    <div class="koreksi-item">
-                        <div class="koreksi-header">
-                            <span>Soal No. ${s.id} (${s.tipe})</span>
-                            <div>
-                                <label style="font-size:0.85rem; margin-right:5px;">Nilai:</label>
-                                <input type="number" class="form-control input-nilai-num input-skor-item" data-id="${s.id}" value="0" min="0" oninput="hitungTotalOtomatis()">
+                    <div class="koreksi-item-card">
+                        <!-- TAMPILAN SOAL DI BARIS ATAS -->
+                        <div class="soal-header-box">
+                            Soal No. ${s.id} (${s.tipe}): ${s.soal}
+                        </div>
+
+                        <!-- TAMPILAN 3 KOLOM DI BAWAH SOAL -->
+                        <div class="grid-3-kolom">
+                            <!-- KOLOM KIRI: JAWABAN SISWA -->
+                            <div class="box-kolom kolom-siswa">
+                                <div class="box-title">📝 Jawaban Siswa</div>
+                                <div>${jawabSiswa}</div>
+                            </div>
+
+                            <!-- KOLOM TENGAH: INPUT NILAI -->
+                            <div class="box-kolom kolom-nilai">
+                                <div class="box-title">🔢 Nilai</div>
+                                <input type="number" class="input-nilai-num input-skor-item" data-id="${s.id}" value="0" min="0" oninput="hitungTotalOtomatis()">
+                            </div>
+
+                            <!-- KOLOM KANAN: KUNCI JAWABAN -->
+                            <div class="box-kolom kolom-kunci">
+                                <div class="box-title">🔑 Kunci Jawaban</div>
+                                <div>${s.kunci}</div>
                             </div>
                         </div>
-                        <div style="font-size:0.95rem; margin-bottom:0.4rem;"><b>Pertanyaan:</b> ${s.soal}</div>
-                        <div class="jawaban-box" style="background:#e8f4ea; border-color:#b7e1cd;"><b>Kunci Jawaban Guru:</b> ${s.kunci}</div>
-                        <div class="jawaban-box"><b>Jawaban Siswa:</b> <span style="color:#0d6efd;">${jawabSiswa}</span></div>
                     </div>
                 `;
             });
@@ -269,7 +327,6 @@
             document.getElementById('modal-koreksi').style.display = 'flex';
         }
 
-        // FUNGSI HITUNG OTOMATIS SAAT GURU MENGETIK NILAI PER NOMOR
         function hitungTotalOtomatis() {
             let total = 0;
             const inputs = document.querySelectorAll('.input-skor-item');
@@ -292,7 +349,7 @@
                 catatan: catatan
             };
 
-            alert("⏳ Menyimpan nilai koreksi ke Google Sheets...");
+            showNotif("Menyimpan Data", "Mohon tunggu sejenak, menyimpan nilai koreksi ke server...", "info");
 
             try {
                 await fetch(GAS_WEBAPP_URL, {
@@ -302,11 +359,12 @@
                     body: JSON.stringify(payload)
                 });
 
-                alert("✅ Nilai koreksi berhasil disimpan!");
-                tutupModalKoreksi();
-                muatDataRekap();
+                showNotif("Berhasil!", "Nilai koreksi berhasil disimpan ke Google Sheets.", "success", function() {
+                    tutupModalKoreksi();
+                    muatDataRekap();
+                });
             } catch(e) {
-                alert("⚠️ Gagal menyimpan nilai.");
+                showNotif("Gagal", "Gagal menyimpan nilai ke server. Periksa koneksi internet.", "error");
             }
         }
 
