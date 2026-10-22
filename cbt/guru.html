@@ -69,12 +69,18 @@
         .input-nilai-num { width: 100%; max-width: 80px; text-align: center; font-size: 1.2rem; font-weight: bold; padding: 0.4rem; border: 2px solid var(--accent); border-radius: 6px; outline: none; }
         .input-nilai-num:focus { border-color: var(--primary); }
 
-        /* Style untuk Cetak Dokumen Analisis */
+        /* FIX CSS MEDIA PRINT UNTUK DOKUMEN CETAK ANALISIS */
         @media print {
-            body * { visibility: hidden; }
-            #area-cetak-analisis, #area-cetak-analisis * { visibility: visible; }
-            #area-cetak-analisis { position: absolute; left: 0; top: 0; width: 100%; }
-            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; padding: 0 !important; }
+            header, .no-print, #login-guru-section, #card-rekap-tabel, .modal-overlay { display: none !important; }
+            .container { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+            .card { border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; }
+            #card-analisis-tabel { display: block !important; }
+            .card-title div { display: none !important; }
+            table { width: 100% !important; font-size: 11pt !important; border: 1px solid #000 !important; }
+            th, td { border: 1px solid #000 !important; padding: 6px !important; }
+            th { background-color: #f0f0f0 !important; color: #000 !important; }
+            .badge { border: 1px solid #000 !important; }
         }
     </style>
 </head>
@@ -85,9 +91,9 @@
         <p>MI Salafiyatul Ma'muroh</p>
     </header>
 
-    <div class="container no-print">
+    <div class="container">
         <!-- LOGIN GURU -->
-        <div id="login-guru-section" class="card" style="max-width: 400px; margin: 3rem auto;">
+        <div id="login-guru-section" class="card no-print" style="max-width: 400px; margin: 3rem auto;">
             <div class="card-title">Login Guru</div>
             <form onsubmit="event.preventDefault(); prosesLoginGuru();">
                 <div class="form-group">
@@ -110,7 +116,7 @@
 
         <!-- DASHBOARD UTAMA -->
         <div id="dashboard-section" style="display: none;">
-            <div class="card">
+            <div class="card no-print">
                 <div class="card-title">
                     <span>Selamat Datang, <strong id="guru-nama">-</strong></span>
                     <button class="btn btn-warning" onclick="location.reload()" style="font-size:0.8rem;">Keluar</button>
@@ -139,7 +145,7 @@
             </div>
 
             <!-- CARD REKAP NILAI -->
-            <div id="card-rekap-tabel" class="card">
+            <div id="card-rekap-tabel" class="card no-print">
                 <div class="card-title">Rekap Nilai Siswa</div>
                 <div style="overflow-x: auto;">
                     <table>
@@ -165,7 +171,7 @@
             <div id="card-analisis-tabel" class="card" style="display: none;">
                 <div class="card-title">
                     <span>Hasil Analisis Butir Soal & Tingkat Kesukaran</span>
-                    <div style="display: flex; gap: 0.5rem;">
+                    <div style="display: flex; gap: 0.5rem;" class="no-print">
                         <button class="btn btn-secondary" style="font-size: 0.8rem;" onclick="downloadAnalisisCSV()">📥 Download CSV</button>
                         <button class="btn btn-warning" style="font-size: 0.8rem;" onclick="cetakDokumenAnalisis()">🖨️ Cetak / PDF</button>
                     </div>
@@ -173,10 +179,10 @@
 
                 <div id="area-cetak-analisis">
                     <!-- KOP UNTUK CETAK -->
-                    <div style="text-align: center; margin-bottom: 1rem; border-bottom: 2px solid #000; padding-bottom: 0.5rem;">
-                        <h2 style="font-size: 1.2rem; margin: 0;">MI SALAFIYATUL MA'MUROH</h2>
-                        <h3 style="font-size: 1rem; font-weight: normal; margin: 0;">LAPORAN ANALISIS BUTIR SOAL UJIAN CBT</h3>
-                        <p style="font-size: 0.85rem; margin-top: 0.3rem;">Mata Pelajaran: <strong id="analisis-info-mapel">-</strong> | Total Siswa: <strong id="analisis-info-siswa">0</strong></p>
+                    <div style="text-align: center; margin-bottom: 1.5rem; border-bottom: 2px solid #000; padding-bottom: 0.5rem;">
+                        <h2 style="font-size: 1.3rem; margin: 0; text-transform: uppercase;">MI SALAFIYATUL MA'MUROH</h2>
+                        <h3 style="font-size: 1.05rem; font-weight: normal; margin: 0.2rem 0;">LAPORAN ANALISIS BUTIR SOAL UJIAN CBT</h3>
+                        <p style="font-size: 0.9rem; margin-top: 0.3rem;">Mata Pelajaran: <strong id="analisis-info-mapel">-</strong> | Total Siswa: <strong id="analisis-info-siswa">0</strong></p>
                     </div>
 
                     <div style="overflow-x: auto;">
@@ -203,7 +209,7 @@
     </div>
 
     <!-- MODAL DETAIL & INPUT KOREKSI (3 KOLOM) -->
-    <div id="modal-koreksi" class="modal-overlay">
+    <div id="modal-koreksi" class="modal-overlay no-print">
         <div class="modal-card">
             <div class="card-title">
                 <span>Lembar Koreksi Isian & Uraian</span>
@@ -228,7 +234,7 @@
     </div>
 
     <!-- POPUP NOTIFIKASI -->
-    <div id="modal-notif" class="modal-overlay" style="z-index: 1000;">
+    <div id="modal-notif" class="modal-overlay no-print" style="z-index: 1000;">
         <div class="modal-card" style="max-width: 420px; text-align: center;">
             <div id="notif-icon" style="font-size: 2.5rem; margin-bottom: 0.5rem;">ℹ️</div>
             <h3 id="notif-title" style="color: var(--primary); margin-bottom: 0.5rem;">Informasi</h3>
@@ -382,7 +388,6 @@
                 document.getElementById('analisis-info-mapel').textContent = mapel;
                 document.getElementById('analisis-info-siswa').textContent = totalSiswa;
 
-                // kumpulkan semua objek jawaban siswa (kolom index 6)
                 let allJawabanSiswa = [];
                 for(let i = 1; i < json.data.length; i++) {
                     let raw = json.data[i][6];
