@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "tipe": "PG",
+    "soal": "Surah Al-Kafirun diturunkan di kota...",
+    "pilihan": [
+      "Madinah",
+      "Makkah",
+      "Thif",
+      "Syam"
+    ],
+    "kunci": "B"
+  },
+  {
+    "id": 2,
+    "tipe": "ISIAN",
+    "soal": "Arti dari lafazh 'Lakum dinukum waliyadin' dalam Surah Al-Kafirun adalah...",
+    "kunci": "Bagimu agamamu, dan bagimu agamaku"
+  },
+  {
+    "id": 3,
+    "tipe": "URAIAN",
+    "soal": "Tuliskan pesan pokok yang terkandung dalam Surah Al-Kafirun berkaitan dengan sikap toleransi beragama!",
+    "kunci": "Kebijaksanaan guru (menjelaskan penolakan terhadap kompromi dalam hal akidah/ibadah namun tetap menghormati keyakinan umat lain tanpa saling memaksakan)."
+  }
+]
