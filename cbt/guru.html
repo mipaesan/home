@@ -35,6 +35,7 @@
         .btn-warning { background: var(--accent); color: #212529; }
         .btn-secondary { background: #6c757d; color: white; }
         .btn-info { background: #0dcaf0; color: #000; }
+        .btn-success { background: #198754; color: white; }
 
         table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
         th, td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
@@ -121,8 +122,8 @@
                     <span>Selamat Datang, <strong id="guru-nama">-</strong></span>
                     <button class="btn btn-warning" onclick="location.reload()" style="font-size:0.8rem;">Keluar</button>
                 </div>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end;">
-                    <div class="form-group" style="flex: 1; min-width: 160px; margin-bottom:0;">
+                <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: flex-end;">
+                    <div class="form-group" style="flex: 1; min-width: 150px; margin-bottom:0;">
                         <label>Pilih Kelas</label>
                         <select id="select-kelas-rekap" class="form-control" onchange="filterMapelByKelas()">
                             <option value="">-- Semua Kelas --</option>
@@ -132,7 +133,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group" style="flex: 2; min-width: 220px; margin-bottom:0;">
+                    <div class="form-group" style="flex: 2; min-width: 200px; margin-bottom:0;">
                         <label>Pilih Mata Pelajaran</label>
                         <select id="select-mapel-rekap" class="form-control">
                             <option value="">-- Pilih Kelas Terlebih Dahulu --</option>
@@ -140,7 +141,8 @@
                     </div>
 
                     <button class="btn" onclick="muatDataRekap()">📋 Rekap Nilai</button>
-                    <button class="btn btn-info" onclick="muatAnalisisButirSoal()">📊 Analisis Butir Soal</button>
+                    <button class="btn btn-info" onclick="muatAnalisisButirSoal()">📊 Analisis Soal</button>
+                    <button class="btn btn-success" onclick="downloadFileSoalDocx()">📄 Download Word (.doc)</button>
                 </div>
             </div>
 
@@ -199,7 +201,7 @@
                                 </tr>
                             </thead>
                             <tbody id="tabel-analisis-body">
-                                <tr><td colspan="7" style="text-align: center; color: #6c757d;">Klik 'Analisis Butir Soal' untuk melihat data.</td></tr>
+                                <tr><td colspan="7" style="text-align: center; color: #6c757d;">Klik 'Analisis Soal' untuk melihat data.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -352,6 +354,140 @@
                 tbody.innerHTML = html;
             } catch(e) {
                 tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Gagal mengambil data dari server.</td></tr>';
+            }
+        }
+
+        async function downloadFileSoalDocx() {
+            const mapel = document.getElementById('select-mapel-rekap').value;
+            if(!mapel) return showNotif("Peringatan", "Pilih mata pelajaran terlebih dahulu untuk mendownload soal!", "warning");
+
+            const mapelObj = listJadwal.find(j => j.mapel === mapel);
+            if(!mapelObj || !mapelObj.file_soal) return showNotif("Gagal", "File soal untuk mapel ini belum terdaftar.", "error");
+
+            try {
+                const res = await fetch(mapelObj.file_soal);
+                const listSoal = await res.json();
+
+                // MERANCANG DOKUMEN HTML UNTUK EKSPOR WORD (.DOC)
+                let htmlDoc = `
+                    <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                    <head>
+                        <meta charset='utf-8'>
+                        <title>Naskah Soal - ${mapel}</title>
+                        <style>
+                            body { font-family: 'Calibri', 'Times New Roman', sans-serif; font-size: 11pt; line-height: 1.3; }
+                            .header-kop { text-align: center; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 15px; }
+                            .header-kop h2 { font-size: 14pt; margin: 0; text-transform: uppercase; }
+                            .header-kop h3 { font-size: 12pt; margin: 2px 0; font-weight: normal; }
+                            .info-table { width: 100%; margin-bottom: 15px; border-collapse: collapse; }
+                            .info-table td { font-size: 10.5pt; padding: 2px; border: none; }
+                            .soal-box { margin-bottom: 12px; }
+                            .soal-text { font-weight: bold; margin-bottom: 4px; }
+                            .pilihan-list { margin-left: 18px; margin-top: 2px; }
+                            .kunci-box { margin-top: 25px; border-top: 1px dashed #000; padding-top: 10px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="header-kop">
+                            <h2>MI SALAFIYATUL MA'MUROH</h2>
+                            <h3>NASKAH SOAL ASESMEN / UJIAN CBT</h3>
+                        </div>
+
+                        <table class="info-table">
+                            <tr>
+                                <td width="15%"><strong>Mata Pelajaran</strong></td>
+                                <td width="35%">: ${mapel}</td>
+                                <td width="15%"><strong>Kelas</strong></td>
+                                <td width="35%">: ${mapelObj.kelas || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Waktu Ujian</strong></td>
+                                <td>: ${mapelObj.durasi_menit || 90} Menit</td>
+                                <td><strong>Status File</strong></td>
+                                <td>: Arsip Master Naskah</td>
+                            </tr>
+                        </table>
+                        <hr style="border: 0.5px solid #000; margin-bottom: 15px;">
+                `;
+
+                // DAFTAR SOAL
+                listSoal.forEach((s) => {
+                    htmlDoc += `<div class="soal-box">`;
+                    htmlDoc += `<div class="soal-text">${s.id}. ${s.soal}</div>`;
+
+                    if (s.pilihan && Array.isArray(s.pilihan)) {
+                        htmlDoc += `<div class="pilihan-list">`;
+                        s.pilihan.forEach(p => {
+                            htmlDoc += `<div>${p}</div>`;
+                        });
+                        htmlDoc += `</div>`;
+                    }
+
+                    if (s.pasangan_kiri && s.pasangan_kanan) {
+                        htmlDoc += `<div style="margin-left:18px; font-size:10pt;">`;
+                        htmlDoc += `<i>Pasangan Kiri: ${s.pasangan_kiri.join(', ')}</i><br>`;
+                        htmlDoc += `<i>Pasangan Kanan: ${s.pasangan_kanan.join(', ')}</i>`;
+                        htmlDoc += `</div>`;
+                    }
+
+                    htmlDoc += `</div>`;
+                });
+
+                // DAFTAR KUNCI JAWABAN & BOBOT UNTUK GURU
+                htmlDoc += `
+                    <div class="kunci-box">
+                        <h4 style="margin-bottom: 8px;">LAMPIRAN: KUNCI JAWABAN & BOBOT (ARSIP GURU)</h4>
+                        <table border="1" style="border-collapse: collapse; width: 100%; font-size: 10pt;">
+                            <tr style="background-color: #f2f2f2;">
+                                <th width="10%">No</th>
+                                <th width="20%">Tipe</th>
+                                <th>Kunci Jawaban</th>
+                                <th width="15%">Bobot / Maks</th>
+                            </tr>
+                `;
+
+                listSoal.forEach((s) => {
+                    let kunciStr = Array.isArray(s.kunci) ? s.kunci.join(', ') : (typeof s.kunci === 'object' ? JSON.stringify(s.kunci) : s.kunci);
+                    let bobotStr = s.skor_maksimal || s.bobot || '-';
+
+                    htmlDoc += `
+                        <tr>
+                            <td align="center">${s.id}</td>
+                            <td align="center">${s.tipe}</td>
+                            <td>${kunciStr}</td>
+                            <td align="center">${bobotStr}</td>
+                        </tr>
+                    `;
+                });
+
+                htmlDoc += `
+                        </table>
+                    </div>
+                    </body>
+                    </html>
+                `;
+
+                // KONVERSI KE BLOB FILE WORD (.DOC)
+                const blob = new Blob(['\ufeff' + htmlDoc], {
+                    type: 'application/msword'
+                });
+
+                const fileName = `Naskah_Soal_${mapel.replace(/[^A-Z0-9]/gi, '_')}.doc`;
+                const downloadLink = document.createElement("a");
+
+                if (navigator.msSaveOrOpenBlob) {
+                    navigator.msSaveOrOpenBlob(blob, fileName);
+                } else {
+                    downloadLink.href = URL.createObjectURL(blob);
+                    downloadLink.download = fileName;
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
+                }
+
+                showNotif("Berhasil", `Naskah soal Word <strong>${mapel}</strong> berhasil diunduh.`, "success");
+            } catch(e) {
+                showNotif("Gagal", "Gagal membuat dokumen Word dari naskah soal.", "error");
             }
         }
 
