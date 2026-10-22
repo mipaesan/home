@@ -232,7 +232,6 @@
             margin-right: 0.8rem;
         }
 
-        /* Input Isian & Uraian */
         .single-input {
             width: 100%;
             padding: 0.8rem;
@@ -251,7 +250,6 @@
             font-size: 0.95rem;
         }
 
-        /* Tampilan Menjodohkan */
         .jodoh-table {
             width: 100%;
             border-collapse: collapse;
@@ -298,7 +296,6 @@
             margin-top: 1.2rem;
         }
 
-        /* Floating Nav Button for Mobile */
         .btn-float-nav {
             display: none;
             position: fixed;
@@ -388,9 +385,7 @@
                             Loading naskah soal...
                         </div>
 
-                        <div id="jawaban-container">
-                            <!-- Tempat render 5 Tipe Soal -->
-                        </div>
+                        <div id="jawaban-container"></div>
 
                         <div style="display:flex; justify-content:space-between; margin-top:2rem; gap:1rem;">
                             <button id="btn-prev" class="btn btn-secondary" onclick="soalSebelumnya()" style="width:auto; padding:0.6rem 1.2rem;">◀ Sebelumnya</button>
@@ -431,6 +426,9 @@
     </div>
 
     <script>
+        // BACKEND URL GOOGLE APPS SCRIPT
+        const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxxcs96dxFK_IatVI53R2woXXuxKzxhAxtsAvOY7NXb7gF-iTQ3OKbYvtM8meHC5AgYvQ/exec";
+
         let listMembers = [];
         let listJadwal = [];
         let currentSiswa = null;
@@ -520,9 +518,6 @@
             }
         }
 
-        // ==========================================
-        // RENDER 5 TIPE SOAL SECARA DINAMIS
-        // ==========================================
         function tampilSoal(idx) {
             indexSoal = idx;
             document.getElementById('no-soal-aktif').textContent = idx + 1;
@@ -533,7 +528,6 @@
             const container = document.getElementById('jawaban-container');
             container.innerHTML = '';
 
-            // 1. TIPE PG (PILIHAN GANDA BIASA - 1 JAWABAN)
             if (item.tipe === "PG") {
                 let html = '<ul class="options-list">';
                 item.pilihan.forEach((pil, pIdx) => {
@@ -549,7 +543,6 @@
                 html += '</ul>';
                 container.innerHTML = html;
 
-            // 2. TIPE PG KOMPLEKS (BISA PILIH LEBIH DARI 1 JAWABAN / CHECKBOX)
             } else if (item.tipe === "PG_KOMPLEKS") {
                 let currentAnswers = jawabanSiswa[item.id] || [];
                 let html = '<p style="font-size:0.85rem; color:#6c757d; margin-bottom:0.5rem;"><i>*Pilihlah satu atau lebih jawaban yang benar!</i></p><ul class="options-list">';
@@ -566,7 +559,6 @@
                 html += '</ul>';
                 container.innerHTML = html;
 
-            // 3. TIPE MENJODOHKAN (MEMASANGKAN PERNYATAAN KIRI DENGAN PILIHAN KANAN)
             } else if (item.tipe === "MENJODOHKAN") {
                 let currentAnswers = jawabanSiswa[item.id] || {};
                 let html = '<p style="font-size:0.85rem; color:#6c757d; margin-bottom:0.5rem;"><i>*Pasangkanlah pernyataan di sebelah kiri dengan pilihan yang sesuai di sebelah kanan!</i></p>';
@@ -588,7 +580,6 @@
                 html += '</table>';
                 container.innerHTML = html;
 
-            // 4. TIPE ISIAN SINGKAT
             } else if (item.tipe === "ISIAN") {
                 const val = jawabanSiswa[item.id] || '';
                 container.innerHTML = `
@@ -598,7 +589,6 @@
                     </div>
                 `;
 
-            // 5. TIPE URAIAN / ESSAY
             } else if (item.tipe === "URAIAN") {
                 const val = jawabanSiswa[item.id] || '';
                 container.innerHTML = `
@@ -612,7 +602,6 @@
             updateNavActiveState();
         }
 
-        // FUNGSI SIMPAN JAWABAN SISWA PER TIPE
         function pilihPG(soalId, opsi) {
             jawabanSiswa[soalId] = opsi;
             tampilSoal(indexSoal);
@@ -717,11 +706,48 @@
             });
         }
 
-        function submitJawaban() {
+        // FUNGSI HITUNG NILAI PG & KIRIM KE GOOGLE SHEETS
+        async function submitJawaban() {
             clearInterval(timerInterval);
-            showAlert("✅ Ujian Selesai", "Terima kasih! Seluruh jawaban Anda telah berhasil terkirim.", () => {
-                location.reload();
+            
+            // 1. Hitung Nilai PG Otomatis
+            let soalPG = soalData.filter(s => s.tipe === "PG");
+            let benarPG = 0;
+            soalPG.forEach(s => {
+                if (jawabanSiswa[s.id] === s.kunci) {
+                    benarPG++;
+                }
             });
+
+            let nilaiPG = soalPG.length > 0 ? Math.round((benarPG / soalPG.length) * 100) : 0;
+
+            // 2. Susun Payload Data
+            const payload = {
+                id: currentSiswa.id,
+                nama: currentSiswa.nama,
+                kelas: currentSiswa.kelas,
+                mapel: currentMapel.mapel,
+                nilai_pg: nilaiPG,
+                jawaban: jawabanSiswa
+            };
+
+            showAlert("⏳ Mengirim Jawaban...", "Mohon tunggu sejenak, jawaban Anda sedang disimpan ke server...");
+
+            try {
+                await fetch(GAS_WEBAPP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                showAlert("✅ Ujian Selesai", "Terima kasih! Seluruh jawaban Anda telah berhasil terkirim ke server.", () => {
+                    location.reload();
+                });
+
+            } catch (err) {
+                showAlert("⚠️ Error Pengiriman", "Gagal mengirim jawaban ke server. Periksa koneksi internet Anda lalu coba lagi.");
+            }
         }
 
         function showAlert(title, msg, onOk = null) {
