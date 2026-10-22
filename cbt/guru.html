@@ -37,7 +37,12 @@
         th { background: #e9ecef; color: var(--primary); }
 
         .modal-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 999; align-items: center; justify-content: center; padding: 1rem; }
-        .modal-card { background: white; border-radius: 12px; max-width: 650px; width: 100%; padding: 1.5rem; }
+        .modal-card { background: white; border-radius: 12px; max-width: 750px; width: 100%; padding: 1.5rem; max-height: 90vh; display: flex; flex-direction: column; }
+
+        .koreksi-item { background: #f8f9fa; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+        .koreksi-header { font-weight: 600; color: var(--primary); margin-bottom: 0.4rem; display: flex; justify-content: space-between; }
+        .jawaban-box { background: #ffffff; border: 1px dashed var(--border); padding: 0.6rem 0.8rem; border-radius: 6px; margin: 0.4rem 0; font-size: 0.9rem; }
+        .input-nilai-num { width: 90px; text-align: center; font-weight: bold; font-size: 1rem; }
     </style>
 </head>
 <body>
@@ -92,7 +97,7 @@
                                 <th>NIS</th>
                                 <th>Nama Siswa</th>
                                 <th>Nilai PG</th>
-                                <th>Nilai Essay</th>
+                                <th>Nilai Isian/Uraian</th>
                                 <th>Total Nilai</th>
                                 <th>Aksi Koreksi</th>
                             </tr>
@@ -106,37 +111,28 @@
         </div>
     </div>
 
-    <!-- MODAL DETAIL & INPUT KOREKSI -->
+    <!-- MODAL DETAIL & INPUT KOREKSI PER NOMOR -->
     <div id="modal-koreksi" class="modal-overlay">
         <div class="modal-card">
             <div class="card-title">
-                <span>Koreksi & Detail Jawaban</span>
+                <span>Lembar Koreksi Isian & Uraian</span>
                 <button onclick="tutupModalKoreksi()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">✕</button>
             </div>
             
-            <p style="font-size:0.9rem; margin-bottom:0.5rem;">Siswa: <strong id="modal-siswa-nama">-</strong> (<span id="modal-siswa-nis">-</span>)</p>
-
-            <div id="detail-jawaban-content" style="max-height:250px; overflow-y:auto; font-size:0.88rem; line-height:1.5; border:1px solid #dee2e6; padding:0.8rem; border-radius:6px; background:#f8f9fa;">
-                Loading...
+            <div style="background:#e9ecef; padding:0.8rem 1rem; border-radius:6px; margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center;">
+                <div>Siswa: <strong id="modal-siswa-nama">-</strong> (<span id="modal-siswa-nis">-</span>)</div>
+                <div style="font-size:1.05rem;">Total Nilai Isian/Uraian: <strong id="text-total-koreksi" style="color:#0d6efd;">0</strong></div>
             </div>
 
-            <hr style="margin:1rem 0; border:0; border-top:1px solid #dee2e6;">
-
-            <!-- FORM INPUT NILAI ESSAY OLEH GURU -->
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
-                <div class="form-group">
-                    <label>Nilai Isian / Uraian (0 - 100):</label>
-                    <input type="number" id="input-nilai-essay" class="form-control" placeholder="Misal: 80" min="0" max="100">
-                </div>
-                <div class="form-group">
-                    <label>Catatan Guru (Opsional):</label>
-                    <input type="text" id="input-catatan-guru" class="form-control" placeholder="Misal: Bagus, tingkatkan lagi">
-                </div>
+            <!-- CONTAINER LIST SOAL ISIAN & URAIAN -->
+            <div id="list-koreksi-container" style="flex:1; overflow-y:auto; padding-right:5px;">
+                Loading butir soal...
             </div>
 
-            <div style="margin-top:1rem; text-align:right; display:flex; gap:0.5rem; justify-content:flex-end;">
+            <div style="margin-top:1rem; padding-top:1rem; border-top:1px solid #dee2e6; display:flex; gap:0.5rem; justify-content:flex-end; align-items:center;">
+                <input type="text" id="input-catatan-guru" class="form-control" placeholder="Catatan Guru (Opsional)" style="max-width:300px;">
                 <button class="btn" style="background:#6c757d;" onclick="tutupModalKoreksi()">Batal</button>
-                <button class="btn btn-warning" onclick="simpanKoreksiGuru()">💾 SIMPAN NILAI KOREKSI</button>
+                <button class="btn btn-warning" onclick="simpanKoreksiGuru()">💾 SIMPAN KOREKSI</button>
             </div>
         </div>
     </div>
@@ -144,12 +140,14 @@
     <script>
         const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxxcs96dxFK_IatVI53R2woXXuxKzxhAxtsAvOY7NXb7gF-iTQ3OKbYvtM8meHC5AgYvQ/exec";
 
-        let listMembers = [], currentGuru = null, selectedNIS = null, currentMapelName = null;
+        let listMembers = [], listJadwal = [];
+        let currentGuru = null, selectedNIS = null, currentMapelObj = null, activeSoalData = [];
 
         window.onload = async function() {
             try {
                 const res = await fetch('members.json'); listMembers = await res.json();
-            } catch(e) { alert("Gagal memuat members.json"); }
+                const resJ = await fetch('jadwal.json'); listJadwal = await resJ.json();
+            } catch(e) { alert("Gagal memuat konfigurasi awal"); }
         };
 
         function prosesLoginGuru() {
@@ -167,12 +165,10 @@
             loadDaftarMapel();
         }
 
-        async function loadDaftarMapel() {
-            const res = await fetch('jadwal.json');
-            const jadwal = await res.json();
+        function loadDaftarMapel() {
             const sel = document.getElementById('select-mapel-rekap');
             sel.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
-            jadwal.forEach(j => {
+            listJadwal.forEach(j => {
                 let opt = document.createElement('option');
                 opt.value = j.mapel; opt.textContent = j.mapel;
                 sel.appendChild(opt);
@@ -183,7 +179,16 @@
             const mapel = document.getElementById('select-mapel-rekap').value;
             if(!mapel) return alert("Pilih mata pelajaran dulu!");
 
-            currentMapelName = mapel;
+            currentMapelObj = listJadwal.find(j => j.mapel === mapel);
+
+            // Fetch naskah soal JSON untuk keperluan koreksi
+            try {
+                const resSoal = await fetch(currentMapelObj.file_soal);
+                activeSoalData = await resSoal.json();
+            } catch(e) {
+                activeSoalData = [];
+            }
+
             const sheetName = "HASIL_" + mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_");
             const tbody = document.getElementById('tabel-rekap-body');
             tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Mengambil data dari Google Sheets...</td></tr>';
@@ -209,7 +214,7 @@
                             <td><span style="color:#0d6efd; font-weight:bold;">${row[7] || 0}</span></td>
                             <td><span style="color:#dc3545; font-weight:bold; font-size:1.05rem;">${row[8] || row[5]}</span></td>
                             <td>
-                                <button class="btn" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick='bukaKoreksi("${row[1]}", "${row[2]}", ${JSON.stringify(row[6])}, "${row[7]}", "${row[9]}")'>📝 Koreksi / Detail</button>
+                                <button class="btn" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick='bukaKoreksiPerNomor("${row[1]}", "${row[2]}", ${JSON.stringify(row[6])}, "${row[9]}")'>📝 Koreksi Isian/Uraian</button>
                             </td>
                         </tr>
                     `;
@@ -220,40 +225,70 @@
             }
         }
 
-        function bukaKoreksi(nis, nama, rawJson, nilaiEssay, catatan) {
+        function bukaKoreksiPerNomor(nis, nama, rawJson, catatan) {
             selectedNIS = nis;
             document.getElementById('modal-siswa-nama').textContent = nama;
             document.getElementById('modal-siswa-nis').textContent = nis;
-            document.getElementById('input-nilai-essay').value = (nilaiEssay && nilaiEssay !== "-") ? nilaiEssay : "";
             document.getElementById('input-catatan-guru').value = (catatan && catatan !== "-") ? catatan : "";
 
-            try {
-                const obj = typeof rawJson === 'string' ? JSON.parse(rawJson) : rawJson;
-                let html = '<strong>Pilihan & Jawaban Siswa:</strong><ol style="padding-left:1.2rem; margin-top:0.4rem;">';
-                for(let key in obj) {
-                    let val = typeof obj[key] === 'object' ? JSON.stringify(obj[key]) : obj[key];
-                    html += `<li style="margin-bottom:0.4rem;"><b>Soal No. ${key}:</b> <span style="background:#e9ecef; padding:2px 6px; border-radius:4px;">${val}</span></li>`;
-                }
-                document.getElementById('detail-jawaban-content').innerHTML = html + '</ol>';
-            } catch(e) {
-                document.getElementById('detail-jawaban-content').innerHTML = "Jawaban Raw: " + rawJson;
+            let jawabanObj = {};
+            try { jawabanObj = typeof rawJson === 'string' ? JSON.parse(rawJson) : rawJson; } catch(e) {}
+
+            // Filter hanya soal ISIAN dan URAIAN
+            const nonPGSoal = activeSoalData.filter(s => s.tipe === "ISIAN" || s.tipe === "URAIAN");
+            const container = document.getElementById('list-koreksi-container');
+
+            if (nonPGSoal.length === 0) {
+                container.innerHTML = `<div style="text-align:center; color:#6c757d; padding:2rem;">Tidak ada soal tipe Isian Singkat atau Uraian pada mapel ini.</div>`;
+                document.getElementById('text-total-koreksi').textContent = "0";
+                document.getElementById('modal-koreksi').style.display = 'flex';
+                return;
             }
 
+            let html = '';
+            nonPGSoal.forEach((s, idx) => {
+                const jawabSiswa = jawabanObj[s.id] || "<i>(Tidak dijawab)</i>";
+                html += `
+                    <div class="koreksi-item">
+                        <div class="koreksi-header">
+                            <span>Soal No. ${s.id} (${s.tipe})</span>
+                            <div>
+                                <label style="font-size:0.85rem; margin-right:5px;">Nilai:</label>
+                                <input type="number" class="form-control input-nilai-num input-skor-item" data-id="${s.id}" value="0" min="0" oninput="hitungTotalOtomatis()">
+                            </div>
+                        </div>
+                        <div style="font-size:0.95rem; margin-bottom:0.4rem;"><b>Pertanyaan:</b> ${s.soal}</div>
+                        <div class="jawaban-box" style="background:#e8f4ea; border-color:#b7e1cd;"><b>Kunci Jawaban Guru:</b> ${s.kunci}</div>
+                        <div class="jawaban-box"><b>Jawaban Siswa:</b> <span style="color:#0d6efd;">${jawabSiswa}</span></div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            hitungTotalOtomatis();
             document.getElementById('modal-koreksi').style.display = 'flex';
         }
 
+        // FUNGSI HITUNG OTOMATIS SAAT GURU MENGETIK NILAI PER NOMOR
+        function hitungTotalOtomatis() {
+            let total = 0;
+            const inputs = document.querySelectorAll('.input-skor-item');
+            inputs.forEach(inp => {
+                total += Number(inp.value) || 0;
+            });
+            document.getElementById('text-total-koreksi').textContent = total;
+        }
+
         async function simpanKoreksiGuru() {
-            const nilaiEssay = document.getElementById('input-nilai-essay').value;
+            const totalNilaiEssay = Number(document.getElementById('text-total-koreksi').textContent) || 0;
             const catatan = document.getElementById('input-catatan-guru').value;
 
-            if (nilaiEssay === "") return alert("Masukkan nilai isian/uraian terlebih dahulu!");
-
-            const sheetName = "HASIL_" + currentMapelName.toUpperCase().replace(/[^A-Z0-9_]/g, "_");
+            const sheetName = "HASIL_" + currentMapelObj.mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_");
             const payload = {
                 action: "updateNilai",
                 sheetName: sheetName,
                 nis: selectedNIS,
-                nilaiEssay: Number(nilaiEssay),
+                nilaiEssay: totalNilaiEssay,
                 catatan: catatan
             };
 
