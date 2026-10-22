@@ -1,0 +1,59 @@
+[
+  {
+    "id": 1,
+    "tipe": "PG",
+    "soal": "Perhatikan komponen ekosistem! Hewan yang menduduki tingkat trofik pertama sebagai produsen adalah...",
+    "pilihan": [
+      "Kelinci",
+      "Rumput",
+      "Kucing",
+      "Elang"
+    ],
+    "kunci": "B"
+  },
+  {
+    "id": 2,
+    "tipe": "PG_KOMPLEKS",
+    "soal": "Manakah di bawah ini yang merupakan sumber energi alternatif ramah lingkungan? (Pilih dua jawaban yang benar)",
+    "pilihan": [
+      "Panel Surya",
+      "Batu Bara",
+      "Energi Angin",
+      "Minyak Bumi"
+    ],
+    "kunci": ["A", "C"]
+  },
+  {
+    "id": 3,
+    "tipe": "MENJODOHKAN",
+    "soal": "Pasangkanlah nama planet di sebelah kiri dengan julukan atau ciri khasnya di sebelah kanan:",
+    "pasangan_kiri": [
+      "Planet Merah",
+      "Planet Terbesar",
+      "Planet yang memiliki Cincin Indah"
+    ],
+    "pilihan_kanan": [
+      "Jupiter",
+      "Mars",
+      "Saturnus",
+      "Venus"
+    ],
+    "kunci": {
+      "0": "Mars",
+      "1": "Jupiter",
+      "2": "Saturnus"
+    }
+  },
+  {
+    "id": 4,
+    "tipe": "ISIAN",
+    "soal": "Alat optik yang digunakan untuk melihat benda-benda yang sangat jauh di angkasa luar adalah...",
+    "kunci": "Teleskop"
+  },
+  {
+    "id": 5,
+    "tipe": "URAIAN",
+    "soal": "Jelaskan apa yang dimaksud dengan proses fotosintesis pada tumbuhan hijau dan sebutkan zat apa saja yang dihasilkan!",
+    "kunci": "Kebijaksanaan guru (menilai penjelasan proses pembuatan makanan oleh tumbuhan menggunakan cahaya matahari, air, dan CO2 menghasilkan oksigen dan glukosa)."
+  }
+]
