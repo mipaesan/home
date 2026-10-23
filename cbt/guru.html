@@ -368,7 +368,7 @@
                 const res = await fetch(mapelObj.file_soal);
                 const listSoal = await res.json();
 
-                const abjad = ["A", "B", "C", "D", "E"];
+                const abjad = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
                 let htmlDoc = `
                     <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
@@ -440,19 +440,20 @@
                         htmlDoc += `</div>`;
                     }
 
-                    // PENGATURAN TIPE MENJODOHKAN (DIBUAT TABEL 2 KOLOM RAPI)
-                    if (s.tipe === "MENJODOHKAN" || (s.pasangan_kiri && s.pasangan_kanan)) {
-                        const listKiri = s.pasangan_kiri || [];
-                        const listKanan = s.pasangan_kanan || [];
+                    // PENGATURAN TIPE MENJODOHKAN (DIBUAT TABEL 2 KOLOM FLEKSIBEL)
+                    const listKiri = s.pasangan_kiri || s.pilihan_kiri || s.kiri || [];
+                    const listKanan = s.pasangan_kanan || s.pilihan_kanan || s.kanan || s.pasangan || [];
+
+                    if (s.tipe === "MENJODOHKAN" || (listKiri.length > 0 || listKanan.length > 0)) {
                         const maxRows = Math.max(listKiri.length, listKanan.length);
 
                         htmlDoc += `
                             <table class="tabel-jodoh">
                                 <thead>
                                     <tr style="background-color: #f2f2f2;">
-                                        <th width="45%" text-align="left">Pernyataan (Kolom A)</th>
-                                        <th width="10%" text-align="center">Jodoh</th>
-                                        <th width="45%" text-align="left">Pilihan Pasangan (Kolom B)</th>
+                                        <th width="45%">Pernyataan (Kolom A)</th>
+                                        <th width="10%" style="text-align: center;">Jodoh</th>
+                                        <th width="45%">Pilihan Pasangan (Kolom B)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
