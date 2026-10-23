@@ -30,7 +30,7 @@
         .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; }
         .form-control { width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; }
 
-        .btn { padding: 0.61rem 1.2rem; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+        .btn { padding: 0.61rem 1.2rem; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; display: inline-flex; align-items: center; justify-content: center; text-align: center; gap: 6px; }
         .btn:hover { background: var(--primary-light); }
         .btn-warning { background: var(--accent); color: #212529; }
         .btn-secondary { background: #6c757d; color: white; }
@@ -105,7 +105,7 @@
                     <label>Password / PIN</label>
                     <input type="password" id="input-pin-guru" class="form-control" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn" style="width: 100%;">MASUK DASHBOARD</button>
+                <button type="submit" class="btn" style="width: 100%; justify-content: center; text-align: center;">MASUK DASHBOARD</button>
             </form>
             
             <div style="margin-top: 1.5rem; text-align: center; border-top: 1px dashed var(--border); padding-top: 1rem;">
@@ -241,7 +241,7 @@
             <div id="notif-icon" style="font-size: 2.5rem; margin-bottom: 0.5rem;">ℹ️</div>
             <h3 id="notif-title" style="color: var(--primary); margin-bottom: 0.5rem;">Informasi</h3>
             <p id="notif-message" style="font-size: 0.95rem; color: #495057; margin-bottom: 1.5rem; line-height: 1.5;"></p>
-            <button class="btn" id="notif-btn-ok" style="width: 100%;">Pengertian</button>
+            <button class="btn" id="notif-btn-ok" style="width: 100%; justify-content: center; text-align: center;">MENGERTI</button>
         </div>
     </div>
 
@@ -368,6 +368,8 @@
                 const res = await fetch(mapelObj.file_soal);
                 const listSoal = await res.json();
 
+                const abjad = ["A", "B", "C", "D", "E"];
+
                 let htmlDoc = `
                     <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                     <head>
@@ -415,8 +417,26 @@
 
                     if (s.pilihan && Array.isArray(s.pilihan)) {
                         htmlDoc += `<div class="pilihan-list">`;
-                        s.pilihan.forEach(p => {
-                            htmlDoc += `<div>${p}</div>`;
+                        s.pilihan.forEach((p, idx) => {
+                            let itemTeks = String(p).trim();
+                            
+                            // FORMAT DENGAN KOTAK CENTANG APABILA PG_KOMPLEKS
+                            if (s.tipe === "PG_KOMPLEKS") {
+                                if (/^[A-E][\.\)]/i.test(itemTeks)) {
+                                    itemTeks = `[  ] ${itemTeks}`;
+                                } else {
+                                    let huruf = abjad[idx] || "";
+                                    itemTeks = `[  ] ${huruf}. ${itemTeks}`;
+                                }
+                            } else {
+                                // FORMAT PG BIASA DENGAN ABJAD A. B. C. D.
+                                if (!/^[A-E][\.\)]/i.test(itemTeks)) {
+                                    let huruf = abjad[idx] || "";
+                                    itemTeks = `${huruf}. ${itemTeks}`;
+                                }
+                            }
+
+                            htmlDoc += `<div>${itemTeks}</div>`;
                         });
                         htmlDoc += `</div>`;
                     }
