@@ -24,7 +24,7 @@
 
         .container { max-width: 1100px; margin: 1.5rem auto; padding: 0 1rem; }
         .card { background: white; border-radius: 10px; padding: 1.25rem; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem; }
-        .card-title { font-size: 1.1rem; font-weight: 600; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .card-title { font-size: 1.1rem; font-weight: 600; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
 
         .form-group { margin-bottom: 1rem; }
         .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; }
@@ -142,7 +142,6 @@
 
                     <button class="btn" onclick="muatDataRekap()">📋 Rekap Nilai</button>
                     <button class="btn btn-info" onclick="muatAnalisisButirSoal()">📊 Analisis Soal</button>
-                    <button class="btn btn-success" onclick="downloadFileSoalDocx()">📄 Download Word (.doc)</button>
                 </div>
             </div>
 
@@ -173,7 +172,8 @@
             <div id="card-analisis-tabel" class="card" style="display: none;">
                 <div class="card-title">
                     <span>Hasil Analisis Butir Soal & Tingkat Kesukaran</span>
-                    <div style="display: flex; gap: 0.5rem;" class="no-print">
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;" class="no-print">
+                        <button class="btn btn-success" style="font-size: 0.8rem;" onclick="downloadFileSoalDocx()">📄 Download Word (.doc)</button>
                         <button class="btn btn-secondary" style="font-size: 0.8rem;" onclick="downloadAnalisisCSV()">📥 Download CSV</button>
                         <button class="btn btn-warning" style="font-size: 0.8rem;" onclick="cetakDokumenAnalisis()">🖨️ Cetak / PDF</button>
                     </div>
@@ -368,7 +368,6 @@
                 const res = await fetch(mapelObj.file_soal);
                 const listSoal = await res.json();
 
-                // MERANCANG DOKUMEN HTML UNTUK EKSPOR WORD (.DOC)
                 let htmlDoc = `
                     <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                     <head>
@@ -410,7 +409,6 @@
                         <hr style="border: 0.5px solid #000; margin-bottom: 15px;">
                 `;
 
-                // DAFTAR SOAL
                 listSoal.forEach((s) => {
                     htmlDoc += `<div class="soal-box">`;
                     htmlDoc += `<div class="soal-text">${s.id}. ${s.soal}</div>`;
@@ -433,7 +431,6 @@
                     htmlDoc += `</div>`;
                 });
 
-                // DAFTAR KUNCI JAWABAN & BOBOT UNTUK GURU
                 htmlDoc += `
                     <div class="kunci-box">
                         <h4 style="margin-bottom: 8px;">LAMPIRAN: KUNCI JAWABAN & BOBOT (ARSIP GURU)</h4>
@@ -467,7 +464,6 @@
                     </html>
                 `;
 
-                // KONVERSI KE BLOB FILE WORD (.DOC)
                 const blob = new Blob(['\ufeff' + htmlDoc], {
                     type: 'application/msword'
                 });
