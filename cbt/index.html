@@ -240,9 +240,14 @@
 
         <!-- RUANG UJIAN SISWA -->
         <div id="ujian-section">
-            <div class="card" style="padding: 1rem; display: flex; justify-content: space-between; align-items: center; background: #e9ecef; margin-bottom: 1rem;">
-                <div>Siswa: <strong id="info-nama-siswa">-</strong> (<span id="info-nis-siswa">-</span>)</div>
-                <div>Mapel: <strong id="info-mapel-ujian">-</strong></div>
+            <!-- IDENTITAS SISWA RAPI 3 BARIS -->
+            <div class="card" style="padding: 1rem; background: #e9ecef; margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.6;">
+                <div>Nama &nbsp;: <strong id="info-nama-siswa">-</strong></div>
+                <div>ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <strong id="info-nis-siswa">-</strong></div>
+                <div>Kelas &nbsp;: <strong id="info-kelas-siswa">-</strong></div>
+                <div style="margin-top: 0.4pvem; border-top: 1px dashed #adb5bd; padding-top: 0.4rem; font-size: 0.85rem; color: #495057;">
+                    Mapel Ujian: <strong id="info-mapel-ujian">-</strong>
+                </div>
             </div>
 
             <!-- BARIS ATAS: TIMER, TOMBOL KELUAR & TOMBOL NAVIGASI HP -->
@@ -454,8 +459,11 @@
 
             document.getElementById('login-section').style.display = 'none';
             document.getElementById('ujian-section').style.display = 'block';
+            
+            // ISI DATA IDENTITAS SISWA RAPI 3 BARIS
             document.getElementById('info-nama-siswa').textContent = siswa.nama;
             document.getElementById('info-nis-siswa').textContent = siswa.id;
+            document.getElementById('info-kelas-siswa').textContent = siswa.kelas || jadwal.kelas || "6";
             document.getElementById('info-mapel-ujian').textContent = jadwal.mapel;
 
             renderGridNomorSoal();
