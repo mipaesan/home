@@ -84,7 +84,7 @@
         .top-bar-ujian { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; margin-bottom: 1rem; flex-wrap: wrap; }
         .timer-box { flex: 1; min-width: 180px; background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 0.65rem 1rem; border-radius: 6px; font-weight: bold; text-align: center; font-size: 1.1rem; }
         
-        /* TATA LETAK LAYOUT DUA KOLOM (KIRI NAVIGASI, KANAN SOAL) */
+        /* TATA LETAK LAYOUT DUA KOLOM */
         .ujian-layout {
             display: flex;
             gap: 1.2rem;
@@ -150,7 +150,7 @@
 
         .btn-toggle-drawer { display: none; }
 
-        /* RESPONSIF HP / TABLET (TAMPILAN SEMPIT) */
+        /* RESPONSIF HP / TABLET */
         @media (max-width: 768px) {
             .ujian-layout { flex-direction: column; }
             .btn-toggle-drawer { display: inline-flex; }
@@ -258,7 +258,7 @@
                 </button>
             </div>
 
-            <!-- TATA LETAK 2 KOLOM (KIRI SIDEBAR, KANAN SOAL) -->
+            <!-- TATA LETAK 2 KOLOM -->
             <div class="ujian-layout">
                 <!-- SIDEBAR KOTAK NOMOR SOAL (SEBELAH KIRI) -->
                 <div class="sidebar-soal" id="sidebar-soal-box">
@@ -271,7 +271,7 @@
                 <!-- AREA UTAMA DISPLAY SOAL (SEBELAH KANAN) -->
                 <div class="main-soal-area">
                     <div id="container-soal">
-                        <!-- Render 1 soal aktif -->
+                        <!-- Render 1 soal aktif & tombol selesai (jika di soal terakhir) -->
                     </div>
 
                     <!-- NAVIGASI SEBELUMNYA & SELANJUTNYA -->
@@ -279,10 +279,6 @@
                         <button class="btn btn-secondary" id="btn-prev-soal" onclick="pindahSoal(currentIndexSoal - 1)">‹ Sebelumnya</button>
                         <button class="btn" id="btn-next-soal" onclick="pindahSoal(currentIndexSoal + 1)">Selanjutnya ›</button>
                     </div>
-
-                    <button class="btn btn-danger" style="width: 100%; padding: 0.9rem; font-size: 1.1rem; margin-top: 1.5rem;" onclick="konfirmasiSelesai()">
-                        SELESAI & KUMPULKAN JAWABAN
-                    </button>
                 </div>
             </div>
         </div>
@@ -507,6 +503,16 @@
             }
 
             html += `</div>`;
+
+            // TOMBOL SELESAI HANYA MUNCUL DI SOAL PALING AKHIR
+            if (currentIndexSoal === activeSoal.length - 1) {
+                html += `
+                    <button class="btn btn-danger" style="width: 100%; padding: 0.9rem; font-size: 1.1rem; margin-top: 1rem;" onclick="konfirmasiSelesai()">
+                        SELESAI & KUMPULKAN JAWABAN
+                    </button>
+                `;
+            }
+
             document.getElementById('container-soal').innerHTML = html;
 
             document.getElementById('btn-prev-soal').style.visibility = (currentIndexSoal === 0) ? 'hidden' : 'visible';
@@ -520,7 +526,6 @@
                 currentIndexSoal = targetIndex;
                 tampilkanSoalAktif();
 
-                // Di HP, tutup otomatis daftar soal setelah siswa memilih nomor
                 if (window.innerWidth <= 768) {
                     document.getElementById('sidebar-soal-box').classList.remove('show-mobile');
                 }
