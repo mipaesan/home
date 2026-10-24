@@ -47,7 +47,6 @@
 
         .container { max-width: 800px; margin: 1.5rem auto; padding: 0 1rem; }
         
-        /* CARD UTAMA LEBAR STANDAR */
         .card { background: white; border-radius: 12px; padding: 1.5rem; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 1.5rem; }
         .card-title { font-size: 1.1rem; font-weight: 600; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
 
@@ -68,13 +67,8 @@
             margin: 0 auto 0.5rem auto;
             position: relative;
         }
-        .cartoon-avatar {
-            width: 100%;
-            height: 100%;
-        }
-        .pupil {
-            transition: transform 0.1s ease-out;
-        }
+        .cartoon-avatar { width: 100%; height: 100%; }
+        .pupil { transition: transform 0.1s ease-out; }
         .hands {
             transition: transform 0.3s ease-in-out, opacity 0.2s;
             transform: translateY(40px);
@@ -85,16 +79,44 @@
             opacity: 1;
         }
 
-        /* UJIAN AREA */
+        /* UJIAN AREA & NAVIGASI NOMOR SOAL (KOTAK-KOTAK) */
         #ujian-section { display: none; }
         .top-bar-ujian { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; margin-bottom: 1rem; flex-wrap: wrap; }
         .timer-box { flex: 1; min-width: 180px; background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 0.65rem 1rem; border-radius: 6px; font-weight: bold; text-align: center; font-size: 1.1rem; }
         
+        /* GRID KOTAK NOMOR SOAL */
+        .nav-soal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            gap: 8px;
+            margin-bottom: 1.2rem;
+            background: #f8f9fa;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .btn-no-soal {
+            padding: 0.5rem 0;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+        .btn-no-soal:hover { background: #e9ecef; }
+        .btn-no-soal.active { background: #0d6efd; color: white; border-color: #0d6efd; }
+        .btn-no-soal.terjawab { background: var(--primary); color: white; border-color: var(--primary); }
+
         .soal-card { background: #f8f9fa; border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.2rem; }
         .soal-teks { font-weight: 600; margin-bottom: 0.8rem; font-size: 1.05rem; }
         .pilihan-item { display: block; background: white; border: 1px solid var(--border); padding: 0.6rem 0.8rem; border-radius: 6px; margin-bottom: 0.5rem; cursor: pointer; transition: 0.2s; }
         .pilihan-item:hover { background: #e9ecef; }
         .pilihan-item input { margin-right: 8px; }
+
+        .nav-buttons-soal { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; }
 
         .modal-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 999; align-items: center; justify-content: center; padding: 1rem; }
         .modal-card { background: white; border-radius: 12px; max-width: 420px; width: 100%; padding: 1.5rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
@@ -183,11 +205,23 @@
                 </button>
             </div>
 
-            <div id="container-soal">
-                <!-- Render soal secara dinamis -->
+            <!-- GRID KOTAK-KOTAK NOMOR SOAL -->
+            <div class="nav-soal-grid" id="grid-nomor-soal">
+                <!-- Dibuat otomatis via JavaScript -->
             </div>
 
-            <button class="btn btn-danger" style="width: 100%; padding: 0.9rem; font-size: 1.1rem; margin-top: 1rem;" onclick="konfirmasiSelesai()">
+            <!-- AREA DISPLAY 1 SOAL ACTIVE -->
+            <div id="container-soal">
+                <!-- Render 1 soal aktif -->
+            </div>
+
+            <!-- NAVIGASI SEBELUMNYA & SELANJUTNYA -->
+            <div class="nav-buttons-soal">
+                <button class="btn btn-secondary" id="btn-prev-soal" onclick="pindahSoal(currentIndexSoal - 1)">‹ Sebelumnya</button>
+                <button class="btn" id="btn-next-soal" onclick="pindahSoal(currentIndexSoal + 1)">Selanjutnya ›</button>
+            </div>
+
+            <button class="btn btn-danger" style="width: 100%; padding: 0.9rem; font-size: 1.1rem; margin-top: 1.5rem;" onclick="konfirmasiSelesai()">
                 SELESAI & KUMPULKAN JAWABAN
             </button>
         </div>
@@ -209,11 +243,12 @@
         let listMembers = [], listJadwal = [];
         let currentSiswa = null, currentJadwal = null, activeSoal = [];
         let jawabanSiswa = {};
+        let currentIndexSoal = 0;
         let timerInterval = null, sisaDetik = 0;
         let tabSwitchCount = 0;
         const MAX_TAB_SWITCH = 3;
 
-        // EFEK INTERAKTIF KARTUN (MATA GERAK & TUTUP MATA)
+        // EFEK INTERAKTIF KARTUN
         const inputNis = document.getElementById('input-nis');
         const inputToken = document.getElementById('input-token');
         const cartoonBox = document.getElementById('cartoon-box');
@@ -249,7 +284,7 @@
                 const resJ = await fetch('jadwal.json'); listJadwal = await resJ.json();
             } catch(e) { showNotif("Gagal", "Gagal memuat data konfigurasi sistem.", "error"); }
 
-            // MATIKAN SHORTCUT KEYBOARD UNTUK COPY PASTE & INSPECT ELEMENT
+            // MATIKAN SHORTCUT KEYBOARD
             document.addEventListener("keydown", function(e) {
                 if (document.getElementById('ujian-section').style.display === 'block') {
                     if (
@@ -263,7 +298,7 @@
                 }
             });
 
-            // DETEKSI KECURANGAN PINDAH TAB / MINIMIZE BROWSER (MAKSIMAL 3X)
+            // DETEKSI KECURANGAN PINDAH TAB (MAX 3X)
             document.addEventListener("visibilitychange", function() {
                 if (document.hidden && document.getElementById('ujian-section').style.display === 'block') {
                     tabSwitchCount++;
@@ -303,6 +338,14 @@
             document.getElementById('modal-notif').style.display = 'flex';
         }
 
+        function requestFullScreen() {
+            const el = document.documentElement;
+            if (el.requestFullscreen) el.requestFullscreen();
+            else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+            else if (el.msRequestFullscreen) el.msRequestFullscreen();
+        }
+
         async function prosesLoginSiswa() {
             const nis = document.getElementById('input-nis').value.trim();
             const token = document.getElementById('input-token').value.trim().toUpperCase();
@@ -313,12 +356,10 @@
             const jadwal = listJadwal.find(j => j.token.toUpperCase() === token);
             if (!jadwal) return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning");
 
-            // 1. CEK STATUS AKTIF DI JADWAL
             if (jadwal.aktif === false) {
                 return showNotif("Ujian Nonaktif", `Ujian mata pelajaran <strong>${jadwal.mapel}</strong> saat ini sedang dinonaktifkan oleh pengawas.`, "warning");
             }
 
-            // 2. VALIDASI WAKTU BUKA & TUTUP JADWAL
             if (jadwal.waktu_buka && jadwal.waktu_tutup) {
                 const now = new Date();
                 const strBuka = jadwal.waktu_buka.replace(' ', 'T') + (jadwal.waktu_buka.length === 16 ? ':00' : '');
@@ -338,8 +379,8 @@
             currentSiswa = siswa;
             currentJadwal = jadwal;
             tabSwitchCount = 0;
+            currentIndexSoal = 0;
 
-            // Muat soal
             try {
                 const resSoal = await fetch(jadwal.file_soal);
                 activeSoal = await resSoal.json();
@@ -347,42 +388,79 @@
                 return showNotif("Gagal", "Gagal memuat berkas naskah soal ujian.", "error");
             }
 
+            // MINTA BROWSER AKTIFKAN FULLSCREEN
+            requestFullScreen();
+
             document.getElementById('login-section').style.display = 'none';
             document.getElementById('ujian-section').style.display = 'block';
             document.getElementById('info-nama-siswa').textContent = siswa.nama;
             document.getElementById('info-nis-siswa').textContent = siswa.id;
             document.getElementById('info-mapel-ujian').textContent = jadwal.mapel;
 
-            renderSoalUjian();
+            renderGridNomorSoal();
+            tampilkanSoalAktif();
             mulaiTimerUjian((jadwal.durasi_menit || 90) * 60);
         }
 
-        function renderSoalUjian() {
+        function renderGridNomorSoal() {
             let html = '';
-            activeSoal.forEach((s) => {
-                html += `<div class="soal-card">`;
-                html += `<div class="soal-teks">Soal No. ${s.id} (${s.tipe})<br><span style="font-weight:normal; font-size:1rem;">${s.soal}</span></div>`;
-
-                if (s.tipe === "PG" && s.pilihan) {
-                    s.pilihan.forEach(p => {
-                        html += `
-                            <label class="pilihan-item">
-                                <input type="radio" name="soal_${s.id}" value="${p.charAt(0)}" onclick="simpanJawaban(${s.id}, '${p.charAt(0)}')">
-                                ${p}
-                            </label>
-                        `;
-                    });
-                } else if (s.tipe === "ISIAN" || s.tipe === "URAIAN") {
-                    html += `<input type="text" class="form-control" placeholder="Tulis jawaban Anda di sini..." oninput="simpanJawaban(${s.id}, this.value)">`;
+            activeSoal.forEach((s, index) => {
+                let statusClass = '';
+                if (jawabanSiswa[s.id] !== undefined && jawabanSiswa[s.id] !== '') {
+                    statusClass = 'terjawab';
                 }
-
-                html += `</div>`;
+                if (index === currentIndexSoal) {
+                    statusClass = 'active';
+                }
+                html += `<button class="btn-no-soal ${statusClass}" onclick="pindahSoal(${index})">${s.id}</button>`;
             });
+            document.getElementById('grid-nomor-soal').innerHTML = html;
+        }
+
+        function tampilkanSoalAktif() {
+            if (!activeSoal || activeSoal.length === 0) return;
+            
+            const s = activeSoal[currentIndexSoal];
+            let html = `<div class="soal-card">`;
+            html += `<div class="soal-teks">Soal No. ${s.id} (${s.tipe})<br><span style="font-weight:normal; font-size:1rem;">${s.soal}</span></div>`;
+
+            let ans = jawabanSiswa[s.id] || '';
+
+            if (s.tipe === "PG" && s.pilihan) {
+                s.pilihan.forEach(p => {
+                    let charOpt = p.charAt(0);
+                    let checked = (ans === charOpt) ? 'checked' : '';
+                    html += `
+                        <label class="pilihan-item">
+                            <input type="radio" name="soal_${s.id}" value="${charOpt}" ${checked} onclick="simpanJawaban(${s.id}, '${charOpt}')">
+                            ${p}
+                        </label>
+                    `;
+                });
+            } else if (s.tipe === "ISIAN" || s.tipe === "URAIAN") {
+                html += `<input type="text" class="form-control" value="${ans}" placeholder="Tulis jawaban Anda di sini..." oninput="simpanJawaban(${s.id}, this.value)">`;
+            }
+
+            html += `</div>`;
             document.getElementById('container-soal').innerHTML = html;
+
+            // KONTROL TOMBOL NAVIGASI
+            document.getElementById('btn-prev-soal').style.visibility = (currentIndexSoal === 0) ? 'hidden' : 'visible';
+            document.getElementById('btn-next-soal').style.visibility = (currentIndexSoal === activeSoal.length - 1) ? 'hidden' : 'visible';
+
+            renderGridNomorSoal();
+        }
+
+        function pindahSoal(targetIndex) {
+            if (targetIndex >= 0 && targetIndex < activeSoal.length) {
+                currentIndexSoal = targetIndex;
+                tampilkanSoalAktif();
+            }
         }
 
         function simpanJawaban(idSoal, val) {
             jawabanSiswa[idSoal] = val;
+            renderGridNomorSoal();
         }
 
         function mulaiTimerUjian(durasiDetik) {
