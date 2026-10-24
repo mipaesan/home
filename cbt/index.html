@@ -45,7 +45,7 @@
         header h1 { font-size: 1.4rem; margin-bottom: 0.2rem; }
         header p { font-size: 0.85rem; opacity: 0.9; }
 
-        .container { max-width: 800px; margin: 1.5rem auto; padding: 0 1rem; }
+        .container { max-width: 1000px; margin: 1.5rem auto; padding: 0 1rem; }
         
         .card { background: white; border-radius: 12px; padding: 1.5rem; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 1.5rem; }
         .card-title { font-size: 1.1rem; font-weight: 600; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
@@ -79,29 +79,53 @@
             opacity: 1;
         }
 
-        /* UJIAN AREA & NAVIGASI NOMOR SOAL (KOTAK-KOTAK) */
+        /* UJIAN AREA */
         #ujian-section { display: none; }
         .top-bar-ujian { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; margin-bottom: 1rem; flex-wrap: wrap; }
         .timer-box { flex: 1; min-width: 180px; background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 0.65rem 1rem; border-radius: 6px; font-weight: bold; text-align: center; font-size: 1.1rem; }
         
-        /* GRID KOTAK NOMOR SOAL */
+        /* TATA LETAK LAYOUT DUA KOLOM (KIRI NAVIGASI, KANAN SOAL) */
+        .ujian-layout {
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+        }
+
+        /* SIDEBAR KOTAK NOMOR SOAL (KIRI LAPTOP) */
+        .sidebar-soal {
+            width: 240px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-shrink: 0;
+        }
+        .sidebar-title {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.4rem;
+        }
+
         .nav-soal-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 8px;
-            margin-bottom: 1.2rem;
-            background: #f8f9fa;
-            padding: 0.8rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 4px;
         }
+
         .btn-no-soal {
             padding: 0.5rem 0;
             background: white;
             border: 1px solid var(--border);
             border-radius: 6px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
             text-align: center;
             transition: 0.2s;
@@ -110,6 +134,12 @@
         .btn-no-soal.active { background: #0d6efd; color: white; border-color: #0d6efd; }
         .btn-no-soal.terjawab { background: var(--primary); color: white; border-color: var(--primary); }
 
+        /* AREA UTAMA KANAN (SOAL) */
+        .main-soal-area {
+            flex: 1;
+            min-width: 0;
+        }
+
         .soal-card { background: #f8f9fa; border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.2rem; }
         .soal-teks { font-weight: 600; margin-bottom: 0.8rem; font-size: 1.05rem; }
         .pilihan-item { display: block; background: white; border: 1px solid var(--border); padding: 0.6rem 0.8rem; border-radius: 6px; margin-bottom: 0.5rem; cursor: pointer; transition: 0.2s; }
@@ -117,6 +147,26 @@
         .pilihan-item input { margin-right: 8px; }
 
         .nav-buttons-soal { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; }
+
+        .btn-toggle-drawer { display: none; }
+
+        /* RESPONSIF HP / TABLET (TAMPILAN SEMPIT) */
+        @media (max-width: 768px) {
+            .ujian-layout { flex-direction: column; }
+            .btn-toggle-drawer { display: inline-flex; }
+            .sidebar-soal {
+                display: none;
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            .sidebar-soal.show-mobile {
+                display: block;
+            }
+            .nav-soal-grid {
+                grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+                max-height: 250px;
+            }
+        }
 
         .modal-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 999; align-items: center; justify-content: center; padding: 1rem; }
         .modal-card { background: white; border-radius: 12px; max-width: 420px; width: 100%; padding: 1.5rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
@@ -195,8 +245,11 @@
                 <div>Mapel: <strong id="info-mapel-ujian">-</strong></div>
             </div>
 
-            <!-- BARIS ATAS: TIMER & TOMBOL KELUAR -->
+            <!-- BARIS ATAS: TIMER, TOMBOL KELUAR & TOMBOL NAVIGASI HP -->
             <div class="top-bar-ujian">
+                <button class="btn btn-warning btn-toggle-drawer" onclick="toggleNavMobile()">
+                    📱 Daftar Soal
+                </button>
                 <div class="timer-box">
                     ⏱️ Sisa Waktu: <span id="timer-countdown">00:00:00</span>
                 </div>
@@ -205,25 +258,33 @@
                 </button>
             </div>
 
-            <!-- GRID KOTAK-KOTAK NOMOR SOAL -->
-            <div class="nav-soal-grid" id="grid-nomor-soal">
-                <!-- Dibuat otomatis via JavaScript -->
-            </div>
+            <!-- TATA LETAK 2 KOLOM (KIRI SIDEBAR, KANAN SOAL) -->
+            <div class="ujian-layout">
+                <!-- SIDEBAR KOTAK NOMOR SOAL (SEBELAH KIRI) -->
+                <div class="sidebar-soal" id="sidebar-soal-box">
+                    <div class="sidebar-title">📌 Nomor Soal</div>
+                    <div class="nav-soal-grid" id="grid-nomor-soal">
+                        <!-- Dibuat otomatis via JavaScript -->
+                    </div>
+                </div>
 
-            <!-- AREA DISPLAY 1 SOAL ACTIVE -->
-            <div id="container-soal">
-                <!-- Render 1 soal aktif -->
-            </div>
+                <!-- AREA UTAMA DISPLAY SOAL (SEBELAH KANAN) -->
+                <div class="main-soal-area">
+                    <div id="container-soal">
+                        <!-- Render 1 soal aktif -->
+                    </div>
 
-            <!-- NAVIGASI SEBELUMNYA & SELANJUTNYA -->
-            <div class="nav-buttons-soal">
-                <button class="btn btn-secondary" id="btn-prev-soal" onclick="pindahSoal(currentIndexSoal - 1)">‹ Sebelumnya</button>
-                <button class="btn" id="btn-next-soal" onclick="pindahSoal(currentIndexSoal + 1)">Selanjutnya ›</button>
-            </div>
+                    <!-- NAVIGASI SEBELUMNYA & SELANJUTNYA -->
+                    <div class="nav-buttons-soal">
+                        <button class="btn btn-secondary" id="btn-prev-soal" onclick="pindahSoal(currentIndexSoal - 1)">‹ Sebelumnya</button>
+                        <button class="btn" id="btn-next-soal" onclick="pindahSoal(currentIndexSoal + 1)">Selanjutnya ›</button>
+                    </div>
 
-            <button class="btn btn-danger" style="width: 100%; padding: 0.9rem; font-size: 1.1rem; margin-top: 1.5rem;" onclick="konfirmasiSelesai()">
-                SELESAI & KUMPULKAN JAWABAN
-            </button>
+                    <button class="btn btn-danger" style="width: 100%; padding: 0.9rem; font-size: 1.1rem; margin-top: 1.5rem;" onclick="konfirmasiSelesai()">
+                        SELESAI & KUMPULKAN JAWABAN
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -346,6 +407,11 @@
             else if (el.msRequestFullscreen) el.msRequestFullscreen();
         }
 
+        function toggleNavMobile() {
+            const sidebar = document.getElementById('sidebar-soal-box');
+            sidebar.classList.toggle('show-mobile');
+        }
+
         async function prosesLoginSiswa() {
             const nis = document.getElementById('input-nis').value.trim();
             const token = document.getElementById('input-token').value.trim().toUpperCase();
@@ -388,7 +454,6 @@
                 return showNotif("Gagal", "Gagal memuat berkas naskah soal ujian.", "error");
             }
 
-            // MINTA BROWSER AKTIFKAN FULLSCREEN
             requestFullScreen();
 
             document.getElementById('login-section').style.display = 'none';
@@ -444,7 +509,6 @@
             html += `</div>`;
             document.getElementById('container-soal').innerHTML = html;
 
-            // KONTROL TOMBOL NAVIGASI
             document.getElementById('btn-prev-soal').style.visibility = (currentIndexSoal === 0) ? 'hidden' : 'visible';
             document.getElementById('btn-next-soal').style.visibility = (currentIndexSoal === activeSoal.length - 1) ? 'hidden' : 'visible';
 
@@ -455,6 +519,11 @@
             if (targetIndex >= 0 && targetIndex < activeSoal.length) {
                 currentIndexSoal = targetIndex;
                 tampilkanSoalAktif();
+
+                // Di HP, tutup otomatis daftar soal setelah siswa memilih nomor
+                if (window.innerWidth <= 768) {
+                    document.getElementById('sidebar-soal-box').classList.remove('show-mobile');
+                }
             }
         }
 
