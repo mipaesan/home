@@ -95,7 +95,7 @@
                 </div>
                 <div class="form-group">
                     <label>Token Ujian (Diberikan Pengawas)</label>
-                    <input type="text" id="input-token" class="form-control" placeholder="Contoh: SHHRPY" style="text-transform: uppercase;" required>
+                    <input type="text" id="input-token" class="form-control" placeholder="Contoh: TYVB78" style="text-transform: uppercase;" required>
                 </div>
                 <button type="submit" class="btn" style="width: 100%;">MULAI UJIAN</button>
             </form>
@@ -221,23 +221,31 @@
             const jadwal = listJadwal.find(j => j.token.toUpperCase() === token);
             if (!jadwal) return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning");
 
-            // VALIDASI WAKTU BUKA & TUTUP JADWAL
+            // 1. CEK STATUS AKTIF DI JADWAL
+            if (jadwal.aktif === false) {
+                return showNotif("Ujian Nonaktif", `Ujian mata pelajaran <strong>${jadwal.mapel}</strong> saat ini sedang dinonaktifkan oleh pengawas.`, "warning");
+            }
+
+            // 2. VALIDASI WAKTU BUKA & TUTUP JADWAL
             if (jadwal.waktu_buka && jadwal.waktu_tutup) {
                 const now = new Date();
-                const waktuBuka = new Date(jadwal.waktu_buka.replace(' ', 'T'));
-                const waktuTutup = new Date(jadwal.waktu_tutup.replace(' ', 'T'));
+                const strBuka = jadwal.waktu_buka.replace(' ', 'T') + (jadwal.waktu_buka.length === 16 ? ':00' : '');
+                const strTutup = jadwal.waktu_tutup.replace(' ', 'T') + (jadwal.waktu_tutup.length === 16 ? ':00' : '');
 
-                if (now < waktuBuka) {
+                const waktuBuka = new Date(strBuka);
+                const waktuTutup = new Date(strTutup);
+
+                if (!isNaN(waktuBuka) && now < waktuBuka) {
                     return showNotif("Ujian Belum Dibuka", `Ujian mata pelajaran <strong>${jadwal.mapel}</strong> belum dapat diakses.<br>Waktu pembukaan: <strong>${jadwal.waktu_buka}</strong>`, "warning");
                 }
-                if (now > waktuTutup) {
+                if (!isNaN(waktuTutup) && now > waktuTutup) {
                     return showNotif("Ujian Telah Berakhir", `Masa ujian mata pelajaran <strong>${jadwal.mapel}</strong> sudah ditutup.<br>Batas akhir: <strong>${jadwal.waktu_tutup}</strong>`, "error");
                 }
             }
 
             currentSiswa = siswa;
             currentJadwal = jadwal;
-            tabSwitchCount = 0; // Reset hitungan pindah tab
+            tabSwitchCount = 0;
 
             // Muat soal
             try {
@@ -314,11 +322,10 @@
                 function() {
                     if (timerInterval) clearInterval(timerInterval);
                     jawabanSiswa = {};
-                    location.reload(); // Keluar dan reload ke halaman login tanpa kirim data
+                    location.reload();
                 }
             );
 
-            // Tambahkan tombol Batal di modal
             const modalCard = document.querySelector('#modal-notif .modal-card');
             if (!document.getElementById('btn-batal-keluar')) {
                 const btnBatal = document.createElement('button');
@@ -359,7 +366,6 @@
         async function kirimJawabanKeServer(isOtomatis = false) {
             if (timerInterval) clearInterval(timerInterval);
 
-            // Hitung nilai PG otomatis
             let skorPG = 0;
             activeSoal.forEach(s => {
                 let ans = jawabanSiswa[s.id];
