@@ -22,6 +22,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
         }
 
+        /* DILARANG BLOK / SELEKSI TEKS DI SELURUH HALAMAN UJIAN */
         body { 
             background-color: var(--bg); 
             color: var(--text); 
@@ -32,6 +33,7 @@
             user-select: none;
         }
 
+        /* KOTAK INPUT TETAP BISA DIKETIK SISWA */
         input, textarea {
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
@@ -44,28 +46,14 @@
         header p { font-size: 0.85rem; opacity: 0.9; }
 
         .container { max-width: 800px; margin: 1.5rem auto; padding: 0 1rem; }
-        
-        /* CARD UTAMA */
         .card { background: white; border-radius: 10px; padding: 1.5rem; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem; }
-        
-        /* FORM LOGIN PRESISI & RAPI (MAX WIDTH 420PX) */
-        .card-login { max-width: 420px; margin: 2rem auto; }
-        .card-title { font-size: 1.1rem; font-weight: 600; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1.2rem; display: flex; justify-content: space-between; align-items: center; }
+        .card-title { font-size: 1.1rem; font-weight: 600; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
 
-        .form-group { margin-bottom: 1.2rem; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: #495057; }
-        .form-control { width: 100%; padding: 0.65rem 0.8rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-        .form-control:focus { border-color: var(--primary); }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; }
+        .form-control { width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; }
 
-        /* INPUT TOKEN AGAR TIDAK KEPANJANGAN & RAPI DI TENGAH */
-        .input-token-style {
-            letter-spacing: 2px;
-            font-weight: bold;
-            text-align: center;
-            font-size: 1.1rem;
-        }
-
-        .btn { padding: 0.7rem 1.2rem; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; display: inline-flex; align-items: center; justify-content: center; text-align: center; gap: 6px; }
+        .btn { padding: 0.65rem 1.2rem; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; display: inline-flex; align-items: center; justify-content: center; text-align: center; gap: 6px; }
         .btn:hover { background: var(--primary-light); }
         .btn-warning { background: var(--accent); color: #212529; }
         .btn-secondary { background: #6c757d; color: white; }
@@ -85,7 +73,7 @@
         .modal-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 999; align-items: center; justify-content: center; padding: 1rem; }
         .modal-card { background: white; border-radius: 12px; max-width: 420px; width: 100%; padding: 1.5rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
 
-        .nav-guru-link { text-align: center; margin-top: 1.2rem; border-top: 1px dashed var(--border); padding-top: 1rem; }
+        .nav-guru-link { text-align: center; margin-top: 1rem; }
         .nav-guru-link a { color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
     </style>
 </head>
@@ -97,17 +85,17 @@
     </header>
 
     <div class="container">
-        <!-- FORM LOGIN SISWA (PRESISI RAPI) -->
-        <div id="login-section" class="card card-login">
+        <!-- FORM LOGIN SISWA -->
+        <div id="login-section" class="card">
             <div class="card-title">Masuk Ruang Ujian</div>
             <form onsubmit="event.preventDefault(); prosesLoginSiswa();">
                 <div class="form-group">
                     <label>Nomor Induk Siswa (NIS)</label>
-                    <input type="text" id="input-nis" class="form-control" placeholder="Masukkan NIS Anda" required>
+                    <input type="text" id="input-nis" class="form-control" placeholder="Contoh: 12345" required>
                 </div>
                 <div class="form-group">
                     <label>Token Ujian (Diberikan Pengawas)</label>
-                    <input type="text" id="input-token" class="form-control input-token-style" placeholder="TYVB78" maxlength="10" style="text-transform: uppercase;" required>
+                    <input type="text" id="input-token" class="form-control" placeholder="Contoh: TYVB78" style="text-transform: uppercase;" required>
                 </div>
                 <button type="submit" class="btn" style="width: 100%;">MULAI UJIAN</button>
             </form>
