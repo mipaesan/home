@@ -46,7 +46,9 @@
         header p { font-size: 0.85rem; opacity: 0.9; }
 
         .container { max-width: 800px; margin: 1.5rem auto; padding: 0 1rem; }
-        .card { background: white; border-radius: 10px; padding: 1.5rem; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem; }
+        
+        /* CARD UTAMA LEBAR STANDAR */
+        .card { background: white; border-radius: 12px; padding: 1.5rem; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 1.5rem; }
         .card-title { font-size: 1.1rem; font-weight: 600; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
 
         .form-group { margin-bottom: 1rem; }
@@ -58,6 +60,30 @@
         .btn-warning { background: var(--accent); color: #212529; }
         .btn-secondary { background: #6c757d; color: white; }
         .btn-danger { background: #dc3545; color: white; }
+
+        /* KARTUN AVATAR INTERAKTIF */
+        .cartoon-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 0.5rem auto;
+            position: relative;
+        }
+        .cartoon-avatar {
+            width: 100%;
+            height: 100%;
+        }
+        .pupil {
+            transition: transform 0.1s ease-out;
+        }
+        .hands {
+            transition: transform 0.3s ease-in-out, opacity 0.2s;
+            transform: translateY(40px);
+            opacity: 0;
+        }
+        .cartoon-container.cover-eyes .hands {
+            transform: translateY(0);
+            opacity: 1;
+        }
 
         /* UJIAN AREA */
         #ujian-section { display: none; }
@@ -72,9 +98,6 @@
 
         .modal-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 999; align-items: center; justify-content: center; padding: 1rem; }
         .modal-card { background: white; border-radius: 12px; max-width: 420px; width: 100%; padding: 1.5rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
-
-        .nav-guru-link { text-align: center; margin-top: 1rem; }
-        .nav-guru-link a { color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
     </style>
 </head>
 <body oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;">
@@ -85,22 +108,61 @@
     </header>
 
     <div class="container">
-        <!-- FORM LOGIN SISWA -->
-        <div id="login-section" class="card">
-            <div class="card-title">Masuk Ruang Ujian</div>
+        <!-- FORM LOGIN SISWA INTERAKTIF KARTUN -->
+        <div id="login-section" class="card" style="max-width: 400px; margin: 2rem auto;">
+            
+            <!-- AVATAR KARTUN BERUANG/KUCING CUTE -->
+            <div class="cartoon-container" id="cartoon-box">
+                <svg class="cartoon-avatar" viewBox="0 0 200 200">
+                    <!-- Telinga -->
+                    <circle cx="45" cy="55" r="22" fill="#0f5132"/>
+                    <circle cx="45" cy="55" r="12" fill="#ffc107"/>
+                    <circle cx="155" cy="55" r="22" fill="#0f5132"/>
+                    <circle cx="155" cy="55" r="12" fill="#ffc107"/>
+                    
+                    <!-- Kepala -->
+                    <circle cx="100" cy="105" r="65" fill="#0f5132"/>
+                    <!-- Muka/Pipi -->
+                    <ellipse cx="100" cy="120" rx="45" ry="35" fill="#e9f5ed"/>
+                    
+                    <!-- Mata Putih -->
+                    <circle cx="75" cy="95" r="14" fill="#ffffff"/>
+                    <circle cx="125" cy="95" r="14" fill="#ffffff"/>
+                    
+                    <!-- Pupil Mata (Bergerak) -->
+                    <circle id="pupil-left" class="pupil" cx="75" cy="95" r="6" fill="#212529"/>
+                    <circle id="pupil-right" class="pupil" cx="125" cy="95" r="6" fill="#212529"/>
+                    
+                    <!-- Hidung & Mulut -->
+                    <polygon points="100,110 93,102 107,102" fill="#212529"/>
+                    <path d="M 90 120 Q 100 130 110 120" stroke="#212529" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    
+                    <!-- Tangan Menutup Mata (Sembunyi) -->
+                    <g class="hands">
+                        <ellipse cx="65" cy="95" rx="18" ry="14" fill="#198754"/>
+                        <ellipse cx="135" cy="95" rx="18" ry="14" fill="#198754"/>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="card-title" style="justify-content: center; border-bottom: none; margin-bottom: 0.5rem;">Masuk Ruang Ujian</div>
+            
             <form onsubmit="event.preventDefault(); prosesLoginSiswa();">
                 <div class="form-group">
                     <label>Nomor Induk Siswa (NIS)</label>
-                    <input type="text" id="input-nis" class="form-control" placeholder="Contoh: 12345" required>
+                    <input type="text" id="input-nis" class="form-control" placeholder="Contoh: 12345" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label>Token Ujian (Diberikan Pengawas)</label>
-                    <input type="text" id="input-token" class="form-control" placeholder="Contoh: TYVB78" style="text-transform: uppercase;" required>
+                    <input type="text" id="input-token" class="form-control" placeholder="Contoh: TYVB78" style="text-transform: uppercase;" autocomplete="off" required>
                 </div>
-                <button type="submit" class="btn" style="width: 100%;">MULAI UJIAN</button>
+                <button type="submit" class="btn" style="width: 100%; justify-content: center; text-align: center;">MULAI UJIAN</button>
             </form>
-            <div class="nav-guru-link">
-                <a href="guru.html">🔐 Masuk ke Dashboard Guru / Koreksi</a>
+            
+            <div style="margin-top: 1.5rem; text-align: center; border-top: 1px dashed var(--border); padding-top: 1rem;">
+                <a href="guru.html" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
+                    🔐 Masuk ke Dashboard Guru / Koreksi
+                </a>
             </div>
         </div>
 
@@ -150,6 +212,36 @@
         let timerInterval = null, sisaDetik = 0;
         let tabSwitchCount = 0;
         const MAX_TAB_SWITCH = 3;
+
+        // EFEK INTERAKTIF KARTUN (MATA GERAK & TUTUP MATA)
+        const inputNis = document.getElementById('input-nis');
+        const inputToken = document.getElementById('input-token');
+        const cartoonBox = document.getElementById('cartoon-box');
+        const pupilLeft = document.getElementById('pupil-left');
+        const pupilRight = document.getElementById('pupil-right');
+
+        if (inputNis) {
+            inputNis.addEventListener('input', (e) => {
+                cartoonBox.classList.remove('cover-eyes');
+                let len = Math.min(e.target.value.length, 12);
+                let shiftX = (len - 6) * 0.8;
+                pupilLeft.style.transform = `translate(${shiftX}px, 3px)`;
+                pupilRight.style.transform = `translate(${shiftX}px, 3px)`;
+            });
+
+            inputNis.addEventListener('focus', () => {
+                cartoonBox.classList.remove('cover-eyes');
+            });
+        }
+
+        if (inputToken) {
+            inputToken.addEventListener('focus', () => {
+                cartoonBox.classList.add('cover-eyes');
+            });
+            inputToken.addEventListener('blur', () => {
+                cartoonBox.classList.remove('cover-eyes');
+            });
+        }
 
         window.onload = async function() {
             try {
