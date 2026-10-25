@@ -326,67 +326,87 @@
   },
   {
     "id": 26,
-    "tipe": "PG_KOMPLEKS",
-    "soal": "Perhatikan konsep kesamaan rasio berikut. Pilihlah **semua pernyataan yang bernilai benar** (bisa lebih dari satu):",
-    "pilihan": [
-      "A. Rasio 4 : 7 senilai dengan rasio 12 : 21.",
-      "B. Rasio 5 : 8 senilai dengan rasio 15 : 24.",
-      "C. Rasio 5 : 8 senilai dengan rasio 15 : 20.",
-      "D. Kesamaan rasio dapat dibentuk dengan mengalikan atau membagi kedua kuantitas dengan bilangan yang sama."
+    "tipe": "MENJODOHKAN",
+    "soal": "Pasangkan permasalahan hitung pecahan atau rasio di kolom kiri dengan hasil/bentuk yang tepat dari pilihan di atas (a s.d. e):",
+    "opsi_jawaban": [
+      "a. <sup>3</sup>/<sub>8</sub>",
+      "b. 0,375",
+      "c. <sup>5</sup>/<sub>6</sub>",
+      "d. 225 km",
+      "e. 160"
     ],
-    "kunci": ["A", "B", "D"],
+    "pasangan": [
+      {"premis": "Hasil perkalian pecahan biasa <sup>3</sup>/<sub>4</sub> × <sup>1</sup>/<sub>2</sub> adalah ..."}
+    ],
+    "kunci": { "0": "a. <sup>3</sup>/<sub>8</sub>" },
     "bobot": 2.5
   },
   {
     "id": 27,
-    "tipe": "PG_KOMPLEKS",
-    "soal": "Di kebun binatang terdapat 12 ekor rusa dan 18 ekor kijang. Pilihlah **semua pernyataan yang benar** (bisa lebih dari satu):",
-    "pilihan": [
-      "A. Perbandingan banyak rusa terhadap kijang adalah 2 : 3.",
-      "B. Perbandingan jumlah seluruh rusa dan kijang terhadap rusa adalah 5 : 2.",
-      "C. Selisih banyak rusa dan kijang adalah 6 ekor.",
-      "D. Perbandingan kijang terhadap seluruh hewan adalah 3 : 2."
+    "tipe": "MENJODOHKAN",
+    "soal": "Pasangkan permasalahan hitung pecahan atau rasio di kolom kiri dengan hasil/bentuk yang tepat dari pilihan di atas (a s.d. e):",
+    "opsi_jawaban": [
+      "a. <sup>3</sup>/<sub>8</sub>",
+      "b. 0,375",
+      "c. <sup>5</sup>/<sub>6</sub>",
+      "d. 225 km",
+      "e. 160"
     ],
-    "kunci": ["A", "B", "C"],
+    "pasangan": [
+      {"premis": "Bentuk desimal yang setara dengan pecahan <sup>3</sup>/<sub>8</sub> adalah ..."}
+    ],
+    "kunci": { "0": "b. 0,375" },
     "bobot": 2.5
   },
   {
     "id": 28,
-    "tipe": "PG_KOMPLEKS",
-    "soal": "Sebuah kereta melaju menempuh jarak 120 km dalam waktu 2 jam. Pilihlah **semua pernyataan yang benar** (bisa lebih dari satu):",
-    "pilihan": [
-      "A. Rasio satuan kecepatan kereta tersebut adalah 60 km/jam.",
-      "B. Waktu yang dibutuhkan kereta untuk menempuh jarak 300 km adalah 5 jam.",
-      "C. Waktu yang dibutuhkan kereta untuk menempuh jarak 300 km adalah 4 jam.",
-      "D. Kecepatan kereta per jam dihitung dengan membagi jarak dengan waktu."
+    "tipe": "MENJODOHKAN",
+    "soal": "Pasangkan permasalahan hitung pecahan atau rasio di kolom kiri dengan hasil/bentuk yang tepat dari pilihan di atas (a s.d. e):",
+    "opsi_jawaban": [
+      "a. <sup>3</sup>/<sub>8</sub>",
+      "b. 0,375",
+      "c. <sup>5</sup>/<sub>6</sub>",
+      "d. 225 km",
+      "e. 160"
     ],
-    "kunci": ["A", "B", "D"],
+    "pasangan": [
+      {"premis": "Hasil pembagian pecahan <sup>2</sup>/<sub>3</sub> ÷ <sup>4</sup>/<sub>5</sub> dalam bentuk paling sederhana adalah ..."}
+    ],
+    "kunci": { "0": "c. <sup>5</sup>/<sub>6</sub>" },
     "bobot": 2.5
   },
   {
     "id": 29,
-    "tipe": "PG_KOMPLEKS",
-    "soal": "Dalam sebuah ujian matematika dari total 40 soal, Ali berhasil menjawab dengan benar sebanyak 32 soal. Pilihlah **semua pernyataan yang benar** (bisa lebih dari satu):",
-    "pilihan": [
-      "A. Persentase jawaban benar Ali adalah 80%.",
-      "B. Banyak soal yang dijawab salah oleh Ali adalah 8 soal.",
-      "C. Persentase kesalahan jawaban Ali adalah 20%.",
-      "D. Persentase kesalahan jawaban Ali adalah 15%."
+    "tipe": "MENJODOHKAN",
+    "soal": "Pasangkan permasalahan hitung pecahan atau rasio di kolom kiri dengan hasil/bentuk yang tepat dari pilihan di atas (a s.d. e):",
+    "opsi_jawaban": [
+      "a. <sup>3</sup>/<sub>8</sub>",
+      "b. 0,375",
+      "c. <sup>5</sup>/<sub>6</sub>",
+      "d. 225 km",
+      "e. 160"
     ],
-    "kunci": ["A", "B", "C"],
+    "pasangan": [
+      {"premis": "Sebuah motor menghabiskan 2 liter bensin untuk 90 km. Jarak tempuh dengan 5 liter bensin adalah ..."}
+    ],
+    "kunci": { "0": "d. 225 km" },
     "bobot": 2.5
   },
   {
     "id": 30,
-    "tipe": "PG_KOMPLEKS",
-    "soal": "Umur Kakek dan Ayah berbanding 7 : 4. Umur Ayah diketahui 36 tahun. Pilihlah **semua pernyataan yang benar** (bisa lebih dari satu):",
-    "pilihan": [
-      "A. Umur Kakek adalah 63 tahun.",
-      "B. Jumlah umur Kakek dan Ayah adalah 99 tahun.",
-      "C. Selisih umur Kakek dan Ayah adalah 27 tahun.",
-      "D. Jumlah umur Kakek dan Ayah adalah 90 tahun."
+    "tipe": "MENJODOHKAN",
+    "soal": "Pasangkan permasalahan hitung pecahan atau rasio di kolom kiri dengan hasil/bentuk yang tepat dari pilihan di atas (a s.d. e):",
+    "opsi_jawaban": [
+      "a. <sup>3</sup>/<sub>8</sub>",
+      "b. 0,375",
+      "c. <sup>5</sup>/<sub>6</sub>",
+      "d. 225 km",
+      "e. 160"
     ],
-    "kunci": ["A", "B", "C"],
+    "pasangan": [
+      {"premis": "Perbandingan buku agama dan umum 4 : 7. Jika buku agama 80 buah, maka banyak buku umum adalah ..."}
+    ],
+    "kunci": { "0": "e. 160" },
     "bobot": 2.5
   },
   {
