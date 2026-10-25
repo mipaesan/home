@@ -60,7 +60,85 @@
         .btn-secondary { background: #6c757d; color: white; }
         .btn-danger { background: #dc3545; color: white; }
 
-        /* KARTUN AVATAR INTERAKTIF */
+        /* ================================================= */
+        /* ANIMASI INTRO & KARTUN WALKING (KHUSUS HALAMAN LOGIN) */
+        /* ================================================= */
+        #login-wrapper {
+            position: relative;
+            max-width: 400px;
+            margin: 2rem auto;
+            overflow: hidden;
+        }
+
+        /* Layar Intro Pembuka */
+        #intro-screen {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: relative;
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #intro-screen.fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+            display: none;
+        }
+
+        /* Karakter Kartun Berjalan */
+        .walking-character {
+            width: 90px;
+            height: 90px;
+            animation: walkAcross 2s ease-in-out forwards;
+            position: absolute;
+            left: -100px;
+        }
+
+        @keyframes walkAcross {
+            0% { left: -100px; transform: scaleX(1) translateY(0); }
+            30% { transform: scaleX(1) translateY(-6px); }
+            50% { transform: scaleX(1) translateY(0); }
+            70% { transform: scaleX(1) translateY(-6px); }
+            100% { left: calc(50% - 45px); transform: scaleX(1) translateY(0); }
+        }
+
+        .intro-text {
+            margin-top: 5rem;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1rem;
+            animation: pulseText 1.5s infinite;
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Form Login Utama (Awalnya tersembunyi, lalu ditarik masuk) */
+        #login-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none;
+        }
+
+        #login-section.show-login {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* KARTUN AVATAR INTERAKTIF DI FORM LOGIN */
         .cartoon-container {
             width: 120px;
             height: 120px;
@@ -84,14 +162,12 @@
         .top-bar-ujian { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; margin-bottom: 1rem; flex-wrap: wrap; }
         .timer-box { flex: 1; min-width: 180px; background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 0.65rem 1rem; border-radius: 6px; font-weight: bold; text-align: center; font-size: 1.1rem; }
         
-        /* TATA LETAK LAYOUT DUA KOLOM */
         .ujian-layout {
             display: flex;
             gap: 1.2rem;
             align-items: flex-start;
         }
 
-        /* SIDEBAR KOTAK NOMOR SOAL (KIRI LAPTOP) */
         .sidebar-soal {
             width: 240px;
             background: white;
@@ -134,7 +210,6 @@
         .btn-no-soal.active { background: #0d6efd; color: white; border-color: #0d6efd; }
         .btn-no-soal.terjawab { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* AREA UTAMA KANAN (SOAL) */
         .main-soal-area {
             flex: 1;
             min-width: 0;
@@ -147,10 +222,8 @@
         .pilihan-item input { margin-right: 8px; }
 
         .nav-buttons-soal { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; }
-
         .btn-toggle-drawer { display: none; }
 
-        /* RESPONSIF HP / TABLET */
         @media (max-width: 768px) {
             .ujian-layout { flex-direction: column; }
             .btn-toggle-drawer { display: inline-flex; }
@@ -180,77 +253,86 @@
     </header>
 
     <div class="container">
-        <!-- FORM LOGIN SISWA INTERAKTIF KARTUN -->
-        <div id="login-section" class="card" style="max-width: 400px; margin: 2rem auto;">
+        
+        <!-- WRAPPER LOGIN DENGAN ANIMASI INTRO -->
+        <div id="login-wrapper">
             
-            <!-- AVATAR KARTUN BERUANG/KUCING CUTE -->
-            <div class="cartoon-container" id="cartoon-box">
-                <svg class="cartoon-avatar" viewBox="0 0 200 200">
-                    <!-- Telinga -->
-                    <circle cx="45" cy="55" r="22" fill="#0f5132"/>
-                    <circle cx="45" cy="55" r="12" fill="#ffc107"/>
-                    <circle cx="155" cy="55" r="22" fill="#0f5132"/>
-                    <circle cx="155" cy="55" r="12" fill="#ffc107"/>
-                    
-                    <!-- Kepala -->
-                    <circle cx="100" cy="105" r="65" fill="#0f5132"/>
-                    <!-- Muka/Pipi -->
-                    <ellipse cx="100" cy="120" rx="45" ry="35" fill="#e9f5ed"/>
-                    
-                    <!-- Mata Putih -->
-                    <circle cx="75" cy="95" r="14" fill="#ffffff"/>
-                    <circle cx="125" cy="95" r="14" fill="#ffffff"/>
-                    
-                    <!-- Pupil Mata (Bergerak) -->
-                    <circle id="pupil-left" class="pupil" cx="75" cy="95" r="6" fill="#212529"/>
-                    <circle id="pupil-right" class="pupil" cx="125" cy="95" r="6" fill="#212529"/>
-                    
-                    <!-- Hidung & Mulut -->
-                    <polygon points="100,110 93,102 107,102" fill="#212529"/>
-                    <path d="M 90 120 Q 100 130 110 120" stroke="#212529" stroke-width="3" fill="none" stroke-linecap="round"/>
-                    
-                    <!-- Tangan Menutup Mata (Sembunyi) -->
-                    <g class="hands">
-                        <ellipse cx="65" cy="95" rx="18" ry="14" fill="#198754"/>
-                        <ellipse cx="135" cy="95" rx="18" ry="14" fill="#198754"/>
-                    </g>
+            <!-- LAYAR INTRO: MASKOT KARTUN BERJALAN -->
+            <div id="intro-screen">
+                <svg class="walking-character" viewBox="0 0 200 200">
+                    <circle cx="100" cy="80" r="45" fill="#0f5132"/>
+                    <circle cx="85" cy="75" r="7" fill="#ffffff"/><circle cx="85" cy="75" r="3" fill="#212529"/>
+                    <circle cx="115" cy="75" r="7" fill="#ffffff"/><circle cx="115" cy="75" r="3" fill="#212529"/>
+                    <path d="M 90 95 Q 100 105 110 95" stroke="#ffc107" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <rect x="75" y="125" width="50" height="45" rx="10" fill="#198754"/>
                 </svg>
+                <div class="intro-text">Menyiapkan Ruang Ujian...</div>
             </div>
 
-            <div class="card-title" style="justify-content: center; border-bottom: none; margin-bottom: 0.5rem;">Masuk Ruang Ujian</div>
-            
-            <form onsubmit="event.preventDefault(); prosesLoginSiswa();">
-                <div class="form-group">
-                    <label>Nomor Induk Siswa (NIS)</label>
-                    <input type="text" id="input-nis" class="form-control" placeholder="Contoh: 12345" autocomplete="off" required>
+            <!-- FORM LOGIN SISWA UTAMA (MUNCUL SETELAH INTRO) -->
+            <div id="login-section" class="card">
+                
+                <!-- AVATAR KARTUN BERUANG/KUCING CUTE -->
+                <div class="cartoon-container" id="cartoon-box">
+                    <svg class="cartoon-avatar" viewBox="0 0 200 200">
+                        <circle cx="45" cy="55" r="22" fill="#0f5132"/>
+                        <circle cx="45" cy="55" r="12" fill="#ffc107"/>
+                        <circle cx="155" cy="55" r="22" fill="#0f5132"/>
+                        <circle cx="155" cy="55" r="12" fill="#ffc107"/>
+                        
+                        <circle cx="100" cy="105" r="65" fill="#0f5132"/>
+                        <ellipse cx="100" cy="120" rx="45" ry="35" fill="#e9f5ed"/>
+                        
+                        <circle cx="75" cy="95" r="14" fill="#ffffff"/>
+                        <circle cx="125" cy="95" r="14" fill="#ffffff"/>
+                        
+                        <circle id="pupil-left" class="pupil" cx="75" cy="95" r="6" fill="#212529"/>
+                        <circle id="pupil-right" class="pupil" cx="125" cy="95" r="6" fill="#212529"/>
+                        
+                        <polygon points="100,110 93,102 107,102" fill="#212529"/>
+                        <path d="M 90 120 Q 100 130 110 120" stroke="#212529" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        
+                        <g class="hands">
+                            <ellipse cx="65" cy="95" rx="18" ry="14" fill="#198754"/>
+                            <ellipse cx="135" cy="95" rx="18" ry="14" fill="#198754"/>
+                        </g>
+                    </svg>
                 </div>
-                <div class="form-group">
-                    <label>Token Ujian (Diberikan Pengawas)</label>
-                    <input type="text" id="input-token" class="form-control" placeholder="Contoh: TYVB78" style="text-transform: uppercase;" autocomplete="off" required>
+
+                <div class="card-title" style="justify-content: center; border-bottom: none; margin-bottom: 0.5rem;">Masuk Ruang Ujian</div>
+                
+                <form onsubmit="event.preventDefault(); prosesLoginSiswa();">
+                    <div class="form-group">
+                        <label>Nomor Induk Siswa (NIS)</label>
+                        <input type="text" id="input-nis" class="form-control" placeholder="Contoh: 12345" autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Token Ujian (Diberikan Pengawas)</label>
+                        <input type="text" id="input-token" class="form-control" placeholder="Contoh: TYVB78" style="text-transform: uppercase;" autocomplete="off" required>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; justify-content: center; text-align: center;">MULAI UJIAN</button>
+                </form>
+                
+                <div style="margin-top: 1.5rem; text-align: center; border-top: 1px dashed var(--border); padding-top: 1rem;">
+                    <a href="guru.html" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
+                        🔐 Masuk ke Dashboard Guru / Koreksi
+                    </a>
                 </div>
-                <button type="submit" class="btn" style="width: 100%; justify-content: center; text-align: center;">MULAI UJIAN</button>
-            </form>
-            
-            <div style="margin-top: 1.5rem; text-align: center; border-top: 1px dashed var(--border); padding-top: 1rem;">
-                <a href="guru.html" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
-                    🔐 Masuk ke Dashboard Guru / Koreksi
-                </a>
             </div>
+
         </div>
 
         <!-- RUANG UJIAN SISWA -->
         <div id="ujian-section">
-            <!-- IDENTITAS SISWA RAPI 3 BARIS -->
             <div class="card" style="padding: 1rem; background: #e9ecef; margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.6;">
                 <div>Nama &nbsp;: <strong id="info-nama-siswa">-</strong></div>
                 <div>ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <strong id="info-nis-siswa">-</strong></div>
                 <div>Kelas &nbsp;: <strong id="info-kelas-siswa">-</strong></div>
-                <div style="margin-top: 0.4pvem; border-top: 1px dashed #adb5bd; padding-top: 0.4rem; font-size: 0.85rem; color: #495057;">
+                <div style="margin-top: 0.4rem; border-top: 1px dashed #adb5bd; padding-top: 0.4rem; font-size: 0.85rem; color: #495057;">
                     Mapel Ujian: <strong id="info-mapel-ujian">-</strong>
                 </div>
             </div>
 
-            <!-- BARIS ATAS: TIMER, TOMBOL KELUAR & TOMBOL NAVIGASI HP -->
             <div class="top-bar-ujian">
                 <button class="btn btn-warning btn-toggle-drawer" onclick="toggleNavMobile()">
                     📱 Daftar Soal
@@ -263,23 +345,14 @@
                 </button>
             </div>
 
-            <!-- TATA LETAK 2 KOLOM -->
             <div class="ujian-layout">
-                <!-- SIDEBAR KOTAK NOMOR SOAL (SEBELAH KIRI) -->
                 <div class="sidebar-soal" id="sidebar-soal-box">
                     <div class="sidebar-title">📌 Nomor Soal</div>
-                    <div class="nav-soal-grid" id="grid-nomor-soal">
-                        <!-- Dibuat otomatis via JavaScript -->
-                    </div>
+                    <div class="nav-soal-grid" id="grid-nomor-soal"></div>
                 </div>
 
-                <!-- AREA UTAMA DISPLAY SOAL (SEBELAH KANAN) -->
                 <div class="main-soal-area">
-                    <div id="container-soal">
-                        <!-- Render 1 soal aktif & tombol selesai (jika di soal terakhir) -->
-                    </div>
-
-                    <!-- NAVIGASI SEBELUMNYA & SELANJUTNYA -->
+                    <div id="container-soal"></div>
                     <div class="nav-buttons-soal">
                         <button class="btn btn-secondary" id="btn-prev-soal" onclick="pindahSoal(currentIndexSoal - 1)">‹ Sebelumnya</button>
                         <button class="btn" id="btn-next-soal" onclick="pindahSoal(currentIndexSoal + 1)">Selanjutnya ›</button>
@@ -310,7 +383,22 @@
         let tabSwitchCount = 0;
         const MAX_TAB_SWITCH = 3;
 
-        // EFEK INTERAKTIF KARTUN
+        // JALANKAN ANIMASI INTRO KE FORM LOGIN
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const introScreen = document.getElementById('intro-screen');
+                const loginSection = document.getElementById('login-section');
+                if(introScreen && loginSection) {
+                    introScreen.classList.add('fade-out');
+                    setTimeout(() => {
+                        introScreen.style.display = 'none';
+                        loginSection.classList.add('show-login');
+                    }, 400);
+                }
+            }, 2000); // Intro berjalan selama 2 detik
+        });
+
+        // EFEK INTERAKTIF KARTUN LOGIN
         const inputNis = document.getElementById('input-nis');
         const inputToken = document.getElementById('input-token');
         const cartoonBox = document.getElementById('cartoon-box');
@@ -325,19 +413,12 @@
                 pupilLeft.style.transform = `translate(${shiftX}px, 3px)`;
                 pupilRight.style.transform = `translate(${shiftX}px, 3px)`;
             });
-
-            inputNis.addEventListener('focus', () => {
-                cartoonBox.classList.remove('cover-eyes');
-            });
+            inputNis.addEventListener('focus', () => { cartoonBox.classList.remove('cover-eyes'); });
         }
 
         if (inputToken) {
-            inputToken.addEventListener('focus', () => {
-                cartoonBox.classList.add('cover-eyes');
-            });
-            inputToken.addEventListener('blur', () => {
-                cartoonBox.classList.remove('cover-eyes');
-            });
+            inputToken.addEventListener('focus', () => { cartoonBox.classList.add('cover-eyes'); });
+            inputToken.addEventListener('blur', () => { cartoonBox.classList.remove('cover-eyes'); });
         }
 
         window.onload = async function() {
@@ -346,7 +427,6 @@
                 const resJ = await fetch('jadwal.json'); listJadwal = await resJ.json();
             } catch(e) { showNotif("Gagal", "Gagal memuat data konfigurasi sistem.", "error"); }
 
-            // MATIKAN SHORTCUT KEYBOARD
             document.addEventListener("keydown", function(e) {
                 if (document.getElementById('ujian-section').style.display === 'block') {
                     if (
@@ -360,7 +440,6 @@
                 }
             });
 
-            // DETEKSI KECURANGAN PINDAH TAB (MAX 3X)
             document.addEventListener("visibilitychange", function() {
                 if (document.hidden && document.getElementById('ujian-section').style.display === 'block') {
                     tabSwitchCount++;
@@ -375,9 +454,7 @@
                             "❌ UJIAN DITUTUP PAKSA", 
                             "Anda telah melakukan pelanggaran keluar aplikasi/pindah tab sebanyak <strong>3 kali</strong>.<br>Sistem menutup ujian dan langsung mengirimkan jawaban Anda.", 
                             "error", 
-                            function() {
-                                kirimJawabanKeServer(true);
-                            }
+                            function() { kirimJawabanKeServer(true); }
                         );
                     }
                 }
@@ -387,16 +464,13 @@
         function showNotif(title, msg, type = "info", onOk = null) {
             document.getElementById('notif-title').textContent = title;
             document.getElementById('notif-message').innerHTML = msg;
-            
             const iconMap = { success: "✅", warning: "⚠️", error: "❌", info: "ℹ️" };
             document.getElementById('notif-icon').textContent = iconMap[type] || "ℹ️";
-            
             const btnOk = document.getElementById('notif-btn-ok');
             btnOk.onclick = function() {
                 document.getElementById('modal-notif').style.display = 'none';
                 if (onOk) onOk();
             };
-            
             document.getElementById('modal-notif').style.display = 'flex';
         }
 
@@ -409,8 +483,7 @@
         }
 
         function toggleNavMobile() {
-            const sidebar = document.getElementById('sidebar-soal-box');
-            sidebar.classList.toggle('show-mobile');
+            document.getElementById('sidebar-soal-box').classList.toggle('show-mobile');
         }
 
         async function prosesLoginSiswa() {
@@ -431,7 +504,6 @@
                 const now = new Date();
                 const strBuka = jadwal.waktu_buka.replace(' ', 'T') + (jadwal.waktu_buka.length === 16 ? ':00' : '');
                 const strTutup = jadwal.waktu_tutup.replace(' ', 'T') + (jadwal.waktu_tutup.length === 16 ? ':00' : '');
-
                 const waktuBuka = new Date(strBuka);
                 const waktuTutup = new Date(strTutup);
 
@@ -457,10 +529,10 @@
 
             requestFullScreen();
 
-            document.getElementById('login-section').style.display = 'none';
+            // Sembunyikan pembungkus login, tampilkan ruang ujian
+            document.getElementById('login-wrapper').style.display = 'none';
             document.getElementById('ujian-section').style.display = 'block';
             
-            // ISI DATA IDENTITAS SISWA RAPI 3 BARIS
             document.getElementById('info-nama-siswa').textContent = siswa.nama;
             document.getElementById('info-nis-siswa').textContent = siswa.id;
             document.getElementById('info-kelas-siswa').textContent = siswa.kelas || jadwal.kelas || "6";
@@ -512,7 +584,6 @@
 
             html += `</div>`;
 
-            // TOMBOL SELESAI HANYA MUNCUL DI SOAL PALING AKHIR
             if (currentIndexSoal === activeSoal.length - 1) {
                 html += `
                     <button class="btn btn-danger" style="width: 100%; padding: 0.9rem; font-size: 1.1rem; margin-top: 1rem;" onclick="konfirmasiSelesai()">
@@ -533,7 +604,6 @@
             if (targetIndex >= 0 && targetIndex < activeSoal.length) {
                 currentIndexSoal = targetIndex;
                 tampilkanSoalAktif();
-
                 if (window.innerWidth <= 768) {
                     document.getElementById('sidebar-soal-box').classList.remove('show-mobile');
                 }
