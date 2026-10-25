@@ -4,10 +4,10 @@
     "tipe": "PG",
     "soal": "Hasil dari perkalian bilangan asli dengan pecahan 6 × <sup>3</sup>/<sub>4</sub> adalah ...",
     "pilihan": [
-      "A. 3 1/2",
-      "B. 4 1/2",
-      "C. 5 1/4",
-      "D. 6 1/4"
+      "A. 3 <sup>1</sup>/<sub>2</sub>",
+      "B. 4 <sup>1</sup>/<sub>2</sub>",
+      "C. 5 <sup>1</sup>/<sub>4</sub>",
+      "D. 6 <sup>1</sup>/<sub>4</sub>"
     ],
     "kunci": "B",
     "bobot": 2
@@ -17,10 +17,10 @@
     "tipe": "PG",
     "soal": "Ibu membeli 5 kantong beras. Jika setiap kantong beratnya <sup>3</sup>/<sub>4</sub> kg, berat seluruh beras yang dibeli Ibu adalah ... kg.",
     "pilihan": [
-      "A. 3 3/4",
-      "B. 4 1/4",
-      "C. 3 1/4",
-      "D. 4 3/4"
+      "A. 3 <sup>3</sup>/<sub>4</sub>",
+      "B. 4 <sup>1</sup>/<sub>4</sub>",
+      "C. 3 <sup>1</sup>/<sub>4</sub>",
+      "D. 4 <sup>3</sup>/<sub>4</sub>"
     ],
     "kunci": "A",
     "bobot": 2
@@ -30,10 +30,10 @@
     "tipe": "PG",
     "soal": "Hasil dari perkalian pecahan biasa dengan pecahan campuran <sup>2</sup>/<sub>3</sub> × 1<sup>1</sup>/<sub>4</sub> adalah ...",
     "pilihan": [
-      "A. 5/6",
-      "B. 3/4",
-      "C. 1 1/6",
-      "D. 2/5"
+      "A. <sup>5</sup>/<sub>6</sub>",
+      "B. <sup>3</sup>/<sub>4</sub>",
+      "C. 1 <sup>1</sup>/<sub>6</sub>",
+      "D. <sup>2</sup>/<sub>5</sub>"
     ],
     "kunci": "A",
     "bobot": 2
@@ -43,10 +43,10 @@
     "tipe": "PG",
     "soal": "Hasil pembagian pecahan dengan bilangan asli <sup>4</sup>/<sub>5</sub> ÷ 2 adalah ...",
     "pilihan": [
-      "A. 2/5",
-      "B. 4/10",
-      "C. 8/5",
-      "D. 1/5"
+      "A. <sup>2</sup>/<sub>5</sub>",
+      "B. <sup>4</sup>/<sub>10</sub>",
+      "C. <sup>8</sup>/<sub>5</sub>",
+      "D. <sup>1</sup>/<sub>5</sub>"
     ],
     "kunci": "A",
     "bobot": 2
@@ -56,10 +56,10 @@
     "tipe": "PG",
     "soal": "Bentuk perkalian yang senilai dengan pembagian dua pecahan <sup>3</sup>/<sub>4</sub> ÷ <sup>2</sup>/<sub>5</sub> adalah ...",
     "pilihan": [
-      "A. 3/4 x 2/5",
-      "B. 3/4 x 5/2",
-      "C. 4/3 x 2/5",
-      "D. 4/3 x 5/2"
+      "A. <sup>3</sup>/<sub>4</sub> × <sup>2</sup>/<sub>5</sub>",
+      "B. <sup>3</sup>/<sub>4</sub> × <sup>5</sup>/<sub>2</sub>",
+      "C. <sup>4</sup>/<sub>3</sub> × <sup>2</sup>/<sub>5</sub>",
+      "D. <sup>4</sup>/<sub>3</sub> × <sup>5</sup>/<sub>2</sub>"
     ],
     "kunci": "B",
     "bobot": 2
@@ -82,10 +82,10 @@
     "tipe": "PG",
     "soal": "Bentuk pecahan paling sederhana yang setara dengan bilangan desimal 0,45 adalah ...",
     "pilihan": [
-      "A. 9/20",
-      "B. 2/5",
-      "C. 4/5",
-      "D. 3/4"
+      "A. <sup>9</sup>/<sub>20</sub>",
+      "B. <sup>2</sup>/<sub>5</sub>",
+      "C. <sup>4</sup>/<sub>5</sub>",
+      "D. <sup>3</sup>/<sub>4</sub>"
     ],
     "kunci": "A",
     "bobot": 2
@@ -251,10 +251,10 @@
     "tipe": "PG",
     "soal": "Hasil perhitungan perkalian pecahan biasa dengan pecahan campuran <sup>3</sup>/<sub>5</sub> × 2<sup>1</sup>/<sub>2</sub> yang benar adalah ...",
     "pilihan": [
-      "A. 1 1/2",
-      "B. 1 3/5",
+      "A. 1 <sup>1</sup>/<sub>2</sub>",
+      "B. 1 <sup>3</sup>/<sub>5</sub>",
       "C. 2",
-      "D. 2 1/4"
+      "D. 2 <sup>1</sup>/<sub>4</sub>"
     ],
     "kunci": "A",
     "bobot": 2
