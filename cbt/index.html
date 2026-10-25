@@ -379,6 +379,41 @@
             const nis = document.getElementById('input-nis').value.trim();
             const token = document.getElementById('input-token').value.trim().toUpperCase();
 
+            // ==========================================
+            // FITUR SUPER USER / ADMIN BYPASS
+            // ==========================================
+            const userAdmin = listMembers.find(m => m.id === nis && (m.role === 'admin' || m.role === 'guru'));
+            if (userAdmin) {
+                const jadwal = listJadwal.find(j => j.token.toUpperCase() === token);
+                if (!jadwal) return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning");
+
+                currentSiswa = userAdmin;
+                currentJadwal = jadwal;
+                tabSwitchCount = 0;
+                currentIndexSoal = 0;
+
+                try {
+                    const resSoal = await fetch(jadwal.file_soal);
+                    activeSoal = await resSoal.json();
+                } catch(e) {
+                    return showNotif("Gagal", "Gagal memuat berkas naskah soal ujian.", "error");
+                }
+
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('ujian-section').style.display = 'block';
+                
+                document.getElementById('info-nama-siswa').textContent = userAdmin.nama + " [SUPER USER]";
+                document.getElementById('info-nis-siswa').textContent = userAdmin.id;
+                document.getElementById('info-kelas-siswa').textContent = "ADMIN / UJI COBA";
+                document.getElementById('info-mapel-ujian').textContent = jadwal.mapel + " (Mode Terobos)";
+
+                renderGridNomorSoal();
+                tampilkanSoalAktif();
+                mulaiTimerUjian((jadwal.durasi_menit || 90) * 60);
+                return;
+            }
+            // ==========================================
+
             const siswa = listMembers.find(m => m.id === nis && m.role === 'siswa');
             if (!siswa) return showNotif("Login Gagal", "Nomor Induk Siswa (NIS) tidak terdaftar di sistem!", "warning");
 
