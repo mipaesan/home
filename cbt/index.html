@@ -13,9 +13,6 @@
             --card-bg: #ffffff;
             --text: #212529;
             --border: #dee2e6;
-            --madrasah-green: #37A269;
-            --madrasah-pants: #2C7E52;
-            --ransel-orange: #F58133;
         }
 
         * { 
@@ -25,6 +22,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
         }
 
+        /* DILARANG BLOK / SELEKSI TEKS DI SELURUH HALAMAN UJIAN */
         body { 
             background-color: var(--bg); 
             color: var(--text); 
@@ -35,6 +33,7 @@
             user-select: none;
         }
 
+        /* KOTAK INPUT TETAP BISA DIKETIK SISWA */
         input, textarea {
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
@@ -61,100 +60,7 @@
         .btn-secondary { background: #6c757d; color: white; }
         .btn-danger { background: #dc3545; color: white; }
 
-        /* ================================================= */
-        /* ANIMASI INTRO ANAK MADRASAH BERJALAN & FORM LOGIN   */
-        /* ================================================= */
-        #login-wrapper {
-            position: relative;
-            max-width: 400px;
-            margin: 2rem auto;
-            overflow: hidden;
-            border-radius: 12px;
-        }
-
-        #intro-screen {
-            background-color: #A4D1EA;
-            background-image: 
-                radial-gradient(at 10% 10%, #FFFFFF 0px, transparent 50%),
-                radial-gradient(at 90% 10%, #FFFFFF 0px, transparent 50%),
-                radial-gradient(at 50% 100%, #6CC172 0px, transparent 50%);
-            border-radius: 12px;
-            padding: 2rem 1rem;
-            text-align: center;
-            border: 1px solid var(--border);
-            position: relative;
-            height: 360px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: 0.5s ease;
-        }
-
-        #intro-screen.fade-out {
-            opacity: 0;
-            display: none;
-        }
-
-        .walking-madrasah-kid {
-            width: 140px;
-            height: 180px;
-            position: absolute;
-            left: -150px;
-            animation: walkToCenter 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2));
-        }
-
-        @keyframes walkToCenter {
-            0% { left: -150px; }
-            100% { left: calc(50% - 70px); }
-        }
-
-        .kid-main {
-            transform-origin: center bottom;
-            animation: bobbing 0.5s infinite alternate ease-in-out;
-        }
-        @keyframes bobbing {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-7px); }
-        }
-
-        .leg-l { transform-origin: 75px 135px; animation: swingLegL 0.5s infinite alternate ease-in-out; }
-        .leg-r { transform-origin: 105px 135px; animation: swingLegR 0.5s infinite alternate ease-in-out; }
-        @keyframes swingLegL { 0% { transform: rotate(-28deg); } 100% { transform: rotate(28deg); } }
-        @keyframes swingLegR { 0% { transform: rotate(28deg); } 100% { transform: rotate(-28deg); } }
-
-        .arm-l { transform-origin: 70px 75px; animation: swingArmL 0.5s infinite alternate ease-in-out; }
-        .arm-r { transform-origin: 110px 75px; animation: swingArmR 0.5s infinite alternate ease-in-out; }
-        @keyframes swingArmL { 0% { transform: rotate(30deg); } 100% { transform: rotate(-10deg); } }
-        @keyframes swingArmR { 0% { transform: rotate(-30deg); } 100% { transform: rotate(10deg); } }
-
-        .intro-text {
-            margin-top: 10rem;
-            font-weight: 700;
-            color: #0f5132;
-            font-size: 1rem;
-            background: rgba(255,255,255,0.8);
-            padding: 5px 15px;
-            border-radius: 20px;
-            animation: pulseText 1.5s infinite;
-        }
-        @keyframes pulseText { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
-
-        #login-section {
-            display: none;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        #login-section.show-login {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* AVATAR KARTUN INTERAKTIF DI FORM LOGIN */
+        /* KARTUN AVATAR INTERAKTIF */
         .cartoon-container {
             width: 120px;
             height: 120px;
@@ -269,91 +175,55 @@
     </header>
 
     <div class="container">
-        
-        <!-- WRAPPER LOGIN DENGAN ANIMASI INTRO ANAK MADRASAH -->
-        <div id="login-wrapper">
+        <!-- FORM LOGIN SISWA UTAMA (BERSIH & PROFESIONAL) -->
+        <div id="login-section" class="card" style="max-width: 400px; margin: 2rem auto;">
             
-            <!-- LAYAR INTRO: ANAK MADRASAH BERJALAN -->
-            <div id="intro-screen">
-                <div class="walking-madrasah-kid">
-                    <svg viewBox="0 0 180 220" width="140" height="180">
-                        <rect class="leg-l" x="70" y="130" width="18" height="40" rx="6" fill="var(--madrasah-pants)"/>
-                        <rect class="leg-r" x="92" y="130" width="18" height="40" rx="6" fill="var(--madrasah-pants)"/>
-                        <ellipse cx="79" cy="170" rx="12" ry="6" fill="#664C39"/>
-                        <ellipse cx="101" cy="170" rx="12" ry="6" fill="#664C39"/>
-
-                        <g class="kid-main">
-                            <rect x="65" y="70" width="50" height="60" rx="10" fill="var(--ransel-orange)"/>
-                            <rect x="60" y="75" width="60" height="60" rx="10" fill="var(--madrasah-green)"/>
-                            <path d="M 60 75 Q 90 60 120 75" fill="var(--madrasah-green)"/>
-                            <path d="M 90 75 L 90 135" stroke="var(--madrasah-pants)" stroke-width="1"/>
-
-                            <rect class="arm-l" x="48" y="75" width="12" height="45" rx="6" fill="var(--madrasah-green)"/>
-                            <rect class="arm-r" x="120" y="75" width="12" height="45" rx="6" fill="var(--madrasah-green)"/>
-                            <circle cx="54" cy="120" r="7" fill="#FDD2B4"/>
-                            <circle cx="126" cy="120" r="7" fill="#FDD2B4"/>
-
-                            <circle cx="90" cy="45" r="30" fill="#FDD2B4"/>
-                            <path d="M 65 30 Q 90 10 115 30 L 110 38 Q 90 25 70 38 Z" fill="#212529"/>
-                            
-                            <circle cx="80" cy="45" r="3.5" fill="#212529"/>
-                            <circle cx="100" cy="45" r="3.5" fill="#212529"/>
-                            <path d="M 85 55 Q 90 60 95 55" stroke="#212529" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                        </g>
-                    </svg>
-                </div>
-                <div class="intro-text">Menyiapkan Ruang Ujian...</div>
+            <!-- AVATAR KARTUN BERUANG/KUCING CUTE -->
+            <div class="cartoon-container" id="cartoon-box">
+                <svg class="cartoon-avatar" viewBox="0 0 200 200">
+                    <circle cx="45" cy="55" r="22" fill="#0f5132"/>
+                    <circle cx="45" cy="55" r="12" fill="#ffc107"/>
+                    <circle cx="155" cy="55" r="22" fill="#0f5132"/>
+                    <circle cx="155" cy="55" r="12" fill="#ffc107"/>
+                    
+                    <circle cx="100" cy="105" r="65" fill="#0f5132"/>
+                    <ellipse cx="100" cy="120" rx="45" ry="35" fill="#e9f5ed"/>
+                    
+                    <circle cx="75" cy="95" r="14" fill="#ffffff"/>
+                    <circle cx="125" cy="95" r="14" fill="#ffffff"/>
+                    
+                    <circle id="pupil-left" class="pupil" cx="75" cy="95" r="6" fill="#212529"/>
+                    <circle id="pupil-right" class="pupil" cx="125" cy="95" r="6" fill="#212529"/>
+                    
+                    <polygon points="100,110 93,102 107,102" fill="#212529"/>
+                    <path d="M 90 120 Q 100 130 110 120" stroke="#212529" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    
+                    <g class="hands">
+                        <ellipse cx="65" cy="95" rx="18" ry="14" fill="#198754"/>
+                        <ellipse cx="135" cy="95" rx="18" ry="14" fill="#198754"/>
+                    </g>
+                </svg>
             </div>
 
-            <!-- FORM LOGIN SISWA UTAMA -->
-            <div id="login-section" class="card">
-                <div class="cartoon-container" id="cartoon-box">
-                    <svg class="cartoon-avatar" viewBox="0 0 200 200">
-                        <circle cx="45" cy="55" r="22" fill="#0f5132"/>
-                        <circle cx="45" cy="55" r="12" fill="#ffc107"/>
-                        <circle cx="155" cy="55" r="22" fill="#0f5132"/>
-                        <circle cx="155" cy="55" r="12" fill="#ffc107"/>
-                        
-                        <circle cx="100" cy="105" r="65" fill="#0f5132"/>
-                        <ellipse cx="100" cy="120" rx="45" ry="35" fill="#e9f5ed"/>
-                        
-                        <circle cx="75" cy="95" r="14" fill="#ffffff"/>
-                        <circle cx="125" cy="95" r="14" fill="#ffffff"/>
-                        
-                        <circle id="pupil-left" class="pupil" cx="75" cy="95" r="6" fill="#212529"/>
-                        <circle id="pupil-right" class="pupil" cx="125" cy="95" r="6" fill="#212529"/>
-                        
-                        <polygon points="100,110 93,102 107,102" fill="#212529"/>
-                        <path d="M 90 120 Q 100 130 110 120" stroke="#212529" stroke-width="3" fill="none" stroke-linecap="round"/>
-                        
-                        <g class="hands">
-                            <ellipse cx="65" cy="95" rx="18" ry="14" fill="#198754"/>
-                            <ellipse cx="135" cy="95" rx="18" ry="14" fill="#198754"/>
-                        </g>
-                    </svg>
+            <div class="card-title" style="justify-content: center; border-bottom: none; margin-bottom: 0.5rem;">Masuk Ruang Ujian</div>
+            
+            <form onsubmit="event.preventDefault(); prosesLoginSiswa();">
+                <div class="form-group">
+                    <label>Nomor Induk Siswa (NIS)</label>
+                    <input type="text" id="input-nis" class="form-control" placeholder="Contoh: 12345" autocomplete="off" required>
                 </div>
-
-                <div class="card-title" style="justify-content: center; border-bottom: none; margin-bottom: 0.5rem;">Masuk Ruang Ujian</div>
-                
-                <form onsubmit="event.preventDefault(); prosesLoginSiswa();">
-                    <div class="form-group">
-                        <label>Nomor Induk Siswa (NIS)</label>
-                        <input type="text" id="input-nis" class="form-control" placeholder="Contoh: 12345" autocomplete="off" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Token Ujian (Diberikan Pengawas)</label>
-                        <input type="text" id="input-token" class="form-control" placeholder="Contoh: TYVB78" style="text-transform: uppercase;" autocomplete="off" required>
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%; justify-content: center; text-align: center;">MULAI UJIAN</button>
-                </form>
-                
-                <div style="margin-top: 1.5rem; text-align: center; border-top: 1px dashed var(--border); padding-top: 1rem;">
-                    <a href="guru.html" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
-                        🔐 Masuk ke Dashboard Guru / Koreksi
-                    </a>
+                <div class="form-group">
+                    <label>Token Ujian (Diberikan Pengawas)</label>
+                    <input type="text" id="input-token" class="form-control" placeholder="Contoh: TYVB78" style="text-transform: uppercase;" autocomplete="off" required>
                 </div>
+                <button type="submit" class="btn" style="width: 100%; justify-content: center; text-align: center;">MULAI UJIAN</button>
+            </form>
+            
+            <div style="margin-top: 1.5rem; text-align: center; border-top: 1px dashed var(--border); padding-top: 1rem;">
+                <a href="guru.html" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
+                    🔐 Masuk ke Dashboard Guru / Koreksi
+                </a>
             </div>
-
         </div>
 
         <!-- RUANG UJIAN SISWA -->
@@ -416,21 +286,6 @@
         let timerInterval = null, sisaDetik = 0;
         let tabSwitchCount = 0;
         const MAX_TAB_SWITCH = 3;
-
-        // JALANKAN ANIMASI INTRO
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const introScreen = document.getElementById('intro-screen');
-                const loginSection = document.getElementById('login-section');
-                if(introScreen && loginSection) {
-                    introScreen.classList.add('fade-out');
-                    setTimeout(() => {
-                        introScreen.style.display = 'none';
-                        loginSection.classList.add('show-login');
-                    }, 500);
-                }
-            }, 2500);
-        });
 
         // EFEK INTERAKTIF KARTUN LOGIN
         const inputNis = document.getElementById('input-nis');
@@ -563,7 +418,7 @@
 
             requestFullScreen();
 
-            document.getElementById('login-wrapper').style.display = 'none';
+            document.getElementById('login-section').style.display = 'none';
             document.getElementById('ujian-section').style.display = 'block';
             
             document.getElementById('info-nama-siswa').textContent = siswa.nama;
