@@ -142,5 +142,11 @@
     "nama": "Novita Marisa, S.Pd.",
     "pin": "@Paesan1234",
     "role": "guru"
-  }
+  },
+  {
+  "id": "111233090018", 
+  "nama": "Muh Kholil, S.Pd.I.",
+  "role": "admin",
+  "kelas": "Semua"
+}
 ]
