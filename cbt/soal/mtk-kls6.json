@@ -2,7 +2,7 @@
   {
     "id": 1,
     "tipe": "PG",
-    "soal": "Hasil dari perkalian bilangan asli dengan pecahan $6 \\times \\frac{3}{4}$ adalah ...",
+    "soal": "Hasil dari perkalian bilangan asli dengan pecahan 6 × <sup>3</sup>/<sub>4</sub> adalah ...",
     "pilihan": [
       "A. 3 1/2",
       "B. 4 1/2",
@@ -15,7 +15,7 @@
   {
     "id": 2,
     "tipe": "PG",
-    "soal": "Ibu membeli 5 kantong beras. Jika setiap kantong beratnya $\\frac{3}{4}$ kg, berat seluruh beras yang dibeli Ibu adalah ... kg.",
+    "soal": "Ibu membeli 5 kantong beras. Jika setiap kantong beratnya <sup>3</sup>/<sub>4</sub> kg, berat seluruh beras yang dibeli Ibu adalah ... kg.",
     "pilihan": [
       "A. 3 3/4",
       "B. 4 1/4",
@@ -28,7 +28,7 @@
   {
     "id": 3,
     "tipe": "PG",
-    "soal": "Hasil dari perkalian pecahan biasa dengan pecahan campuran $\\frac{2}{3} \\times 1\\frac{1}{4}$ adalah ...",
+    "soal": "Hasil dari perkalian pecahan biasa dengan pecahan campuran <sup>2</sup>/<sub>3</sub> × 1<sup>1</sup>/<sub>4</sub> adalah ...",
     "pilihan": [
       "A. 5/6",
       "B. 3/4",
@@ -41,7 +41,7 @@
   {
     "id": 4,
     "tipe": "PG",
-    "soal": "Hasil pembagian pecahan dengan bilangan asli $\\frac{4}{5} \\div 2$ adalah ...",
+    "soal": "Hasil pembagian pecahan dengan bilangan asli <sup>4</sup>/<sub>5</sub> ÷ 2 adalah ...",
     "pilihan": [
       "A. 2/5",
       "B. 4/10",
@@ -54,7 +54,7 @@
   {
     "id": 5,
     "tipe": "PG",
-    "soal": "Bentuk perkalian yang senilai dengan pembagian dua pecahan $\\frac{3}{4} \\div \\frac{2}{5}$ adalah ...",
+    "soal": "Bentuk perkalian yang senilai dengan pembagian dua pecahan <sup>3</sup>/<sub>4</sub> ÷ <sup>2</sup>/<sub>5</sub> adalah ...",
     "pilihan": [
       "A. 3/4 x 2/5",
       "B. 3/4 x 5/2",
@@ -67,7 +67,7 @@
   {
     "id": 6,
     "tipe": "PG",
-    "soal": "Bentuk desimal yang setara dengan pecahan biasa $\\frac{3}{8}$ adalah ...",
+    "soal": "Bentuk desimal yang setara dengan pecahan biasa <sup>3</sup>/<sub>8</sub> adalah ...",
     "pilihan": [
       "A. 0,25",
       "B. 0,35",
@@ -236,7 +236,7 @@
   {
     "id": 19,
     "tipe": "PG",
-    "soal": "Uang tabungan Ahmad sebesar Rp120.000,00. Ia menggunakan 1/4 bagian dari uangnya untuk membeli buku tulis. Jumlah uang yang digunakan Ahmad adalah ...",
+    "soal": "Uang tabungan Ahmad sebesar Rp120.000,00. Ia menggunakan <sup>1</sup>/<sub>4</sub> bagian dari uangnya untuk membeli buku tulis. Jumlah uang yang digunakan Ahmad adalah ...",
     "pilihan": [
       "A. Rp30.000,00",
       "B. Rp40.000,00",
@@ -249,7 +249,7 @@
   {
     "id": 20,
     "tipe": "PG",
-    "soal": "Hasil perhitungan perkalian pecahan biasa dengan pecahan campuran $\\frac{3}{5} \\times 2\\frac{1}{2}$ yang benar adalah ...",
+    "soal": "Hasil perhitungan perkalian pecahan biasa dengan pecahan campuran <sup>3</sup>/<sub>5</sub> × 2<sup>1</sup>/<sub>2</sub> yang benar adalah ...",
     "pilihan": [
       "A. 1 1/2",
       "B. 1 3/5",
@@ -262,7 +262,7 @@
   {
     "id": 21,
     "tipe": "PG",
-    "soal": "Ayah memiliki sebatang bambu sepanjang 6 meter yang akan dipotong-potong menjadi beberapa bagian. Setiap potongan panjangnya 3/4 meter.<br>Pernyataan (1): Banyak potongan bambu yang dihasilkan adalah 8 bagian.<br>Pernyataan (2): Sisa panjang bambu adalah 1/2 meter.<br>Pilihlah opsi dua pernyataan di atas yang bernilai (Benar/Salah) berturut-turut:",
+    "soal": "Ayah memiliki sebatang bambu sepanjang 6 meter yang akan dipotong-potong menjadi beberapa bagian. Setiap potongan panjangnya <sup>3</sup>/<sub>4</sub> meter.<br>Pernyataan (1): Banyak potongan bambu yang dihasilkan adalah 8 bagian.<br>Pernyataan (2): Sisa panjang bambu adalah <sup>1</sup>/<sub>2</sub> meter.<br>Pilihlah opsi dua pernyataan di atas yang bernilai (Benar/Salah) berturut-turut:",
     "pilihan": [
       "A. (1) Benar, (2) Salah",
       "B. (1) Salah, (2) Benar",
@@ -288,7 +288,7 @@
   {
     "id": 23,
     "tipe": "PG",
-    "soal": "Periksa kebenaran operasi pembagian pecahan berikut:<br>Pernyataan (1): Hasil dari 5/6 ÷ 3 adalah 5/18.<br>Pernyataan (2): Hasil dari 4 ÷ 2/3 adalah 8.<br>Kombinasi kebenaran pernyataan tersebut adalah ...",
+    "soal": "Periksa kebenaran operasi pembagian pecahan berikut:<br>Pernyataan (1): Hasil dari <sup>5</sup>/<sub>6</sub> ÷ 3 adalah <sup>5</sup>/<sub>18</sub>.<br>Pernyataan (2): Hasil dari 4 ÷ <sup>2</sup>/<sub>3</sub> adalah 8.<br>Kombinasi kebenaran pernyataan tersebut adalah ...",
     "pilihan": [
       "A. (1) Benar, (2) Salah",
       "B. (1) Salah, (2) Benar",
@@ -301,7 +301,7 @@
   {
     "id": 24,
     "tipe": "PG",
-    "soal": "Periksa kebenaran hasil pembagian antara dua pecahan berikut:<br>Pernyataan (1): Hasil dari 3/4 ÷ 1/2 setara dengan 3/4 x 2.<br>Pernyataan (2): Hasil dari 2/3 ÷ 4/5 adalah 5/6.<br>Kombinasi kebenaran pernyataan tersebut adalah ...",
+    "soal": "Periksa kebenaran hasil pembagian antara dua pecahan berikut:<br>Pernyataan (1): Hasil dari <sup>3</sup>/<sub>4</sub> ÷ <sup>1</sup>/<sub>2</sub> setara dengan <sup>3</sup>/<sub>4</sub> × 2.<br>Pernyataan (2): Hasil dari <sup>2</sup>/<sub>3</sub> ÷ <sup>4</sup>/<sub>5</sub> adalah <sup>5</sup>/<sub>6</sub>.<br>Kombinasi kebenaran pernyataan tersebut adalah ...",
     "pilihan": [
       "A. (1) Benar, (2) Benar",
       "B. (1) Benar, (2) Salah",
@@ -392,14 +392,14 @@
   {
     "id": 31,
     "tipe": "ISIAN",
-    "soal": "Hasil perkalian dua buah pecahan $\\frac{3}{4} \\times \\frac{2}{5}$ dalam bentuk pecahan biasa paling sederhana adalah ...",
+    "soal": "Hasil perkalian dua buah pecahan <sup>3</sup>/<sub>4</sub> × <sup>2</sup>/<sub>5</sub> dalam bentuk pecahan biasa paling sederhana adalah ...",
     "kunci": "3/10",
     "bobot": 3
   },
   {
     "id": 32,
     "tipe": "ISIAN",
-    "soal": "Bentuk desimal dari pecahan biasa $\\frac{4}{5}$ adalah ...",
+    "soal": "Bentuk desimal dari pecahan biasa <sup>4</sup>/<sub>5</sub> adalah ...",
     "kunci": "0,8",
     "bobot": 3
   },
@@ -427,21 +427,21 @@
   {
     "id": 36,
     "tipe": "URAIAN",
-    "soal": "Ibu memiliki persediaan gula pasir sebanyak 5 kg. Gula tersebut akan dimasukkan ke dalam kantong-kantong plastik kecil. Jika setiap kantong plastik memuat 1/4 kg gula, berapa banyak kantong plastik yang dibutuhkan Ibu? Jelaskan langkah penyelesaiannya!",
+    "soal": "Ibu memiliki persediaan gula pasir sebanyak 5 kg. Gula tersebut akan dimasukkan ke dalam kantong-kantong plastik kecil. Jika setiap kantong plastik memuat <sup>1</sup>/<sub>4</sub> kg gula, berapa banyak kantong plastik yang dibutuhkan Ibu? Jelaskan langkah penyelesaiannya!",
     "kunci": "5 ÷ 1/4 = 5 x 4 = 20 kantong plastik",
     "bobot": 4
   },
   {
     "id": 37,
     "tipe": "URAIAN",
-    "soal": "Urutkan pecahan berikut dari nilai yang TERKECIL ke TERBESAR: 1 1/2 ; 1,25 ; 75% ; 4/5. Tuliskan pengubahan ke bentuk desimal terlebih dahulu!",
+    "soal": "Urutkan pecahan berikut dari nilai yang TERKECIL ke TERBESAR: 1<sup>1</sup>/<sub>2</sub> ; 1,25 ; 75% ; <sup>4</sup>/<sub>5</sub>. Tuliskan pengubahan ke bentuk desimal terlebih dahulu!",
     "kunci": "Pengubahan desimal: 1 1/2 = 1,5; 1,25; 75% = 0,75; 4/5 = 0,8. Urutan terkecil ke terbesar: 75% ; 4/5 ; 1,25 ; 1 1/2",
     "bobot": 4
   },
   {
     "id": 38,
     "tipe": "URAIAN",
-    "soal": "Pak Ahmad memiliki sebidang tanah. 2/5 bagian ditanami jagung, 1/3 bagian ditanami kedelai, dan sisanya dibuat kolam ikan. Jika luas tanah yang dibuat kolam ikan adalah 160 m², berapakah luas seluruh tanah Pak Ahmad?",
+    "soal": "Pak Ahmad memiliki sebidang tanah. <sup>2</sup>/<sub>5</sub> bagian ditanami jagung, <sup>1</sup>/<sub>3</sub> bagian ditanami kedelai, dan sisanya dibuat kolam ikan. Jika luas tanah yang dibuat kolam ikan adalah 160 m², berapakah luas seluruh tanah Pak Ahmad?",
     "kunci": "Bagian kolam = 1 - (2/5 + 1/3) = 1 - 11/15 = 4/15. Luas seluruh tanah = 160 ÷ (4/15) = 160 x (15/4) = 600 m²",
     "bobot": 4
   },
