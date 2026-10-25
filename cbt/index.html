@@ -34,7 +34,7 @@
         }
 
         /* KOTAK INPUT TETAP BISA DIKETIK SISWA */
-        input, textarea {
+        input, textarea, select {
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
             -ms-user-select: text !important;
@@ -143,6 +143,15 @@
         .pilihan-item:hover { background: #e9ecef; }
         .pilihan-item input { margin-right: 8px; }
 
+        .table-soal { width: 100%; border-collapse: collapse; margin-top: 0.5rem; background: white; border-radius: 6px; overflow: hidden; }
+        .table-soal th, .table-soal td { border: 1px solid var(--border); padding: 0.6rem; font-size: 0.9rem; text-align: left; }
+        .table-soal th { background: #e9f5ed; color: var(--primary); }
+
+        /* KOTAK BANK OPSI JAWABAN MENJODOHKAN */
+        .bank-opsi-box { background: #fff3cd; border: 1px solid #ffeeba; border-radius: 8px; padding: 0.8rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: #856404; }
+        .bank-opsi-box ul { margin-left: 1.2rem; margin-top: 0.3rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; list-style-type: none; }
+        .bank-opsi-box li { background: white; padding: 0.3rem 0.6rem; border-radius: 4px; border: 1px solid #ffeeba; font-weight: 600; color: #212529; }
+
         .nav-buttons-soal { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; }
         .btn-toggle-drawer { display: none; }
 
@@ -175,7 +184,7 @@
     </header>
 
     <div class="container">
-        <!-- FORM LOGIN SISWA UTAMA (BERSIH & PROFESIONAL) -->
+        <!-- FORM LOGIN SISWA UTAMA -->
         <div id="login-section" class="card" style="max-width: 400px; margin: 2rem auto;">
             
             <!-- AVATAR KARTUN BERUANG/KUCING CUTE -->
@@ -209,7 +218,7 @@
             
             <form onsubmit="event.preventDefault(); prosesLoginSiswa();">
                 <div class="form-group">
-                    <label>Nomor Induk Siswa (NIS)</label>
+                    <label>Nomor Induk Siswa (NIS) / ID Super User</label>
                     <input type="text" id="input-nis" class="form-control" placeholder="Contoh: 12345" autocomplete="off" required>
                 </div>
                 <div class="form-group">
@@ -380,14 +389,14 @@
             const token = document.getElementById('input-token').value.trim().toUpperCase();
 
             // ==========================================
-            // FITUR SUPER USER / ADMIN BYPASS
+            // FITUR SUPER USER / ADMIN BYPASS (ID: 111233090018 / role admin/guru)
             // ==========================================
-            const userAdmin = listMembers.find(m => m.id === nis && (m.role === 'admin' || m.role === 'guru'));
-            if (userAdmin) {
+            const userAdmin = listMembers.find(m => m.id === nis && (m.role === 'admin' || m.role === 'guru' || m.id === '111233090018'));
+            if (userAdmin || nis === '111233090018') {
                 const jadwal = listJadwal.find(j => j.token.toUpperCase() === token);
                 if (!jadwal) return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning");
 
-                currentSiswa = userAdmin;
+                currentSiswa = userAdmin || { id: "111233090018", nama: "Muh Kholil, S.Pd.I.", role: "admin" };
                 currentJadwal = jadwal;
                 tabSwitchCount = 0;
                 currentIndexSoal = 0;
@@ -402,8 +411,8 @@
                 document.getElementById('login-section').style.display = 'none';
                 document.getElementById('ujian-section').style.display = 'block';
                 
-                document.getElementById('info-nama-siswa').textContent = userAdmin.nama + " [SUPER USER]";
-                document.getElementById('info-nis-siswa').textContent = userAdmin.id;
+                document.getElementById('info-nama-siswa').textContent = currentSiswa.nama + " [SUPER USER]";
+                document.getElementById('info-nis-siswa').textContent = currentSiswa.id;
                 document.getElementById('info-kelas-siswa').textContent = "ADMIN / UJI COBA";
                 document.getElementById('info-mapel-ujian').textContent = jadwal.mapel + " (Mode Terobos)";
 
@@ -470,7 +479,8 @@
             let html = '';
             activeSoal.forEach((s, index) => {
                 let statusClass = '';
-                if (jawabanSiswa[s.id] !== undefined && jawabanSiswa[s.id] !== '') {
+                let ansVal = jawabanSiswa[s.id];
+                if (ansVal !== undefined && ansVal !== '' && (!(Array.isArray(ansVal)) || ansVal.length > 0) && (typeof ansVal !== 'object' || Object.keys(ansVal).length > 0)) {
                     statusClass = 'terjawab';
                 }
                 if (index === currentIndexSoal) {
@@ -485,12 +495,14 @@
             if (!activeSoal || activeSoal.length === 0) return;
             
             const s = activeSoal[currentIndexSoal];
+            let tipeSoal = (s.tipe || "PG").toUpperCase();
             let html = `<div class="soal-card">`;
-            html += `<div class="soal-teks">Soal No. ${s.id} (${s.tipe})<br><span style="font-weight:normal; font-size:1rem;">${s.soal}</span></div>`;
+            html += `<div class="soal-teks">Soal No. ${s.id} (${tipeSoal.replace('_', ' ')})<br><span style="font-weight:normal; font-size:1rem;">${s.soal}</span></div>`;
 
             let ans = jawabanSiswa[s.id] || '';
 
-            if (s.tipe === "PG" && s.pilihan) {
+            // 1. PILIHAN GANDA (PG)
+            if (tipeSoal === "PG" && s.pilihan) {
                 s.pilihan.forEach(p => {
                     let charOpt = p.charAt(0);
                     let checked = (ans === charOpt) ? 'checked' : '';
@@ -501,8 +513,89 @@
                         </label>
                     `;
                 });
-            } else if (s.tipe === "ISIAN" || s.tipe === "URAIAN") {
-                html += `<input type="text" class="form-control" value="${ans}" placeholder="Tulis jawaban Anda di sini..." oninput="simpanJawaban(${s.id}, this.value)">`;
+            } 
+            // 2. PILIHAN GANDA KOMPLEKS (PG_KOMPLEKS / PG_KOMPLEK)
+            else if ((tipeSoal === "PG_KOMPLEKS" || tipeSoal === "PG_KOMPLEK") && s.pilihan) {
+                let selectedAns = Array.isArray(ans) ? ans : (ans ? [ans] : []);
+                s.pilihan.forEach(p => {
+                    let charOpt = p.charAt(0);
+                    let checked = selectedAns.includes(charOpt) ? 'checked' : '';
+                    html += `
+                        <label class="pilihan-item">
+                            <input type="checkbox" name="soal_${s.id}" value="${charOpt}" ${checked} onchange="simpanJawabanCheckbox(${s.id})">
+                            ${p}
+                        </label>
+                    `;
+                });
+            } 
+            // 3. BENAR / SALAH (BENAR_SALAH)
+            else if (tipeSoal === "BENAR_SALAH" && s.pilihan) {
+                let ansObj = (typeof ans === 'object' && ans !== null) ? ans : {};
+                html += `<table class="table-soal"><tr><th>Pernyataan</th><th style="width:90px; text-align:center;">Benar</th><th style="width:90px; text-align:center;">Salah</th></tr>`;
+                s.pilihan.forEach((pernyataan, idx) => {
+                    let val = ansObj[idx] || '';
+                    html += `
+                        <tr>
+                            <td>${pernyataan}</td>
+                            <td align="center"><input type="radio" name="bs_${s.id}_${idx}" value="B" ${val === 'B' ? 'checked' : ''} onclick="simpanJawabanBS(${s.id}, ${idx}, 'B')"></td>
+                            <td align="center"><input type="radio" name="bs_${s.id}_${idx}" value="S" ${val === 'S' ? 'checked' : ''} onclick="simpanJawabanBS(${s.id}, ${idx}, 'S')"></td>
+                        </tr>
+                    `;
+                });
+                html += `</table>`;
+            } 
+            // 4. MENJODOHKAN (MODEL BANK OPSI JAWABAN UMUM & DROPDOWN TIAP PREMIS)
+            else if (tipeSoal === "MENJODOHKAN") {
+                // Tampilkan Bank Opsi Jawaban (a, b, c, d, e terlihat utuh di atas soal)
+                if (s.opsi_jawaban && s.opsi_jawaban.length > 0) {
+                    html += `<div class="bank-opsi-box"><strong>📦 Pilihan Jawaban yang Tersedia:</strong><ul>`;
+                    s.opsi_jawaban.forEach(opt => {
+                        html += `<li>• ${opt}</li>`;
+                    });
+                    html += `</ul></div>`;
+                }
+
+                // Jika formatnya pakai pasangan premis (seperti contoh Mas Kholil)
+                if (s.pasangan && s.pasangan.length > 0) {
+                    html += `<table class="table-soal"><tr><th>Pernyataan / Soal</th><th style="width:240px;">Pilih Jawaban yang Sesuai</th></tr>`;
+                    s.pasangan.forEach((item, idx) => {
+                        let currentSelection = (typeof ans === 'object' && ans !== null) ? (ans[idx] || '') : '';
+                        let optionsHtml = `<option value="">-- Pilih Jawaban --</option>`;
+                        if (s.opsi_jawaban) {
+                            s.opsi_jawaban.forEach(opt => {
+                                // Ambil huruf depan misal "a. 4" atau teks langsung
+                                let optValue = opt.includes('.') ? opt.split('.')[0].trim() : opt;
+                                let sel = (currentSelection === optValue || currentSelection === opt) ? 'selected' : '';
+                                optionsHtml += `<option value="${opt}" ${sel}>${opt}</option>`;
+                            });
+                        }
+                        html += `
+                            <tr>
+                                <td>${item.premis || item}</td>
+                                <td><select class="form-control" onchange="simpanJawabanJodoh(${s.id}, ${idx}, this.value)">${optionsHtml}</select></td>
+                            </tr>
+                        `;
+                    });
+                    html += `</table>`;
+                } else {
+                    // Fallback jika single soal menjodohkan dengan dropdown opsi
+                    let optionsHtml = `<option value="">-- Pilih Jawaban --</option>`;
+                    if (s.opsi_jawaban) {
+                        s.opsi_jawaban.forEach(opt => {
+                            let sel = (ans === opt) ? 'selected' : '';
+                            optionsHtml += `<option value="${opt}" ${sel}>${opt}</option>`;
+                        });
+                    }
+                    html += `<div style="margin-top:0.8rem;"><label><strong>Pilih Pasangan Jawaban:</strong></label><select class="form-control" onchange="simpanJawaban(${s.id}, this.value)">${optionsHtml}</select></div>`;
+                }
+            } 
+            // 5. ISIAN / URAIAN / DEFAULT FALLBACK
+            else if (tipeSoal === "ISIAN" || tipeSoal === "ISIAN_SINGKAT") {
+                html += `<input type="text" class="form-control" value="${ans}" placeholder="Tulis jawaban singkat Anda di sini..." oninput="simpanJawaban(${s.id}, this.value)">`;
+            } else if (tipeSoal === "URAIAN" || tipeSoal === "ESAI") {
+                html += `<textarea class="form-control" rows="4" placeholder="Tulis jawaban lengkap Anda di sini..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
+            } else {
+                html += `<textarea class="form-control" rows="3" placeholder="Tulis jawaban Anda..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
             }
 
             html += `</div>`;
@@ -523,6 +616,34 @@
             renderGridNomorSoal();
         }
 
+        function simpanJawaban(idSoal, val) {
+            jawabanSiswa[idSoal] = val;
+            renderGridNomorSoal();
+        }
+
+        function simpanJawabanCheckbox(idSoal) {
+            const checkboxes = document.querySelectorAll(`input[name="soal_${idSoal}"]:checked`);
+            let vals = Array.from(checkboxes).map(cb => cb.value);
+            jawabanSiswa[idSoal] = vals;
+            renderGridNomorSoal();
+        }
+
+        function simpanJawabanBS(idSoal, idx, val) {
+            if (!jawabanSiswa[idSoal] || typeof jawabanSiswa[idSoal] !== 'object') {
+                jawabanSiswa[idSoal] = {};
+            }
+            jawabanSiswa[idSoal][idx] = val;
+            renderGridNomorSoal();
+        }
+
+        function simpanJawabanJodoh(idSoal, idx, val) {
+            if (!jawabanSiswa[idSoal] || typeof jawabanSiswa[idSoal] !== 'object') {
+                jawabanSiswa[idSoal] = {};
+            }
+            jawabanSiswa[idSoal][idx] = val;
+            renderGridNomorSoal();
+        }
+
         function pindahSoal(targetIndex) {
             if (targetIndex >= 0 && targetIndex < activeSoal.length) {
                 currentIndexSoal = targetIndex;
@@ -531,11 +652,6 @@
                     document.getElementById('sidebar-soal-box').classList.remove('show-mobile');
                 }
             }
-        }
-
-        function simpanJawaban(idSoal, val) {
-            jawabanSiswa[idSoal] = val;
-            renderGridNomorSoal();
         }
 
         function mulaiTimerUjian(durasiDetik) {
@@ -611,12 +727,39 @@
         async function kirimJawabanKeServer(isOtomatis = false) {
             if (timerInterval) clearInterval(timerInterval);
 
-            let skorPG = 0;
+            let skorTotal = 0;
             activeSoal.forEach(s => {
                 let ans = jawabanSiswa[s.id];
-                if (s.tipe === "PG" && ans !== undefined) {
-                    if (String(ans).trim().toUpperCase() === String(s.kunci).trim().toUpperCase()) {
-                        skorPG += (s.bobot || 1);
+                let tipeSoal = (s.tipe || "PG").toUpperCase();
+                let bobotSoal = s.bobot || 2;
+
+                if (ans !== undefined && ans !== '') {
+                    if (tipeSoal === "PG") {
+                        if (String(ans).trim().toUpperCase() === String(s.kunci).trim().toUpperCase()) {
+                            skorTotal += bobotSoal;
+                        }
+                    } else if (tipeSoal === "PG_KOMPLEKS" || tipeSoal === "PG_KOMPLEK") {
+                        let userAns = Array.isArray(ans) ? [...ans].sort() : [];
+                        let correctAns = Array.isArray(s.kunci) ? [...s.kunci].sort() : [];
+                        if (userAns.length === correctAns.length && userAns.every((val, idx) => val === correctAns[idx])) {
+                            skorTotal += bobotSoal;
+                        }
+                    } else if (tipeSoal === "ISIAN" || tipeSoal === "ISIAN_SINGKAT") {
+                        if (String(ans).trim().toLowerCase() === String(s.kunci).trim().toLowerCase()) {
+                            skorTotal += bobotSoal;
+                        }
+                    } else if (tipeSoal === "BENAR_SALAH" && typeof s.kunci === 'object') {
+                        let match = true;
+                        for (let k in s.kunci) {
+                            if (!ans[k] || ans[k] !== s.kunci[k]) { match = false; break; }
+                        }
+                        if (match) skorTotal += bobotSoal;
+                    } else if (tipeSoal === "MENJODOHKAN" && typeof s.kunci === 'object') {
+                        let match = true;
+                        for (let k in s.kunci) {
+                            if (!ans[k] || ans[k] !== s.kunci[k]) { match = false; break; }
+                        }
+                        if (match) skorTotal += bobotSoal;
                     }
                 }
             });
@@ -629,10 +772,10 @@
                 nama: currentSiswa.nama,
                 kelas: currentSiswa.kelas || currentJadwal.kelas || "6",
                 mapel: currentJadwal.mapel,
-                skorPG: skorPG,
+                skorPG: skorTotal,
                 jawabanJson: JSON.stringify(jawabanSiswa),
                 nilaiEssay: 0,
-                totalNilai: skorPG,
+                totalNilai: skorTotal,
                 catatan: isOtomatis ? `Selesai otomatis (${tabSwitchCount >= MAX_TAB_SWITCH ? 'Pelanggaran 3x pindah tab' : 'Waktu habis'})` : "Selesai normal"
             };
 
