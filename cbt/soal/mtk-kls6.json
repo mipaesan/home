@@ -1,0 +1,462 @@
+[
+  {
+    "id": 1,
+    "tipe": "PG",
+    "soal": "Hasil dari perkalian bilangan asli dengan pecahan $6 \\times \\frac{3}{4}$ adalah ...",
+    "pilihan": [
+      "A. 3 1/2",
+      "B. 4 1/2",
+      "C. 5 1/4",
+      "D. 6 1/4"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 2,
+    "tipe": "PG",
+    "soal": "Ibu membeli 5 kantong beras. Jika setiap kantong beratnya $\\frac{3}{4}$ kg, berat seluruh beras yang dibeli Ibu adalah ... kg.",
+    "pilihan": [
+      "A. 3 3/4",
+      "B. 4 1/4",
+      "C. 3 1/4",
+      "D. 4 3/4"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 3,
+    "tipe": "PG",
+    "soal": "Hasil dari perkalian pecahan biasa dengan pecahan campuran $\\frac{2}{3} \\times 1\\frac{1}{4}$ adalah ...",
+    "pilihan": [
+      "A. 5/6",
+      "B. 3/4",
+      "C. 1 1/6",
+      "D. 2/5"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 4,
+    "tipe": "PG",
+    "soal": "Hasil pembagian pecahan dengan bilangan asli $\\frac{4}{5} \\div 2$ adalah ...",
+    "pilihan": [
+      "A. 2/5",
+      "B. 4/10",
+      "C. 8/5",
+      "D. 1/5"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 5,
+    "tipe": "PG",
+    "soal": "Bentuk perkalian yang senilai dengan pembagian dua pecahan $\\frac{3}{4} \\div \\frac{2}{5}$ adalah ...",
+    "pilihan": [
+      "A. 3/4 x 2/5",
+      "B. 3/4 x 5/2",
+      "C. 4/3 x 2/5",
+      "D. 4/3 x 5/2"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 6,
+    "tipe": "PG",
+    "soal": "Bentuk desimal yang setara dengan pecahan biasa $\\frac{3}{8}$ adalah ...",
+    "pilihan": [
+      "A. 0,25",
+      "B. 0,35",
+      "C. 0,375",
+      "D. 0,75"
+    ],
+    "kunci": "C",
+    "bobot": 2
+  },
+  {
+    "id": 7,
+    "tipe": "PG",
+    "soal": "Bentuk pecahan paling sederhana yang setara dengan bilangan desimal 0,45 adalah ...",
+    "pilihan": [
+      "A. 9/20",
+      "B. 2/5",
+      "C. 4/5",
+      "D. 3/4"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 8,
+    "tipe": "PG",
+    "soal": "Perhatikan bilangan desimal berikut: 0,45 ; 0,405 ; 0,48. Urutan bilangan berdasarkan nilai tempatnya dari yang terbesar ke terkecil adalah ...",
+    "pilihan": [
+      "A. 0,405 ; 0,45 ; 0,48",
+      "B. 0,48 ; 0,45 ; 0,405",
+      "C. 0,45 ; 0,48 ; 0,405",
+      "D. 0,405 ; 0,48 ; 0,45"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 9,
+    "tipe": "PG",
+    "soal": "Ibu mempunyai persediaan minyak goreng sebanyak 2,5 liter. Minyak tersebut dikemas ke dalam beberapa kantong plastik kecil dengan volume masing-masing 0,5 liter. Banyak kantong plastik yang dibutuhkan Ibu adalah ...",
+    "pilihan": [
+      "A. 2 buah",
+      "B. 4 buah",
+      "C. 5 buah",
+      "D. 10 buah"
+    ],
+    "kunci": "C",
+    "bobot": 2
+  },
+  {
+    "id": 10,
+    "tipe": "PG",
+    "soal": "Di kelas VI terdapat 15 siswa laki-laki dan 20 siswa perempuan. Rasio antara banyak benda/siswa pada kedua kelompok tersebut (laki-laki terhadap perempuan) adalah ...",
+    "pilihan": [
+      "A. 3 : 4",
+      "B. 4 : 3",
+      "C. 3 : 7",
+      "D. 4 : 7"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 11,
+    "tipe": "PG",
+    "soal": "Usia Ayah adalah 40 tahun dan usia anak adalah 10 tahun. Bentuk rasio dua kuantitas usia Ayah terhadap anak yang sesuai adalah ...",
+    "pilihan": [
+      "A. 1 : 4",
+      "B. 2 : 5",
+      "C. 4 : 1",
+      "D. 5 : 2"
+    ],
+    "kunci": "C",
+    "bobot": 2
+  },
+  {
+    "id": 12,
+    "tipe": "PG",
+    "soal": "Dalam membuat adonan kue, perbandingan berat tepung terigu dan gula pasir adalah 5 : 2. Jika berat tepung terigu yang digunakan adalah 250 gram, maka berat gula pasir adalah ... gram.",
+    "pilihan": [
+      "A. 50",
+      "B. 100",
+      "C. 125",
+      "D. 150"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 13,
+    "tipe": "PG",
+    "soal": "Perhatikan tabel rasio senilai berikut:<br>Bensin (Liter): 2 | 4 | x<br>Jarak (Km) &nbsp;&nbsp;&nbsp;: 30 | 60 | 120<br>Nilai kuantitas x yang belum diketahui berdasarkan kesamaan rasio adalah ...",
+    "pilihan": [
+      "A. 6",
+      "B. 8",
+      "C. 10",
+      "D. 12"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 14,
+    "tipe": "PG",
+    "soal": "Pasangan kuantitas berikut yang memiliki rasio senilai dengan 3 : 4 adalah ...",
+    "pilihan": [
+      "A. 6 : 9",
+      "B. 9 : 12",
+      "C. 12 : 15",
+      "D. 15 : 24"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 15,
+    "tipe": "PG",
+    "soal": "Sebuah mobil dapat menempuh jarak 180 km dalam waktu 3 jam. Rasio satuan yang sesuai untuk jarak terhadap waktu per jam adalah ...",
+    "pilihan": [
+      "A. 40 km/jam",
+      "B. 50 km/jam",
+      "C. 60 km/jam",
+      "D. 90 km/jam"
+    ],
+    "kunci": "C",
+    "bobot": 2
+  },
+  {
+    "id": 16,
+    "tipe": "PG",
+    "soal": "Sebuah sepeda motor menghabiskan 2 liter bensin untuk menempuh jarak 90 km. Dengan menerapkan rasio satuan, jarak yang dapat ditempuh dengan 5 liter bensin adalah ... km.",
+    "pilihan": [
+      "A. 180",
+      "B. 215",
+      "C. 225",
+      "D. 250"
+    ],
+    "kunci": "C",
+    "bobot": 2
+  },
+  {
+    "id": 17,
+    "tipe": "PG",
+    "soal": "Perbandingan jumlah buku agama dan buku umum di perpustakaan madrasah adalah 4 : 7. Jika jumlah buku agama diketahui ada 80 buah, maka jumlah buku umum di perpustakaan adalah ...",
+    "pilihan": [
+      "A. 120",
+      "B. 140",
+      "C. 160",
+      "D. 280"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 18,
+    "tipe": "PG",
+    "soal": "Di MI Salafiyatul Ma'muroh tercatat ada 200 siswa, yang terdiri atas 120 siswa laki-laki dan sisanya siswa perempuan. Persentase siswa perempuan terhadap keseluruhan siswa adalah ...",
+    "pilihan": [
+      "A. 40%",
+      "B. 50%",
+      "C. 60%",
+      "D. 75%"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 19,
+    "tipe": "PG",
+    "soal": "Uang tabungan Ahmad sebesar Rp120.000,00. Ia menggunakan 1/4 bagian dari uangnya untuk membeli buku tulis. Jumlah uang yang digunakan Ahmad adalah ...",
+    "pilihan": [
+      "A. Rp30.000,00",
+      "B. Rp40.000,00",
+      "C. Rp60.000,00",
+      "D. Rp90.000,00"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 20,
+    "tipe": "PG",
+    "soal": "Hasil perhitungan perkalian pecahan biasa dengan pecahan campuran $\\frac{3}{5} \\times 2\\frac{1}{2}$ yang benar adalah ...",
+    "pilihan": [
+      "A. 1 1/2",
+      "B. 1 3/5",
+      "C. 2",
+      "D. 2 1/4"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 21,
+    "tipe": "PG",
+    "soal": "Ayah memiliki sebatang bambu sepanjang 6 meter yang akan dipotong-potong menjadi beberapa bagian. Setiap potongan panjangnya 3/4 meter.<br>Pernyataan (1): Banyak potongan bambu yang dihasilkan adalah 8 bagian.<br>Pernyataan (2): Sisa panjang bambu adalah 1/2 meter.<br>Pilihlah opsi dua pernyataan di atas yang bernilai (Benar/Salah) berturut-turut:",
+    "pilihan": [
+      "A. (1) Benar, (2) Salah",
+      "B. (1) Salah, (2) Benar",
+      "C. (1) Benar, (2) Benar",
+      "D. (1) Salah, (2) Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2.5
+  },
+  {
+    "id": 22,
+    "tipe": "PG",
+    "soal": "Uang saku Budi dan Andi berbanding 3 : 5. Jumlah uang saku keduanya adalah Rp80.000,00.<br>Pernyataan (1): Uang saku Budi adalah Rp30.000,00.<br>Pernyataan (2): Selisih uang saku Budi dan Andi adalah Rp25.000,00.<br>Manakah kombinasi kebenaran dua pernyataan di atas?",
+    "pilihan": [
+      "A. (1) Benar, (2) Salah",
+      "B. (1) Salah, (2) Benar",
+      "C. (1) Benar, (2) Benar",
+      "D. (1) Salah, (2) Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2.5
+  },
+  {
+    "id": 23,
+    "tipe": "PG",
+    "soal": "Periksa kebenaran operasi pembagian pecahan berikut:<br>Pernyataan (1): Hasil dari 5/6 ÷ 3 adalah 5/18.<br>Pernyataan (2): Hasil dari 4 ÷ 2/3 adalah 8.<br>Kombinasi kebenaran pernyataan tersebut adalah ...",
+    "pilihan": [
+      "A. (1) Benar, (2) Salah",
+      "B. (1) Salah, (2) Benar",
+      "C. (1) Benar, (2) Benar",
+      "D. (1) Salah, (2) Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2.5
+  },
+  {
+    "id": 24,
+    "tipe": "PG",
+    "soal": "Periksa kebenaran hasil pembagian antara dua pecahan berikut:<br>Pernyataan (1): Hasil dari 3/4 ÷ 1/2 setara dengan 3/4 x 2.<br>Pernyataan (2): Hasil dari 2/3 ÷ 4/5 adalah 5/6.<br>Kombinasi kebenaran pernyataan tersebut adalah ...",
+    "pilihan": [
+      "A. (1) Benar, (2) Benar",
+      "B. (1) Benar, (2) Salah",
+      "C. (1) Salah, (2) Benar",
+      "D. (1) Salah, (2) Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2.5
+  },
+  {
+    "id": 25,
+    "tipe": "PG",
+    "soal": "Diberikan tiga bilangan desimal: 0,65 ; 0,605 ; 0,6.<br>Pernyataan (1): Urutan dari yang terkecil adalah 0,6 ; 0,605 ; 0,65.<br>Pernyataan (2): Urutan dari yang terbesar adalah 0,6 ; 0,65 ; 0,605.<br>Manakah nilai kebenaran dua pernyataan di atas?",
+    "pilihan": [
+      "A. (1) Benar, (2) Salah",
+      "B. (1) Salah, (2) Benar",
+      "C. (1) Benar, (2) Benar",
+      "D. (1) Salah, (2) Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2.5
+  },
+  {
+    "id": 26,
+    "tipe": "PG",
+    "soal": "Perhatikan dua pernyataan kesamaan rasio berikut:<br>Pernyataan (1): Rasio 4 : 7 senilai dengan rasio 12 : 21.<br>Pernyataan (2): Rasio 5 : 8 senilai dengan rasio 15 : 20.<br>Kombinasi nilai kebenaran rasio senilai di atas adalah ...",
+    "pilihan": [
+      "A. (1) Benar, (2) Salah",
+      "B. (1) Salah, (2) Benar",
+      "C. (1) Benar, (2) Benar",
+      "D. (1) Salah, (2) Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2.5
+  },
+  {
+    "id": 27,
+    "tipe": "PG",
+    "soal": "Di kebun binatang terdapat 12 ekor rusa dan 18 ekor kijang.<br>Pernyataan (1): Perbandingan banyak rusa terhadap kijang adalah 2 : 3.<br>Pernyataan (2): Perbandingan jumlah seluruh rusa dan kijang terhadap rusa adalah 5 : 2.<br>Nilai kebenaran pernyataan di atas adalah ...",
+    "pilihan": [
+      "A. (1) Benar, (2) Benar",
+      "B. (1) Benar, (2) Salah",
+      "C. (1) Salah, (2) Benar",
+      "D. (1) Salah, (2) Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2.5
+  },
+  {
+    "id": 28,
+    "tipe": "PG",
+    "soal": "Sebuah kereta melaju menempuh jarak 120 km dalam waktu 2 jam.<br>Pernyataan (1): Rasio satuan kecepatan kereta tersebut adalah 60 km/jam.<br>Pernyataan (2): Waktu yang dibutuhkan kereta untuk menempuh jarak 300 km adalah 4 jam.<br>Nilai kebenaran pernyataan penerapan rasio satuan di atas adalah ...",
+    "pilihan": [
+      "A. (1) Benar, (2) Salah",
+      "B. (1) Salah, (2) Benar",
+      "C. (1) Benar, (2) Benar",
+      "D. (1) Salah, (2) Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2.5
+  },
+  {
+    "id": 29,
+    "tipe": "PG",
+    "soal": "Dalam sebuah ujian matematika dari total 40 soal, Ali berhasil menjawab dengan benar sebanyak 32 soal.<br>Pernyataan (1): Persentase jawaban benar Ali adalah 80%.<br>Pernyataan (2): Persentase kesalahan jawaban Ali adalah 15%.<br>Nilai kebenaran dua pernyataan persentase di atas adalah ...",
+    "pilihan": [
+      "A. (1) Benar, (2) Salah",
+      "B. (1) Salah, (2) Benar",
+      "C. (1) Benar, (2) Benar",
+      "D. (1) Salah, (2) Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2.5
+  },
+  {
+    "id": 30,
+    "tipe": "PG",
+    "soal": "Umur Kakek dan Ayah berbanding 7 : 4. Umur Ayah diketahui 36 tahun.<br>Pernyataan (1): Umur Kakek adalah 63 tahun.<br>Pernyataan (2): Jumlah umur Kakek dan Ayah adalah 90 tahun.<br>Nilai kebenaran pernyataan perhitungan kuantitas di atas adalah ...",
+    "pilihan": [
+      "A. (1) Benar, (2) Salah",
+      "B. (1) Salah, (2) Benar",
+      "C. (1) Benar, (2) Benar",
+      "D. (1) Salah, (2) Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2.5
+  },
+  {
+    "id": 31,
+    "tipe": "ISIAN",
+    "soal": "Hasil perkalian dua buah pecahan $\\frac{3}{4} \\times \\frac{2}{5}$ dalam bentuk pecahan biasa paling sederhana adalah ...",
+    "kunci": "3/10",
+    "bobot": 3
+  },
+  {
+    "id": 32,
+    "tipe": "ISIAN",
+    "soal": "Bentuk desimal dari pecahan biasa $\\frac{4}{5}$ adalah ...",
+    "kunci": "0,8",
+    "bobot": 3
+  },
+  {
+    "id": 33,
+    "tipe": "ISIAN",
+    "soal": "Pada bilangan desimal 47,235, angka 3 menempati nilai tempat ...",
+    "kunci": "perseratusan",
+    "bobot": 3
+  },
+  {
+    "id": 34,
+    "tipe": "ISIAN",
+    "soal": "Di dalam kelas terdapat 40 siswa. Jika 10 siswa di antaranya berambut keriting, persentase siswa yang berambut keriting terhadap keseluruhan siswa adalah ... %",
+    "kunci": "25",
+    "bobot": 3
+  },
+  {
+    "id": 35,
+    "tipe": "ISIAN",
+    "soal": "Perbandingan kelereng Malik dan Ihsan adalah 3 : 4. Jika jumlah kelereng Ihsan adalah 28 butir, maka jumlah kelereng Malik yang belum diketahui adalah ... butir.",
+    "kunci": "21",
+    "bobot": 3
+  },
+  {
+    "id": 36,
+    "tipe": "URAIAN",
+    "soal": "Ibu memiliki persediaan gula pasir sebanyak 5 kg. Gula tersebut akan dimasukkan ke dalam kantong-kantong plastik kecil. Jika setiap kantong plastik memuat 1/4 kg gula, berapa banyak kantong plastik yang dibutuhkan Ibu? Jelaskan langkah penyelesaiannya!",
+    "kunci": "5 ÷ 1/4 = 5 x 4 = 20 kantong plastik",
+    "bobot": 4
+  },
+  {
+    "id": 37,
+    "tipe": "URAIAN",
+    "soal": "Urutkan pecahan berikut dari nilai yang TERKECIL ke TERBESAR: 1 1/2 ; 1,25 ; 75% ; 4/5. Tuliskan pengubahan ke bentuk desimal terlebih dahulu!",
+    "kunci": "Pengubahan desimal: 1 1/2 = 1,5; 1,25; 75% = 0,75; 4/5 = 0,8. Urutan terkecil ke terbesar: 75% ; 4/5 ; 1,25 ; 1 1/2",
+    "bobot": 4
+  },
+  {
+    "id": 38,
+    "tipe": "URAIAN",
+    "soal": "Pak Ahmad memiliki sebidang tanah. 2/5 bagian ditanami jagung, 1/3 bagian ditanami kedelai, dan sisanya dibuat kolam ikan. Jika luas tanah yang dibuat kolam ikan adalah 160 m², berapakah luas seluruh tanah Pak Ahmad?",
+    "kunci": "Bagian kolam = 1 - (2/5 + 1/3) = 1 - 11/15 = 4/15. Luas seluruh tanah = 160 ÷ (4/15) = 160 x (15/4) = 600 m²",
+    "bobot": 4
+  },
+  {
+    "id": 39,
+    "tipe": "URAIAN",
+    "soal": "Selisih umur kakak dan adik adalah 6 tahun. Perbandingan umur kakak dan adik adalah 5 : 3. Hitunglah masing-masing umur kakak dan adik serta jelaskan strategi penyelesaiannya!",
+    "kunci": "Selisih perbandingan = 5 - 3 = 2. Nilai 1 bagian = 6 ÷ 2 = 3 tahun. Umur kakak = 5 x 3 = 15 tahun. Umur adik = 3 x 3 = 9 tahun.",
+    "bobot": 4
+  },
+  {
+    "id": 40,
+    "tipe": "URAIAN",
+    "soal": "Dalam sebuah perlombaan di madrasah, perbandingan skor kelompok A dan B adalah 3 : 4. Sedangkan perbandingan skor kelompok B dan C adalah 2 : 3. Jika jumlah skor kelompok C adalah 72, tentukan besar skor kelompok A!",
+    "kunci": "Rasio A:B = 3:4 dan B:C = 4:6, sehingga A:B:C = 3:4:6. Skor C = 72 (6 bagian), maka 1 bagian = 12. Skor kelompok A = 3 x 12 = 36.",
+    "bobot": 4
+  }
+]
