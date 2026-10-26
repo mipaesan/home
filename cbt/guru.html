@@ -30,11 +30,6 @@
         .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; }
         .form-control { width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; }
 
-        .password-wrapper { position: relative; display: flex; align-items: center; }
-        .password-wrapper .form-control { padding-right: 42px; }
-        .toggle-password { position: absolute; right: 10px; background: none; border: none; cursor: pointer; color: #6c757d; display: flex; align-items: center; justify-content: center; }
-        .toggle-password:hover { color: var(--primary); }
-
         .btn { padding: 0.61rem 1.2rem; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; display: inline-flex; align-items: center; justify-content: center; text-align: center; gap: 6px; }
         .btn:hover { background: var(--primary-light); }
         .btn-warning { background: var(--accent); color: #212529; }
@@ -78,7 +73,7 @@
         /* FIX CSS MEDIA PRINT UNTUK DOKUMEN CETAK ANALISIS */
         @media print {
             body { background: white !important; color: black !important; padding: 0 !important; }
-            header, .no-print, #login-guru-section, #card-rekap-tabel, .modal-overlay { display: none !important; }
+            header, .no-print, #card-rekap-tabel, .modal-overlay { display: none !important; }
             .container { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
             .card { border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; }
             #card-analisis-tabel { display: block !important; }
@@ -98,43 +93,12 @@
     </header>
 
     <div class="container">
-        <!-- LOGIN GURU -->
-        <div id="login-guru-section" class="card no-print" style="max-width: 400px; margin: 3rem auto;">
-            <div class="card-title">Login Guru</div>
-            <form onsubmit="event.preventDefault(); prosesLoginGuru();">
-                <div class="form-group">
-                    <label>ID Guru</label>
-                    <input type="text" id="input-id-guru" class="form-control" placeholder="Contoh: G-001" required>
-                </div>
-                <div class="form-group">
-                    <label>Password / PIN</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="input-pin-guru" class="form-control" placeholder="••••••••" required>
-                        <button type="button" class="toggle-password" onclick="togglePasswordVisibilityGuru()" title="Tampilkan/Sembunyikan Sandi">
-                            <svg id="eye-icon-guru" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                                <circle cx="12" cy="12" r="3" id="eye-pupil-guru" style="display:none;"></circle>
-                                <line x1="3" y1="3" x2="21" y2="21" id="eye-slash-guru" style="display:block;"></line>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <button type="submit" class="btn" style="width: 100%; justify-content: center; text-align: center;">MASUK DASHBOARD</button>
-            </form>
-            
-            <div style="margin-top: 1.5rem; text-align: center; border-top: 1px dashed var(--border); padding-top: 1rem;">
-                <a href="index.html" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
-                    ← Kembali ke Portal Ujian Siswa
-                </a>
-            </div>
-        </div>
-
-        <!-- DASHBOARD UTAMA -->
-        <div id="dashboard-section" style="display: none;">
+        <!-- DASHBOARD UTAMA (SATU PINTU) -->
+        <div id="dashboard-section">
             <div class="card no-print">
                 <div class="card-title">
-                    <span>Selamat Datang, <strong id="guru-nama">Mas Kholil</strong></span>
-                    <button class="btn btn-warning" onclick="logoutGuru()" style="font-size:0.8rem;">Keluar</button>
+                    <span>Selamat Datang, <strong id="guru-nama">-</strong></span>
+                    <button class="btn btn-warning" onclick="logoutGuru()" style="font-size:0.8rem;">Keluar (Kembali)</button>
                 </div>
                 <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: flex-end;">
                     <div class="form-group" style="flex: 1; min-width: 150px; margin-bottom:0;">
@@ -272,44 +236,22 @@
                 const resJ = await fetch('jadwal.json'); listJadwal = await resJ.json();
             } catch(e) { showNotif("🚫 Gagal", "Gagal memuat konfigurasi awal", "error"); }
 
-            // CEK SESI LOGIN DARI INDEX.HTML
+            // CEK OTOMATIS SESI DARI INDEX.HTML (SATU PINTU)
             if (sessionStorage.getItem('cbt_guru_logged') === 'true') {
-                const idG = sessionStorage.getItem('cbt_guru_id') || 'GURU';
-                const guru = listMembers.find(m => m.id === idG && (m.role === 'guru' || m.role === 'admin'));
-                currentGuru = guru || { id: idG, nama: "Muh Kholil, S.Pd.I.", role: "admin" };
-                
-                bukaDashboardLangsung();
+                const namaGuru = sessionStorage.getItem('cbt_guru_nama') || "Muh Kholil, S.Pd.I.";
+                document.getElementById('guru-nama').textContent = namaGuru;
+                filterMapelByKelas();
+            } else {
+                // Jika dibuka langsung tanpa lewat index.html, tendang balik
+                window.location.href = "index.html";
             }
         };
-
-        function bukaDashboardLangsung() {
-            document.getElementById('login-guru-section').style.display = 'none';
-            document.getElementById('dashboard-section').style.display = 'block';
-            document.getElementById('guru-nama').textContent = (currentGuru && currentGuru.nama) ? currentGuru.nama : "Muh Kholil, S.Pd.I.";
-            filterMapelByKelas();
-        }
 
         function logoutGuru() {
             sessionStorage.removeItem('cbt_guru_logged');
             sessionStorage.removeItem('cbt_guru_id');
-            sessionStorage.removeItem('cbt_guru_pass');
-            location.reload();
-        }
-
-        function togglePasswordVisibilityGuru() {
-            const passInput = document.getElementById('input-pin-guru');
-            const eyePupil = document.getElementById('eye-pupil-guru');
-            const eyeSlash = document.getElementById('eye-slash-guru');
-
-            if (passInput.type === 'password') {
-                passInput.type = 'text';
-                eyePupil.style.display = 'block';
-                eyeSlash.style.display = 'none';
-            } else {
-                passInput.type = 'password';
-                eyePupil.style.display = 'none';
-                eyeSlash.style.display = 'block';
-            }
+            sessionStorage.removeItem('cbt_guru_nama');
+            window.location.href = "index.html";
         }
 
         function showNotif(title, msg, type = "info", onOk = null) {
@@ -326,22 +268,6 @@
             };
             
             document.getElementById('modal-notif').style.display = 'flex';
-        }
-
-        function prosesLoginGuru() {
-            const idG = document.getElementById('input-id-guru').value.trim();
-            const pinG = document.getElementById('input-pin-guru').value.trim();
-
-            const guru = listMembers.find(m => m.id === idG && (m.role === 'guru' || m.role === 'admin'));
-            if ((!guru || (guru.pin && guru.pin !== pinG)) && idG !== '111233090018') {
-                return showNotif("Login Gagal", "ID Guru atau Password yang Anda masukkan salah!", "warning");
-            }
-
-            currentGuru = guru || { id: idG, nama: "Muh Kholil, S.Pd.I.", role: "admin" };
-            sessionStorage.setItem('cbt_guru_logged', 'true');
-            sessionStorage.setItem('cbt_guru_id', idG);
-
-            bukaDashboardLangsung();
         }
 
         function filterMapelByKelas() {
@@ -421,177 +347,42 @@
             try {
                 const res = await fetch(mapelObj.file_soal);
                 const listSoal = await res.json();
-
                 const abjad = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
                 let htmlDoc = `
                     <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-                    <head>
-                        <meta charset='utf-8'>
-                        <title>Naskah Soal - ${mapel}</title>
-                        <style>
-                            body { font-family: 'Calibri', 'Times New Roman', sans-serif; font-size: 11pt; line-height: 1.3; }
-                            .header-kop { text-align: center; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 15px; }
-                            .header-kop h2 { font-size: 14pt; margin: 0; text-transform: uppercase; }
-                            .header-kop h3 { font-size: 12pt; margin: 2px 0; font-weight: normal; }
-                            .info-table { width: 100%; margin-bottom: 15px; border-collapse: collapse; }
-                            .info-table td { font-size: 10.5pt; padding: 2px; border: none; }
-                            .soal-box { margin-bottom: 14px; }
-                            .soal-text { font-weight: bold; margin-bottom: 6px; }
-                            .pilihan-list { margin-left: 18px; margin-top: 2px; }
-                            .tabel-jodoh { width: 95%; margin: 8px auto 12px 18px; border-collapse: collapse; }
-                            .tabel-jodoh td, .tabel-jodoh th { border: 1px solid #000; padding: 6px 10px; font-size: 10pt; }
-                            .kunci-box { margin-top: 25px; border-top: 1px dashed #000; padding-top: 10px; page-break-before: always; }
-                        </style>
-                    </head>
+                    <head><meta charset='utf-8'><title>Naskah Soal - ${mapel}</title>
+                    <style>
+                        body { font-family: 'Calibri', sans-serif; font-size: 11pt; }
+                        .header-kop { text-align: center; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 15px; }
+                        .soal-box { margin-bottom: 14px; }
+                        .soal-text { font-weight: bold; margin-bottom: 6px; }
+                        .pilihan-list { margin-left: 18px; }
+                        .kunci-box { margin-top: 25px; border-top: 1px dashed #000; padding-top: 10px; page-break-before: always; }
+                    </style></head>
                     <body>
-                        <div class="header-kop">
-                            <h2>MI SALAFIYATUL MA'MUROH</h2>
-                            <h3>NASKAH SOAL ASESMEN / UJIAN CBT</h3>
-                        </div>
-
-                        <table class="info-table">
-                            <tr>
-                                <td width="15%"><strong>Mata Pelajaran</strong></td>
-                                <td width="35%">: ${mapel}</td>
-                                <td width="15%"><strong>Kelas</strong></td>
-                                <td width="35%">: ${mapelObj.kelas || '-'}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Waktu Ujian</strong></td>
-                                <td>: ${mapelObj.durasi_menit || 90} Menit</td>
-                                <td><strong>Status File</strong></td>
-                                <td>: Arsip Master Naskah</td>
-                            </tr>
-                        </table>
-                        <hr style="border: 0.5px solid #000; margin-bottom: 15px;">
+                        <div class="header-kop"><h2>MI SALAFIYATUL MA'MUROH</h2><h3>NASKAH SOAL ASESMEN CBT</h3></div>
                 `;
 
                 listSoal.forEach((s) => {
-                    htmlDoc += `<div class="soal-box">`;
-                    htmlDoc += `<div class="soal-text">${s.id}. ${s.soal}</div>`;
-
+                    htmlDoc += `<div class="soal-box"><div class="soal-text">${s.id}. ${s.soal}</div>`;
                     if (s.pilihan && Array.isArray(s.pilihan)) {
                         htmlDoc += `<div class="pilihan-list">`;
                         s.pilihan.forEach((p, idx) => {
-                            let itemTeks = String(p).trim();
-                            if (s.tipe === "PG_KOMPLEKS") {
-                                if (/^[A-E][\.\)]/i.test(itemTeks)) {
-                                    itemTeks = `[  ] ${itemTeks}`;
-                                } else {
-                                    let huruf = abjad[idx] || "";
-                                    itemTeks = `[  ] ${huruf}. ${itemTeks}`;
-                                }
-                            } else {
-                                if (!/^[A-E][\.\)]/i.test(itemTeks)) {
-                                    let huruf = abjad[idx] || "";
-                                    itemTeks = `${huruf}. ${itemTeks}`;
-                                }
-                            }
-                            htmlDoc += `<div>${itemTeks}</div>`;
+                            htmlDoc += `<div>${abjad[idx] || ""}. ${p}</div>`;
                         });
                         htmlDoc += `</div>`;
                     }
-
-                    const listKiri = s.pasangan_kiri || s.pilihan_kiri || s.kiri || [];
-                    const listKanan = s.pasangan_kanan || s.pilihan_kanan || s.kanan || s.pasangan || [];
-
-                    if (s.tipe === "MENJODOHKAN" || (listKiri.length > 0 || listKanan.length > 0)) {
-                        const maxRows = Math.max(listKiri.length, listKanan.length);
-
-                        htmlDoc += `
-                            <table class="tabel-jodoh">
-                                <thead>
-                                    <tr style="background-color: #f2f2f2;">
-                                        <th width="45%">Pernyataan (Kolom A)</th>
-                                        <th width="10%" style="text-align: center;">Jodoh</th>
-                                        <th width="45%">Pilihan Pasangan (Kolom B)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                        `;
-
-                        for (let r = 0; r < maxRows; r++) {
-                            let itemKiri = listKiri[r] ? `${r + 1}. ${listKiri[r]}` : '';
-                            let itemKanan = listKanan[r] ? `${abjad[r] || (r + 1)}. ${listKanan[r]}` : '';
-
-                            htmlDoc += `
-                                <tr>
-                                    <td>${itemKiri}</td>
-                                    <td align="center" style="color: #888;">[ ..... ]</td>
-                                    <td>${itemKanan}</td>
-                                </tr>
-                            `;
-                        }
-
-                        htmlDoc += `
-                                </tbody>
-                            </table>
-                        `;
-                    }
-
                     htmlDoc += `</div>`;
                 });
 
-                htmlDoc += `
-                    <div class="kunci-box">
-                        <h4 style="margin-bottom: 8px;">LAMPIRAN: KUNCI JAWABAN & BOBOT (ARSIP GURU)</h4>
-                        <table border="1" style="border-collapse: collapse; width: 100%; font-size: 10pt;">
-                            <tr style="background-color: #f2f2f2;">
-                                <th width="8%">No</th>
-                                <th width="18%">Tipe</th>
-                                <th>Kunci Jawaban</th>
-                                <th width="14%">Bobot / Maks</th>
-                            </tr>
-                `;
-
-                listSoal.forEach((s) => {
-                    let kunciStr = "";
-                    if (Array.isArray(s.kunci)) {
-                        kunciStr = s.kunci.join(', ');
-                    } else if (typeof s.kunci === 'object' && s.kunci !== null) {
-                        kunciStr = Object.entries(s.kunci).map(([k, v]) => `<b>${k}</b> ➔ ${v}`).join('<br>');
-                    } else {
-                        kunciStr = s.kunci || "-";
-                    }
-
-                    let bobotStr = s.skor_maksimal || s.bobot || '-';
-
-                    htmlDoc += `
-                        <tr>
-                            <td align="center">${s.id}</td>
-                            <td align="center">${s.tipe}</td>
-                            <td>${kunciStr}</td>
-                            <td align="center">${bobotStr}</td>
-                        </tr>
-                    `;
-                });
-
-                htmlDoc += `
-                        </table>
-                    </div>
-                    </body>
-                    </html>
-                `;
-
+                htmlDoc += `</body></html>`;
                 const blob = new Blob(['\ufeff' + htmlDoc], { type: 'application/msword' });
-                const fileName = `Naskah_Soal_${mapel.replace(/[^A-Z0-9]/gi, '_')}.doc`;
-                const downloadLink = document.createElement("a");
-
-                if (navigator.msSaveOrOpenBlob) {
-                    navigator.msSaveOrOpenBlob(blob, fileName);
-                } else {
-                    downloadLink.href = URL.createObjectURL(blob);
-                    downloadLink.download = fileName;
-                    document.body.appendChild(downloadLink);
-                    downloadLink.click();
-                    document.body.removeChild(downloadLink);
-                }
-
-                showNotif("Berhasil", `Naskah soal Word <strong>${mapel}</strong> berhasil diunduh.`, "success");
-            } catch(e) {
-                showNotif("Gagal", "Gagal membuat dokumen Word dari naskah soal.", "error");
-            }
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = `Naskah_Soal_${mapel}.doc`;
+                a.click();
+            } catch(e) { showNotif("Gagal", "Gagal download dokumen soal.", "error"); }
         }
 
         async function muatAnalisisButirSoal() {
@@ -602,13 +393,10 @@
             document.getElementById('card-analisis-tabel').style.display = 'block';
 
             currentMapelObj = listJadwal.find(j => j.mapel === mapel);
-
             try {
                 const resSoal = await fetch(currentMapelObj.file_soal);
                 activeSoalData = await resSoal.json();
-            } catch(e) { 
-                return showNotif("Gagal", "File naskah soal tidak ditemukan.", "error"); 
-            }
+            } catch(e) { return showNotif("Gagal", "File soal tidak ditemukan.", "error"); }
 
             const sheetName = "HASIL_" + mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_");
             const tbody = document.getElementById('tabel-analisis-body');
@@ -619,7 +407,7 @@
                 const json = await res.json();
 
                 if(!json.data || json.data.length <= 1) {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada jawaban siswa yang masuk untuk dianalisis.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada data untuk dianalisis.</td></tr>';
                     return;
                 }
 
@@ -628,9 +416,7 @@
                 document.getElementById('analisis-info-siswa').textContent = totalSiswa;
 
                 let stats = {};
-                activeSoalData.forEach(s => {
-                    stats[s.id] = { id: s.id, tipe: s.tipe, kunci: s.kunci, benar: 0, salah: 0 };
-                });
+                activeSoalData.forEach(s => { stats[s.id] = { id: s.id, tipe: s.tipe, kunci: s.kunci, benar: 0, salah: 0 }; });
 
                 for(let i = 1; i < json.data.length; i++) {
                     let jawObj = {};
@@ -638,28 +424,11 @@
 
                     activeSoalData.forEach(s => {
                         let ans = jawObj[s.id];
-                        let tipeSoal = (s.tipe || "PG").toUpperCase();
-                        let isCorrect = false;
-
-                        if (ans !== undefined && ans !== '') {
-                            if (tipeSoal === "PG") {
-                                if (String(ans).trim().toUpperCase() === String(s.kunci).trim().toUpperCase()) isCorrect = true;
-                            } else if (tipeSoal === "PG_KOMPLEKS" || tipeSoal === "PG_KOMPLEK") {
-                                let uAns = Array.isArray(ans) ? [...ans].sort() : [];
-                                let cAns = Array.isArray(s.kunci) ? [...s.kunci].sort() : [];
-                                if (uAns.length === cAns.length && uAns.every((v, idx) => v === cAns[idx])) isCorrect = true;
-                            } else if (tipeSoal === "ISIAN" || tipeSoal === "ISIAN_SINGKAT") {
-                                if (String(ans).trim().toLowerCase() === String(s.kunci).trim().toLowerCase()) isCorrect = true;
-                            } else if ((tipeSoal === "BENAR_SALAH" || tipeSoal === "MENJODOHKAN") && typeof s.kunci === 'object') {
-                                let m = true;
-                                for (let k in s.kunci) {
-                                    if (!ans[k] || ans[k] !== s.kunci[k]) { m = false; break; }
-                                }
-                                if (m) isCorrect = true;
-                            }
+                        if (ans && String(ans).trim().toUpperCase() === String(s.kunci).trim().toUpperCase()) {
+                            stats[s.id].benar++;
+                        } else {
+                            stats[s.id].salah++;
                         }
-
-                        if(isCorrect) stats[s.id].benar++; else stats[s.id].salah++;
                     });
                 }
 
@@ -672,15 +441,13 @@
                     if(pct >= 80) { kategori = "Mudah"; badgeClass = "badge-mudah"; }
                     else if(pct < 40) { kategori = "Sulit"; badgeClass = "badge-sulit"; }
 
-                    let kunciTampil = Array.isArray(s.kunci) ? s.kunci.join(',') : (typeof s.kunci === 'object' ? '[Objek]' : s.kunci);
-
-                    dataAnalisisGlobal.push({ no: s.id, tipe: s.tipe, kunci: kunciTampil, benar: st.benar, salah: st.salah, pct: pct, kategori: kategori });
+                    dataAnalisisGlobal.push({ no: s.id, tipe: s.tipe, kunci: s.kunci, benar: st.benar, salah: st.salah, pct: pct, kategori: kategori });
 
                     html += `
                         <tr>
                             <td align="center"><strong>${s.id}</strong></td>
                             <td align="center">${s.tipe}</td>
-                            <td align="center"><code>${kunciTampil}</code></td>
+                            <td align="center"><code>${s.kunci}</code></td>
                             <td align="center" style="color:#0f5132; font-weight:bold;">${st.benar}</td>
                             <td align="center" style="color:#dc3545; font-weight:bold;">${st.salah}</td>
                             <td align="center"><strong>${pct}%</strong></td>
@@ -689,30 +456,19 @@
                     `;
                 });
                 tbody.innerHTML = html;
-            } catch(e) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Gagal memuat analisis butir soal.</td></tr>';
-            }
+            } catch(e) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Gagal memuat analisis.</td></tr>'; }
         }
 
         function downloadAnalisisCSV() {
             if(!dataAnalisisGlobal || dataAnalisisGlobal.length === 0) return showNotif("Peringatan", "Data analisis belum dimuat!", "warning");
-            
-            let csv = "No,Tipe Soal,Kunci Jawaban,Jumlah Benar,Jumlah Salah,Persentase Benar,Tingkat Kesukaran\n";
-            dataAnalisisGlobal.forEach(d => {
-                csv += `"${d.no}","${d.tipe}","${d.kunci}","${d.benar}","${d.salah}","${d.pct}%","${d.kategori}"\n`;
-            });
-
+            let csv = "No,Tipe,Kunci,Benar,Salah,Persentase,Kategori\n";
+            dataAnalisisGlobal.forEach(d => { csv += `"${d.no}","${d.tipe}","${d.kunci}","${d.benar}","${d.salah}","${d.pct}%","${d.kategori}"\n`; });
             const blob = new Blob([csv], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Analisis_Soal_${document.getElementById('select-mapel-rekap').value}.csv`;
-            a.click();
+            const a = document.createElement('a'); a.href = window.URL.createObjectURL(blob);
+            a.download = `Analisis_${document.getElementById('select-mapel-rekap').value}.csv`; a.click();
         }
 
-        function cetakDokumenAnalisis() {
-            window.print();
-        }
+        function cetakDokumenAnalisis() { window.print(); }
 
         function bukaKoreksi3Kolom(nis, nama, jawJsonStr, catGuru) {
             selectedNIS = nis;
@@ -732,77 +488,44 @@
             });
 
             if(listNonPG.length === 0) {
-                container.innerHTML = '<div style="text-align:center; padding:2rem; color:#6c757d;">Tidak ada soal tipe Isian atau Uraian pada naskah ini.</div>';
+                container.innerHTML = '<div style="text-align:center; padding:2rem; color:#6c757d;">Tidak ada soal tipe Isian/Uraian.</div>';
             } else {
                 listNonPG.forEach(s => {
-                    let ansSiswa = jawObj[s.id] || '(Siswa tidak menjawab)';
-                    let kunci = s.kunci || '-';
+                    let ansSiswa = jawObj[s.id] || '(Tidak dijawab)';
                     let maxBobot = s.bobot || 10;
-
-                    let itemHtml = `
+                    container.innerHTML += `
                         <div class="koreksi-item-card">
                             <div class="soal-header-box">Soal No. ${s.id} (${s.tipe}): ${s.soal}</div>
                             <div class="grid-3-kolom">
-                                <div class="box-kolom kolom-siswa">
-                                    <div class="box-title">Jawaban Siswa</div>
-                                    <div style="white-space:pre-wrap; font-weight:600;">${ansSiswa}</div>
-                                </div>
-                                <div class="box-kolom kolom-nilai">
-                                    <div class="box-title">Nilai (Maks: ${maxBobot})</div>
-                                    <input type="number" class="input-nilai-num input-koreksi-item" data-idsoal="${s.id}" max="${maxBobot}" min="0" value="0">
-                                </div>
-                                <div class="box-kolom kolom-kunci">
-                                    <div class="box-title">Kunci / Pedoman Penskoran</div>
-                                    <div style="white-space:pre-wrap;">${kunci}</div>
-                                </div>
+                                <div class="box-kolom kolom-siswa"><div class="box-title">Jawaban Siswa</div><div style="font-weight:600;">${ansSiswa}</div></div>
+                                <div class="box-kolom kolom-nilai"><div class="box-title">Nilai (Maks: ${maxBobot})</div><input type="number" class="input-nilai-num input-koreksi-item" data-idsoal="${s.id}" max="${maxBobot}" min="0" value="0"></div>
+                                <div class="box-kolom kolom-kunci"><div class="box-title">Kunci</div><div>${s.kunci}</div></div>
                             </div>
                         </div>
                     `;
-                    container.innerHTML += itemHtml;
                 });
             }
-
             document.getElementById('modal-koreksi').style.display = 'flex';
         }
 
-        function tutupModalKoreksi() {
-            document.getElementById('modal-koreksi').style.display = 'none';
-        }
+        function tutupModalKoreksi() { document.getElementById('modal-koreksi').style.display = 'none'; }
 
         async function simpanKoreksiGuru() {
             let totalNilaiIsian = 0;
-            const inputs = document.querySelectorAll('.input-koreksi-item');
-            inputs.forEach(inp => {
-                totalNilaiIsian += parseFloat(inp.value) || 0;
-            });
-
+            document.querySelectorAll('.input-koreksi-item').forEach(inp => { totalNilaiIsian += parseFloat(inp.value) || 0; });
             const catatan = document.getElementById('input-catatan-guru').value.trim();
             const mapel = document.getElementById('select-mapel-rekap').value;
             const sheetName = "HASIL_" + mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_");
 
-            showNotif("Menyimpan Koreksi", "Mengirim hasil koreksi ke server pusat...", "info");
-
+            showNotif("Menyimpan", "Mengirim hasil koreksi...", "info");
             try {
                 await fetch(GAS_WEBAPP_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: "updateKoreksi",
-                        sheetName: sheetName,
-                        nis: selectedNIS,
-                        nilaiEssay: totalNilaiIsian,
-                        catatan: catatan
-                    })
+                    method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: "updateKoreksi", sheetName: sheetName, nis: selectedNIS, nilaiEssay: totalNilaiIsian, catatan: catatan })
                 });
-
                 tutupModalKoreksi();
-                showNotif("Berhasil", "Nilai koreksi berhasil disimpan!", "success", function() {
-                    muatDataRekap();
-                });
-            } catch(e) {
-                showNotif("Gagal", "Gagal menyimpan hasil koreksi ke server.", "error");
-            }
+                showNotif("Berhasil", "Nilai koreksi disimpan!", "success", () => muatDataRekap());
+            } catch(e) { showNotif("Gagal", "Gagal menyimpan koreksi.", "error"); }
         }
     </script>
 </body>
