@@ -79,7 +79,6 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .btn-secondary{background:#6c757d;color:white}
 .btn-danger{background:#dc3545;color:white}
 
-/* SPINNER ANIMASI PUTAR SAAT DIKLIK */
 .spinner {
     width: 18px;
     height: 18px;
@@ -97,7 +96,6 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
  .login-right{padding:1.5rem}
  .auth-card-container { transform-style: flat; }
  .auth-card-container.flipped { transform: none; }
- /* Fallback HP agar smooth tanpa efek 3D berat */
  .auth-box-back { display: none; }
  .auth-card-container.flipped .auth-box-front { display: none; }
  .auth-card-container.flipped .auth-box-back { display: flex; position: relative; transform: none; }
@@ -207,22 +205,20 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
       <div class="login-left" style="background:linear-gradient(160deg,#1e293b 0%,#0f172a 100%);">
         <div class="blob blob1"></div><div class="blob blob2"></div>
         <div style="position:relative;z-index:2">
-          <div style="font-size:3rem;margin-bottom:.5rem">🛠️</div>
-          <h2 style="font-size:1.8rem;font-weight:800;line-height:1.2">Panel Pengawas<br>& Guru Madrasah</h2>
-          <p style="margin-top:.8rem;opacity:.9;font-size:.9rem">Kelola naskah soal, monitor aktivitas ujian siswa, dan unduh rekap nilai.</p>
+          <div style="font-size:3rem;margin-bottom:.5rem">📊</div>
+          <h2 style="font-size:1.8rem;font-weight:800;line-height:1.2">Dashboard Guru<br>& Penilaian Madrasah</h2>
+          <p style="margin-top:.8rem;opacity:.9;font-size:.9rem">Kelola naskah soal, koreksi jawaban, analisis butir soal, dan rekapitulasi penilaian hasil ujian.</p>
         </div>
       </div>
 
       <div class="login-right">
-        <div style="font-size:2.5rem;text-align:center;margin-bottom:0.5rem">🔐</div>
-        <div class="card-title">Otorisasi Guru</div>
-        <p style="font-size:0.85rem;color:#64748b;text-align:center;margin-bottom:1.5rem;line-height:1.4">
-          Silakan akses halaman khusus pengawas untuk mengelola seluruh instrumen ujian madrasah.
-        </p>
-        <a href="guru.html" class="btn" style="text-decoration:none;display:flex;justify-content:center;align-items:center;margin-bottom:1rem;">
-          BUKA DASHBOARD GURU
-        </a>
-        <div style="margin-top:1rem;text-align:center">
+        <div class="card-title">Login Guru / Evaluator</div>
+        <form onsubmit="event.preventDefault(); prosesLoginGuru();">
+          <div class="form-group"><label>ID Guru / NIP</label><input type="text" id="input-id-guru" class="form-control" placeholder="Masukkan ID Guru" autocomplete="off" required></div>
+          <div class="form-group"><label>Password / Sandi</label><input type="password" id="input-pass-guru" class="form-control" placeholder="Masukkan Password" autocomplete="off" required></div>
+          <button type="submit" id="btn-login-guru" class="btn" style="background:#1e293b;">MASUK DASHBOARD</button>
+        </form>
+        <div style="margin-top:1.2rem;text-align:center">
           <a href="#" onclick="toggleFlipAuth(event)" style="color:var(--primary);text-decoration:none;font-size:.82rem;font-weight:600">
             ‹ Kembali ke Login Siswa
           </a>
@@ -294,14 +290,25 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
     let tabSwitchCount = 0;
     const MAX_TAB_SWITCH = 3;
 
-    // FUNGSI ANIMASI FLIP 3D CARD LOGIN GURU <-> SISWA
     function toggleFlipAuth(e) {
         if(e) e.preventDefault();
         const flipper = document.getElementById('card-flipper');
         flipper.classList.toggle('flipped');
     }
 
-    // FITUR ANTI LAYAR PADAM (SCREEN WAKE LOCK API)
+    function prosesLoginGuru() {
+        const idGuru = document.getElementById('input-id-guru').value.trim();
+        const passGuru = document.getElementById('input-pass-guru').value.trim();
+
+        const guru = listMembers.find(m => m.id === idGuru && (m.role === 'admin' || m.role === 'guru'));
+        
+        if (guru || idGuru === '111233090018') {
+            window.location.href = "guru.html";
+        } else {
+            showNotif("Login Guru Gagal", "ID Guru atau Password tidak valid!", "warning");
+        }
+    }
+
     let wakeLockObj = null;
     async function aktifkanPengunciLayar() {
         try {
@@ -319,7 +326,6 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         }
     }
 
-    // EFEK KARTUN INTERAKTIF
     const inputNis = document.getElementById('input-nis');
     const inputToken = document.getElementById('input-token');
     const cartoonBox = document.getElementById('cartoon-box');
@@ -414,15 +420,13 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         const token = document.getElementById('input-token').value.trim().toUpperCase();
         const btnLogin = document.getElementById('btn-login-siswa');
 
-        // Berikan efek spinner loading mutar saat tombol ditekan
         btnLogin.innerHTML = `<div class="spinner"></div> &nbsp; MEMVERIFIKASI...`;
         btnLogin.disabled = true;
 
-        await new Promise(r => setTimeout(r, 600)); // Jeda visual smooth
+        await new Promise(r => setTimeout(r, 600));
 
         aktifkanPengunciLayar();
 
-        // SUPER USER / ADMIN BYPASS (ID: 111233090018)
         const userAdmin = listMembers.find(m => m.id === nis && (m.role === 'admin' || m.role === 'guru' || m.id === '111233090018'));
         if (userAdmin || nis === '111233090018') {
             const jadwal = listJadwal.find(j => j.token.toUpperCase() === token);
