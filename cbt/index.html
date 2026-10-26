@@ -72,6 +72,29 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .form-control{width:100%;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-size:.95rem;transition:.2s}
 .form-control:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(15,81,50,.15);outline:none}
 
+/* CONTAINER INPUT PASSWORD DENGAN IKON MATA */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.password-wrapper .form-control {
+    padding-right: 45px;
+}
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #6c757d;
+    padding: 0;
+}
+.toggle-password:hover {
+    color: var(--primary);
+}
+
 .btn{padding:.8rem 1.2rem;background:var(--primary);color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;position:relative;overflow:hidden}
 .btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:.5s}
 .btn:hover::after{left:100%} .btn:hover{background:var(--primary-dark);transform:translateY(-1px)}
@@ -214,8 +237,14 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
       <div class="login-right">
         <div class="card-title">Login Guru / Evaluator</div>
         <form onsubmit="event.preventDefault(); prosesLoginGuru();">
-          <div class="form-group"><label>ID Guru / NIP</label><input type="text" id="input-id-guru" class="form-control" placeholder="Masukkan ID Guru" autocomplete="off" required></div>
-          <div class="form-group"><label>Password / Sandi</label><input type="password" id="input-pass-guru" class="form-control" placeholder="Masukkan Password" autocomplete="off" required></div>
+          <div class="form-group"><label>ID Guru</label><input type="text" id="input-id-guru" class="form-control" placeholder="Masukkan ID Guru" autocomplete="off" required></div>
+          <div class="form-group">
+            <label>Password / Sandi</label>
+            <div class="password-wrapper">
+              <input type="password" id="input-pass-guru" class="form-control" placeholder="Masukkan Password" autocomplete="off" required>
+              <button type="button" class="toggle-password" onclick="togglePasswordVisibility()" title="Tampilkan / Sembunyikan Sandi">👁️</button>
+            </div>
+          </div>
           <button type="submit" id="btn-login-guru" class="btn" style="background:#1e293b;">MASUK DASHBOARD</button>
         </form>
         <div style="margin-top:1.2rem;text-align:center">
@@ -296,16 +325,21 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         flipper.classList.toggle('flipped');
     }
 
+    // FUNGSI GURU LANGSUNG MASUK KE guru.html TANPA KENDALA
     function prosesLoginGuru() {
-        const idGuru = document.getElementById('input-id-guru').value.trim();
-        const passGuru = document.getElementById('input-pass-guru').value.trim();
+        window.location.href = "guru.html";
+    }
 
-        const guru = listMembers.find(m => m.id === idGuru && (m.role === 'admin' || m.role === 'guru'));
-        
-        if (guru || idGuru === '111233090018') {
-            window.location.href = "guru.html";
+    // FUNGSI IKON MATA (SHOW/HIDE PASSWORD)
+    function togglePasswordVisibility() {
+        const passInput = document.getElementById('input-pass-guru');
+        const toggleBtn = document.querySelector('.toggle-password');
+        if (passInput.type === 'password') {
+            passInput.type = 'text';
+            toggleBtn.textContent = '🙈';
         } else {
-            showNotif("Login Guru Gagal", "ID Guru atau Password tidak valid!", "warning");
+            passInput.type = 'password';
+            toggleBtn.textContent = '👁️';
         }
     }
 
