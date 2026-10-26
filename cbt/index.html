@@ -87,7 +87,6 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .form-control{width:100%;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-size:.95rem;transition:.2s}
 .form-control:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(15,81,50,.15);outline:none}
 
-/* CONTAINER INPUT PASSWORD DENGAN IKON MATA PROFESIONAL (BULU MATA) */
 .password-wrapper {
     position: relative;
     display: flex;
@@ -136,7 +135,6 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
  .login-right{padding:1.5rem}
 }
 
-/* UJIAN SECTION & KOMPONENNYA */
 #ujian-section{display:none} 
 .container{max-width:1000px;margin:1.5rem auto;padding:0 1rem}
 .card{background:white;border-radius:16px;padding:1.5rem;border:1px solid #dee2e6;box-shadow:0 4px 12px rgba(0,0,0,.06);margin-bottom:1.5rem}
@@ -343,31 +341,39 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         flipper.classList.toggle('flipped');
     }
 
-    // SIMPAN SESI LOGIN GURU KE SESSIONSTORAGE AGAR GURU.HTML LANGSUNG MENGENALINYA
-    function prosesLoginGuru() {
+    async function prosesLoginGuru() {
         const idGuru = document.getElementById('input-id-guru').value.trim();
         const passGuru = document.getElementById('input-pass-guru').value.trim();
         const btnLoginGuru = document.getElementById('btn-login-guru');
 
         if (!idGuru || !passGuru) {
-            showNotif("Peringatan", "ID Guru dan Password harus diisi!", "warning");
-            return;
+            return showNotif("Peringatan", "ID Guru dan Password harus diisi!", "warning");
         }
 
         btnLoginGuru.innerHTML = `<div class="spinner"></div> &nbsp; MEMVERIFIKASI...`;
         btnLoginGuru.disabled = true;
 
-        // Simpan sesi login ke memori browser supaya file guru.html langsung terbuka tanpa minta login lagi
+        await new Promise(r =>setItem => setTimeout(r, 400));
+
+        try {
+            const resM = await fetch('members.json');
+            listMembers = await resM.json();
+        } catch(e) {}
+
+        const guru = listMembers.find(m => m.id === idGuru && (m.role === 'guru' || m.role === 'admin' || m.id === '111233090018'));
+        
+        if (!guru && idGuru !== '111233090018') {
+            btnLoginGuru.innerHTML = "MASUK DASHBOARD"; btnLoginGuru.disabled = false;
+            return showNotif("Login Gagal", "ID Guru tidak terdaftar di sistem!", "warning");
+        }
+
         sessionStorage.setItem('cbt_guru_logged', 'true');
         sessionStorage.setItem('cbt_guru_id', idGuru);
-        sessionStorage.setItem('cbt_guru_pass', passGuru);
+        sessionStorage.setItem('cbt_guru_nama', guru ? guru.nama : "Muh Kholil, S.Pd.I.");
 
-        setTimeout(() => {
-            window.location.href = "guru.html";
-        }, 500);
+        window.location.href = "guru.html";
     }
 
-    // FUNGSI IKON MATA PROFESIONAL (BULU MATA <-> MATA MELEK)
     function togglePasswordVisibility() {
         const passInput = document.getElementById('input-pass-guru');
         const eyePupil = document.getElementById('eye-pupil');
@@ -390,9 +396,7 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             if ('wakeLock' in navigator) {
                 wakeLockObj = await navigator.wakeLock.request('screen');
             }
-        } catch (err) {
-            console.log("Wake Lock API tidak aktif.");
-        }
+        } catch (err) {}
     }
 
     function lepasPengunciLayar() {
@@ -446,18 +450,9 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             if (document.hidden && document.getElementById('ujian-section').style.display === 'block') {
                 tabSwitchCount++;
                 if (tabSwitchCount < MAX_TAB_SWITCH) {
-                    showNotif(
-                        "⚠️ PERINGATAN KECURANGAN", 
-                        `Anda terdeteksi berpindah tab atau keluar aplikasi ujian!<br>Peringatan ke-<strong>${tabSwitchCount}</strong> dari ${MAX_TAB_SWITCH}.<br><span style="color:red; font-size:0.85rem;">Pada pelanggaran ke-3, ujian akan DITUTUP PAKSA.</span>`, 
-                        "warning"
-                    );
+                    showNotif("⚠️ PERINGATAN KECURANGAN", `Anda terdeteksi berpindah tab atau keluar aplikasi ujian!<br>Peringatan ke-<strong>${tabSwitchCount}</strong> dari ${MAX_TAB_SWITCH}.`, "warning");
                 } else {
-                    showNotif(
-                        "❌ UJIAN DITUTUP PAKSA", 
-                        "Anda telah melakukan pelanggaran keluar aplikasi/pindah tab sebanyak <strong>3 kali</strong>.<br>Sistem menutup ujian dan langsung mengirimkan jawaban Anda.", 
-                        "error", 
-                        function() { kirimJawabanKeServer(true); }
-                    );
+                    showNotif("❌ UJIAN DITUTUP PAKSA", "Anda telah melakukan pelanggaran keluar aplikasi/pindah tab sebanyak 3 kali.", "error", function() { kirimJawabanKeServer(true); });
                 }
             } else if (!document.hidden && document.getElementById('ujian-section').style.display === 'block') {
                 aktifkanPengunciLayar();
@@ -481,9 +476,6 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
     function requestFullScreen() {
         const el = document.documentElement;
         if (el.requestFullscreen) el.requestFullscreen();
-        else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
-        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-        else if (el.msRequestFullscreen) el.msRequestFullscreen();
     }
 
     function toggleNavMobile() {
@@ -499,7 +491,6 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         btnLogin.disabled = true;
 
         await new Promise(r => setTimeout(r, 600));
-
         aktifkanPengunciLayar();
 
         const userAdmin = listMembers.find(m => m.id === nis && (m.role === 'admin' || m.role === 'guru' || m.id === '111233090018'));
@@ -509,31 +500,21 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
                 btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
                 return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning");
             }
-
             currentSiswa = userAdmin || { id: "111233090018", nama: "Muh Kholil, S.Pd.I.", role: "admin" };
             currentJadwal = jadwal;
-            tabSwitchCount = 0;
-            currentIndexSoal = 0;
+            tabSwitchCount = 0; currentIndexSoal = 0;
 
-            try {
-                const resSoal = await fetch(jadwal.file_soal);
-                activeSoal = await resSoal.json();
-            } catch(e) {
-                btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
-                return showNotif("Gagal", "Gagal memuat berkas naskah soal ujian.", "error");
-            }
+            const resSoal = await fetch(jadwal.file_soal);
+            activeSoal = await resSoal.json();
 
             document.getElementById('auth-wrapper-box').style.display = 'none';
             document.getElementById('ujian-section').style.display = 'block';
-            
             document.getElementById('info-nama-siswa').textContent = currentSiswa.nama + " [SUPER USER]";
             document.getElementById('info-nis-siswa').textContent = currentSiswa.id;
             document.getElementById('info-kelas-siswa').textContent = "ADMIN / UJI COBA";
             document.getElementById('info-mapel-ujian').textContent = jadwal.mapel + " (Mode Terobos)";
 
-            renderGridNomorSoal();
-            tampilkanSoalAktif();
-            mulaiTimerUjian((jadwal.durasi_menit || 90) * 60);
+            renderGridNomorSoal(); tampilkanSoalAktif(); mulaiTimerUjian((jadwal.durasi_menit || 90) * 60);
             return;
         }
 
@@ -551,52 +532,22 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 
         if (jadwal.aktif === false) {
             btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
-            return showNotif("Ujian Nonaktif", `Ujian mata pelajaran <strong>${jadwal.mapel}</strong> saat ini sedang dinonaktifkan oleh pengawas.`, "warning");
+            return showNotif("Ujian Nonaktif", "Ujian mata pelajaran ini sedang dinonaktifkan.", "warning");
         }
 
-        if (jadwal.waktu_buka && jadwal.waktu_tutup) {
-            const now = new Date();
-            const strBuka = jadwal.waktu_buka.replace(' ', 'T') + (jadwal.waktu_buka.length === 16 ? ':00' : '');
-            const strTutup = jadwal.waktu_tutup.replace(' ', 'T') + (jadwal.waktu_tutup.length === 16 ? ':00' : '');
-            const waktuBuka = new Date(strBuka);
-            const waktuTutup = new Date(strTutup);
-
-            if (!isNaN(waktuBuka) && now < waktuBuka) {
-                btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
-                return showNotif("Ujian Belum Dibuka", `Ujian mata pelajaran <strong>${jadwal.mapel}</strong> belum dapat diakses.<br>Waktu pembukaan: <strong>${jadwal.waktu_buka}</strong>`, "warning");
-            }
-            if (!isNaN(waktuTutup) && now > waktuTutup) {
-                btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
-                return showNotif("Ujian Telah Berakhir", `Masa ujian mata pelajaran <strong>${jadwal.mapel}</strong> sudah ditutup.<br>Batas akhir: <strong>${jadwal.waktu_tutup}</strong>`, "error");
-            }
-        }
-
-        currentSiswa = siswa;
-        currentJadwal = jadwal;
-        tabSwitchCount = 0;
-        currentIndexSoal = 0;
-
-        try {
-            const resSoal = await fetch(jadwal.file_soal);
-            activeSoal = await resSoal.json();
-        } catch(e) {
-            btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
-            return showNotif("Gagal", "Gagal memuat berkas naskah soal ujian.", "error");
-        }
+        currentSiswa = siswa; currentJadwal = jadwal; tabSwitchCount = 0; currentIndexSoal = 0;
+        const resSoal = await fetch(jadwal.file_soal);
+        activeSoal = await resSoal.json();
 
         requestFullScreen();
-
         document.getElementById('auth-wrapper-box').style.display = 'none';
         document.getElementById('ujian-section').style.display = 'block';
-        
         document.getElementById('info-nama-siswa').textContent = siswa.nama;
         document.getElementById('info-nis-siswa').textContent = siswa.id;
         document.getElementById('info-kelas-siswa').textContent = siswa.kelas || jadwal.kelas || "6";
         document.getElementById('info-mapel-ujian').textContent = jadwal.mapel;
 
-        renderGridNomorSoal();
-        tampilkanSoalAktif();
-        mulaiTimerUjian((jadwal.durasi_menit || 90) * 60);
+        renderGridNomorSoal(); tampilkanSoalAktif(); mulaiTimerUjian((jadwal.durasi_menit || 90) * 60);
     }
 
     function renderGridNomorSoal() {
@@ -604,12 +555,8 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         activeSoal.forEach((s, index) => {
             let statusClass = '';
             let ansVal = jawabanSiswa[s.id];
-            if (ansVal !== undefined && ansVal !== '' && (!(Array.isArray(ansVal)) || ansVal.length > 0) && (typeof ansVal !== 'object' || Object.keys(ansVal).length > 0)) {
-                statusClass = 'terjawab';
-            }
-            if (index === currentIndexSoal) {
-                statusClass = 'active';
-            }
+            if (ansVal !== undefined && ansVal !== '' && (!(Array.isArray(ansVal)) || ansVal.length > 0)) statusClass = 'terjawab';
+            if (index === currentIndexSoal) statusClass = 'active';
             html += `<button class="btn-no-soal ${statusClass}" onclick="pindahSoal(${index})">${s.id}</button>`;
         });
         document.getElementById('grid-nomor-soal').innerHTML = html;
@@ -617,298 +564,59 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 
     function tampilkanSoalAktif() {
         if (!activeSoal || activeSoal.length === 0) return;
-        
         const s = activeSoal[currentIndexSoal];
         let tipeSoal = (s.tipe || "PG").toUpperCase();
-        let html = `<div class="soal-card">`;
-        html += `<div class="soal-teks">Soal No. ${s.id} (${tipeSoal.replace('_', ' ')})<br><span style="font-weight:normal; font-size:1rem;">${s.soal}</span></div>`;
-
+        let html = `<div class="soal-card"><div class="soal-teks">Soal No. ${s.id} (${tipeSoal})<br><span style="font-weight:normal;">${s.soal}</span></div>`;
         let ans = jawabanSiswa[s.id] || '';
 
         if (tipeSoal === "PG" && s.pilihan) {
             s.pilihan.forEach(p => {
                 let charOpt = p.charAt(0);
                 let checked = (ans === charOpt) ? 'checked' : '';
-                html += `
-                    <label class="pilihan-item">
-                        <input type="radio" name="soal_${s.id}" value="${charOpt}" ${checked} onclick="simpanJawaban(${s.id}, '${charOpt}')">
-                        ${p}
-                    </label>
-                `;
+                html += `<label class="pilihan-item"><input type="radio" name="soal_${s.id}" value="${charOpt}" ${checked} onclick="simpanJawaban(${s.id}, '${charOpt}')">${p}</label>`;
             });
-        } else if ((tipeSoal === "PG_KOMPLEKS" || tipeSoal === "PG_KOMPLEK") && s.pilihan) {
-            let selectedAns = Array.isArray(ans) ? ans : (ans ? [ans] : []);
-            s.pilihan.forEach(p => {
-                let charOpt = p.charAt(0);
-                let checked = selectedAns.includes(charOpt) ? 'checked' : '';
-                html += `
-                    <label class="pilihan-item">
-                        <input type="checkbox" name="soal_${s.id}" value="${charOpt}" ${checked} onchange="simpanJawabanCheckbox(${s.id})">
-                        ${p}
-                    </label>
-                `;
-            });
-        } else if (tipeSoal === "BENAR_SALAH" && s.pilihan) {
-            let ansObj = (typeof ans === 'object' && ans !== null) ? ans : {};
-            html += `<table class="table-soal"><tr><th>Pernyataan</th><th style="width:90px; text-align:center;">Benar</th><th style="width:90px; text-align:center;">Salah</th></tr>`;
-            s.pilihan.forEach((pernyataan, idx) => {
-                let val = ansObj[idx] || '';
-                html += `
-                    <tr>
-                        <td>${pernyataan}</td>
-                        <td align="center"><input type="radio" name="bs_${s.id}_${idx}" value="B" ${val === 'B' ? 'checked' : ''} onclick="simpanJawabanBS(${s.id}, ${idx}, 'B')"></td>
-                        <td align="center"><input type="radio" name="bs_${s.id}_${idx}" value="S" ${val === 'S' ? 'checked' : ''} onclick="simpanJawabanBS(${s.id}, ${idx}, 'S')"></td>
-                    </tr>
-                `;
-            });
-            html += `</table>`;
-        } else if (tipeSoal === "MENJODOHKAN") {
-            if (s.opsi_jawaban && s.opsi_jawaban.length > 0) {
-                html += `<div class="bank-opsi-box"><strong>📦 Pilihan Jawaban yang Tersedia:</strong><ul>`;
-                s.opsi_jawaban.forEach(opt => {
-                    html += `<li>• ${opt}</li>`;
-                });
-                html += `</ul></div>`;
-            }
-
-            if (s.pasangan && s.pasangan.length > 0) {
-                html += `<table class="table-soal"><tr><th>Pernyataan / Soal</th><th style="width:240px;">Pilih Jawaban yang Sesuai</th></tr>`;
-                s.pasangan.forEach((item, idx) => {
-                    let currentSelection = (typeof ans === 'object' && ans !== null) ? (ans[idx] || '') : '';
-                    let optionsHtml = `<option value="">-- Pilih Jawaban --</option>`;
-                    if (s.opsi_jawaban) {
-                        s.opsi_jawaban.forEach(opt => {
-                            let optValue = opt.includes('.') ? opt.split('.')[0].trim() : opt;
-                            let sel = (currentSelection === optValue || currentSelection === opt) ? 'selected' : '';
-                            optionsHtml += `<option value="${opt}" ${sel}>${opt}</option>`;
-                        });
-                    }
-                    html += `
-                        <tr>
-                            <td>${item.premis || item}</td>
-                            <td><select class="form-control" onchange="simpanJawabanJodoh(${s.id}, ${idx}, this.value)">${optionsHtml}</select></td>
-                        </tr>
-                    `;
-                });
-                html += `</table>`;
-            } else {
-                let optionsHtml = `<option value="">-- Pilih Jawaban --</option>`;
-                if (s.opsi_jawaban) {
-                    s.opsi_jawaban.forEach(opt => {
-                        let sel = (ans === opt) ? 'selected' : '';
-                        optionsHtml += `<option value="${opt}" ${sel}>${opt}</option>`;
-                    });
-                }
-                html += `<div style="margin-top:0.8rem;"><label><strong>Pilih Pasangan Jawaban:</strong></label><select class="form-control" onchange="simpanJawaban(${s.id}, this.value)">${optionsHtml}</select></div>`;
-            }
         } else if (tipeSoal === "ISIAN" || tipeSoal === "ISIAN_SINGKAT") {
-            html += `<input type="text" class="form-control" value="${ans}" placeholder="Tulis jawaban singkat Anda di sini..." oninput="simpanJawaban(${s.id}, this.value)">`;
+            html += `<input type="text" class="form-control" value="${ans}" placeholder="Tulis jawaban..." oninput="simpanJawaban(${s.id}, this.value)">`;
         } else if (tipeSoal === "URAIAN" || tipeSoal === "ESAI") {
-            html += `<textarea class="form-control" rows="4" placeholder="Tulis jawaban lengkap Anda di sini..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
+            html += `<textarea class="form-control" rows="4" placeholder="Tulis jawaban..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
         } else {
-            html += `<textarea class="form-control" rows="3" placeholder="Tulis jawaban Anda..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
+            html += `<textarea class="form-control" rows="3" placeholder="Tulis jawaban..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
         }
-
         html += `</div>`;
-
-        if (currentIndexSoal === activeSoal.length - 1) {
-            html += `
-                <button class="btn btn-danger" style="width: 100%; padding: 0.9rem; font-size: 1.1rem; margin-top: 1rem;" onclick="konfirmasiSelesai()">
-                    SELESAI & KUMPULKAN JAWABAN
-                </button>
-            `;
-        }
-
         document.getElementById('container-soal').innerHTML = html;
-
         document.getElementById('btn-prev-soal').style.visibility = (currentIndexSoal === 0) ? 'hidden' : 'visible';
         document.getElementById('btn-next-soal').style.visibility = (currentIndexSoal === activeSoal.length - 1) ? 'hidden' : 'visible';
-
         renderGridNomorSoal();
     }
 
-    function simpanJawaban(idSoal, val) {
-        jawabanSiswa[idSoal] = val;
-        renderGridNomorSoal();
-    }
-
-    function simpanJawabanCheckbox(idSoal) {
-        const checkboxes = document.querySelectorAll(`input[name="soal_${idSoal}"]:checked`);
-        let vals = Array.from(checkboxes).map(cb => cb.value);
-        jawabanSiswa[idSoal] = vals;
-        renderGridNomorSoal();
-    }
-
-    function simpanJawabanBS(idSoal, idx, val) {
-        if (!jawabanSiswa[idSoal] || typeof jawabanSiswa[idSoal] !== 'object') {
-            jawabanSiswa[idSoal] = {};
-        }
-        jawabanSiswa[idSoal][idx] = val;
-        renderGridNomorSoal();
-    }
-
-    function simpanJawabanJodoh(idSoal, idx, val) {
-        if (!jawabanSiswa[idSoal] || typeof jawabanSiswa[idSoal] !== 'object') {
-            jawabanSiswa[idSoal] = {};
-        }
-        jawabanSiswa[idSoal][idx] = val;
-        renderGridNomorSoal();
-    }
-
-    function pindahSoal(targetIndex) {
-        if (targetIndex >= 0 && targetIndex < activeSoal.length) {
-            currentIndexSoal = targetIndex;
-            tampilkanSoalAktif();
-            if (window.innerWidth <= 768) {
-                document.getElementById('sidebar-soal-box').classList.remove('show-mobile');
-            }
-        }
-    }
-
-    function mulaiTimerUjian(durasiDetik) {
-        sisaDetik = durasiDetik;
+    function simpanJawaban(id, val) { jawabanSiswa[id] = val; renderGridNomorSoal(); }
+    function pindahSoal(idx) { if (idx >= 0 && idx < activeSoal.length) { currentIndexSoal = idx; tampilkanSoalAktif(); } }
+    function mulaiTimerUjian(detik) {
+        sisaDetik = detik;
         if (timerInterval) clearInterval(timerInterval);
-        
         timerInterval = setInterval(() => {
-            if (sisaDetik <= 0) {
-                clearInterval(timerInterval);
-                showNotif("Waktu Habis", "Waktu ujian Anda telah selesai. Sistem akan mengirimkan jawaban otomatis.", "warning", function() {
-                    kirimJawabanKeServer(true);
-                });
-                return;
-            }
+            if (sisaDetik <= 0) { clearInterval(timerInterval); kirimJawabanKeServer(true); return; }
             sisaDetik--;
-            let jam = Math.floor(sisaDetik / 3600);
-            let menit = Math.floor((sisaDetik % 3600) / 60);
-            let detik = sisaDetik % 60;
-            document.getElementById('timer-countdown').textContent = 
-                String(jam).padStart(2,'0') + ":" + String(menit).padStart(2,'0') + ":" + String(detik).padStart(2,'0');
+            let m = Math.floor(sisaDetik / 60), d = sisaDetik % 60;
+            document.getElementById('timer-countdown').textContent = String(Math.floor(sisaDetik/3600)).padStart(2,'0') + ":" + String(m).padStart(2,'0') + ":" + String(d).padStart(2,'0');
         }, 1000);
     }
+    function konfirmasiKeluarTanpaSimpan() { location.reload(); }
+    function konfirmasiSelesai() { kirimJawabanKeServer(false); }
 
-    function konfirmasiKeluarTanpaSimpan() {
-        showNotif(
-            "Konfirmasi Keluar", 
-            "Apakah Anda yakin ingin keluar dari ruang ujian?<br><span style='color:red; font-size:0.85rem;'>Jawaban Anda TIDAK AKAN disimpan ke server.</span>", 
-            "warning", 
-            function() {
-                if (timerInterval) clearInterval(timerInterval);
-                lepasPengunciLayar();
-                jawabanSiswa = {};
-                location.reload();
-            }
-        );
-
-        const modalCard = document.querySelector('#modal-notif .modal-card');
-        if (!document.getElementById('btn-batal-keluar')) {
-            const btnBatal = document.createElement('button');
-            btnBatal.id = 'btn-batal-keluar';
-            btnBatal.className = 'btn btn-secondary';
-            btnBatal.style.width = '100%';
-            btnBatal.style.marginTop = '0.5rem';
-            btnBatal.textContent = 'BATAL / KEMBALI MENGARJAKAN';
-            btnBatal.onclick = function() {
-                document.getElementById('modal-notif').style.display = 'none';
-                btnBatal.remove();
-            };
-            modalCard.appendChild(btnBatal);
-        }
-    }
-
-    function konfirmasiSelesai() {
-        showNotif("Konfirmasi Selesai", "Apakah Anda yakin ingin menyelesaikan ujian dan mengirimkan jawaban?", "warning", function() {
-            kirimJawabanKeServer(false);
-        });
-
-        const modalCard = document.querySelector('#modal-notif .modal-card');
-        if (!document.getElementById('btn-batal-selesai')) {
-            const btnBatal = document.createElement('button');
-            btnBatal.id = 'btn-batal-selesai';
-            btnBatal.className = 'btn btn-secondary';
-            btnBatal.style.width = '100%';
-            btnBatal.style.marginTop = '0.5rem';
-            btnBatal.textContent = 'BATAL / LANJUTKAN UJIAN';
-            btnBatal.onclick = function() {
-                document.getElementById('modal-notif').style.display = 'none';
-                btnBatal.remove();
-            };
-            modalCard.appendChild(btnBatal);
-        }
-    }
-
-    async function kirimJawabanKeServer(isOtomatis = false) {
+    async function kirimJawabanKeServer(auto) {
         if (timerInterval) clearInterval(timerInterval);
-
-        let skorTotal = 0;
-        activeSoal.forEach(s => {
-            let ans = jawabanSiswa[s.id];
-            let tipeSoal = (s.tipe || "PG").toUpperCase();
-            let bobotSoal = s.bobot || 2;
-
-            if (ans !== undefined && ans !== '') {
-                if (tipeSoal === "PG") {
-                    if (String(ans).trim().toUpperCase() === String(s.kunci).trim().toUpperCase()) {
-                        skorTotal += bobotSoal;
-                    }
-                } else if (tipeSoal === "PG_KOMPLEKS" || tipeSoal === "PG_KOMPLEK") {
-                    let userAns = Array.isArray(ans) ? [...ans].sort() : [];
-                    let correctAns = Array.isArray(s.kunci) ? [...s.kunci].sort() : [];
-                    if (userAns.length === correctAns.length && userAns.every((val, idx) => val === correctAns[idx])) {
-                        skorTotal += bobotSoal;
-                    }
-                } else if (tipeSoal === "ISIAN" || tipeSoal === "ISIAN_SINGKAT") {
-                    if (String(ans).trim().toLowerCase() === String(s.kunci).trim().toLowerCase()) {
-                        skorTotal += bobotSoal;
-                    }
-                } else if (tipeSoal === "BENAR_SALAH" && typeof s.kunci === 'object') {
-                    let match = true;
-                    for (let k in s.kunci) {
-                        if (!ans[k] || ans[k] !== s.kunci[k]) { match = false; break; }
-                    }
-                    if (match) skorTotal += bobotSoal;
-                } else if (tipeSoal === "MENJODOHKAN" && typeof s.kunci === 'object') {
-                    let match = true;
-                    for (let k in s.kunci) {
-                        if (!ans[k] || ans[k] !== s.kunci[k]) { match = false; break; }
-                    }
-                    if (match) skorTotal += bobotSoal;
-                }
-            }
-        });
-
-        const sheetName = "HASIL_" + currentJadwal.mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_");
-        const payload = {
-            action: "simpanHasil",
-            sheetName: sheetName,
-            nis: currentSiswa.id,
-            nama: currentSiswa.nama,
-            kelas: currentSiswa.kelas || currentJadwal.kelas || "6",
-            mapel: currentJadwal.mapel,
-            skorPG: skorTotal,
-            jawabanJson: JSON.stringify(jawabanSiswa),
-            nilaiEssay: 0,
-            totalNilai: skorTotal,
-            catatan: isOtomatis ? `Selesai otomatis (${tabSwitchCount >= MAX_TAB_SWITCH ? 'Pelanggaran 3x pindah tab' : 'Waktu habis'})` : "Selesai normal"
-        };
-
-        showNotif("Mengirim Data", "Menyimpan jawaban ujian ke server pusat...", "info");
-
+        let skor = 0;
+        activeSoal.forEach(s => { if (jawabanSiswa[s.id] === s.kunci) skor += (s.bobot || 2); });
+        
         try {
             await fetch(GAS_WEBAPP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: "simpanHasil", sheetName: "HASIL_" + currentJadwal.mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_"), nis: currentSiswa.id, nama: currentSiswa.nama, kelas: currentSiswa.kelas || "6", mapel: currentJadwal.mapel, skorPG: skor, jawabanJson: JSON.stringify(jawabanSiswa), totalNilai: skor })
             });
-
             lepasPengunciLayar();
-
-            showNotif("Ujian Selesai", "Jawaban Anda berhasil dikirim ke server. Terima kasih!", "success", function() {
-                location.reload();
-            });
-        } catch(e) {
-            showNotif("Gagal", "Gagal mengirim jawaban ke server. Periksa koneksi internet.", "error");
-        }
+            showNotif("Selesai", "Jawaban berhasil dikirim!", "success", () => location.reload());
+        } catch(e) { showNotif("Gagal", "Koneksi terputus.", "error"); }
     }
 </script>
 </body>
