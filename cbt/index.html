@@ -53,7 +53,7 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
     top: 0;
     left: 0;
     transform: rotateY(180deg);
-    display: none; /* Default tersembunyi untuk penanganan mobile yang aman */
+    display: none;
 }
 
 .auth-card-container.flipped .auth-box-back {
@@ -252,7 +252,6 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             <div class="password-wrapper">
               <input type="password" id="input-pass-guru" class="form-control" placeholder="Masukkan Password" autocomplete="off" required>
               <button type="button" class="toggle-password" onclick="togglePasswordVisibility()" title="Tampilkan / Sembunyikan Sandi">
-                <!-- SVG IKON MATA PROFESIONAL (DEFAULT TERPEJAM DENGAN BULU MATA) -->
                 <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" id="eye-outline"></path>
                   <circle cx="12" cy="12" r="3" id="eye-pupil" style="display:none;"></circle>
@@ -335,7 +334,6 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
     let tabSwitchCount = 0;
     const MAX_TAB_SWITCH = 3;
 
-    // FUNGSI GANTI HALAMAN LOGIN (RESPONSIF HP & LAPTOP)
     function toggleFlipAuth(e) {
         if(e) e.preventDefault();
         const flipper = document.getElementById('card-flipper');
@@ -356,12 +354,31 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         }
     }
 
-    // FUNGSI GURU LANGSUNG MASUK KE guru.html
-    function prosesLoginGuru() {
-        window.location.href = "guru.html";
+    // FUNGSI VALIDASI LOGIN GURU & LANGSUNG MASUK KE guru.html
+    async function prosesLoginGuru() {
+        const idGuru = document.getElementById('input-id-guru').value.trim();
+        const passGuru = document.getElementById('input-pass-guru').value.trim();
+        const btnLoginGuru = document.getElementById('btn-login-guru');
+
+        btnLoginGuru.innerHTML = `<div class="spinner"></div> &nbsp; MEMVERIFIKASI...`;
+        btnLoginGuru.disabled = true;
+
+        await new Promise(r => setTimeout(r, 500));
+
+        // Cek apakah ID terdaftar sebagai guru/admin di members.json, atau izinkan ID khusus Anda (111233090018)
+        const guru = listMembers.find(m => m.id === idGuru && (m.role === 'admin' || m.role === 'guru'));
+
+        if (guru || idGuru === '111233090018') {
+            // Jika valid, simpan sesi login lokal lalu langsung arahkan ke guru.html
+            sessionStorage.setItem('cbt_active_guru', JSON.stringify(guru || { id: idGuru, nama: "Mas Kholil", role: "admin" }));
+            window.location.href = "guru.html";
+        } else {
+            btnLoginGuru.innerHTML = "MASUK DASHBOARD";
+            btnLoginGuru.disabled = false;
+            showNotif("Login Gagal", "ID Guru atau Password tidak valid di sistem!", "warning");
+        }
     }
 
-    // FUNGSI IKON MATA PROFESIONAL (BULU MATA <-> MATA MELEK)
     function togglePasswordVisibility() {
         const passInput = document.getElementById('input-pass-guru');
         const eyePupil = document.getElementById('eye-pupil');
@@ -369,12 +386,12 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 
         if (passInput.type === 'password') {
             passInput.type = 'text';
-            eyePupil.style.display = 'block'; // Tampilkan pupil (mata melek)
-            eyeSlash.style.display = 'none';  // Sembunyikan garis tutup
+            eyePupil.style.display = 'block';
+            eyeSlash.style.display = 'none';
         } else {
             passInput.type = 'password';
-            eyePupil.style.display = 'none';  // Sembunyikan pupil
-            eyeSlash.style.display = 'block'; // Tampilkan garis tutup (bulu mata terpejam)
+            eyePupil.style.display = 'none';
+            eyeSlash.style.display = 'block';
         }
     }
 
