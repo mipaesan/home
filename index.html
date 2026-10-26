@@ -6,12 +6,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
 <style>
-:root{ --primary:#0f5132; --primary-light:#198754; --bg:#FFFBF5; --card:#ffffff; --muted:#6b7280; --border:#f0f0f0; }
+:root{ --primary:#0f5132; --primary-light:#198754; --accent:#FFC107; --bg:#FFFBF5; --card:#ffffff; --muted:#6b7280; --border:#f0f0f0; }
 *{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,sans-serif}
 body{background:var(--bg);color:#1a1a1a;scroll-behavior:smooth}
-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 5%;display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:800;color:var(--primary);font-size:1.05rem}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 5%;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--primary);font-size:1.05rem}
+.logo img{width:36px;height:36px;object-fit:contain;border-radius:6px}
 .nav-links a{margin-left:18px;text-decoration:none;color:#1a1a1a;font-weight:600;font-size:.85rem}
+.nav-links a.cbt{ background:var(--primary);color:white;padding:8px 14px;border-radius:8px; border:1px solid var(--primary)}
 header{max-width:1200px;margin:0 auto;padding:32px 5% 20px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
 .hero-text .small-top{font-size:.85rem;color:var(--muted);font-weight:600;margin-bottom:8px}
 .hero-text h1{font-size:2.7rem;font-weight:800;line-height:1.1;color:var(--primary);margin-bottom:12px}
@@ -34,7 +36,7 @@ header{max-width:1200px;margin:0 auto;padding:32px 5% 20px;display:grid;grid-tem
 .bento-card.ujian .icon{background:rgba(255,255,255,.18)}
 .programs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .card-prog{background:white;border-radius:16px;padding:20px 14px;text-align:center;border:1px solid var(--border);transition:all .25s ease;animation:fadeUp .6s ease forwards}
-.card-prog:hover{transform:translateY(-6px);box-shadow:0 12px 24px rgba(0,0,0,.08);border-color:var(--primary-light)}
+.card-prog:hover{transform:translateY(-6px);box-shadow:0 12px 24px rgba(0,0,0,.08);border-color:var(--accent)}
 .card-prog img{width:84px;height:84px;object-fit:contain;margin-bottom:10px;transition:.25s ease}
 .card-prog:hover img{transform:scale(1.08) translateY(-3px)}
 .card-prog h3{font-size:.92rem;font-weight:700;color:var(--primary);margin-bottom:6px;line-height:1.3}
@@ -48,7 +50,7 @@ header{max-width:1200px;margin:0 auto;padding:32px 5% 20px;display:grid;grid-tem
 .galeri-item{position:absolute;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease}
 .galeri-item.active{opacity:1;z-index:1}
 .galeri-item img{width:100%;height:100%;object-fit:cover}
-.visi-misi{background:linear-gradient(135deg,#e0ffe0,#f2fff2);border-radius:18px;padding:32px 24px}
+.visi-misi{background:linear-gradient(135deg,#e0ffe0,#f2fff2);border-radius:18px;padding:32px 24px;border:1px solid #d1fae5}
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;justify-content:center;align-items:center}
 .modal-box{background:white;padding:28px;border-radius:14px;width:90%;max-width:360px;text-align:center}
 .modal-box input{width:100%;padding:10px 12px;margin:8px 0 12px;border:1px solid #ccc;border-radius:8px}
@@ -63,7 +65,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
 </style>
 </head>
 <body>
-<nav><div class="logo">MI Salafiyatul Ma'muroh Paesan</div><div class="nav-links"><a href="#layanan">Layanan</a><a href="#berita">Berita</a><a href="#program">Program</a><a href="cbt/index.html" style="background:var(--primary);color:white;padding:8px 14px;border-radius:8px">Ujian Online</a></div></nav>
+<nav><div class="logo"><img src="logo-mi.png" alt="Logo MI"> MI Salafiyatul Ma'muroh Paesan</div><div class="nav-links"><a href="#layanan">Layanan</a><a href="#berita">Berita</a><a href="#program">Program</a><a class="cbt" href="cbt/index.html">Ujian Online</a></div></nav>
 
 <header>
 <div class="hero-text">
@@ -91,6 +93,14 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
 </div>
 </section>
 
+<section id="berita" class="section">
+<h2 class="section-title">Berita Terbaru</h2>
+<div id="berita-carousel" class="berita-grid"></div>
+<div style="text-align:center;margin-top:22px"><button id="btn-more-berita" onclick="loadMoreBerita()" style="background:white;border:1.5px solid #0f5132;color:#0f5132;padding:10px 22px;border-radius:10px;font-weight:700;cursor:pointer;display:none">Lihat 3 Berita Lainnya ↓</button></div>
+</section>
+
+<section class="section"><div class="visi-misi"><h2 class="section-title" style="text-align:center">Visi & Misi</h2><div style="text-align:center;font-weight:700;font-size:1.1rem;margin:18px 0">"MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI"</div><ul style="max-width:700px;margin:0 auto;line-height:1.8;padding-left:18px"><li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li><li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa.</li><li>Menjalin kerjasama yang baik dengan warga madrasah dan masyarakat.</li><li>Menerapkan manajemen partisipatif dan transparan.</li></ul></div></section>
+
 <section id="program" class="section">
 <h2 class="section-title">Program Unggulan</h2>
 <p class="section-sub">8 kegiatan unggulan untuk membentuk santri Iso Ngaji, Iso Teknologi</p>
@@ -105,14 +115,6 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
 <div class="card-prog"><img src="tilmi-sholat.png" alt="Sholat"><h3>Sholat Dhuha & Dhuhur Berjamaah</h3><p>Pembiasaan sholat sunnah Dhuha dan sholat Dhuhur berjamaah untuk membentuk akhlak dan karakter.</p></div>
 </div>
 </section>
-
-<section id="berita" class="section">
-<h2 class="section-title">Berita Terbaru</h2>
-<div id="berita-carousel" class="berita-grid"></div>
-<div style="text-align:center;margin-top:22px"><button id="btn-more-berita" onclick="loadMoreBerita()" style="background:white;border:1.5px solid #0f5132;color:#0f5132;padding:10px 22px;border-radius:10px;font-weight:700;cursor:pointer;display:none">Lihat 3 Berita Lainnya ↓</button></div>
-</section>
-
-<section class="section"><div class="visi-misi"><h2 class="section-title" style="text-align:center">Visi & Misi</h2><div style="text-align:center;font-weight:700;font-size:1.1rem;margin:18px 0">"MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI"</div><ul style="max-width:700px;margin:0 auto;line-height:1.8;padding-left:18px"><li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li><li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa.</li><li>Menjalin kerjasama yang baik dengan warga madrasah dan masyarakat.</li><li>Menerapkan manajemen partisipatif dan transparan.</li></ul></div></section>
 
 <section class="section"><h2 class="section-title">Galeri Kegiatan</h2><div class="galeri-wrapper"><a href="galeri1.jpg" class="glightbox galeri-item active"><img src="galeri1.jpg"></a><a href="galeri2.jpg" class="glightbox galeri-item"><img src="galeri2.jpg"></a><a href="galeri3.jpg" class="glightbox galeri-item"><img src="galeri3.jpg"></a><a href="galeri4.jpg" class="glightbox galeri-item"><img src="galeri4.jpg"></a><a href="galeri5.jpg" class="glightbox galeri-item"><img src="galeri5.jpg"></a><a href="galeri6.jpg" class="glightbox galeri-item"><img src="galeri6.jpg"></a></div></section>
 
