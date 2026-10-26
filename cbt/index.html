@@ -53,6 +53,15 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
     top: 0;
     left: 0;
     transform: rotateY(180deg);
+    display: none; /* Default tersembunyi untuk penanganan mobile yang aman */
+}
+
+.auth-card-container.flipped .auth-box-back {
+    display: flex;
+}
+
+.auth-card-container.flipped .auth-box-front {
+    display: none;
 }
 
 .login-left{flex:1;background:linear-gradient(160deg,#0f5132 0%,#198754 100%);color:white;padding:2rem;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;text-align:center}
@@ -72,14 +81,14 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .form-control{width:100%;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-size:.95rem;transition:.2s}
 .form-control:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(15,81,50,.15);outline:none}
 
-/* CONTAINER INPUT PASSWORD DENGAN IKON MATA */
+/* CONTAINER INPUT PASSWORD DENGAN IKON MATA PROFESIONAL (BULU MATA) */
 .password-wrapper {
     position: relative;
     display: flex;
     align-items: center;
 }
 .password-wrapper .form-control {
-    padding-right: 45px;
+    padding-right: 48px;
 }
 .toggle-password {
     position: absolute;
@@ -87,9 +96,11 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.1rem;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #6c757d;
-    padding: 0;
 }
 .toggle-password:hover {
     color: var(--primary);
@@ -119,9 +130,7 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
  .login-right{padding:1.5rem}
  .auth-card-container { transform-style: flat; }
  .auth-card-container.flipped { transform: none; }
- .auth-box-back { display: none; }
- .auth-card-container.flipped .auth-box-front { display: none; }
- .auth-card-container.flipped .auth-box-back { display: flex; position: relative; transform: none; }
+ .auth-box-back { position: relative; width: 100%; }
 }
 
 /* UJIAN SECTION & KOMPONENNYA */
@@ -224,7 +233,7 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
     </div>
 
     <!-- SISI BELAKANG: LOGIN / DASHBOARD GURU -->
-    <div class="auth-box auth-box-back">
+    <div class="auth-box auth-box-back" id="login-guru-section">
       <div class="login-left" style="background:linear-gradient(160deg,#1e293b 0%,#0f172a 100%);">
         <div class="blob blob1"></div><div class="blob blob2"></div>
         <div style="position:relative;z-index:2">
@@ -242,7 +251,14 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             <label>Password / Sandi</label>
             <div class="password-wrapper">
               <input type="password" id="input-pass-guru" class="form-control" placeholder="Masukkan Password" autocomplete="off" required>
-              <button type="button" class="toggle-password" onclick="togglePasswordVisibility()" title="Tampilkan / Sembunyikan Sandi">👁️</button>
+              <button type="button" class="toggle-password" onclick="togglePasswordVisibility()" title="Tampilkan / Sembunyikan Sandi">
+                <!-- SVG IKON MATA PROFESIONAL (DEFAULT TERPEJAM DENGAN BULU MATA) -->
+                <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" id="eye-outline"></path>
+                  <circle cx="12" cy="12" r="3" id="eye-pupil" style="display:none;"></circle>
+                  <line x1="3" y1="3" x2="21" y2="21" id="eye-slash" style="display:block;"></line>
+                </svg>
+              </button>
             </div>
           </div>
           <button type="submit" id="btn-login-guru" class="btn" style="background:#1e293b;">MASUK DASHBOARD</button>
@@ -319,27 +335,46 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
     let tabSwitchCount = 0;
     const MAX_TAB_SWITCH = 3;
 
+    // FUNGSI GANTI HALAMAN LOGIN (RESPONSIF HP & LAPTOP)
     function toggleFlipAuth(e) {
         if(e) e.preventDefault();
         const flipper = document.getElementById('card-flipper');
-        flipper.classList.toggle('flipped');
+        
+        if (window.innerWidth <= 768) {
+            const frontBox = document.querySelector('.auth-box-front');
+            const backBox = document.getElementById('login-guru-section');
+            if (frontBox.style.display === 'none') {
+                frontBox.style.display = 'flex';
+                backBox.style.display = 'none';
+            } else {
+                frontBox.style.display = 'none';
+                backBox.style.display = 'flex';
+                backBox.style.flexDirection = 'column';
+            }
+        } else {
+            flipper.classList.toggle('flipped');
+        }
     }
 
-    // FUNGSI GURU LANGSUNG MASUK KE guru.html TANPA KENDALA
+    // FUNGSI GURU LANGSUNG MASUK KE guru.html
     function prosesLoginGuru() {
         window.location.href = "guru.html";
     }
 
-    // FUNGSI IKON MATA (SHOW/HIDE PASSWORD)
+    // FUNGSI IKON MATA PROFESIONAL (BULU MATA <-> MATA MELEK)
     function togglePasswordVisibility() {
         const passInput = document.getElementById('input-pass-guru');
-        const toggleBtn = document.querySelector('.toggle-password');
+        const eyePupil = document.getElementById('eye-pupil');
+        const eyeSlash = document.getElementById('eye-slash');
+
         if (passInput.type === 'password') {
             passInput.type = 'text';
-            toggleBtn.textContent = '🙈';
+            eyePupil.style.display = 'block'; // Tampilkan pupil (mata melek)
+            eyeSlash.style.display = 'none';  // Sembunyikan garis tutup
         } else {
             passInput.type = 'password';
-            toggleBtn.textContent = '👁️';
+            eyePupil.style.display = 'none';  // Sembunyikan pupil
+            eyeSlash.style.display = 'block'; // Tampilkan garis tutup (bulu mata terpejam)
         }
     }
 
