@@ -6,37 +6,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
 <style>
-:root{ --primary:#0f5132; --bg:#FFFBF5; --card:#fff; --muted:#6b7280; --border:#f0f0f0; }
+:root{ --primary:#0f5132; --primary-light:#198754; --bg:#FFFBF5; --card:#ffffff; --muted:#6b7280; --border:#f0f0f0; }
 *{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,sans-serif}
-body{background:var(--bg);color:#1a1a1a}
+body{background:var(--bg);color:#1a1a1a;scroll-behavior:smooth}
 nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 5%;display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:800;color:var(--primary)}
+.logo{font-weight:800;color:var(--primary);font-size:1.05rem}
 .nav-links a{margin-left:18px;text-decoration:none;color:#1a1a1a;font-weight:600;font-size:.85rem}
-header{max-width:1200px;margin:0 auto;padding:30px 5% 20px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
-.hero-text h1{font-size:2.6rem;font-weight:800;line-height:1.1;color:var(--primary)}
-.hero-text p{color:var(--muted);margin:10px 0 22px;line-height:1.6}
+header{max-width:1200px;margin:0 auto;padding:32px 5% 20px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
+.hero-text h1{font-size:2.7rem;font-weight:800;line-height:1.1;color:var(--primary);margin-bottom:10px}
+.hero-text h1 span{color:var(--primary-light)}
+.hero-text p{color:var(--muted);font-size:1rem;margin-bottom:22px;line-height:1.65}
 .hero-img{background:white;border-radius:22px;padding:12px;box-shadow:0 18px 36px rgba(15,81,50,.12);border:1px solid var(--border)}
-.hero-img img{width:100%;border-radius:14px;display:block}
+.hero-img img{width:100%;border-radius:14px;display:block;background:var(--bg)}
 .section{max-width:1200px;margin:0 auto;padding:28px 5%}
 .section-title{font-size:1.7rem;font-weight:800;color:var(--primary);margin-bottom:18px}
 .bento-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.bento-card{background:var(--card);border-radius:16px;padding:18px;border:1px solid var(--border);text-decoration:none;color:inherit}
-.bento-card.ujian{background:linear-gradient(135deg,#0f5132,#198754);color:white}
+.bento-card{background:var(--card);border-radius:16px;padding:18px;border:1px solid var(--border);text-decoration:none;color:inherit;transition:.25s;display:block}
+.bento-card:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.07);border-color:var(--primary-light)}
+.bento-card .icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:10px}
+.bento-card h3{font-size:.98rem;font-weight:700;margin-bottom:3px}
+.bento-card p{font-size:.8rem;color:var(--muted)}
+.bento-card.ujian{background:linear-gradient(135deg,#0f5132,#198754);color:white;border-color:#0f5132}
+.bento-card.ujian p{color:rgba(255,255,255,.85)}
+.bento-card.ujian .icon{background:rgba(255,255,255,.18)}
 .berita-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.berita-box{background:white;border-radius:14px;overflow:hidden;border:1px solid var(--border)}
+.berita-box{background:white;border-radius:14px;overflow:hidden;border:1px solid var(--border);transition:.25s;display:flex;flex-direction:column}
+.berita-box:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.06)}
 .berita-box img{width:100%;height:170px;object-fit:cover}
 .berita-content{padding:14px}
 .programs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.card-prog{background:white;border-radius:14px;padding:18px;text-align:center;border:1px solid var(--border)}
-.galeri-wrapper{position:relative;max-width:680px;height:370px;margin:auto;overflow:hidden;border-radius:18px;background:#fff;display:flex;justify-content:center;align-items:center}
-.galeri-item{position:absolute;width:100%;height:100%;opacity:0;transition:opacity 1.2s}
+.card-prog{background:white;border-radius:14px;padding:18px;text-align:center;border:1px solid var(--border);transition:.2s}
+.card-prog:hover{transform:scale(1.02)}
+.galeri-wrapper{position:relative;max-width:680px;height:370px;margin:auto;overflow:hidden;border-radius:18px;box-shadow:0 10px 26px rgba(0,0,0,.1);background:#fff;display:flex;justify-content:center;align-items:center}
+.galeri-item{position:absolute;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease}
 .galeri-item.active{opacity:1;z-index:1}
 .galeri-item img{width:100%;height:100%;object-fit:cover}
 .visi-misi{background:linear-gradient(135deg,#e0ffe0,#f2fff2);border-radius:18px;padding:32px 24px}
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;justify-content:center;align-items:center}
 .modal-box{background:white;padding:28px;border-radius:14px;width:90%;max-width:360px;text-align:center}
 footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85rem;margin-top:20px}
-@media(max-width:900px){header{grid-template-columns:1fr} .bento-grid,.berita-grid,.programs{grid-template-columns:1fr} .nav-links{display:none} .galeri-wrapper{height:230px}}
+@media(max-width:900px){header{grid-template-columns:1fr} .bento-grid,.berita-grid,.programs{grid-template-columns:1fr} .nav-links{display:none} .galeri-wrapper{height:230px} .hero-text h1{font-size:2rem}}
 </style>
 </head>
 <body>
@@ -44,54 +53,56 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
 
 <header>
 <div class="hero-text">
-<h1>Iso Ngaji,<br><span style="color:#198754">Iso Teknologi</span></h1>
+<h1>Iso Ngaji,<br><span>Iso Teknologi</span></h1>
 <p>MI Salafiyatul Ma'muroh Paesan, Jelok Cepogo. Membentuk generasi berilmu, menguasai teknologi, dan berakhlak Islami.</p>
-<div style="display:flex;gap:10px"><a href="cbt/index.html" style="background:#0f5132;color:white;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700">🚀 Ujian Online CBT</a><a href="#layanan" style="background:white;border:1px solid #ddd;padding:12px 18px;border-radius:10px;text-decoration:none;color:#1a1a1a">Lihat Layanan</a></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<a href="cbt/index.html" style="background:var(--primary);color:white;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700">🚀 Ujian Online CBT</a>
+<a href="#layanan" style="background:white;border:1px solid #ddd;padding:12px 18px;border-radius:10px;text-decoration:none;color:#1a1a1a;font-weight:600">Lihat Layanan</a>
+</div>
 <p style="margin-top:14px;font-size:.8rem;color:var(--muted)">Kurikulum Merdeka • Sekolah Islam Berbasis Teknologi</p>
 </div>
-<div class="hero-img"><img src="tilmi-lengkap.png" alt="TILMI"></div>
+<div class="hero-img"><img src="tilmi-lengkap.png" alt="TILMI - Iso Ngaji Iso Teknologi"></div>
 </header>
 
 <section id="layanan" class="section">
 <h2 class="section-title">Layanan Madrasah</h2>
 <div class="bento-grid">
-<a class="bento-card ujian" href="cbt/index.html"><h3>💻 Ujian Online</h3><p>CBT Asesmen siswa</p></a>
-<a class="bento-card" id="pengumuman-button" href="sambutan.html"><h3>🎓 Pengumuman Kelulusan</h3></a>
-<a class="bento-card" id="pmbm-button" href="formulir.html"><h3>📝 Formulir PMBM 2026/2027</h3></a>
-<a class="bento-card" id="persuratan-button" href="#"><h3>✉️ Layanan Surat Mandiri</h3></a>
-<a class="bento-card" href="perpustakaan.html"><h3>📚 Perpustakaan Digital</h3></a>
-<a class="bento-card" href="lab.html"><h3>🔬 Lab Digital</h3></a>
+<a class="bento-card ujian" href="cbt/index.html"><div class="icon">💻</div><h3>Ujian Online</h3><p>CBT Asesmen siswa</p></a>
+<a class="bento-card" id="pengumuman-button" href="sambutan.html"><div class="icon" style="background:#dcfce7">🎓</div><h3>Pengumuman Kelulusan</h3><p>Info kelulusan siswa</p></a>
+<a class="bento-card" id="pmbm-button" href="formulir.html"><div class="icon" style="background:#fef3c7">📝</div><h3>Formulir PMBM 2026/2027</h3><p>Penerimaan murid baru</p></a>
+<a class="bento-card" id="persuratan-button" href="#"><div class="icon" style="background:#dbeafe">✉️</div><h3>Layanan Surat Mandiri</h3><p>Pembuatan surat keterangan</p></a>
+<a class="bento-card" href="perpustakaan.html"><div class="icon" style="background:#f3e8ff">📚</div><h3>Perpustakaan Digital</h3><p>Akses e-book & literasi</p></a>
+<a class="bento-card" href="lab.html"><div class="icon" style="background:#ccfbf1">🔬</div><h3>Lab Digital</h3><p>Robotik & komputer dasar</p></a>
 </div>
 </section>
 
 <section id="berita" class="section">
 <h2 class="section-title">Berita Terbaru</h2>
 <div id="berita-carousel" class="berita-grid"></div>
-<div style="text-align:center;margin-top:20px"><button id="btn-more-berita" onclick="tampilkanSemuaBerita()" style="background:white;border:1px solid #0f5132;color:#0f5132;padding:10px 22px;border-radius:10px;font-weight:700;cursor:pointer;display:none">Lihat Berita Lainnya ↓</button></div>
+<div style="text-align:center;margin-top:22px">
+<button id="btn-more-berita" onclick="loadMoreBerita()" style="background:white;border:1.5px solid #0f5132;color:#0f5132;padding:10px 22px;border-radius:10px;font-weight:700;cursor:pointer;display:none">Lihat 3 Berita Lainnya ↓</button>
+</div>
 </section>
 
-<section class="section"><div class="visi-misi"><h2 class="section-title" style="text-align:center">Visi & Misi</h2><div style="text-align:center;font-weight:700;margin:18px 0">"MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI"</div><ul style="max-width:700px;margin:auto;line-height:1.8;padding-left:18px"><li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li><li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa.</li><li>Menjalin kerjasama yang baik dengan warga madrasah dan masyarakat.</li><li>Menerapkan manajemen partisipatif dan transparan.</li></ul></div></section>
+<section class="section"><div class="visi-misi"><h2 class="section-title" style="text-align:center">Visi & Misi</h2><div style="text-align:center;font-weight:700;font-size:1.1rem;margin:18px 0">"MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI"</div><ul style="max-width:700px;margin:0 auto;line-height:1.8;padding-left:18px"><li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li><li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa.</li><li>Menjalin kerjasama yang baik dengan warga madrasah dan masyarakat.</li><li>Menerapkan manajemen partisipatif dan transparan.</li></ul></div></section>
 
 <section id="program" class="section">
 <h2 class="section-title">Program Unggulan</h2>
 <div class="programs">
-<div class="card-prog"><img src="rebana.png" style="width:62px"><h3>Rebana</h3></div>
-<div class="card-prog"><img src="drumband.png" style="width:62px"><h3>Drumband</h3></div>
-<div class="card-prog"><img src="robotik.png" style="width:62px"><h3>Robotik</h3></div>
-<div class="card-prog"><img src="komputer.png" style="width:62px"><h3>Komputer Dasar</h3></div>
-<div class="card-prog"><img src="voli.png" style="width:62px"><h3>Bola Voli</h3></div>
-<div class="card-prog"><img src="pramuka.png" style="width:62px"><h3>Pramuka</h3></div>
+<div class="card-prog"><img src="rebana.png" alt="Rebana" style="width:62px;margin-bottom:8px"><h3>Rebana</h3><p style="font-size:.82rem;color:var(--muted)">Musik islami & kerja tim</p></div>
+<div class="card-prog"><img src="drumband.png" alt="Drumband" style="width:62px;margin-bottom:8px"><h3>Drumband</h3><p style="font-size:.82rem;color:var(--muted)">Kedisiplinan & kebersamaan</p></div>
+<div class="card-prog"><img src="robotik.png" alt="Robotik" style="width:62px;margin-bottom:8px"><h3>Robotik</h3><p style="font-size:.82rem;color:var(--muted)">Teknologi & logika coding</p></div>
+<div class="card-prog"><img src="komputer.png" alt="Komputer" style="width:62px;margin-bottom:8px"><h3>Komputer Dasar</h3><p style="font-size:.82rem;color:var(--muted)">Keterampilan digital</p></div>
+<div class="card-prog"><img src="voli.png" alt="Voli" style="width:62px;margin-bottom:8px"><h3>Bola Voli</h3><p style="font-size:.82rem;color:var(--muted)">Sportivitas & soliditas</p></div>
+<div class="card-prog"><img src="pramuka.png" alt="Pramuka" style="width:62px;margin-bottom:8px"><h3>Pramuka</h3><p style="font-size:.82rem;color:var(--muted)">Karakter & cinta tanah air</p></div>
 </div>
 </section>
 
-<section class="section">
-<h2 class="section-title">Galeri Kegiatan</h2>
-<div class="galeri-wrapper"><a href="galeri1.jpg" class="glightbox galeri-item active"><img src="galeri1.jpg"></a><a href="galeri2.jpg" class="glightbox galeri-item"><img src="galeri2.jpg"></a><a href="galeri3.jpg" class="glightbox galeri-item"><img src="galeri3.jpg"></a><a href="galeri4.jpg" class="glightbox galeri-item"><img src="galeri4.jpg"></a><a href="galeri5.jpg" class="glightbox galeri-item"><img src="galeri5.jpg"></a><a href="galeri6.jpg" class="glightbox galeri-item"><img src="galeri6.jpg"></a></div>
-</section>
+<section class="section"><h2 class="section-title">Galeri Kegiatan</h2><div class="galeri-wrapper"><a href="galeri1.jpg" class="glightbox galeri-item active"><img src="galeri1.jpg"></a><a href="galeri2.jpg" class="glightbox galeri-item"><img src="galeri2.jpg"></a><a href="galeri3.jpg" class="glightbox galeri-item"><img src="galeri3.jpg"></a><a href="galeri4.jpg" class="glightbox galeri-item"><img src="galeri4.jpg"></a><a href="galeri5.jpg" class="glightbox galeri-item"><img src="galeri5.jpg"></a><a href="galeri6.jpg" class="glightbox galeri-item"><img src="galeri6.jpg"></a></div></section>
 
-<div class="modal-overlay" id="surat-modal"><div class="modal-box"><h3>Akses Layanan Surat</h3><input type="text" id="surat-user" placeholder="Username"><input type="password" id="surat-pass" placeholder="Password"><button style="width:100%;background:#0f5132;color:white;padding:10px;border:none;border-radius:8px;margin-top:10px" onclick="prosesLoginSurat()">Masuk</button><button style="width:100%;background:#eee;padding:10px;border:none;border-radius:8px;margin-top:8px" onclick="tutupModalSurat()">Batal</button></div></div>
+<div class="modal-overlay" id="surat-modal"><div class="modal-box"><h3 style="color:var(--primary)">Akses Layanan Surat</h3><input type="text" id="surat-user" placeholder="Username"><input type="password" id="surat-pass" placeholder="Password"><button style="width:100%;background:#0f5132;color:white;padding:10px;border:none;border-radius:8px;margin-top:10px" onclick="prosesLoginSurat()">Masuk</button><button style="width:100%;background:#eee;padding:10px;border:none;border-radius:8px;margin-top:8px" onclick="tutupModalSurat()">Batal</button></div></div>
 
-<footer><p>&copy; 2026 MI Salafiyatul Ma'muroh Paesan | Jelok, Cepogo</p></footer>
+<footer><p>&copy; 2026 MI Salafiyatul Ma'muroh Paesan | Jelok, Cepogo</p><p>085725311612 | mipaesan@gmail.com</p></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>
@@ -101,26 +112,42 @@ function showSlide(i){ galeriItems.forEach((el,idx)=>el.classList.toggle('active
 setInterval(()=>{ currentIndex=(currentIndex+1)%galeriItems.length; showSlide(currentIndex); },3000);
 document.getElementById('persuratan-button').addEventListener('click',e=>{e.preventDefault(); document.getElementById('surat-modal').style.display='flex';});
 function tutupModalSurat(){ document.getElementById('surat-modal').style.display='none'; }
-function prosesLoginSurat(){ if(document.getElementById('surat-user').value==="admin"&&document.getElementById('surat-pass').value==="@Paesan1234"){ location.href="pilih-surat.html"; }else alert("Salah!"); }
+function prosesLoginSurat(){ if(document.getElementById('surat-user').value==="admin"&&document.getElementById('surat-pass').value==="@Paesan1234"){ location.href="pilih-surat.html"; }else alert("Username / Password salah!"); }
 const bulanMap={"Januari":"01","Februari":"02","Maret":"03","April":"04","Mei":"05","Juni":"06","Juli":"07","Agustus":"08","September":"09","Oktober":"10","November":"11","Desember":"12"};
 function parseTanggal(s){ try{ const [t,b,th]=s.split(' '); return new Date(`${th}-${bulanMap[b]}-${t.padStart(2,'0')}`); }catch{ return new Date(0); } }
+
+// === LOGIKA BERITA 3 PER 3 ===
 let semuaBeritaData=[];
-function renderBerita(list){
-  const c=document.getElementById('berita-carousel'); c.innerHTML='';
-  list.forEach(item=>{
+let beritaDitampilkan=0;
+const perLoad=3;
+
+function renderBeritaTambahan(){
+  const c=document.getElementById('berita-carousel');
+  const nextSlice=semuaBeritaData.slice(beritaDitampilkan, beritaDitampilkan+perLoad);
+  nextSlice.forEach(item=>{
     const d=document.createElement('div'); d.className='berita-box';
-    d.innerHTML=`<img src="${item.gambar}"><div class="berita-content"><h3 style="color:#0f5132">${item.judul}</h3><small style="color:#888">${item.tanggal}</small><p style="font-size:.82rem;color:#555;margin:6px 0">${item.ringkasan}</p><a href="berita/${item.slug}.html" style="background:#0f5132;color:white;padding:6px 12px;border-radius:8px;text-decoration:none;font-size:.82rem">Selengkapnya</a></div>`;
+    d.innerHTML=`<img src="${item.gambar}" alt="${item.judul}"><div class="berita-content"><h3 style="font-size:.95rem;color:#0f5132;margin-bottom:4px">${item.judul}</h3><div style="font-size:.78rem;color:#888;margin-bottom:6px">${item.tanggal}</div><div style="font-size:.82rem;color:#555;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${item.ringkasan}</div><a href="berita/${item.slug}.html" style="background:#0f5132;color:white;padding:6px 12px;border-radius:8px;text-decoration:none;font-size:.82rem;display:inline-block">Selengkapnya</a></div>`;
     c.appendChild(d);
   });
+  beritaDitampilkan+=nextSlice.length;
+  // sembunyikan tombol kalau sudah habis
+  if(beritaDitampilkan>=semuaBeritaData.length){
+    document.getElementById('btn-more-berita').style.display='none';
+  }
 }
-function tampilkanSemuaBerita(){ renderBerita(semuaBeritaData); document.getElementById('btn-more-berita').style.display='none'; }
+function loadMoreBerita(){ renderBeritaTambahan(); }
+
 document.addEventListener('DOMContentLoaded',()=>{
   fetch('berita.json').then(r=>r.json()).then(data=>{
     data.sort((a,b)=>parseTanggal(b.tanggal)-parseTanggal(a.tanggal));
     semuaBeritaData=data;
-    renderBerita(data.slice(0,3));
-    if(data.length>3) document.getElementById('btn-more-berita').style.display='inline-block';
-  });
+    document.getElementById('berita-carousel').innerHTML='';
+    beritaDitampilkan=0;
+    renderBeritaTambahan(); // tampilkan 3 pertama
+    if(semuaBeritaData.length>3){
+      document.getElementById('btn-more-berita').style.display='inline-block';
+    }
+  }).catch(()=>{ document.getElementById('berita-carousel').innerHTML='<p style="color:#888">Berita belum tersedia</p>'; });
   showSlide(0);
 });
 </script>
