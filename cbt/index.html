@@ -17,58 +17,22 @@ input,textarea,select{user-select:text !important}
 header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:1rem;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,0.1)}
 header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 
-/* CONTAINER UTAMA EFEK FLIP 3D YANG MULUS TANPA KEDIP */
-.auth-wrapper {
-    perspective: 1000px;
-    max-width: 900px;
-    margin: 2rem auto;
-}
+/* CONTAINER UTAMA EFEK FLIP 3D */
+.auth-wrapper { perspective: 1000px; max-width: 900px; margin: 2rem auto; }
+.auth-card-container { width: 100%; position: relative; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
+.auth-card-container.flipped { transform: rotateY(180deg); }
 
-.auth-card-container {
-    width: 100%;
-    position: relative;
-    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-    transform-style: preserve-3d;
-}
-
-.auth-card-container.flipped {
-    transform: rotateY(180deg);
-}
-
-/* KARTUN & PANEL LOGIN SISWA & GURU (SHARED BOX) */
 .auth-box {
-    background: white;
-    border-radius: 24px;
-    overflow: hidden;
+    background: white; border-radius: 24px; overflow: hidden;
     box-shadow: 0 20px 40px rgba(15,81,50,.15);
-    display: flex;
-    min-height: 480px;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    width: 100%;
-    position: relative;
+    display: flex; min-height: 480px;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    width: 100%; position: relative;
 }
-
-.auth-box-front {
-    z-index: 2;
-    transform: rotateY(0deg);
-}
-
-.auth-box-back {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: rotateY(180deg);
-    z-index: 1;
-}
-
-.auth-card-container.flipped .auth-box-front {
-    z-index: 1;
-}
-
-.auth-card-container.flipped .auth-box-back {
-    z-index: 2;
-}
+.auth-box-front { z-index: 2; transform: rotateY(0deg); }
+.auth-box-back { position: absolute; top: 0; left: 0; transform: rotateY(180deg); z-index: 1; }
+.auth-card-container.flipped .auth-box-front { z-index: 1; }
+.auth-card-container.flipped .auth-box-back { z-index: 2; }
 
 .login-left{flex:1;background:linear-gradient(160deg,#0f5132 0%,#198754 100%);color:white;padding:2rem;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;text-align:center}
 .blob{position:absolute;border-radius:50%;background:rgba(255,255,255,.12);animation:float 6s ease-in-out infinite}
@@ -87,29 +51,10 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .form-control{width:100%;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-size:.95rem;transition:.2s}
 .form-control:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(15,81,50,.15);outline:none}
 
-.password-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-.password-wrapper .form-control {
-    padding-right: 48px;
-}
-.toggle-password {
-    position: absolute;
-    right: 12px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #6c757d;
-}
-.toggle-password:hover {
-    color: var(--primary);
-}
+.password-wrapper { position: relative; display: flex; align-items: center; }
+.password-wrapper .form-control { padding-right: 48px; }
+.toggle-password { position: absolute; right: 12px; background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; color: #6c757d; }
+.toggle-password:hover { color: var(--primary); }
 
 .btn{padding:.8rem 1.2rem;background:var(--primary);color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;position:relative;overflow:hidden}
 .btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:.5s}
@@ -119,13 +64,9 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .btn-danger{background:#dc3545;color:white}
 
 .spinner {
-    width: 18px;
-    height: 18px;
-    border: 3px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
-    border-top-color: white;
-    animation: spin 0.8s linear infinite;
-    display: inline-block;
+    width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%; border-top-color: white;
+    animation: spin 0.8s linear infinite; display: inline-block;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -157,13 +98,9 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .pilihan-item:hover{background:#e9ecef}
 .pilihan-item input{margin-right:8px}
 
-.table-soal{width:100%;border-collapse:collapse;margin-top:.5rem;background:white;border-radius:6px;overflow:hidden}
-.table-soal th, .table-soal td{border:1px solid #dee2e6;padding:.6rem;font-size:.9rem;text-align:left}
-.table-soal th{background:#e9f5ed;color:var(--primary)}
-
-.bank-opsi-box{background:#fff3cd;border:1px solid #ffeeba;border-radius:8px;padding:.8rem 1rem;margin-bottom:1rem;font-size:.9rem;color:#856404}
-.bank-opsi-box ul{margin-left:1.2rem;margin-top:.3rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;list-style-type:none}
-.bank-opsi-box li{background:white;padding:.3rem .6rem;border-radius:4px;border:1px solid #ffeeba;font-weight:600;color:#212529}
+.tabel-jodoh{width:100%;border-collapse:collapse;margin-top:.8rem;background:white}
+.tabel-jodoh th, .tabel-jodoh td{border:1px solid #dee2e6;padding:.6rem;font-size:.9rem}
+.tabel-jodoh th{background:#e9f5ed;color:var(--primary)}
 
 .nav-buttons-soal{display:flex;justify-content:space-between;gap:1rem;margin-top:1rem}
 .btn-toggle-drawer{display:none}
@@ -188,7 +125,7 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 </header>
 
 <div class="container">
-<!-- WRAPPER LOGIN DENGAN EFEK FLIP 3D -->
+<!-- WRAPPER LOGIN EFEK FLIP 3D -->
 <div class="auth-wrapper" id="auth-wrapper-box">
   <div class="auth-card-container" id="card-flipper">
     
@@ -292,9 +229,14 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         <div class="timer-box">
             ⏱️ Sisa Waktu: <span id="timer-countdown">00:00:00</span>
         </div>
-        <button class="btn btn-danger" onclick="konfirmasiKeluarTanpaSimpan()" style="padding: 0.65rem 1rem; font-size: 0.9rem; width: auto;">
-            🚪 Keluar Ujian
-        </button>
+        <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-success" onclick="konfirmasiSelesai()" style="padding: 0.65rem 1rem; font-size: 0.9rem; width: auto;">
+                ✅ Selesai Ujian
+            </button>
+            <button class="btn btn-danger" onclick="konfirmasiKeluarTanpaSimpan()" style="padding: 0.65rem 1rem; font-size: 0.9rem; width: auto;">
+                🚪 Keluar
+            </button>
+        </div>
     </div>
 
     <div class="ujian-layout">
@@ -353,7 +295,7 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         btnLoginGuru.innerHTML = `<div class="spinner"></div> &nbsp; MEMVERIFIKASI...`;
         btnLoginGuru.disabled = true;
 
-        await new Promise(r =>setItem => setTimeout(r, 400));
+        await new Promise(r => setTimeout(r, 400));
 
         try {
             const resM = await fetch('members.json');
@@ -567,7 +509,7 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         const s = activeSoal[currentIndexSoal];
         let tipeSoal = (s.tipe || "PG").toUpperCase();
         let html = `<div class="soal-card"><div class="soal-teks">Soal No. ${s.id} (${tipeSoal})<br><span style="font-weight:normal;">${s.soal}</span></div>`;
-        let ans = jawabanSiswa[s.id] || '';
+        let ans = jawabanSiswa[s.id] || (tipeSoal === "PG_KOMPLEKS" ? [] : (tipeSoal === "MENJODOHKAN" ? {} : ''));
 
         if (tipeSoal === "PG" && s.pilihan) {
             s.pilihan.forEach(p => {
@@ -575,10 +517,37 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
                 let checked = (ans === charOpt) ? 'checked' : '';
                 html += `<label class="pilihan-item"><input type="radio" name="soal_${s.id}" value="${charOpt}" ${checked} onclick="simpanJawaban(${s.id}, '${charOpt}')">${p}</label>`;
             });
+        } else if (tipeSoal === "PG_KOMPLEKS" || tipeSoal === "PG_KOMPLEK") {
+            if (s.pilihan) {
+                s.pilihan.forEach((p, idx) => {
+                    let charOpt = ["A","B","C","D","E"][idx] || p.charAt(0);
+                    let checked = (Array.isArray(ans) && ans.includes(charOpt)) ? 'checked' : '';
+                    html += `<label class="pilihan-item"><input type="checkbox" value="${charOpt}" ${checked} onchange="simpanJawabanPgKompleks(${s.id}, this)">${p}</label>`;
+                });
+            }
+        } else if (tipeSoal === "MENJODOHKAN") {
+            const listKiri = s.pasangan_kiri || s.pilihan_kiri || s.kiri || [];
+            const listKanan = s.pasangan_kanan || s.pilihan_kanan || s.kanan || [];
+            const abjad = ["A","B","C","D","E","F","G","H"];
+
+            if (listKiri.length > 0 && listKanan.length > 0) {
+                html += `<div class="bank-opsi-box"><b>Pilihan Pasangan (Kolom B):</b><ul>`;
+                listKanan.forEach((kananItem, kidx) => {
+                    html += `<li><b>${abjad[kidx]}.</b> ${kananItem}</li>`;
+                });
+                html += `</ul></div>`;
+
+                html += `<table class="tabel-jodoh"><thead><tr><th>Pernyataan (Kolom A)</th><th style="width:120px;text-align:center">Jawaban Huruf</th></tr></thead><tbody>`;
+                listKiri.forEach((kiriItem, kiden) => {
+                    let curVal = (typeof ans === 'object' && ans !== null) ? (ans[kiden + 1] || '') : '';
+                    html += `<tr><td>${kiden + 1}. ${kiriItem}</td><td align="center"><input type="text" class="form-control" style="text-align:center; text-transform:uppercase; max-width:80px; padding:0.3rem;" maxlength="2" value="${curVal}" oninput="simpanJawabanMenjodohkan(${s.id}, ${kiden + 1}, this.value)"></td></tr>`;
+                });
+                html += `</tbody></table>`;
+            }
         } else if (tipeSoal === "ISIAN" || tipeSoal === "ISIAN_SINGKAT") {
-            html += `<input type="text" class="form-control" value="${ans}" placeholder="Tulis jawaban..." oninput="simpanJawaban(${s.id}, this.value)">`;
+            html += `<input type="text" class="form-control" value="${ans}" placeholder="Tulis jawaban singkat..." oninput="simpanJawaban(${s.id}, this.value)">`;
         } else if (tipeSoal === "URAIAN" || tipeSoal === "ESAI") {
-            html += `<textarea class="form-control" rows="4" placeholder="Tulis jawaban..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
+            html += `<textarea class="form-control" rows="4" placeholder="Tulis uraian jawaban..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
         } else {
             html += `<textarea class="form-control" rows="3" placeholder="Tulis jawaban..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
         }
@@ -590,7 +559,28 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
     }
 
     function simpanJawaban(id, val) { jawabanSiswa[id] = val; renderGridNomorSoal(); }
+
+    function simpanJawabanPgKompleks(id, checkbox) {
+        if (!Array.isArray(jawabanSiswa[id])) jawabanSiswa[id] = [];
+        let val = checkbox.value;
+        if (checkbox.checked) {
+            if (!jawabanSiswa[id].includes(val)) jawabanSiswa[id].push(val);
+        } else {
+            jawabanSiswa[id] = jawabanSiswa[id].filter(item => item !== val);
+        }
+        renderGridNomorSoal();
+    }
+
+    function simpanJawabanMenjodohkan(idSoal, noKiri, val) {
+        if (typeof jawabanSiswa[idSoal] !== 'object' || Array.isArray(jawabanSiswa[idSoal]) || jawabanSiswa[idSoal] === null) {
+            jawabanSiswa[idSoal] = {};
+        }
+        jawabanSiswa[idSoal][noKiri] = val.trim().toUpperCase();
+        renderGridNomorSoal();
+    }
+
     function pindahSoal(idx) { if (idx >= 0 && idx < activeSoal.length) { currentIndexSoal = idx; tampilkanSoalAktif(); } }
+
     function mulaiTimerUjian(detik) {
         sisaDetik = detik;
         if (timerInterval) clearInterval(timerInterval);
@@ -601,22 +591,45 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             document.getElementById('timer-countdown').textContent = String(Math.floor(sisaDetik/3600)).padStart(2,'0') + ":" + String(m).padStart(2,'0') + ":" + String(d).padStart(2,'0');
         }, 1000);
     }
+
     function konfirmasiKeluarTanpaSimpan() { location.reload(); }
-    function konfirmasiSelesai() { kirimJawabanKeServer(false); }
+    function konfirmasiSelesai() { showNotif("Konfirmasi", "Apakah Anda yakin ingin menyelesaikan ujian dan mengirim jawaban?", "warning", () => kirimJawabanKeServer(false)); }
 
     async function kirimJawabanKeServer(auto) {
         if (timerInterval) clearInterval(timerInterval);
-        let skor = 0;
-        activeSoal.forEach(s => { if (jawabanSiswa[s.id] === s.kunci) skor += (s.bobot || 2); });
+        let skorPG = 0;
+
+        activeSoal.forEach(s => {
+            let ans = jawabanSiswa[s.id];
+            let tipe = (s.tipe || "PG").toUpperCase();
+            if (ans !== undefined && ans !== '') {
+                if (tipe === "PG" && String(ans).trim().toUpperCase() === String(s.kunci).trim().toUpperCase()) {
+                    skorPG += (s.bobot || 2);
+                } else if ((tipe === "PG_KOMPLEKS" || tipe === "PG_KOMPLEK") && Array.isArray(ans) && Array.isArray(s.kunci)) {
+                    let u = [...ans].sort(), c = [...s.kunci].sort();
+                    if (u.length === c.length && u.every((v, i) => v === c[i])) skorPG += (s.bobot || 2);
+                }
+            }
+        });
         
         try {
             await fetch(GAS_WEBAPP_URL, {
                 method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: "simpanHasil", sheetName: "HASIL_" + currentJadwal.mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_"), nis: currentSiswa.id, nama: currentSiswa.nama, kelas: currentSiswa.kelas || "6", mapel: currentJadwal.mapel, skorPG: skor, jawabanJson: JSON.stringify(jawabanSiswa), totalNilai: skor })
+                body: JSON.stringify({
+                    action: "simpanHasil",
+                    sheetName: "HASIL_" + currentJadwal.mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_"),
+                    nis: currentSiswa.id,
+                    nama: currentSiswa.nama,
+                    kelas: currentSiswa.kelas || "6",
+                    mapel: currentJadwal.mapel,
+                    skorPG: skorPG,
+                    jawabanJson: JSON.stringify(jawabanSiswa),
+                    totalNilai: skorPG
+                })
             });
             lepasPengunciLayar();
-            showNotif("Selesai", "Jawaban berhasil dikirim!", "success", () => location.reload());
-        } catch(e) { showNotif("Gagal", "Koneksi terputus.", "error"); }
+            showNotif("Selesai", "Jawaban ujian berhasil dikirim ke server!", "success", () => location.reload());
+        } catch(e) { showNotif("Gagal", "Koneksi ke server pusat terputus.", "error"); }
     }
 </script>
 </body>
