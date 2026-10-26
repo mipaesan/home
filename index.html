@@ -1,523 +1,170 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MI Salafiyatul Ma'muroh Paesan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f2fef6;
-      color: #333;
-    }
-    header {
-      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-                  url('header_optimized_16by9.png') center center / cover no-repeat;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 3em;
-      color: #fff;
-      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
-      margin: 0;
-    }
-    header p {
-      font-size: 1.3em;
-      color: #fff;
-      margin-top: 10px;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-    }
-    .button-group {
-      margin-top: 30px;
-      display: flex;
-      gap: 12px; /* Disesuaikan agar 6 tombol muat sebaris */
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 95%; /* Memberikan ruang lebih luas di layar PC */
-    }
-    .cta-button {
-      padding: 12px 20px; /* Disesuaikan proporsinya agar tetap ringkas */
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: pulse 2s infinite;
-      white-space: nowrap; /* Mencegah teks tombol terlipat 2 baris */
-    }
-    .cta-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 12px rgba(0,0,0,0.3);
-    }
-    .pengumuman { background: #28a745; color: white; }
-    .pmbm { background: #ffc107; color: #222; }
-    .persuratan { background: #007bff; color: white; }
-    .perpustakaan { background: #6f42c1; color: white; }
-    .labdigital { background: #00a896; color: white; } /* Gaya tombol Lab Digital */
-    .ujianonline { background: #fd7e14; color: white; } /* Gaya tombol Ujian Online (Oranye) */
-
-    /* Gaya untuk tombol yang non-aktif secara fungsional */
-    .cta-button.disabled-range {
-        cursor: not-allowed;
-    }
-    .cta-button.disabled-range:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 12px rgba(0,0,0,0.3);
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
-    section {
-      padding: 50px 20px;
-      max-width: 1000px;
-      margin: 20px auto;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s ease forwards;
-    }
-    section:nth-of-type(2) { animation-delay: 0.2s; }
-    section:nth-of-type(3) { animation-delay: 0.4s; }
-    section:nth-of-type(4) { animation-delay: 0.6s; }
-    section:nth-of-type(5) { animation-delay: 0.8s; }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 2em;
-      margin-bottom: 30px;
-      color: #1e7e34;
-    }
-
-    /* --- Berita Terbaru Carousel Modifications --- */
-    .carousel-container {
-      overflow-x: auto;
-      padding: 10px;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-
-    .carousel-container::-webkit-scrollbar {
-      display: none;
-    }
-
-    .carousel {
-      display: flex;
-      gap: 20px;
-      scroll-snap-type: x mandatory;
-      padding-bottom: 10px;
-      min-width: fit-content;
-      justify-content: flex-start;
-    }
-
-    .berita-box {
-      scroll-snap-align: start;
-      background: white;
-      flex: 0 0 300px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    /* --- End Berita Terbaru Carousel Modifications --- */
-
-    .berita-box img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-    .berita-box h3 {
-      font-size: 1.1em;
-      margin: 0 0 10px;
-      color: #1e7e34;
-    }
-    .berita-box .tanggal {
-      font-size: 0.85em;
-      color: #888;
-      margin-bottom: 10px;
-    }
-    .berita-box .ringkasan {
-      font-size: 0.9em;
-      margin-bottom: 10px;
-    }
-    .berita-box a.button-selengkapnya {
-      background-color: #1e7e34;
-      color: white;
-      border: none;
-      padding: 8px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.9em;
-      text-decoration: none;
-      text-align: center;
-      display: block;
-    }
-    .berita-box a.button-selengkapnya:hover {
-      background-color: #145c26;
-    }
-
-    .programs {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 15px;
-    }
-    .card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      padding: 20px;
-      text-align: center;
-      transition: transform 0.2s ease;
-    }
-    .card:hover {
-      transform: scale(1.03);
-    }
-
-    /* CSS baru untuk galeri otomatis */
-    .galeri-wrapper {
-      position: relative;
-      max-width: 600px;
-      height: 340px;
-      margin: auto;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      background-color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .galeri-wrapper .galeri-item {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-      cursor: pointer;
-    }
-
-    .galeri-wrapper .galeri-item.active {
-      opacity: 1;
-      position: relative;
-      z-index: 1;
-    }
-
-    .galeri-wrapper .galeri-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .visi-misi {
-      background: linear-gradient(135deg, #e0ffe0, #f2fff2);
-      border-radius: 12px;
-      padding: 40px 30px;
-    }
-    .visi {
-      font-size: 1.2em;
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .misi {
-      padding-left: 20px;
-    }
-    .misi li {
-      margin-bottom: 10px;
-    }
-
-    footer {
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 25px;
-      font-size: 0.9em;
-    }
-
-    /* CSS tambahan untuk Pop-up Login Layanan Surat */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-box {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 380px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-      text-align: center;
-      position: relative;
-    }
-    .modal-box h3 { margin-top: 0; color: #007bff; }
-    .modal-box input {
-      width: 100%;
-      padding: 10px 12px;
-      margin: 8px 0 16px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-family: inherit;
-    }
-    .modal-box button {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .btn-login-submit { background: #007bff; color: white; margin-bottom: 8px; }
-    .btn-login-cancel { background: #e0e0e0; color: #333; }
-
-    @media screen and (max-width: 600px) {
-      header h1 { font-size: 2em; }
-      .cta-button { width: 100%; text-align: center; white-space: normal; }
-      .galeri-wrapper { height: 220px; }
-      .programs {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MI Salafiyatul Ma'muroh Paesan - Iso Ngaji, Iso Teknologi</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
+<style>
+:root{ --primary:#0f5132; --primary-light:#198754; --bg:#FFFBF5; --card:#ffffff; --text:#1a1a1a; --muted:#6b7280; --border:#f0f0f0; }
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{background:var(--bg);color:var(--text);scroll-behavior:smooth}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 5%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;color:var(--primary);font-size:1.05rem}
+.nav-links a{margin-left:18px;text-decoration:none;color:var(--text);font-weight:600;font-size:.85rem}
+.nav-links a:hover{color:var(--primary)}
+header{max-width:1200px;margin:0 auto;padding:30px 5% 20px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
+.hero-text h1{font-size:2.6rem;font-weight:800;line-height:1.1;color:var(--primary);margin-bottom:10px}
+.hero-text h1 span{color:var(--primary-light)}
+.hero-text p{color:var(--muted);font-size:1rem;margin-bottom:22px;line-height:1.6}
+.hero-img{position:relative;background:white;border-radius:22px;padding:12px;box-shadow:0 18px 36px rgba(15,81,50,.12);border:1px solid var(--border)}
+.hero-img > img{width:100%;border-radius:14px;display:block;background:var(--bg)}
+.section{max-width:1200px;margin:0 auto;padding:28px 5%}
+.section-title{font-size:1.7rem;font-weight:800;color:var(--primary);margin-bottom:4px}
+.section-sub{color:var(--muted);font-size:.92rem;margin-bottom:18px}
+.bento-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.bento-card{background:var(--card);border-radius:16px;padding:18px;border:1px solid var(--border);text-decoration:none;color:inherit;transition:.25s;display:block}
+.bento-card:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.07);border-color:var(--primary-light)}
+.bento-card .icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:10px}
+.bento-card h3{font-size:.98rem;font-weight:700;margin-bottom:3px}
+.bento-card p{font-size:.8rem;color:var(--muted);line-height:1.4}
+.bento-card.ujian{background:linear-gradient(135deg,#0f5132,#198754);color:white;border-color:#0f5132}
+.bento-card.ujian p{color:rgba(255,255,255,.85)}
+.bento-card.ujian .icon{background:rgba(255,255,255,.18)}
+.berita-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.berita-box{background:white;border-radius:14px;overflow:hidden;border:1px solid var(--border);transition:.25s;display:flex;flex-direction:column}
+.berita-box:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.06)}
+.berita-box img{width:100%;height:170px;object-fit:cover}
+.berita-content{padding:14px}
+.programs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card-prog{background:white;border-radius:14px;padding:18px;text-align:center;border:1px solid var(--border);transition:.2s}
+.card-prog:hover{transform:scale(1.02)}
+.galeri-wrapper{position:relative;max-width:680px;height:370px;margin:auto;overflow:hidden;border-radius:18px;box-shadow:0 10px 26px rgba(0,0,0,.1);background:#fff;display:flex;justify-content:center;align-items:center}
+.galeri-item{position:absolute;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease;cursor:pointer}
+.galeri-item.active{opacity:1;z-index:1}
+.galeri-item img{width:100%;height:100%;object-fit:cover}
+.visi-misi{background:linear-gradient(135deg,#e0ffe0,#f2fff2);border-radius:18px;padding:32px 24px}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:9999;justify-content:center;align-items:center}
+.modal-box{background:white;padding:28px;border-radius:14px;width:90%;max-width:360px;text-align:center}
+.modal-box input{width:100%;padding:10px 12px;margin:8px 0 12px;border:1px solid #ccc;border-radius:8px}
+.modal-box button{width:100%;padding:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer}
+.btn-login-submit{background:var(--primary);color:white;margin-bottom:8px}
+.btn-login-cancel{background:#eee;color:#333}
+footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85rem;margin-top:20px}
+.cta-button.disabled-range{opacity:.6;cursor:not-allowed}
+@media(max-width:900px){header{grid-template-columns:1fr} .bento-grid,.berita-grid,.programs{grid-template-columns:1fr} .nav-links{display:none} .galeri-wrapper{height:230px} .hero-text h1{font-size:2rem}}
+</style>
 </head>
 <body>
+<nav><div class="logo">MI Salafiyatul Ma'muroh Paesan</div><div class="nav-links"><a href="#layanan">Layanan</a><a href="#berita">Berita</a><a href="#program">Program</a><a href="cbt/index.html" style="background:var(--primary);color:white;padding:8px 14px;border-radius:8px">Ujian Online</a></div></nav>
 
-  <header>
-    <h1>MI Salafiyatul Ma'muroh Paesan</h1>
-    <p>Iso Ngaji, Iso Teknologi</p>
-    <div class="button-group">
-      <a class="cta-button pengumuman" id="pengumuman-button" href="sambutan.html" title="Pengumuman Kelulusan">Pengumuman Kelulusan</a>
-      <a class="cta-button pmbm" id="pmbm-button" href="formulir.html" title="Formulir PMBM 2026/2027">Formulir PMBM 2026/2027</a>
-      <a class="cta-button persuratan" id="persuratan-button" href="#" title="Layanan Pembuatan Surat Mandiri">Layanan Surat Mandiri</a>
-      <a class="cta-button perpustakaan" href="perpustakaan.html" title="Perpustakaan Digital">Perpustakaan Digital</a>
-      <a class="cta-button labdigital" href="lab.html" title="Lab Digital">Lab Digital</a>
-      <a class="cta-button ujianonline" href="cbt/index.html" title="Ujian Online CBT">Ujian Online</a>
-    </div>
-  </header>
+<header>
+<div class="hero-text">
+<h1>Iso Ngaji,<br><span>Iso Teknologi</span></h1>
+<p>MI Salafiyatul Ma'muroh Paesan, Jelok Cepogo. Membentuk generasi berilmu, menguasai teknologi, dan berakhlak Islami.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<a href="cbt/index.html" style="background:var(--primary);color:white;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700">🚀 Ujian Online CBT</a>
+<a href="#layanan" style="background:white;border:1px solid #ddd;padding:12px 18px;border-radius:10px;text-decoration:none;color:var(--text);font-weight:600">Lihat Layanan</a>
+</div>
+<p style="margin-top:14px;font-size:.8rem;color:var(--muted)">Akreditasi A • Kurikulum Merdeka • Literasi Digital</p>
+</div>
+<div class="hero-img">
+<img src="tilmi-lengkap.png" alt="TILMI - Iso Ngaji Iso Teknologi - Koko Putih Sarung Hijau Peci Hitam Pegang Quran dan Laptop">
+<div style="text-align:center;margin-top:10px;font-weight:700;color:var(--primary);font-size:.9rem">TILMI • Iso Ngaji, Iso Teknologi</div>
+</div>
+</header>
 
-  <!-- Modal Pop-up Login Layanan Surat -->
-  <div class="modal-overlay" id="surat-modal">
-    <div class="modal-box">
-      <h3>Akses Layanan Surat</h3>
-      <p style="font-size:0.85em; color:#666; margin-bottom:15px;">Masukkan Username & Password dari Madrasah</p>
-      <input type="text" id="surat-user" placeholder="Username" />
-      <input type="password" id="surat-pass" placeholder="Password" />
-      <button class="btn-login-submit" onclick="prosesLoginSurat()">Masuk</button>
-      <button class="btn-login-cancel" onclick="tutupModalSurat()">Batal</button>
-    </div>
-  </div>
+<section id="layanan" class="section">
+<h2 class="section-title">Layanan Madrasah</h2>
+<p class="section-sub">Akses cepat - fungsi lama tetap sama persis.</p>
+<div class="bento-grid">
+<a class="bento-card ujian" href="cbt/index.html"><div class="icon">💻</div><h3>Ujian Online</h3><p>CBT Asesmen siswa - klik di sini</p></a>
+<a class="bento-card" id="pengumuman-button" href="sambutan.html"><div class="icon" style="background:#dcfce7">🎓</div><h3>Pengumuman Kelulusan</h3><p>Informasi kelulusan siswa</p></a>
+<a class="bento-card" id="pmbm-button" href="formulir.html"><div class="icon" style="background:#fef3c7">📝</div><h3>Formulir PMBM 2026/2027</h3><p>Penerimaan murid baru</p></a>
+<a class="bento-card" id="persuratan-button" href="#"><div class="icon" style="background:#dbeafe">✉️</div><h3>Layanan Surat Mandiri</h3><p>Pembuatan surat keterangan</p></a>
+<a class="bento-card" href="perpustakaan.html"><div class="icon" style="background:#f3e8ff">📚</div><h3>Perpustakaan Digital</h3><p>Akses e-book & literasi</p></a>
+<a class="bento-card" href="lab.html"><div class="icon" style="background:#ccfbf1">🔬</div><h3>Lab Digital</h3><p>Robotik & komputer dasar</p></a>
+</div>
+</section>
 
-  <section>
-    <h2 class="section-title">Berita Terbaru</h2>
-    <div class="carousel-container">
-      <div class="carousel" id="berita-carousel"></div>
-    </div>
-  </section>
+<section id="berita" class="section">
+<h2 class="section-title">Berita Terbaru</h2>
+<p class="section-sub">Otomatis urut terbaru dari berita.json - cara nambah tetap sama.</p>
+<div id="berita-carousel" class="berita-grid"></div>
+</section>
 
-  <section class="visi-misi">
-    <h2 class="section-title">Visi & Misi</h2>
-    <div class="visi">"MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI"</div>
-    <ul class="misi">
-      <li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li>
-      <li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa.</li>
-      <li>Menjalin kerjasama yang baik dengan warga madrasah dan masyarakat.</li>
-      <li>Menerapkan manajemen partisipatif dan transparan.</li>
-    </ul>
-  </section>
+<section class="section"><div class="visi-misi"><h2 class="section-title" style="text-align:center">Visi & Misi</h2><div style="text-align:center;font-weight:700;font-size:1.1rem;margin:18px 0">"MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI"</div><ul style="max-width:700px;margin:0 auto;line-height:1.8;padding-left:18px"><li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li><li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa.</li><li>Menjalin kerjasama yang baik dengan warga madrasah dan masyarakat.</li><li>Menerapkan manajemen partisipatif dan transparan.</li></ul></div></section>
 
-  <section>
-    <h2 class="section-title">Program Unggulan</h2>
-    <div class="programs">
-      <div class="card"><img src="rebana.png" alt="Rebana" style="width:70px; margin-bottom:12px;"><h3>Rebana</h3><p>Melatih keterampilan musik islami dan kerja sama tim.</p></div>
-      <div class="card"><img src="drumband.png" alt="Drumband" style="width:70px; margin-bottom:12px;"><h3>Drumband</h3><p>Menumbuhkan kedisiplinan dan semangat kebersamaan.</p></div>
-      <div class="card"><img src="robotik.png" alt="Robotik" style="width:70px; margin-bottom:12px;"><h3>Robotik</h3><p>Mengenalkan teknologi dan logika pemrograman sejak dini.</p></div>
-      <div class="card"><img src="komputer.png" alt="Komputer Dasar" style="width:70px; margin-bottom:12px;"><h3>Komputer Dasar</h3><p>Belajar keterampilan dasar komputer untuk masa depan digital.</p></div>
-      <div class="card"><img src="voli.png" alt="Bola Voli" style="width:70px; margin-bottom:12px;"><h3>Bola Voli</h3><p>Menumbuhkan jiwa sportivitas, daya tahan fisik, dan soliditas kerja sama tim.</p></div>
-      <div class="card"><img src="pramuka.png" alt="Pramuka" style="width:70px; margin-bottom:12px;"><h3>Pramuka</h3><p>Membentuk karakter, tanggung jawab, dan cinta tanah air.</p></div>
-    </div>
-  </section>
+<section id="program" class="section">
+<h2 class="section-title">Program Unggulan</h2><p class="section-sub">6 program unggulan MI Paesan - gambar tetap pakai file lama</p>
+<div class="programs">
+<div class="card-prog"><img src="rebana.png" alt="Rebana" style="width:62px;margin-bottom:8px"><h3>Rebana</h3><p style="font-size:.82rem;color:var(--muted)">Musik islami & kerja tim</p></div>
+<div class="card-prog"><img src="drumband.png" alt="Drumband" style="width:62px;margin-bottom:8px"><h3>Drumband</h3><p style="font-size:.82rem;color:var(--muted)">Kedisiplinan & kebersamaan</p></div>
+<div class="card-prog"><img src="robotik.png" alt="Robotik" style="width:62px;margin-bottom:8px"><h3>Robotik</h3><p style="font-size:.82rem;color:var(--muted)">Teknologi & logika coding</p></div>
+<div class="card-prog"><img src="komputer.png" alt="Komputer" style="width:62px;margin-bottom:8px"><h3>Komputer Dasar</h3><p style="font-size:.82rem;color:var(--muted)">Keterampilan digital</p></div>
+<div class="card-prog"><img src="voli.png" alt="Voli" style="width:62px;margin-bottom:8px"><h3>Bola Voli</h3><p style="font-size:.82rem;color:var(--muted)">Sportivitas & soliditas</p></div>
+<div class="card-prog"><img src="pramuka.png" alt="Pramuka" style="width:62px;margin-bottom:8px"><h3>Pramuka</h3><p style="font-size:.82rem;color:var(--muted)">Karakter & cinta tanah air</p></div>
+</div>
+</section>
 
-  <section>
-    <h2 class="section-title">Galeri Kegiatan</h2>
-    <div class="galeri-wrapper" id="galeri-wrapper">
-      <a href="galeri1.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 1"><img src="galeri1.jpg" alt="Galeri 1"></a>
-      <a href="galeri2.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 2"><img src="galeri2.jpg" alt="Galeri 2"></a>
-      <a href="galeri3.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 3"><img src="galeri3.jpg" alt="Galeri 3"></a>
-      <a href="galeri4.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 4"><img src="galeri4.jpg" alt="Galeri 4"></a>
-      <a href="galeri5.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 5"><img src="galeri5.jpg" alt="Galeri 5"></a>
-      <a href="galeri6.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 6"><img src="galeri6.jpg" alt="Galeri 6"></a>
-      <a href="galeri7.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 7"><img src="galeri7.jpg" alt="Galeri 7"></a>
-      <a href="galeri8.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 8"><img src="galeri8.jpg" alt="Galeri 8"></a>
-      <a href="galeri9.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 9"><img src="galeri9.jpg" alt="Galeri 9"></a>
-      <a href="galeri10.jpg" class="glightbox galeri-item" data-gallery="galeri" data-alt="Galeri 10"><img src="galeri10.jpg" alt="Galeri 10"></a>
-    </div>
-  </section>
+<section class="section">
+<h2 class="section-title">Galeri Kegiatan</h2><p class="section-sub">Otomatis slideshow 3 detik - klik untuk zoom</p>
+<div class="galeri-wrapper" id="galeri-wrapper">
+<a href="galeri1.jpg" class="glightbox galeri-item active" data-gallery="galeri"><img src="galeri1.jpg" alt="Galeri 1"></a>
+<a href="galeri2.jpg" class="glightbox galeri-item" data-gallery="galeri"><img src="galeri2.jpg" alt="Galeri 2"></a>
+<a href="galeri3.jpg" class="glightbox galeri-item" data-gallery="galeri"><img src="galeri3.jpg" alt="Galeri 3"></a>
+<a href="galeri4.jpg" class="glightbox galeri-item" data-gallery="galeri"><img src="galeri4.jpg" alt="Galeri 4"></a>
+<a href="galeri5.jpg" class="glightbox galeri-item" data-gallery="galeri"><img src="galeri5.jpg" alt="Galeri 5"></a>
+<a href="galeri6.jpg" class="glightbox galeri-item" data-gallery="galeri"><img src="galeri6.jpg" alt="Galeri 6"></a>
+</div>
+</section>
 
-  <footer>
-    <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
-    <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
-  </footer>
+<div class="modal-overlay" id="surat-modal"><div class="modal-box"><h3 style="color:var(--primary)">Akses Layanan Surat</h3><p style="font-size:.82rem;color:#666;margin:6px 0 14px">Masukkan Username & Password dari Madrasah</p><input type="text" id="surat-user" placeholder="Username"><input type="password" id="surat-pass" placeholder="Password"><button class="btn-login-submit" onclick="prosesLoginSurat()">Masuk</button><button class="btn-login-cancel" onclick="tutupModalSurat()">Batal</button></div></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-  <script>
-    const lightbox = GLightbox({ selector: '.glightbox' });
-    const galeriItems = document.querySelectorAll('.galeri-item');
-    let currentIndex = 0;
-    let slideshowInterval;
+<footer><p>&copy; 2026 MI Salafiyatul Ma'muroh Paesan | Jelok, Cepogo</p><p>085725311612 | mipaesan@gmail.com</p></footer>
 
-    function showSlide(index) {
-      galeriItems.forEach((el, i) => {
-        el.classList.toggle('active', i === index);
-      });
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+const lightbox=GLightbox({selector:'.glightbox'});
+let currentIndex=0; const galeriItems=document.querySelectorAll('.galeri-item');
+function showSlide(i){ galeriItems.forEach((el,idx)=>el.classList.toggle('active',idx===i)); }
+let slideshowInterval=setInterval(()=>{ currentIndex=(currentIndex+1)%galeriItems.length; showSlide(currentIndex); },3000);
+lightbox.on('open',()=>clearInterval(slideshowInterval));
+lightbox.on('close',()=>{ slideshowInterval=setInterval(()=>{ currentIndex=(currentIndex+1)%galeriItems.length; showSlide(currentIndex); },3000); });
+function manageButtonActivity(buttonId,startDate,endDate,inactiveMessage){
+  const button=document.getElementById(buttonId); if(!button) return;
+  const originalHref=button.getAttribute('href');
+  const now=new Date();
+  if(now<startDate||now>endDate){
+    button.classList.add('disabled-range'); button.setAttribute('data-href',originalHref); button.href="#"; button.title=inactiveMessage;
+    if(!button.dataset.listenerAdded){
+      button.addEventListener('click',function(e){ const d=new Date(); if(d<startDate||d>endDate){ e.preventDefault(); alert(this.title); } });
+      button.dataset.listenerAdded=true;
     }
-
-    function startSlideshow() {
-      slideshowInterval = setInterval(() => {
-        currentIndex = (currentIndex + 1) % galeriItems.length;
-        showSlide(currentIndex);
-      }, 3000);
-    }
-
-    function stopSlideshow() {
-      clearInterval(slideshowInterval);
-    }
-
-    function manageButtonActivity(buttonId, startDate, endDate, inactiveMessage) {
-      const button = document.getElementById(buttonId);
-      if (!button) return;
-
-      const originalHref = button.href;
-      const originalTitle = button.title;
-      const tanggalSekarang = new Date();
-
-      if (tanggalSekarang < startDate || tanggalSekarang > endDate) {
-        button.classList.add('disabled-range');
-        button.href = "#";
-        button.title = inactiveMessage;
-
-        if (!button.dataset.listenerAdded) {
-          button.addEventListener('click', function(event) {
-            event.preventDefault();
-            alert(this.title);
-          });
-          button.dataset.listenerAdded = true;
-        }
-      } else {
-        button.classList.remove('disabled-range');
-        button.href = originalHref;
-        button.title = originalTitle;
-      }
-    }
-
-    /* Fungsi Login Layanan Surat Mandiri */
-    document.getElementById('persuratan-button').addEventListener('click', function(e) {
-      e.preventDefault();
-      document.getElementById('surat-modal').style.display = 'flex';
+  }else{ button.classList.remove('disabled-range'); if(button.getAttribute('data-href')) button.href=button.getAttribute('data-href'); }
+}
+document.getElementById('persuratan-button').addEventListener('click',function(e){ e.preventDefault(); document.getElementById('surat-modal').style.display='flex'; });
+function tutupModalSurat(){ document.getElementById('surat-modal').style.display='none'; document.getElementById('surat-user').value=''; document.getElementById('surat-pass').value=''; }
+function prosesLoginSurat(){ const u=document.getElementById('surat-user').value; const p=document.getElementById('surat-pass').value; if(u==="admin"&&p==="@Paesan1234"){ window.location.href="pilih-surat.html"; }else{ alert("Username atau Password salah!"); } }
+const bulanMap={"Januari":"01","Februari":"02","Maret":"03","April":"04","Mei":"05","Juni":"06","Juli":"07","Agustus":"08","September":"09","Oktober":"10","November":"11","Desember":"12"};
+function parseTanggal(str){ try{ const [tgl,bln,thn]=str.split(' '); return new Date(`${thn}-${bulanMap[bln]}-${tgl.padStart(2,'0')}`); }catch{ return new Date(0); } }
+document.addEventListener('DOMContentLoaded',()=>{
+  const tglMulaiPengumuman=new Date('2026-06-02T16:59:00'); const tglAkhirPengumuman=new Date('2026-06-30T23:59:59');
+  manageButtonActivity('pengumuman-button',tglMulaiPengumuman,tglAkhirPengumuman,"Pengumuman tidak aktif saat ini");
+  const tglMulaiPmbm=new Date('2026-06-01T00:00:00'); const tglAkhirPmbm=new Date('2026-07-31T23:59:59');
+  manageButtonActivity('pmbm-button',tglMulaiPmbm,tglAkhirPmbm,"Pendaftaran PMBM belum/sudah berakhir");
+  fetch('berita.json').then(r=>r.json()).then(data=>{
+    data.sort((a,b)=>parseTanggal(b.tanggal)-parseTanggal(a.tanggal));
+    const carousel=document.getElementById('berita-carousel'); carousel.innerHTML='';
+    data.slice(0,6).forEach(item=>{
+      const div=document.createElement('div'); div.className='berita-box';
+      div.innerHTML=`<img src="${item.gambar}" alt="${item.judul}"><div class="berita-content"><h3 style="font-size:.95rem;color:#0f5132;margin-bottom:4px">${item.judul}</h3><div style="font-size:.78rem;color:#888;margin-bottom:6px">${item.tanggal}</div><div style="font-size:.82rem;color:#555;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${item.ringkasan}</div><a href="berita/${item.slug}.html" style="background:#0f5132;color:white;padding:6px 12px;border-radius:8px;text-decoration:none;font-size:.82rem;display:inline-block">Selengkapnya</a></div>`;
+      carousel.appendChild(div);
     });
-
-    function tutupModalSurat() {
-      document.getElementById('surat-modal').style.display = 'none';
-      document.getElementById('surat-user').value = '';
-      document.getElementById('surat-pass').value = '';
-    }
-
-    function prosesLoginSurat() {
-      const user = document.getElementById('surat-user').value;
-      const pass = document.getElementById('surat-pass').value;
-
-      // ATUR USERNAME & PASSWORD DI SINI
-      const usernameBenar = "admin";
-      const passwordBenar = "@Paesan1234";
-
-      if (user === usernameBenar && pass === passwordBenar) {
-        window.location.href = "pilih-surat.html";
-      } else {
-        alert("Username atau Password salah!");
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      showSlide(currentIndex);
-      startSlideshow();
-
-      const tglMulaiPengumuman = new Date('2026-06-02T16:59:00');
-      const tglAkhirPengumuman = new Date('2026-06-30T23:59:59');
-      manageButtonActivity('pengumuman-button', tglMulaiPengumuman, tglAkhirPengumuman, "Pengumuman tidak aktif saat ini");
-
-      const tglMulaiPmbm = new Date('2026-06-01T00:00:00');
-      const tglAkhirPmbm = new Date('2026-07-31T23:59:59');
-      manageButtonActivity('pmbm-button', tglMulaiPmbm, tglAkhirPmbm, "Pendaftaran PMBM belum/sudah berakhir");
-    });
-
-    lightbox.on('open', () => {
-      stopSlideshow();
-    });
-
-    lightbox.on('close', () => {
-      startSlideshow();
-    });
-
-    const bulanMap = {
-      "Januari": "01", "Februari": "02", "Maret": "03", "April": "04", "Mei": "05", "Juni": "06",
-      "Juli": "07", "Agustus": "08", "September": "09", "Oktober": "10", "November": "11", "Desember": "12"
-    };
-
-    function parseTanggal(tanggalStr) {
-      const [tgl, bln, thn] = tanggalStr.split(' ');
-      return new Date(`${thn}-${bulanMap[bln]}-${tgl.padStart(2, '0')}`);
-    }
-
-    fetch('berita.json')
-      .then(res => res.json())
-      .then(data => {
-        data.sort((a, b) => parseTanggal(b.tanggal) - parseTanggal(a.tanggal));
-        const carousel = document.getElementById('berita-carousel');
-        
-        data.forEach((item) => {
-          const div = document.createElement('div');
-          div.className = 'berita-box';
-          div.innerHTML = `
-            <img src="${item.gambar}" alt="${item.judul}">
-            <h3>${item.judul}</h3>
-            <div class="tanggal">${item.tanggal}</div>
-            <div class="ringkasan">${item.ringkasan}</div>
-            <a href="berita/${item.slug}.html" class="button-selengkapnya">Selengkapnya</a>
-          `;
-          carousel.appendChild(div);
-        });
-      })
-      .catch(error => console.error('Error fetching berita.json:', error));
-  </script>
+  }).catch(e=>console.error('berita.json error',e));
+  showSlide(0);
+});
+</script>
 </body>
 </html>
