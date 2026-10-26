@@ -17,11 +17,45 @@ input,textarea,select{user-select:text !important}
 header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:1rem;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,0.1)}
 header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 
-/* LOGIN WRAPPER MODEL 2 - NUANSA HIJAU */
-#login-section{max-width:900px;margin:2rem auto;background:white;border-radius:24px;overflow:hidden;box-shadow:0 20px 40px rgba(15,81,50,.15);display:flex;min-height:480px;animation:slideUp .6s ease}
-@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* CONTAINER UTAMA EFEK FLIP 3D */
+.auth-wrapper {
+    perspective: 1000px;
+    max-width: 900px;
+    margin: 2rem auto;
+}
 
-.login-left{flex:1;background:linear-gradient(160deg,#0f5132 0%,#198754 100%);color:white;padding:2rem;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.auth-card-container {
+    width: 100%;
+    position: relative;
+    transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.auth-card-container.flipped {
+    transform: rotateY(180deg);
+}
+
+/* KARTUN & PANEL LOGIN SISWA & GURU (SHARED BOX) */
+.auth-box {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(15,81,50,.15);
+    display: flex;
+    min-height: 480px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    width: 100%;
+}
+
+.auth-box-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotateY(180deg);
+}
+
+.login-left{flex:1;background:linear-gradient(160deg,#0f5132 0%,#198754 100%);color:white;padding:2rem;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;text-align:center}
 .blob{position:absolute;border-radius:50%;background:rgba(255,255,255,.12);animation:float 6s ease-in-out infinite}
 .blob1{width:200px;height:200px;top:-40px;left:-40px} .blob2{width:150px;height:150px;bottom:30px;right:-20px;animation-delay:2s}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
@@ -45,10 +79,28 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .btn-secondary{background:#6c757d;color:white}
 .btn-danger{background:#dc3545;color:white}
 
+/* SPINNER ANIMASI PUTAR SAAT DIKLIK */
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
 @media(max-width:768px){
- #login-section{flex-direction:column;margin:0;border-radius:0;min-height:100vh}
- .login-left{padding:1.5rem 1.5rem 2.5rem;border-radius:0 0 32px 32px;min-height:220px;align-items:center;text-align:center}
+ .auth-box{flex-direction:column;min-height:auto}
+ .login-left{padding:1.5rem 1.5rem 2rem;align-items:center;text-align:center}
  .login-right{padding:1.5rem}
+ .auth-card-container { transform-style: flat; }
+ .auth-card-container.flipped { transform: none; }
+ /* Fallback HP agar smooth tanpa efek 3D berat */
+ .auth-box-back { display: none; }
+ .auth-card-container.flipped .auth-box-front { display: none; }
+ .auth-card-container.flipped .auth-box-back { display: flex; position: relative; transform: none; }
 }
 
 /* UJIAN SECTION & KOMPONENNYA */
@@ -105,40 +157,79 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 </header>
 
 <div class="container">
-<!-- LOGIN SECTION BARU - NUANSA HIJAU -->
-<div id="login-section">
-  <div class="login-left">
-    <div class="blob blob1"></div><div class="blob blob2"></div>
-    <div style="position:relative;z-index:2">
-      <div style="font-size:3rem;margin-bottom:.5rem">🎓</div>
-      <h2 style="font-size:1.8rem;font-weight:800;line-height:1.2">Portal CBT<br>MI Salafiyatul Ma'muroh</h2>
-      <p style="margin-top:.8rem;opacity:.9;font-size:.9rem">Siap belajar & ujian? Masuk untuk melanjutkan asesmen dengan aman dan tertib.</p>
-      <div style="margin-top:1.5rem;display:flex;gap:1rem;font-size:.75rem;opacity:.8">
-        <span>🔒 Secure & Safe</span><span>⚡ Kurikulum Merdeka</span>
+<!-- WRAPPER LOGIN DENGAN EFEK FLIP 3D -->
+<div class="auth-wrapper" id="auth-wrapper-box">
+  <div class="auth-card-container" id="card-flipper">
+    
+    <!-- SISI DEPAN: LOGIN SISWA -->
+    <div class="auth-box auth-box-front" id="login-section">
+      <div class="login-left">
+        <div class="blob blob1"></div><div class="blob blob2"></div>
+        <div style="position:relative;z-index:2">
+          <div style="font-size:3rem;margin-bottom:.5rem">🎓</div>
+          <h2 style="font-size:1.8rem;font-weight:800;line-height:1.2">Portal CBT<br>MI Salafiyatul Ma'muroh</h2>
+          <p style="margin-top:.8rem;opacity:.9;font-size:.9rem">Siap belajar & ujian? Masuk untuk melanjutkan asesmen dengan aman dan tertib.</p>
+          <div style="margin-top:1.5rem;display:flex;justify-content:center;gap:1.5rem;font-size:.75rem;opacity:.8">
+            <span>🔒 Secure & Safe</span><span>⚡ Kurikulum Merdeka</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="login-right">
+        <div class="cartoon-container" id="cartoon-box">
+          <svg class="cartoon-avatar" viewBox="0 0 200 200">
+            <circle cx="45" cy="55" r="22" fill="#0f5132"/><circle cx="45" cy="55" r="12" fill="#ffc107"/>
+            <circle cx="155" cy="55" r="22" fill="#0f5132"/><circle cx="155" cy="55" r="12" fill="#ffc107"/>
+            <circle cx="100" cy="105" r="65" fill="#0f5132"/><ellipse cx="100" cy="120" rx="45" ry="35" fill="#e9f5ed"/>
+            <circle cx="75" cy="95" r="14" fill="#fff"/><circle cx="125" cy="95" r="14" fill="#fff"/>
+            <circle id="pupil-left" class="pupil" cx="75" cy="95" r="6" fill="#212529"/><circle id="pupil-right" class="pupil" cx="125" cy="95" r="6" fill="#212529"/>
+            <polygon points="100,110 93,102 107,102" fill="#212529"/>
+            <path d="M 90 120 Q 100 130 110 120" stroke="#212529" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <g class="hands"><ellipse cx="65" cy="95" rx="18" ry="14" fill="#198754"/><ellipse cx="135" cy="95" rx="18" ry="14" fill="#198754"/></g>
+          </svg>
+        </div>
+        <div class="card-title">Masuk Ruang Ujian</div>
+        <form onsubmit="event.preventDefault(); prosesLoginSiswa();">
+          <div class="form-group"><label>Nomor Induk Siswa (NIS) / ID Super User</label><input type="text" id="input-nis" class="form-control" placeholder="Contoh: 12345" autocomplete="off" required></div>
+          <div class="form-group"><label>Token Ujian</label><input type="text" id="input-token" class="form-control" placeholder="Contoh: TYVB78" style="text-transform:uppercase" autocomplete="off" required></div>
+          <button type="submit" id="btn-login-siswa" class="btn">MULAI UJIAN</button>
+        </form>
+        <div style="margin-top:1.2rem;text-align:center">
+          <a href="#" onclick="toggleFlipAuth(event)" style="color:var(--primary);text-decoration:none;font-size:.82rem;font-weight:600">
+            🔐 Masuk Dashboard Guru
+          </a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="login-right">
-    <div class="cartoon-container" id="cartoon-box">
-      <svg class="cartoon-avatar" viewBox="0 0 200 200">
-        <circle cx="45" cy="55" r="22" fill="#0f5132"/><circle cx="45" cy="55" r="12" fill="#ffc107"/>
-        <circle cx="155" cy="55" r="22" fill="#0f5132"/><circle cx="155" cy="55" r="12" fill="#ffc107"/>
-        <circle cx="100" cy="105" r="65" fill="#0f5132"/><ellipse cx="100" cy="120" rx="45" ry="35" fill="#e9f5ed"/>
-        <circle cx="75" cy="95" r="14" fill="#fff"/><circle cx="125" cy="95" r="14" fill="#fff"/>
-        <circle id="pupil-left" class="pupil" cx="75" cy="95" r="6" fill="#212529"/><circle id="pupil-right" class="pupil" cx="125" cy="95" r="6" fill="#212529"/>
-        <polygon points="100,110 93,102 107,102" fill="#212529"/>
-        <path d="M 90 120 Q 100 130 110 120" stroke="#212529" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <g class="hands"><ellipse cx="65" cy="95" rx="18" ry="14" fill="#198754"/><ellipse cx="135" cy="95" rx="18" ry="14" fill="#198754"/></g>
-      </svg>
+    <!-- SISI BELAKANG: LOGIN / DASHBOARD GURU -->
+    <div class="auth-box auth-box-back">
+      <div class="login-left" style="background:linear-gradient(160deg,#1e293b 0%,#0f172a 100%);">
+        <div class="blob blob1"></div><div class="blob blob2"></div>
+        <div style="position:relative;z-index:2">
+          <div style="font-size:3rem;margin-bottom:.5rem">🛠️</div>
+          <h2 style="font-size:1.8rem;font-weight:800;line-height:1.2">Panel Pengawas<br>& Guru Madrasah</h2>
+          <p style="margin-top:.8rem;opacity:.9;font-size:.9rem">Kelola naskah soal, monitor aktivitas ujian siswa, dan unduh rekap nilai.</p>
+        </div>
+      </div>
+
+      <div class="login-right">
+        <div style="font-size:2.5rem;text-align:center;margin-bottom:0.5rem">🔐</div>
+        <div class="card-title">Otorisasi Guru</div>
+        <p style="font-size:0.85rem;color:#64748b;text-align:center;margin-bottom:1.5rem;line-height:1.4">
+          Silakan akses halaman khusus pengawas untuk mengelola seluruh instrumen ujian madrasah.
+        </p>
+        <a href="guru.html" class="btn" style="text-decoration:none;display:flex;justify-content:center;align-items:center;margin-bottom:1rem;">
+          BUKA DASHBOARD GURU
+        </a>
+        <div style="margin-top:1rem;text-align:center">
+          <a href="#" onclick="toggleFlipAuth(event)" style="color:var(--primary);text-decoration:none;font-size:.82rem;font-weight:600">
+            ‹ Kembali ke Login Siswa
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="card-title">Masuk Ruang Ujian</div>
-    <form onsubmit="event.preventDefault(); prosesLoginSiswa();">
-      <div class="form-group"><label>Nomor Induk Siswa (NIS) / ID Super User</label><input type="text" id="input-nis" class="form-control" placeholder="Contoh: 12345" autocomplete="off" required></div>
-      <div class="form-group"><label>Token Ujian</label><input type="text" id="input-token" class="form-control" placeholder="Contoh: TYVB78" style="text-transform:uppercase" autocomplete="off" required></div>
-      <button type="submit" class="btn">MULAI UJIAN</button>
-    </form>
-    <div style="margin-top:1.2rem;text-align:center"><a href="guru.html" style="color:var(--primary);text-decoration:none;font-size:.82rem;font-weight:600">🔐 Masuk Dashboard Guru</a></div>
+
   </div>
 </div>
 
@@ -202,6 +293,13 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
     let timerInterval = null, sisaDetik = 0;
     let tabSwitchCount = 0;
     const MAX_TAB_SWITCH = 3;
+
+    // FUNGSI ANIMASI FLIP 3D CARD LOGIN GURU <-> SISWA
+    function toggleFlipAuth(e) {
+        if(e) e.preventDefault();
+        const flipper = document.getElementById('card-flipper');
+        flipper.classList.toggle('flipped');
+    }
 
     // FITUR ANTI LAYAR PADAM (SCREEN WAKE LOCK API)
     let wakeLockObj = null;
@@ -314,6 +412,13 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
     async function prosesLoginSiswa() {
         const nis = document.getElementById('input-nis').value.trim();
         const token = document.getElementById('input-token').value.trim().toUpperCase();
+        const btnLogin = document.getElementById('btn-login-siswa');
+
+        // Berikan efek spinner loading mutar saat tombol ditekan
+        btnLogin.innerHTML = `<div class="spinner"></div> &nbsp; MEMVERIFIKASI...`;
+        btnLogin.disabled = true;
+
+        await new Promise(r => setTimeout(r, 600)); // Jeda visual smooth
 
         aktifkanPengunciLayar();
 
@@ -321,7 +426,10 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         const userAdmin = listMembers.find(m => m.id === nis && (m.role === 'admin' || m.role === 'guru' || m.id === '111233090018'));
         if (userAdmin || nis === '111233090018') {
             const jadwal = listJadwal.find(j => j.token.toUpperCase() === token);
-            if (!jadwal) return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning");
+            if (!jadwal) {
+                btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
+                return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning");
+            }
 
             currentSiswa = userAdmin || { id: "111233090018", nama: "Muh Kholil, S.Pd.I.", role: "admin" };
             currentJadwal = jadwal;
@@ -332,10 +440,11 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
                 const resSoal = await fetch(jadwal.file_soal);
                 activeSoal = await resSoal.json();
             } catch(e) {
+                btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
                 return showNotif("Gagal", "Gagal memuat berkas naskah soal ujian.", "error");
             }
 
-            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('auth-wrapper-box').style.display = 'none';
             document.getElementById('ujian-section').style.display = 'block';
             
             document.getElementById('info-nama-siswa').textContent = currentSiswa.nama + " [SUPER USER]";
@@ -350,12 +459,19 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         }
 
         const siswa = listMembers.find(m => m.id === nis && m.role === 'siswa');
-        if (!siswa) return showNotif("Login Gagal", "Nomor Induk Siswa (NIS) tidak terdaftar di sistem!", "warning");
+        if (!siswa) {
+            btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
+            return showNotif("Login Gagal", "Nomor Induk Siswa (NIS) tidak terdaftar di sistem!", "warning");
+        }
 
         const jadwal = listJadwal.find(j => j.token.toUpperCase() === token);
-        if (!jadwal) return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning");
+        if (!jadwal) {
+            btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
+            return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning");
+        }
 
         if (jadwal.aktif === false) {
+            btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
             return showNotif("Ujian Nonaktif", `Ujian mata pelajaran <strong>${jadwal.mapel}</strong> saat ini sedang dinonaktifkan oleh pengawas.`, "warning");
         }
 
@@ -367,9 +483,11 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             const waktuTutup = new Date(strTutup);
 
             if (!isNaN(waktuBuka) && now < waktuBuka) {
+                btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
                 return showNotif("Ujian Belum Dibuka", `Ujian mata pelajaran <strong>${jadwal.mapel}</strong> belum dapat diakses.<br>Waktu pembukaan: <strong>${jadwal.waktu_buka}</strong>`, "warning");
             }
             if (!isNaN(waktuTutup) && now > waktuTutup) {
+                btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
                 return showNotif("Ujian Telah Berakhir", `Masa ujian mata pelajaran <strong>${jadwal.mapel}</strong> sudah ditutup.<br>Batas akhir: <strong>${jadwal.waktu_tutup}</strong>`, "error");
             }
         }
@@ -383,12 +501,13 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             const resSoal = await fetch(jadwal.file_soal);
             activeSoal = await resSoal.json();
         } catch(e) {
+            btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
             return showNotif("Gagal", "Gagal memuat berkas naskah soal ujian.", "error");
         }
 
         requestFullScreen();
 
-        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('auth-wrapper-box').style.display = 'none';
         document.getElementById('ujian-section').style.display = 'block';
         
         document.getElementById('info-nama-siswa').textContent = siswa.nama;
@@ -682,7 +801,7 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         const payload = {
             action: "simpanHasil",
             sheetName: sheetName,
-        nis: currentSiswa.id,
+            nis: currentSiswa.id,
             nama: currentSiswa.nama,
             kelas: currentSiswa.kelas || currentJadwal.kelas || "6",
             mapel: currentJadwal.mapel,
