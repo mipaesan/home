@@ -343,10 +343,31 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         flipper.classList.toggle('flipped');
     }
 
+    // SIMPAN SESI LOGIN GURU KE SESSIONSTORAGE AGAR GURU.HTML LANGSUNG MENGENALINYA
     function prosesLoginGuru() {
-        window.location.href = "guru.html";
+        const idGuru = document.getElementById('input-id-guru').value.trim();
+        const passGuru = document.getElementById('input-pass-guru').value.trim();
+        const btnLoginGuru = document.getElementById('btn-login-guru');
+
+        if (!idGuru || !passGuru) {
+            showNotif("Peringatan", "ID Guru dan Password harus diisi!", "warning");
+            return;
+        }
+
+        btnLoginGuru.innerHTML = `<div class="spinner"></div> &nbsp; MEMVERIFIKASI...`;
+        btnLoginGuru.disabled = true;
+
+        // Simpan sesi login ke memori browser supaya file guru.html langsung terbuka tanpa minta login lagi
+        sessionStorage.setItem('cbt_guru_logged', 'true');
+        sessionStorage.setItem('cbt_guru_id', idGuru);
+        sessionStorage.setItem('cbt_guru_pass', passGuru);
+
+        setTimeout(() => {
+            window.location.href = "guru.html";
+        }, 500);
     }
 
+    // FUNGSI IKON MATA PROFESIONAL (BULU MATA <-> MATA MELEK)
     function togglePasswordVisibility() {
         const passInput = document.getElementById('input-pass-guru');
         const eyePupil = document.getElementById('eye-pupil');
