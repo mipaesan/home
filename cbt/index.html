@@ -62,6 +62,7 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .btn-warning{background:var(--accent);color:#212529}
 .btn-secondary{background:#6c757d;color:white}
 .btn-danger{background:#dc3545;color:white}
+.btn-success{background:#198754;color:white}
 
 .spinner {
     width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3);
@@ -229,14 +230,9 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         <div class="timer-box">
             ⏱️ Sisa Waktu: <span id="timer-countdown">00:00:00</span>
         </div>
-        <div style="display: flex; gap: 0.5rem;">
-            <button class="btn btn-success" onclick="konfirmasiSelesai()" style="padding: 0.65rem 1rem; font-size: 0.9rem; width: auto;">
-                ✅ Selesai Ujian
-            </button>
-            <button class="btn btn-danger" onclick="konfirmasiKeluarTanpaSimpan()" style="padding: 0.65rem 1rem; font-size: 0.9rem; width: auto;">
-                🚪 Keluar
-            </button>
-        </div>
+        <button class="btn btn-danger" onclick="konfirmasiKeluarTanpaSimpan()" style="padding: 0.65rem 1rem; font-size: 0.9rem; width: auto;">
+            🚪 Keluar Ujian
+        </button>
     </div>
 
     <div class="ujian-layout">
@@ -262,7 +258,9 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         <div id="notif-icon" style="font-size: 2.5rem; margin-bottom: 0.5rem;">ℹ️</div>
         <h3 id="notif-title" style="color: var(--primary); margin-bottom: 0.5rem;">Informasi</h3>
         <p id="notif-message" style="font-size: 0.95rem; color: #495057; margin-bottom: 1.5rem; line-height: 1.5;"></p>
-        <button class="btn" id="notif-btn-ok" style="width: 100%; justify-content: center; text-align: center;">MENGERTI</button>
+        <div id="modal-buttons-container" style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <button class="btn" id="notif-btn-ok" style="width: 100%; justify-content: center; text-align: center;">MENGERTI</button>
+        </div>
     </div>
 </div>
 
@@ -402,17 +400,27 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         });
     };
 
-    function showNotif(title, msg, type = "info", onOk = null) {
+    function showNotif(title, msg, type = "info", onOk = null, customButtonsHtml = null) {
         document.getElementById('notif-title').textContent = title;
         document.getElementById('notif-message').innerHTML = msg;
         const iconMap = { success: "✅", warning: "⚠️", error: "❌", info: "ℹ️" };
         document.getElementById('notif-icon').textContent = iconMap[type] || "ℹ️";
-        const btnOk = document.getElementById('notif-btn-ok');
-        btnOk.onclick = function() {
-            document.getElementById('modal-notif').style.display = 'none';
-            if (onOk) onOk();
-        };
+        
+        const container = document.getElementById('modal-buttons-container');
+        if (customButtonsHtml) {
+            container.innerHTML = customButtonsHtml;
+        } else {
+            container.innerHTML = `<button class="btn" id="notif-btn-ok" style="width: 100%; justify-content: center; text-align: center;">MENGERTI</button>`;
+            document.getElementById('notif-btn-ok').onclick = function() {
+                document.getElementById('modal-notif').style.display = 'none';
+                if (onOk) onOk();
+            };
+        }
         document.getElementById('modal-notif').style.display = 'flex';
+    }
+
+    function tutupModalNotif() {
+        document.getElementById('modal-notif').style.display = 'none';
     }
 
     function requestFullScreen() {
@@ -552,6 +560,16 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             html += `<textarea class="form-control" rows="3" placeholder="Tulis jawaban..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
         }
         html += `</div>`;
+
+        // TOMBOL SELESAI & KUMPULKAN MUNCUL DI BAWAH SOAL HANYA PADA SOAL TERAKHIR
+        if (currentIndexSoal === activeSoal.length - 1) {
+            html += `
+                <button class="btn btn-danger" style="width: 100%; padding: 0.9rem; font-size: 1.1rem; margin-top: 1rem;" onclick="konfirmasiSelesai()">
+                    SELESAI & KUMPULKAN JAWABAN
+                </button>
+            `;
+        }
+
         document.getElementById('container-soal').innerHTML = html;
         document.getElementById('btn-prev-soal').style.visibility = (currentIndexSoal === 0) ? 'hidden' : 'visible';
         document.getElementById('btn-next-soal').style.visibility = (currentIndexSoal === activeSoal.length - 1) ? 'hidden' : 'visible';
@@ -592,8 +610,34 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         }, 1000);
     }
 
-    function konfirmasiKeluarTanpaSimpan() { location.reload(); }
-    function konfirmasiSelesai() { showNotif("Konfirmasi", "Apakah Anda yakin ingin menyelesaikan ujian dan mengirim jawaban?", "warning", () => kirimJawabanKeServer(false)); }
+    // KONFIRMASI KELUAR DI ATAS DENGAN TOMBOL BATAL
+    function konfirmasiKeluarTanpaSimpan() {
+        let buttonsHtml = `
+            <button class="btn btn-danger" onclick="executeKeluar()" style="width: 100%; margin-bottom: 0.4rem; justify-content: center;">YA, KELUAR UJIAN</button>
+            <button class="btn btn-secondary" onclick="tutupModalNotif()" style="width: 100%; justify-content: center;">BATAL / KEMBALI MENGARJAKAN</button>
+        `;
+        showNotif("Konfirmasi Keluar", "Apakah Anda yakin ingin keluar?<br><span style='color:red; font-size:0.85rem;'>Jawaban Anda tidak akan disimpan.</span>", "warning", null, buttonsHtml);
+    }
+
+    function executeKeluar() {
+        if (timerInterval) clearInterval(timerInterval);
+        lepasPengunciLayar();
+        location.reload();
+    }
+
+    // KONFIRMASI SELESAI DI BAWAH DENGAN TOMBOL BATAL
+    function konfirmasiSelesai() {
+        let buttonsHtml = `
+            <button class="btn btn-success" onclick="executeSelesai()" style="width: 100%; margin-bottom: 0.4rem; justify-content: center;">YA, SELESAI & KUMPULKAN</button>
+            <button class="btn btn-secondary" onclick="tutupModalNotif()" style="width: 100%; justify-content: center;">BATAL / LANJUTKAN UJIAN</button>
+        `;
+        showNotif("Konfirmasi Selesai", "Apakah Anda yakin ingin menyelesaikan ujian dan mengirim jawaban ke server?", "warning", null, buttonsHtml);
+    }
+
+    function executeSelesai() {
+        tutupModalNotif();
+        kirimJawabanKeServer(false);
+    }
 
     async function kirimJawabanKeServer(auto) {
         if (timerInterval) clearInterval(timerInterval);
@@ -612,6 +656,8 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             }
         });
         
+        showNotif("Mengirim Data", "Menyimpan jawaban ujian ke server pusat...", "info", null, `<div class="spinner" style="margin: 0 auto;"></div>`);
+
         try {
             await fetch(GAS_WEBAPP_URL, {
                 method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
@@ -620,7 +666,7 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
                     sheetName: "HASIL_" + currentJadwal.mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_"),
                     nis: currentSiswa.id,
                     nama: currentSiswa.nama,
-                    kelas: currentSiswa.kelas || "6",
+                    kelas: currentSsiswa.kelas || "6",
                     mapel: currentJadwal.mapel,
                     skorPG: skorPG,
                     jawabanJson: JSON.stringify(jawabanSiswa),
@@ -628,8 +674,10 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
                 })
             });
             lepasPengunciLayar();
-            showNotif("Selesai", "Jawaban ujian berhasil dikirim ke server!", "success", () => location.reload());
-        } catch(e) { showNotif("Gagal", "Koneksi ke server pusat terputus.", "error"); }
+            showNotif("Ujian Selesai", "Jawaban ujian berhasil dikirim ke server. Terima kasih!", "success", () => location.reload());
+        } catch(e) {
+            showNotif("Gagal", "Koneksi ke server pusat terputus. Periksa internet.", "error");
+        }
     }
 </script>
 </body>
