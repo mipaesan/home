@@ -1,618 +1,140 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perpustakaan Digital - MI Salafiyatul Ma'muroh Paesan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f2fef6;
-      color: #333;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    /* --- HEADER (IDENTIK DENGAN LAB.HTML) --- */
-    header {
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                  url('header_optimized_16by9.png') center center / cover no-repeat;
-      padding: 60px 20px;
-      text-align: center;
-      color: white;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-    }
-    header p {
-      margin-top: 10px;
-      font-size: 1.1em;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-    }
-
-    /* --- CONTAINER --- */
-    .container {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
-      flex: 1;
-      width: 100%;
-    }
-
-    /* --- TOMBOL KEMBALI --- */
-    .back-btn {
-      display: inline-block;
-      margin-bottom: 25px;
-      padding: 10px 20px;
-      background: #00a896;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-    .back-btn:hover {
-      background: #008072;
-    }
-
-    /* --- AREA FILTER & PENCARIAN --- */
-    .filter-section {
-      margin-bottom: 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-    .search-bar {
-      width: 100%;
-      max-width: 500px;
-    }
-    .search-bar input {
-      width: 100%;
-      padding: 12px 20px;
-      border: 2px solid #00a896;
-      border-radius: 25px;
-      font-size: 0.95em;
-      outline: none;
-      font-family: 'Poppins', sans-serif;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
-    }
-    .search-bar input:focus {
-      box-shadow: 0 4px 12px rgba(0, 168, 150, 0.25);
-    }
-
-    /* Tombol Filter Kategori */
-    .category-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-    }
-    .btn-filter {
-      background-color: #fff;
-      border: 1.5px solid #00a896;
-      color: #00a896;
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 0.85em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Poppins', sans-serif;
-    }
-    .btn-filter:hover, .btn-filter.active {
-      background-color: #00a896;
-      color: #fff;
-    }
-
-    /* --- GRID KARTU BUKU --- */
-    .grid-buku {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 25px;
-      margin-top: 20px;
-    }
-    .card-buku {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-    .card-buku:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    }
-    .cover-buku {
-      width: 100%;
-      height: 270px;
-      object-fit: cover;
-      background-color: #e6f7f5;
-    }
-    .info-buku {
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    /* Header Kartu (Tag Kategori) */
-    .meta-card {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .kategori-tag {
-      font-size: 0.75em;
-      background: #e6f7f5;
-      color: #00a896;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-weight: 600;
-      text-transform: capitalize;
-    }
-
-    .judul-buku {
-      font-size: 1.05em;
-      font-weight: 600;
-      color: #00a896;
-      margin-bottom: 6px;
-      line-height: 1.3;
-    }
-    .penulis-buku {
-      font-size: 0.85em;
-      color: #666;
-      margin-bottom: 15px;
-    }
-
-    /* Counter Dibaca (Ikon Mata Tepat di Atas Tombol Baca Buku) */
-    .view-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 0.8em;
-      color: #00a896;
-      background: #e6f7f5;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-weight: 600;
-      margin-top: auto;
-      margin-bottom: 12px;
-      width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* Tombol Baca Buku */
-    .btn-baca {
-      background: #00a896;
-      color: white;
-      text-decoration: none;
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 0.9em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: background 0.3s ease;
-      cursor: pointer;
-      border: none;
-      width: 100%;
-      font-family: 'Poppins', sans-serif;
-    }
-    .btn-baca:hover {
-      background: #008072;
-    }
-
-    .pesan-kosong {
-      text-align: center;
-      grid-column: 1 / -1;
-      padding: 40px;
-      color: #666;
-    }
-
-    /* Spinner Loading */
-    .spinner {
-      width: 32px;
-      height: 32px;
-      border: 3px solid #e6f7f5;
-      border-top: 3px solid #00a896;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 12px auto;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* --- MODAL POP-UP READER PDF --- */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.75);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      padding: 15px;
-    }
-    .modal-container {
-      background: #fff;
-      width: 100%;
-      max-width: 950px;
-      height: 92vh;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    .modal-header {
-      background-color: #00a896;
-      color: #fff;
-      padding: 14px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .modal-title {
-      font-size: 1em;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 85%;
-    }
-    .btn-close {
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 26px;
-      cursor: pointer;
-      line-height: 1;
-      padding: 0 5px;
-    }
-    .modal-body {
-      flex: 1;
-      background: #fff;
-      -webkit-overflow-scrolling: touch;
-    }
-    .modal-body iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* --- FOOTER --- */
-    footer {
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 25px;
-      font-size: 0.9em;
-      margin-top: 50px;
-    }
-
-    @media screen and (max-width: 600px) {
-      header h1 { font-size: 1.8em; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Perpustakaan Digital - MI Salafiyatul Ma'muroh Paesan</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{ --primary:#0f5132; --primary-light:#198754; --accent:#FFC107; --bg:#FFFBF5; --card:#ffffff; --muted:#6b7280; --border:#f0f0f0; }
+*{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,sans-serif}
+body{background:var(--bg);color:#1a1a1a;min-height:100vh;display:flex;flex-direction:column}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 5%;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--primary);font-size:1.05rem;text-decoration:none}
+.logo img{width:36px;height:36px;object-fit:contain;border-radius:6px}
+.nav-links a{margin-left:18px;text-decoration:none;color:#1a1a1a;font-weight:600;font-size:.85rem}
+.nav-links a.cbt{ background:var(--primary);color:white;padding:8px 14px;border-radius:8px; border:1px solid var(--primary)}
+.hero-mini{max-width:1200px;margin:0 auto;padding:28px 5% 10px;width:100%}
+.hero-mini h1{font-size:2rem;font-weight:800;color:var(--primary);line-height:1.1}
+.hero-mini h1 span{color:var(--primary-light)}
+.hero-mini p{color:var(--muted);margin-top:6px;font-size:.9rem}
+.container{max-width:1200px;margin:20px auto;padding:0 5%;flex:1;width:100%}
+.back-btn{display:inline-block;margin-bottom:20px;padding:9px 16px;background:white;border:1px solid var(--border);color:var(--primary);text-decoration:none;border-radius:10px;font-weight:700;font-size:.85rem;transition:.2s}
+.back-btn:hover{border-color:var(--primary);transform:translateY(-2px)}
+.filter-section{background:white;border:1px solid var(--border);border-radius:18px;padding:18px; margin-bottom:24px; box-shadow:0 4px 14px rgba(0,0,0,.04)}
+.search-bar{width:100%;max-width:520px;margin:0 auto 14px}
+.search-bar input{width:100%;padding:12px 20px;border:1.5px solid var(--border);border-radius:12px;font-size:.9em;outline:none;transition:.2s}
+.search-bar input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(15,81,50,.12)}
+.category-buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.btn-filter{background:#fff;border:1.5px solid var(--border);color:#333;padding:7px 16px;border-radius:20px;font-size:.82em;font-weight:600;cursor:pointer;transition:.2s}
+.btn-filter:hover,.btn-filter.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.grid-buku{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;margin-top:10px}
+.card-buku{background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 4px 12px rgba(0,0,0,.05);transition:.25s;display:flex;flex-direction:column}
+.card-buku:hover{transform:translateY(-6px);box-shadow:0 14px 28px rgba(15,81,50,.12);border-color:var(--primary-light)}
+.cover-buku{width:100%;height:270px;object-fit:cover;background:#e8f5e9}
+.info-buku{padding:14px;display:flex;flex-direction:column;flex-grow:1}
+.kategori-tag{font-size:.72em;background:#e0ffe0;color:var(--primary);padding:4px 10px;border-radius:20px;font-weight:700;text-transform:capitalize;border:1px solid #c8f7c5}
+.judul-buku{font-size:.98em;font-weight:700;color:var(--primary);margin:10px 0 4px;line-height:1.3}
+.penulis-buku{font-size:.8em;color:var(--muted);margin-bottom:14px}
+.view-count{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:.78em;color:var(--primary);background:#f0fdf4;padding:4px 10px;border-radius:20px;font-weight:600;margin: auto auto 10px;border:1px solid #dcfce7}
+.btn-baca{background:var(--primary);color:white;text-decoration:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:.88em;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s;cursor:pointer;border:none;width:100%}
+.btn-baca:hover{background:var(--primary-light)}
+.pesan-kosong{text-align:center;grid-column:1/-1;padding:40px;color:var(--muted)}
+.spinner{width:32px;height:32px;border:3px solid #e6f7f5;border-top:3px solid var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.75);z-index:1000;justify-content:center;align-items:center;padding:15px}
+.modal-container{background:#fff;width:100%;max-width:950px;height:92vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.modal-header{background:var(--primary);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.modal-title{font-size:1em;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:85%}
+.btn-close{background:transparent;border:none;color:#fff;font-size:26px;cursor:pointer;line-height:1;padding:0 5px}
+.modal-body{flex:1;background:#fff}
+.modal-body iframe{width:100%;height:100%;border:none}
+footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85rem;margin-top:20px;line-height:1.6}
+@media(max-width:600px){.hero-mini h1{font-size:1.6em}.nav-links{display:none}}
+</style>
 </head>
 <body>
+<nav><a class="logo" href="index.html"><img src="logo-mi.png" alt="Logo MI"> MI Salafiyatul Ma'muroh Paesan</a><div class="nav-links"><a href="index.html#layanan">Layanan</a><a href="index.html#berita">Berita</a><a class="cbt" href="cbt/index.html">Ujian Online</a></div></nav>
 
-  <!-- HEADER HEADER_OPTIMIZED -->
-  <header>
-    <h1>Perpustakaan Digital</h1>
-    <p>Koleksi Buku Bacaan &amp; Pembelajaran MI Salafiyatul Ma'muroh Paesan</p>
-  </header>
+<div class="hero-mini">
+  <h1>Perpustakaan <span>Digital</span></h1>
+  <p>Koleksi Buku Bacaan & Pembelajaran MI Salafiyatul Ma'muroh Paesan - Iso Ngaji, Iso Teknologi</p>
+</div>
 
-  <div class="container">
-    <!-- Navigasi Kembali ke Beranda -->
-    <a href="index.html" class="back-btn">&larr; Kembali ke Beranda</a>
+<div class="container">
+<a href="index.html" class="back-btn">← Kembali ke Beranda</a>
+<div class="filter-section">
+<div class="search-bar"><input type="text" id="inputCari" placeholder="Cari judul buku atau penulis..." oninput="tanganiPencarian()"></div>
+<div class="category-buttons" id="areaFilter">
+<button class="btn-filter active" onclick="pilihKategori('Semua Buku', this)">Semua Buku</button>
+<button class="btn-filter" onclick="pilihKategori('Kelas 1', this)">Kelas 1</button>
+<button class="btn-filter" onclick="pilihKategori('Kelas 2', this)">Kelas 2</button>
+<button class="btn-filter" onclick="pilihKategori('Kelas 3', this)">Kelas 3</button>
+<button class="btn-filter" onclick="pilihKategori('Kelas 4', this)">Kelas 4</button>
+<button class="btn-filter" onclick="pilihKategori('Kelas 5', this)">Kelas 5</button>
+<button class="btn-filter" onclick="pilihKategori('Kelas 6', this)">Kelas 6</button>
+<button class="btn-filter" onclick="pilihKategori('Cerita', this)">Cerita</button>
+</div>
+</div>
+<div class="grid-buku" id="daftarBuku"><div class="pesan-kosong"><div class="spinner"></div><div>Memuat koleksi buku...</div></div></div>
+</div>
 
-    <div class="filter-section">
-      <!-- Input Pencarian Teks -->
-      <div class="search-bar">
-        <input type="text" id="inputCari" placeholder="Cari judul buku atau penulis..." oninput="tanganiPencarian()">
-      </div>
+<div class="modal-overlay" id="modalBaca"><div class="modal-container"><div class="modal-header"><div class="modal-title" id="modalJudul">Membaca Buku</div><button class="btn-close" onclick="tutupModal()">&times;</button></div><div class="modal-body"><iframe id="iframePdf" src="" allow="autoplay" loading="lazy"></iframe></div></div></div>
 
-      <!-- Tombol Filter Kategori -->
-      <div class="category-buttons" id="areaFilter">
-        <button class="btn-filter active" onclick="pilihKategori('Semua Buku', this)">Semua Buku</button>
-        <button class="btn-filter" onclick="pilihKategori('Kelas 1', this)">Kelas 1</button>
-        <button class="btn-filter" onclick="pilihKategori('Kelas 2', this)">Kelas 2</button>
-        <button class="btn-filter" onclick="pilihKategori('Kelas 3', this)">Kelas 3</button>
-        <button class="btn-filter" onclick="pilihKategori('Kelas 4', this)">Kelas 4</button>
-        <button class="btn-filter" onclick="pilihKategori('Kelas 5', this)">Kelas 5</button>
-        <button class="btn-filter" onclick="pilihKategori('Kelas 6', this)">Kelas 6</button>
-        <button class="btn-filter" onclick="pilihKategori('Cerita', this)">Cerita</button>
-      </div>
-    </div>
+<footer><p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Cepogo</p><p>085725311612 | 081567681930 | mipaesan@gmail.com</p></footer>
 
-    <!-- Grid Kartu Buku -->
-    <div class="grid-buku" id="daftarBuku">
-      <div class="pesan-kosong">
-        <div class="spinner"></div>
-        <div>Memuat koleksi buku...</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Pop-Up Viewer PDF -->
-  <div class="modal-overlay" id="modalBaca">
-    <div class="modal-container">
-      <div class="modal-header">
-        <div class="modal-title" id="modalJudul">Membaca Buku</div>
-        <button class="btn-close" onclick="tutupModal()">&times;</button>
-      </div>
-      <div class="modal-body">
-        <iframe id="iframePdf" src="" allow="autoplay" loading="lazy"></iframe>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Kecamatan Cepogo</p>
-    <p>Kontak: 085725311612 | Email: mipaesan@gmail.com</p>
-  </footer>
-
-  <!-- JAVASCRIPT SISTEM BUKU & TRACKER -->
-  <script>
+<script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzikjVtarxZ2TbMO23OYgbf_wx2FtaE6MRJJJ4dTHLIQB-FqNaK14vw2DCxc2TktJKt/exec";
-
-    let semuaBuku = [];
-    let kategoriAktif = 'Semua Buku';
-    let dataStatistikNormalized = {}; 
-    let timerPencarian;
-
-    function normalisasi(str) {
-      return String(str || '').toLowerCase().trim().replace(/\s+/g, ' ');
+    let semuaBuku = []; let kategoriAktif = 'Semua Buku'; let dataStatistikNormalized = {}; let timerPencarian;
+    function normalisasi(str){return String(str||'').toLowerCase().trim().replace(/\s+/g,' ')}
+    function buatIdAman(str){return String(str||'').replace(/[^a-zA-Z0-9_-]/g,'_')}
+    function acakBuku(array){for(let i=array.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[array[i],array[j]]=[array[j],array[i]]}return array}
+    function ambilDataBuku(){
+      const cachedData=localStorage.getItem('cache_buku'); const cachedTime=localStorage.getItem('cache_buku_time'); const masaBerlaku=10*60*1000;
+      if(cachedData&&cachedTime&&(Date.now()-Number(cachedTime)<masaBerlaku)){try{return Promise.resolve(JSON.parse(cachedData))}catch(e){localStorage.removeItem('cache_buku')}}
+      return fetch('buku.json').then(res=>res.json()).then(data=>{try{localStorage.setItem('cache_buku',JSON.stringify(data));localStorage.setItem('cache_buku_time',Date.now().toString())}catch(e){};return data})
     }
-
-    function buatIdAman(str) {
-      return String(str || '').replace(/[^a-zA-Z0-9_-]/g, '_');
+    function ambilStatistik(){
+      if(!SCRIPT_URL) return Promise.resolve();
+      return fetch(SCRIPT_URL).then(res=>res.json()).then(data=>{
+        dataStatistikNormalized={};
+        if(data&&typeof data==='object'){Object.keys(data).forEach(kunci=>{dataStatistikNormalized[normalisasi(kunci)]=data[kunci]})}
+      }).catch(err=>{dataStatistikNormalized={}})
     }
-
-    function acakBuku(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
+    Promise.all([ambilDataBuku(),ambilStatistik()]).then(([dataBuku])=>{semuaBuku=acakBuku(dataBuku);tampilkanBuku(semuaBuku)}).catch(error=>{document.getElementById('daftarBuku').innerHTML='<div class="pesan-kosong">Gagal memuat data buku. Pastikan file buku.json tersedia.</div>'});
+    function tampilkanBuku(listBuku){
+      const container=document.getElementById('daftarBuku');
+      if(listBuku.length===0){container.innerHTML='<div class="pesan-kosong">Buku tidak ditemukan.</div>';return}
+      let html=''; listBuku.forEach(buku=>{
+        let katLabel=buku.kategori||''; let linkBuku=buku.file||buku.link||buku.url||buku.pdf||'';
+        let judulAman=(buku.judul||'').replace(/'/g,"\\'"); let katAman=(katLabel||'Umum').replace(/'/g,"\\'"); let linkAman=linkBuku.replace(/'/g,"\\'");
+        let domId=buatIdAman(buku.id||buku.judul); let kunciNormal=normalisasi(buku.judul); let totalBaca=dataStatistikNormalized[kunciNormal]||0;
+        html+=`<div class="card-buku"><img class="cover-buku" src="${buku.cover||'https://via.placeholder.com/200x270?text=No+Cover'}" alt="${buku.judul}" loading="lazy"><div class="info-buku"><div class="meta-card">${katLabel?`<span class="kategori-tag">${katLabel}</span>`:''}</div><div class="judul-buku">${buku.judul}</div><div class="penulis-buku">${buku.penulis||'Penulis tidak diketahui'}</div><div class="view-count">👁️ <span id="count-${domId}">${totalBaca}</span>x dibaca</div><button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}', '${buku.id||buku.judul}')">📚 Baca Buku</button></div></div>`;
+      }); container.innerHTML=html;
     }
-
-    function ambilDataBuku() {
-      const cachedData = localStorage.getItem('cache_buku');
-      const cachedTime = localStorage.getItem('cache_buku_time');
-      const masaBerlaku = 10 * 60 * 1000;
-
-      if (cachedData && cachedTime && (Date.now() - Number(cachedTime) < masaBerlaku)) {
-        try {
-          return Promise.resolve(JSON.parse(cachedData));
-        } catch (e) {
-          localStorage.removeItem('cache_buku');
-        }
-      }
-
-      return fetch('buku.json')
-        .then(res => res.json())
-        .then(data => {
-          try {
-            localStorage.setItem('cache_buku', JSON.stringify(data));
-            localStorage.setItem('cache_buku_time', Date.now().toString());
-          } catch (e) {
-            console.log('LocalStorage penuh/terbatasi');
-          }
-          return data;
-        });
+    function tanganiPencarian(){clearTimeout(timerPencarian);timerPencarian=setTimeout(()=>{filterSemua()},200)}
+    function catatPembaca(judul,kategori,idBuku){
+      if(!SCRIPT_URL) return; const domId=buatIdAman(idBuku); const elCount=document.getElementById(`count-${domId}`); if(elCount){let valSekarang=parseInt(elCount.innerText)||0;elCount.innerText=valSekarang+1}
+      const kunciNormal=normalisasi(judul); dataStatistikNormalized[kunciNormal]=(dataStatistikNormalized[kunciNormal]||0)+1;
+      const formData=new FormData(); formData.append('judul',judul); formData.append('kategori',kategori);
+      fetch(SCRIPT_URL,{method:'POST',body:formData,mode:'no-cors'}).catch(()=>{})
     }
-
-    function ambilStatistik() {
-      if (!SCRIPT_URL) return Promise.resolve();
-      
-      return fetch(SCRIPT_URL)
-        .then(res => res.json())
-        .then(data => {
-          dataStatistikNormalized = {};
-          if (data && typeof data === 'object') {
-            Object.keys(data).forEach(kunci => {
-              dataStatistikNormalized[normalisasi(kunci)] = data[kunci];
-            });
-          }
-        })
-        .catch(err => {
-          console.log('Belum ada statistik atau jaringan error, default ke 0:', err);
-          dataStatistikNormalized = {};
-        });
+    function bukaModal(url,judul,kategori,idBuku){
+      catatPembaca(judul,kategori,idBuku); const modal=document.getElementById('modalBaca'); const iframe=document.getElementById('iframePdf'); const modalJudul=document.getElementById('modalJudul');
+      modalJudul.innerText=judul;
+      if(!url.includes('drive.google.com')){const loc=window.location;const baseUrl=loc.protocol+'//'+loc.host+loc.pathname.substring(0,loc.pathname.lastIndexOf('/')+1);const fullUrl=url.startsWith('http')?url:baseUrl+url;iframe.src='https://docs.google.com/viewer?url='+encodeURIComponent(fullUrl)+'&embedded=true';}else{iframe.src=url}
+      modal.style.display='flex'; document.body.style.overflow='hidden';
     }
-
-    Promise.all([
-      ambilDataBuku(),
-      ambilStatistik()
-    ])
-    .then(([dataBuku]) => {
-      semuaBuku = acakBuku(dataBuku);
-      tampilkanBuku(semuaBuku);
-    })
-    .catch(error => {
-      console.error(error);
-      document.getElementById('daftarBuku').innerHTML = '<div class="pesan-kosong">Gagal memuat data buku. Pastikan file buku.json tersedia.</div>';
-    });
-
-    function tampilkanBuku(listBuku) {
-      const container = document.getElementById('daftarBuku');
-      
-      if (listBuku.length === 0) {
-        container.innerHTML = '<div class="pesan-kosong">Buku tidak ditemukan.</div>';
-        return;
-      }
-
-      let html = '';
-      listBuku.forEach(buku => {
-        let katLabel = buku.kategori || '';
-        let linkBuku = buku.file || buku.link || buku.url || buku.pdf || '';
-        
-        let judulAman = (buku.judul || '').replace(/'/g, "\\'");
-        let katAman = (katLabel || 'Umum').replace(/'/g, "\\'");
-        let linkAman = linkBuku.replace(/'/g, "\\'");
-        
-        let domId = buatIdAman(buku.id || buku.judul);
-        let kunciNormal = normalisasi(buku.judul);
-
-        let totalBaca = dataStatistikNormalized[kunciNormal] || 0;
-
-        html += `
-          <div class="card-buku">
-            <img class="cover-buku" src="${buku.cover || 'https://via.placeholder.com/200x270?text=No+Cover'}" alt="${buku.judul}" loading="lazy">
-            <div class="info-buku">
-              <div class="meta-card">
-                ${katLabel ? `<span class="kategori-tag">${katLabel}</span>` : '<span></span>'}
-              </div>
-              <div class="judul-buku">${buku.judul}</div>
-              <div class="penulis-buku">${buku.penulis || 'Penulis tidak diketahui'}</div>
-              
-              <!-- POSISI COUNTER MATA TERLETAK DI SINI (TEPAT DI ATAS TOMBOL BACA BUKU) -->
-              <div class="view-count" title="Jumlah dibaca">
-                👁️ <span id="count-${domId}">${totalBaca}</span>x dibaca
-              </div>
-
-              <button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}', '${buku.id || buku.judul}')">
-                Baca Buku
-              </button>
-            </div>
-          </div>
-        `;
-      });
-
-      container.innerHTML = html;
+    function tutupModal(){const modal=document.getElementById('modalBaca');const iframe=document.getElementById('iframePdf');modal.style.display='none';iframe.src='';document.body.style.overflow='auto';}
+    window.onclick=function(event){const modal=document.getElementById('modalBaca');if(event.target===modal){tutupModal()}}
+    function pilihKategori(kategori,el){kategoriAktif=kategori;document.querySelectorAll('.btn-filter').forEach(btn=>btn.classList.remove('active'));el.classList.add('active');filterSemua()}
+    function filterSemua(){
+      const kataKunci=document.getElementById('inputCari').value.toLowerCase().trim(); const katTargetAbaikanSpasi=kategoriAktif.toLowerCase().replace(/\s+/g,'');
+      const hasil=semuaBuku.filter(buku=>{
+        const cocokJudul=(buku.judul||'').toLowerCase().includes(kataKunci); const cocokPenulis=(buku.penulis||'').toLowerCase().includes(kataKunci); const cocokTeks=cocokJudul||cocokPenulis;
+        let cocokKategori=false; if(kategoriAktif==='Semua Buku'){cocokKategori=true}else if(buku.kategori){const katBukuAbaikanSpasi=String(buku.kategori).toLowerCase().replace(/\s+/g,'');cocokKategori=katBukuAbaikanSpasi.includes(katTargetAbaikanSpasi)} return cocokTeks&&cocokKategori;
+      }); tampilkanBuku(hasil);
     }
-
-    function tanganiPencarian() {
-      clearTimeout(timerPencarian);
-      timerPencarian = setTimeout(() => {
-        filterSemua();
-      }, 200);
-    }
-
-    function catatPembaca(judul, kategori, idBuku) {
-      if (!SCRIPT_URL) return;
-
-      const domId = buatIdAman(idBuku);
-      const elCount = document.getElementById(`count-${domId}`);
-      if (elCount) {
-        let valSekarang = parseInt(elCount.innerText) || 0;
-        elCount.innerText = valSekarang + 1;
-      }
-
-      const kunciNormal = normalisasi(judul);
-      dataStatistikNormalized[kunciNormal] = (dataStatistikNormalized[kunciNormal] || 0) + 1;
-
-      const formData = new FormData();
-      formData.append('judul', judul);
-      formData.append('kategori', kategori);
-
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors'
-      }).catch(err => console.log('Gagal mencatat statistik:', err));
-    }
-
-    function bukaModal(url, judul, kategori, idBuku) {
-      catatPembaca(judul, kategori, idBuku);
-
-      const modal = document.getElementById('modalBaca');
-      const iframe = document.getElementById('iframePdf');
-      const modalJudul = document.getElementById('modalJudul');
-
-      modalJudul.innerText = judul;
-      
-      if (!url.includes('drive.google.com')) {
-        const loc = window.location;
-        const baseUrl = loc.protocol + '//' + loc.host + loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
-        const fullUrl = url.startsWith('http') ? url : baseUrl + url;
-        
-        iframe.src = 'https://docs.google.com/viewer?url=' + encodeURIComponent(fullUrl) + '&embedded=true';
-      } else {
-        iframe.src = url;
-      }
-
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-
-    function tutupModal() {
-      const modal = document.getElementById('modalBaca');
-      const iframe = document.getElementById('iframePdf');
-
-      modal.style.display = 'none';
-      iframe.src = '';
-      document.body.style.overflow = 'auto';
-    }
-
-    window.onclick = function(event) {
-      const modal = document.getElementById('modalBaca');
-      if (event.target === modal) {
-        tutupModal();
-      }
-    }
-
-    function pilihKategori(kategori, el) {
-      kategoriAktif = kategori;
-      
-      document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
-      el.classList.add('active');
-
-      filterSemua();
-    }
-
-    function filterSemua() {
-      const kataKunci = document.getElementById('inputCari').value.toLowerCase().trim();
-      const katTargetAbaikanSpasi = kategoriAktif.toLowerCase().replace(/\s+/g, '');
-
-      const hasil = semuaBuku.filter(buku => {
-        const cocokJudul = (buku.judul || '').toLowerCase().includes(kataKunci);
-        const cocokPenulis = (buku.penulis || '').toLowerCase().includes(kataKunci);
-        const cocokTeks = cocokJudul || cocokPenulis;
-
-        let cocokKategori = false;
-        if (kategoriAktif === 'Semua Buku') {
-          cocokKategori = true;
-        } else if (buku.kategori) {
-          const katBukuAbaikanSpasi = String(buku.kategori).toLowerCase().replace(/\s+/g, '');
-          cocokKategori = katBukuAbaikanSpasi.includes(katTargetAbaikanSpasi);
-        }
-
-        return cocokTeks && cocokKategori;
-      });
-
-      tampilkanBuku(hasil);
-    }
-  </script>
-
+</script>
 </body>
 </html>
