@@ -25,17 +25,13 @@ header{max-width:1200px;margin:0 auto;padding:32px 5% 20px;display:grid;grid-tem
 .section-title{font-size:1.7rem;font-weight:800;color:var(--primary);margin-bottom:6px}
 .section-sub{color:var(--muted);margin-bottom:18px;font-size:.9rem}
 .bento-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.bento-card{background:var(--card);border-radius:16px;padding:18px;border:1px solid var(--border);text-decoration:none;color:inherit;transition:all .25s ease;display:block;animation:fadeUp .6s ease forwards}
+.bento-card{background:var(--card);border-radius:16px;padding:18px;border:1px solid var(--border);text-decoration:none;color:inherit;transition:all .25s ease;display:block;animation:fadeUp .6s ease forwards;cursor:pointer}
 .bento-card:hover{transform:translateY(-5px);box-shadow:0 14px 28px rgba(15,81,50,.15);border-color:var(--primary-light)}
-.bento-card:active{transform:translateY(-2px) scale(.98)}
 .bento-card .icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:10px}
 .bento-card h3{font-size:.98rem;font-weight:700;margin-bottom:3px}
 .bento-card p{font-size:.8rem;color:var(--muted)}
-.bento-card.ujian{background:linear-gradient(135deg,#0f5132,#198754);color:white;border-color:#0f5132}
-.bento-card.ujian p{color:rgba(255,255,255,.85)}
-.bento-card.ujian .icon{background:rgba(255,255,255,.18)}
 .programs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.card-prog{background:white;border-radius:16px;padding:20px 14px;text-align:center;border:1px solid var(--border);transition:all .25s ease;animation:fadeUp .6s ease forwards}
+.card-prog{background:white;border-radius:16px;padding:20px 14px;text-align:center;border:1px solid var(--border);transition:all .25s ease}
 .card-prog:hover{transform:translateY(-6px);box-shadow:0 12px 24px rgba(0,0,0,.08);border-color:var(--accent)}
 .card-prog img{width:84px;height:84px;object-fit:contain;margin-bottom:10px;transition:.25s ease}
 .card-prog:hover img{transform:scale(1.08) translateY(-3px)}
@@ -51,12 +47,16 @@ header{max-width:1200px;margin:0 auto;padding:32px 5% 20px;display:grid;grid-tem
 .galeri-item.active{opacity:1;z-index:1}
 .galeri-item img{width:100%;height:100%;object-fit:cover}
 .visi-misi{background:linear-gradient(135deg,#e0ffe0,#f2fff2);border-radius:18px;padding:32px 24px;border:1px solid #d1fae5}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;justify-content:center;align-items:center}
-.modal-box{background:white;padding:28px;border-radius:14px;width:90%;max-width:360px;text-align:center}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;justify-content:center;align-items:center;padding:16px}
+.modal-box{background:white;padding:28px;border-radius:18px;width:90%;max-width:400px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,.2);animation:fadeUp .3s ease}
 .modal-box input{width:100%;padding:10px 12px;margin:8px 0 12px;border:1px solid #ccc;border-radius:8px}
-.modal-box button{width:100%;padding:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer}
+.modal-box button{width:100%;padding:10px;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
 .btn-login-submit{background:var(--primary);color:white;margin-bottom:8px}
 .btn-login-cancel{background:#eee;color:#333}
+.info-modal-icon{width:64px;height:64px;background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 14px}
+.info-modal-title{font-size:1.15rem;font-weight:800;color:var(--primary);margin-bottom:6px}
+.info-modal-desc{font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:18px}
+.btn-info-ok{background:var(--primary);color:white;padding:11px 22px;border-radius:10px;border:none;font-weight:700;width:100%;cursor:pointer}
 footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85rem;margin-top:20px;line-height:1.6}
 @keyframes floatTILMI{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -66,7 +66,6 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
 </head>
 <body>
 <nav><div class="logo"><img src="logo-mi.png" alt="Logo MI"> MI Salafiyatul Ma'muroh Paesan</div><div class="nav-links"><a href="#layanan">Layanan</a><a href="#berita">Berita</a><a href="#program">Program</a><a class="cbt" href="cbt/index.html">Ujian Online</a></div></nav>
-
 <header>
 <div class="hero-text">
 <p class="small-top">MI Salafiyatul Ma'muroh Paesan, Jelok, Cepogo, Boyolali</p>
@@ -76,31 +75,22 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
 <a href="cbt/index.html" style="background:var(--primary);color:white;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700">🚀 Ujian Online CBT</a>
 <a href="#layanan" style="background:white;border:1px solid #ddd;padding:12px 18px;border-radius:10px;text-decoration:none;color:#1a1a1a;font-weight:600">Lihat Layanan</a>
 </div>
-<p style="margin-top:14px;font-size:.8rem;color:var(--muted)">Kurikulum Merdeka • Sekolah Islam Berbasis Teknologi</p>
 </div>
-<div class="hero-img"><img src="tilmi-lengkap.png" alt="TILMI - Iso Ngaji Iso Teknologi"></div>
+<div class="hero-img"><img src="tilmi-lengkap.png" alt="TILMI"></div>
 </header>
-
 <section id="layanan" class="section">
 <h2 class="section-title">Layanan Madrasah</h2>
 <div class="bento-grid">
-<a class="bento-card ujian" href="cbt/index.html"><div class="icon">💻</div><h3>Ujian Online</h3><p>CBT Asesmen siswa</p></a>
-<a class="bento-card" href="sambutan.html"><div class="icon" style="background:#dcfce7">🎓</div><h3>Pengumuman Kelulusan</h3><p>Info kelulusan siswa</p></a>
-<a class="bento-card" href="formulir.html"><div class="icon" style="background:#fef3c7">📝</div><h3>Formulir PMBM 2026/2027</h3><p>Penerimaan murid baru</p></a>
+<a class="bento-card" style="background:linear-gradient(135deg,#0f5132,#198754);color:white;border-color:#0f5132" href="cbt/index.html"><div class="icon" style="background:rgba(255,255,255,.18)">💻</div><h3>Ujian Online</h3><p style="color:rgba(255,255,255,.85)">CBT Asesmen siswa</p></a>
+<a class="bento-card" id="card-pengumuman" href="sambutan.html"><div class="icon" style="background:#dcfce7">🎓</div><h3>Pengumuman Kelulusan</h3><p>Info kelulusan siswa</p></a>
+<a class="bento-card" id="card-pmbm" href="formulir.html"><div class="icon" style="background:#fef3c7">📝</div><h3>Formulir PMBM 2026/2027</h3><p>Penerimaan murid baru</p></a>
 <a class="bento-card" id="persuratan-button" href="#"><div class="icon" style="background:#dbeafe">✉️</div><h3>Layanan Surat Mandiri</h3><p>Pembuatan surat keterangan</p></a>
 <a class="bento-card" href="perpustakaan.html"><div class="icon" style="background:#f3e8ff">📚</div><h3>Perpustakaan Digital</h3><p>Akses e-book & literasi</p></a>
 <a class="bento-card" href="lab.html"><div class="icon" style="background:#ccfbf1">🔬</div><h3>Lab Digital</h3><p>Robotik & komputer dasar</p></a>
 </div>
 </section>
-
-<section id="berita" class="section">
-<h2 class="section-title">Berita Terbaru</h2>
-<div id="berita-carousel" class="berita-grid"></div>
-<div style="text-align:center;margin-top:22px"><button id="btn-more-berita" onclick="loadMoreBerita()" style="background:white;border:1.5px solid #0f5132;color:#0f5132;padding:10px 22px;border-radius:10px;font-weight:700;cursor:pointer;display:none">Lihat 3 Berita Lainnya ↓</button></div>
-</section>
-
+<section id="berita" class="section"><h2 class="section-title">Berita Terbaru</h2><div id="berita-carousel" class="berita-grid"></div><div style="text-align:center;margin-top:22px"><button id="btn-more-berita" onclick="loadMoreBerita()" style="background:white;border:1.5px solid #0f5132;color:#0f5132;padding:10px 22px;border-radius:10px;font-weight:700;cursor:pointer;display:none">Lihat 3 Berita Lainnya ↓</button></div></section>
 <section class="section"><div class="visi-misi"><h2 class="section-title" style="text-align:center">Visi & Misi</h2><div style="text-align:center;font-weight:700;font-size:1.1rem;margin:18px 0">"MEMBENTUK GENERASI YANG BERILMU PENGETAHUAN, MENGUASAI TEKNOLOGI DAN BERAKHLAK ISLAMI"</div><ul style="max-width:700px;margin:0 auto;line-height:1.8;padding-left:18px"><li>Melaksanakan pembelajaran yang aktif, kreatif, efektif, dan menyenangkan.</li><li>Menumbuhkan penghayatan terhadap ajaran agama serta budaya bangsa.</li><li>Menjalin kerjasama yang baik dengan warga madrasah dan masyarakat.</li><li>Menerapkan manajemen partisipatif dan transparan.</li></ul></div></section>
-
 <section id="program" class="section">
 <h2 class="section-title">Program Unggulan</h2>
 <p class="section-sub">8 kegiatan unggulan untuk membentuk santri Iso Ngaji, Iso Teknologi</p>
@@ -115,19 +105,65 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
 <div class="card-prog"><img src="tilmi-sholat.png" alt="Sholat"><h3>Sholat Dhuha & Dhuhur Berjamaah</h3><p>Pembiasaan sholat sunnah Dhuha dan sholat Dhuhur berjamaah untuk membentuk akhlak dan karakter.</p></div>
 </div>
 </section>
-
 <section class="section"><h2 class="section-title">Galeri Kegiatan</h2><div class="galeri-wrapper"><a href="galeri1.jpg" class="glightbox galeri-item active"><img src="galeri1.jpg"></a><a href="galeri2.jpg" class="glightbox galeri-item"><img src="galeri2.jpg"></a><a href="galeri3.jpg" class="glightbox galeri-item"><img src="galeri3.jpg"></a><a href="galeri4.jpg" class="glightbox galeri-item"><img src="galeri4.jpg"></a><a href="galeri5.jpg" class="glightbox galeri-item"><img src="galeri5.jpg"></a><a href="galeri6.jpg" class="glightbox galeri-item"><img src="galeri6.jpg"></a></div></section>
-
 <div class="modal-overlay" id="surat-modal"><div class="modal-box"><h3 style="color:var(--primary)">Akses Layanan Surat</h3><input type="text" id="surat-user" placeholder="Username"><input type="password" id="surat-pass" placeholder="Password"><button class="btn-login-submit" onclick="prosesLoginSurat()">Masuk</button><button class="btn-login-cancel" onclick="tutupModalSurat()">Batal</button></div></div>
-
+<div class="modal-overlay" id="info-modal"><div class="modal-box"><div class="info-modal-icon" id="info-icon">⏰</div><div class="info-modal-title" id="info-title">Informasi</div><div class="info-modal-desc" id="info-desc">Deskripsi</div><button class="btn-info-ok" onclick="tutupInfoModal()">Mengerti, Terima Kasih</button></div></div>
 <footer><p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Cepogo</p><p>085725311612 | 081567681930 | mipaesan@gmail.com</p></footer>
-
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>
 const lightbox=GLightbox({selector:'.glightbox'});
 let currentIndex=0; const galeriItems=document.querySelectorAll('.galeri-item');
 function showSlide(i){ galeriItems.forEach((el,idx)=>el.classList.toggle('active',idx===i)); }
 setInterval(()=>{ currentIndex=(currentIndex+1)%galeriItems.length; showSlide(currentIndex); },3000);
+
+// ===== SETTING JADWAL - SUDAH FINAL MAS, TANPA TANGGAL KEMENAG =====
+const JADWAL = {
+  pengumuman: { 
+    mulai: "2026-06-05", 
+    selesai: "2026-06-20",
+    pesanBelum: "Pengumuman kelulusan belum dibuka. Ketentuan waktu pengumuman masih menunggu informasi resmi dari Kementerian Agama. Silakan pantau terus website madrasah.",
+    pesanTutup: "Pengumuman kelulusan sudah ditutup. Silakan hubungi panitia di madrasah untuk informasi lebih lanjut."
+  },
+  pmbm: { 
+    mulai: "2026-01-10", 
+    selesai: "2026-07-15",
+    pesanBelum: "Pendaftaran murid baru (PMBM) belum dibuka. Saat ini belum memasuki periode pendaftaran.",
+    pesanTutup: "Pendaftaran PMBM 2026/2027 sudah ditutup. Terima kasih atas partisipasinya."
+  }
+};
+// =====================================================================
+
+function cekTanggal(mulai, selesai){
+  const today = new Date(); today.setHours(0,0,0,0);
+  const m = new Date(mulai); m.setHours(0,0,0,0);
+  const s = new Date(selesai); s.setHours(0,0,0,0);
+  if(today < m) return "belum";
+  if(today > s) return "tutup";
+  return "buka";
+}
+function showInfoModal(icon, title, desc){
+  document.getElementById('info-icon').innerText = icon;
+  document.getElementById('info-title').innerText = title;
+  document.getElementById('info-desc').innerText = desc;
+  document.getElementById('info-modal').style.display='flex';
+}
+function tutupInfoModal(){ document.getElementById('info-modal').style.display='none'; }
+document.getElementById('card-pengumuman').addEventListener('click', function(e){
+  const status = cekTanggal(JADWAL.pengumuman.mulai, JADWAL.pengumuman.selesai);
+  if(status !== "buka"){
+    e.preventDefault();
+    if(status === "belum") showInfoModal("🎓", "Pengumuman Belum Dibuka", JADWAL.pengumuman.pesanBelum);
+    else showInfoModal("🔒", "Pengumuman Sudah Ditutup", JADWAL.pengumuman.pesanTutup);
+  }
+});
+document.getElementById('card-pmbm').addEventListener('click', function(e){
+  const status = cekTanggal(JADWAL.pmbm.mulai, JADWAL.pmbm.selesai);
+  if(status !== "buka"){
+    e.preventDefault();
+    if(status === "belum") showInfoModal("📝", "PMBM Belum Dibuka", JADWAL.pmbm.pesanBelum);
+    else showInfoModal("📪", "PMBM Sudah Ditutup", JADWAL.pmbm.pesanTutup);
+  }
+});
 document.getElementById('persuratan-button').addEventListener('click',e=>{e.preventDefault(); document.getElementById('surat-modal').style.display='flex';});
 function tutupModalSurat(){ document.getElementById('surat-modal').style.display='none'; }
 function prosesLoginSurat(){ if(document.getElementById('surat-user').value==="admin"&&document.getElementById('surat-pass').value==="@Paesan1234"){ location.href="pilih-surat.html"; }else alert("Salah!"); }
