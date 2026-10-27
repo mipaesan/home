@@ -5,30 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CBT Online - MI Salafiyatul Ma'muroh</title>
 <style>
-:root{
- --primary:#0f5132; --primary-dark:#0a3622; --accent:#ffc107;
- --bg:#e9f5ed; --card:#ffffff; --text:#212529; --border:#dee2e6;
-}
+:root{ --primary:#0f5132; --primary-dark:#0a3622; --accent:#ffc107; --bg:#e9f5ed; --card:#ffffff; --text:#212529; --border:#dee2e6; }
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
-body{background:var(--bg);color:var(--text);overflow-x:hidden;
- -webkit-user-select:none;user-select:none;min-height:100vh;padding-bottom:30px}
+body{background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-user-select:none;user-select:none;min-height:100vh;padding-bottom:30px}
 input,textarea,select{user-select:text !important}
 header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:1rem;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,0.1)}
 header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
-.auth-wrapper { perspective: 1000px; max-width: 900px; margin: 2rem auto; }
-.auth-card-container { width: 100%; position: relative; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
-.auth-card-container.flipped { transform: rotateY(180deg); }
-.auth-box {
-    background: white; border-radius: 24px; overflow: hidden;
-    box-shadow: 0 20px 40px rgba(15,81,50,.15);
-    display: flex; min-height: 480px;
-    backface-visibility: hidden; -webkit-backface-visibility: hidden;
-    width: 100%; position: relative;
-}
-.auth-box-front { z-index: 2; transform: rotateY(0deg); }
-.auth-box-back { position: absolute; top: 0; left: 0; transform: rotateY(180deg); z-index: 1; }
-.auth-card-container.flipped .auth-box-front { z-index: 1; }
-.auth-card-container.flipped .auth-box-back { z-index: 2; }
+.auth-wrapper{perspective:1000px;max-width:900px;margin:2rem auto}
+.auth-card-container{width:100%;position:relative;transition:transform .6s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d}
+.auth-card-container.flipped{transform:rotateY(180deg)}
+.auth-box{background:white;border-radius:24px;overflow:hidden;box-shadow:0 20px 40px rgba(15,81,50,.15);display:flex;min-height:480px;backface-visibility:hidden;-webkit-backface-visibility:hidden;width:100%;position:relative}
+.auth-box-front{z-index:2;transform:rotateY(0deg)} .auth-box-back{position:absolute;top:0;left:0;transform:rotateY(180deg);z-index:1}
+.auth-card-container.flipped .auth-box-front{z-index:1} .auth-card-container.flipped .auth-box-back{z-index:2}
 .login-left{flex:1;background:linear-gradient(160deg,#0f5132 0%,#198754 100%);color:white;padding:2rem;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;text-align:center}
 .blob{position:absolute;border-radius:50%;background:rgba(255,255,255,.12);animation:float 6s ease-in-out infinite}
 .blob1{width:200px;height:200px;top:-40px;left:-40px} .blob2{width:150px;height:150px;bottom:30px;right:-20px;animation-delay:2s}
@@ -40,26 +28,15 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .form-group{margin-bottom:1rem} .form-group label{font-size:.82rem;font-weight:700;margin-bottom:.3rem;display:block}
 .form-control{width:100%;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-size:.95rem;transition:.2s}
 .form-control:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(15,81,50,.15);outline:none}
-.password-wrapper { position: relative; display: flex; align-items: center; }
-.password-wrapper .form-control { padding-right: 48px; }
-.toggle-password { position: absolute; right: 12px; background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; color: #6c757d; }
-.toggle-password:hover { color: var(--primary); }
+.password-wrapper{position:relative;display:flex;align-items:center} .password-wrapper .form-control{padding-right:48px}
+.toggle-password{position:absolute;right:12px;background:none;border:none;cursor:pointer;padding:4px;display:flex;color:#6c757d}
 .btn{padding:.8rem 1.2rem;background:var(--primary);color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;position:relative;overflow:hidden}
-.btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:.5s}
-.btn:hover::after{left:100%} .btn:hover{background:var(--primary-dark);transform:translateY(-1px)}
-.btn-warning{background:var(--accent);color:#212529}
-.btn-secondary{background:#6c757d;color:white}
-.btn-danger{background:#dc3545;color:white}
-.btn-success{background:#198754;color:white}
-.spinner {width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3);border-radius: 50%; border-top-color: white;animation: spin 0.8s linear infinite; display: inline-block;}
-@keyframes spin { to { transform: rotate(360deg); } }
-@media(max-width:768px){
- .auth-box{flex-direction:column;min-height:auto}
- .login-left{padding:1.5rem 1.5rem 2rem;align-items:center;text-align:center}
- .login-right{padding:1.5rem}
-}
-#ujian-section{display:none} 
-.container{max-width:1000px;margin:1.5rem auto;padding:0 1rem}
+.btn:hover{background:var(--primary-dark);transform:translateY(-1px)}
+.btn-warning{background:var(--accent);color:#212529} .btn-secondary{background:#6c757d;color:white} .btn-danger{background:#dc3545;color:white} .btn-success{background:#198754;color:white}
+.spinner{width:18px;height:18px;border:3px solid rgba(255,255,255,.3);border-radius:50%;border-top-color:white;animation:spin .8s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:768px){.auth-box{flex-direction:column;min-height:auto}.login-left{padding:1.5rem}.login-right{padding:1.5rem}}
+#ujian-section{display:none} .container{max-width:1000px;margin:1.5rem auto;padding:0 1rem}
 .card{background:white;border-radius:16px;padding:1.5rem;border:1px solid #dee2e6;box-shadow:0 4px 12px rgba(0,0,0,.06);margin-bottom:1.5rem}
 .top-bar-ujian{display:flex;justify-content:space-between;align-items:center;gap:.8rem;margin-bottom:1rem;flex-wrap:wrap}
 .timer-box{flex:1;min-width:180px;background:#fff3cd;border:1px solid #ffeeba;color:#856404;padding:.65rem 1rem;border-radius:10px;font-weight:bold;text-align:center}
@@ -68,409 +45,191 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .sidebar-title{font-size:.95rem;font-weight:bold;color:var(--primary);margin-bottom:.8rem;border-bottom:1px solid #dee2e6;padding-bottom:.4rem}
 .nav-soal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-height:400px;overflow-y:auto;padding-right:4px}
 .btn-no-soal{padding:.5rem 0;background:white;border:1px solid #dee2e6;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;text-align:center}
-.btn-no-soal:hover{background:#e9ecef}
-.btn-no-soal.active{background:#0d6efd;color:white;border-color:#0d6efd} 
-.btn-no-soal.terjawab{background:var(--primary);color:white;border-color:var(--primary)}
-.main-soal-area{flex:1;min-width:0} 
-.soal-card{background:#f8f9fa;border:1px solid #dee2e6;border-radius:12px;padding:1.2rem;margin-bottom:1.2rem}
+.btn-no-soal.active{background:#0d6efd;color:white;border-color:#0d6efd} .btn-no-soal.terjawab{background:var(--primary);color:white;border-color:var(--primary)}
+.main-soal-area{flex:1;min-width:0} .soal-card{background:#f8f9fa;border:1px solid #dee2e6;border-radius:12px;padding:1.2rem;margin-bottom:1.2rem}
 .soal-teks{font-weight:600;margin-bottom:.8rem;font-size:1.05rem}
 .pilihan-item{display:block;background:white;border:1px solid #dee2e6;padding:.6rem .8rem;border-radius:8px;margin-bottom:.5rem;cursor:pointer;transition:.2s}
-.pilihan-item:hover{background:#e9ecef}
 .pilihan-item input{margin-right:8px}
-.tabel-jodoh{width:100%;border-collapse:collapse;margin-top:.8rem;background:white}
-.tabel-jodoh th, .tabel-jodoh td{border:1px solid #dee2e6;padding:.6rem;font-size:.9rem}
-.tabel-jodoh th{background:#e9f5ed;color:var(--primary)}
-.nav-buttons-soal{display:flex;justify-content:space-between;gap:1rem;margin-top:1rem}
-.btn-toggle-drawer{display:none}
-@media(max-width:768px){
- .ujian-layout{flex-direction:column}
- .btn-toggle-drawer{display:inline-flex}
- .sidebar-soal{display:none;width:100%;margin-bottom:1rem}
- .sidebar-soal.show-mobile{display:block}
- .nav-soal-grid{grid-template-columns:repeat(auto-fill,minmax(45px,1fr));max-height:250px}
-}
+.tabel-jodoh{width:100%;border-collapse:collapse;margin-top:.8rem;background:white} .tabel-jodoh th,.tabel-jodoh td{border:1px solid #dee2e6;padding:.6rem;font-size:.9rem} .tabel-jodoh th{background:#e9f5ed;color:var(--primary)}
+.nav-buttons-soal{display:flex;justify-content:space-between;gap:1rem;margin-top:1rem} .btn-toggle-drawer{display:none}
+@media(max-width:768px){.ujian-layout{flex-direction:column}.btn-toggle-drawer{display:inline-flex}.sidebar-soal{display:none;width:100%;margin-bottom:1rem}.sidebar-soal.show-mobile{display:block}.nav-soal-grid{grid-template-columns:repeat(auto-fill,minmax(45px,1fr));max-height:250px}}
 .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:999;align-items:center;justify-content:center;padding:1rem}
 .modal-card{background:white;border-radius:16px;max-width:420px;width:100%;padding:1.5rem;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,0.25)}
 </style>
 </head>
 <body oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;">
-
-<header>
-<h1>CBT MI SALAFIYATUL MA'MUROH</h1>
-<p>Portal Ujian Asesmen Siswa Berbasis Komputer</p>
-</header>
-
+<header><h1>CBT MI SALAFIYATUL MA'MUROH</h1><p>Portal Ujian Asesmen Siswa Berbasis Komputer</p></header>
 <div class="container">
 <div class="auth-wrapper" id="auth-wrapper-box">
   <div class="auth-card-container" id="card-flipper">
-    
-    <!-- SISI DEPAN: LOGIN SISWA - SUDAH TILMI -->
     <div class="auth-box auth-box-front" id="login-section">
-      <div class="login-left">
-        <div class="blob blob1"></div><div class="blob blob2"></div>
-        <div style="position:relative;z-index:2">
-          <div style="font-size:3rem;margin-bottom:.5rem">🎓</div>
-          <h2 style="font-size:1.8rem;font-weight:800;line-height:1.2">Portal CBT<br>MI Salafiyatul Ma'muroh</h2>
-          <p style="margin-top:.8rem;opacity:.9;font-size:.9rem">Siap belajar & ujian? Masuk untuk melanjutkan asesmen dengan aman dan tertib.</p>
-          <div style="margin-top:1.5rem;display:flex;justify-content:center;gap:1.5rem;font-size:.75rem;opacity:.8">
-            <span>🔒 Secure & Safe</span><span>⚡ Kurikulum Merdeka</span>
-          </div>
-        </div>
-      </div>
-
+      <div class="login-left"><div class="blob blob1"></div><div class="blob blob2"></div><div style="position:relative;z-index:2"><div style="font-size:3rem;margin-bottom:.5rem">🎓</div><h2 style="font-size:1.8rem;font-weight:800;line-height:1.2">Portal CBT<br>MI Salafiyatul Ma'muroh</h2><p style="margin-top:.8rem;opacity:.9;font-size:.9rem">Siap belajar & ujian? Masuk untuk melanjutkan asesmen dengan aman dan tertib.</p></div></div>
       <div class="login-right">
-        <!-- INI YANG DIGANTI JADI TILMI MAS -->
-        <div class="tilmi-box">
-          <img src="../tilmi-lengkap.png" alt="TILMI MI Paesan" onerror="this.src='../logo-mi.png'">
-        </div>
+        <div class="tilmi-box"><img src="../tilmi-lengkap.png" alt="TILMI" onerror="this.src='../logo-mi.png'"></div>
         <div class="card-title">Masuk Ruang Ujian</div>
         <form onsubmit="event.preventDefault(); prosesLoginSiswa();">
           <div class="form-group"><label>ID Siswa</label><input type="text" id="input-nis" class="form-control" placeholder="Contoh: 12345" autocomplete="off" required></div>
           <div class="form-group"><label>Token Ujian</label><input type="text" id="input-token" class="form-control" placeholder="Contoh: TYVB78" style="text-transform:uppercase" autocomplete="off" required></div>
           <button type="submit" id="btn-login-siswa" class="btn">MULAI UJIAN</button>
         </form>
-        <div style="margin-top:1.2rem;text-align:center">
-          <a href="#" onclick="toggleFlipAuth(event)" style="color:var(--primary);text-decoration:none;font-size:.82rem;font-weight:600">
-            🔐 Masuk Dashboard Guru
-          </a>
-        </div>
+        <div style="margin-top:1.2rem;text-align:center"><a href="#" onclick="toggleFlipAuth(event)" style="color:var(--primary);text-decoration:none;font-size:.82rem;font-weight:600">🔐 Masuk Dashboard Guru</a></div>
       </div>
     </div>
-
-    <!-- SISI BELAKANG: LOGIN GURU - TETAP SAMA -->
     <div class="auth-box auth-box-back">
-      <div class="login-left" style="background:linear-gradient(160deg,#1e293b 0%,#0f172a 100%);">
-        <div class="blob blob1"></div><div class="blob blob2"></div>
-        <div style="position:relative;z-index:2">
-          <div style="font-size:3rem;margin-bottom:.5rem">📊</div>
-          <h2 style="font-size:1.8rem;font-weight:800;line-height:1.2">Dashboard Guru<br>& Penilaian Madrasah</h2>
-          <p style="margin-top:.8rem;opacity:.9;font-size:.9rem">Kelola naskah soal, koreksi jawaban, analisis butir soal, dan rekapitulasi penilaian hasil ujian.</p>
-        </div>
-      </div>
-
+      <div class="login-left" style="background:linear-gradient(160deg,#1e293b 0%,#0f172a 100%);"><div class="blob blob1"></div><div class="blob blob2"></div><div style="position:relative;z-index:2"><div style="font-size:3rem;margin-bottom:.5rem">📊</div><h2 style="font-size:1.8rem;font-weight:800;line-height:1.2">Dashboard Guru<br>& Penilaian Madrasah</h2><p style="margin-top:.8rem;opacity:.9;font-size:.9rem">Kelola naskah soal, koreksi jawaban, dan rekapitulasi penilaian.</p></div></div>
       <div class="login-right">
         <div class="card-title">Login Guru / Evaluator</div>
         <form onsubmit="event.preventDefault(); prosesLoginGuru();">
           <div class="form-group"><label>ID Guru</label><input type="text" id="input-id-guru" class="form-control" placeholder="Masukkan ID Guru" autocomplete="off" required></div>
-          <div class="form-group">
-            <label>Password / Sandi</label>
-            <div class="password-wrapper">
-              <input type="password" id="input-pass-guru" class="form-control" placeholder="Masukkan Password" autocomplete="off" required>
-              <button type="button" class="toggle-password" onclick="togglePasswordVisibility()" title="Tampilkan / Sembunyikan Sandi">
-                <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" id="eye-outline"></path>
-                  <circle cx="12" cy="12" r="3" id="eye-pupil" style="display:none;"></circle>
-                  <line x1="3" y1="3" x2="21" y2="21" id="eye-slash" style="display:block;"></line>
-                </svg>
-              </button>
-            </div>
-          </div>
+          <div class="form-group"><label>Password / Sandi</label><div class="password-wrapper"><input type="password" id="input-pass-guru" class="form-control" placeholder="Masukkan Password" autocomplete="off" required><button type="button" class="toggle-password" onclick="togglePasswordVisibility()"><svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3" id="eye-pupil" style="display:none;"></circle><line x1="3" y1="3" x2="21" y2="21" id="eye-slash" style="display:block;"></line></svg></button></div></div>
           <button type="submit" id="btn-login-guru" class="btn" style="background:#1e293b;">MASUK DASHBOARD</button>
         </form>
-        <div style="margin-top:1.2rem;text-align:center">
-          <a href="#" onclick="toggleFlipAuth(event)" style="color:var(--primary);text-decoration:none;font-size:.82rem;font-weight:600">
-            ‹ Kembali ke Login Siswa
-          </a>
-        </div>
+        <div style="margin-top:1.2rem;text-align:center"><a href="#" onclick="toggleFlipAuth(event)" style="color:var(--primary);text-decoration:none;font-size:.82rem;font-weight:600">‹ Kembali ke Login Siswa</a></div>
       </div>
     </div>
-
   </div>
 </div>
-
 <div id="ujian-section">
-    <div class="card" style="padding: 1rem; background: #e9ecef; margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.6;">
-        <div>Nama &nbsp;: <strong id="info-nama-siswa">-</strong></div>
-        <div>ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <strong id="info-nis-siswa">-</strong></div>
-        <div>Kelas &nbsp;: <strong id="info-kelas-siswa">-</strong></div>
-        <div style="margin-top: 0.4rem; border-top: 1px dashed #adb5bd; padding-top: 0.4rem; font-size: 0.85rem; color: #495057;">
-            Mapel Ujian: <strong id="info-mapel-ujian">-</strong>
-        </div>
+    <div class="card" style="padding:1rem;background:#e9ecef;margin-bottom:1rem;font-size:.95rem;line-height:1.6;">
+        <div>Nama &nbsp;: <strong id="info-nama-siswa">-</strong></div><div>ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <strong id="info-nis-siswa">-</strong></div><div>Kelas &nbsp;: <strong id="info-kelas-siswa">-</strong></div>
+        <div style="margin-top:.4rem;border-top:1px dashed #adb5bd;padding-top:.4rem;font-size:.85rem;color:#495057;">Mapel Ujian: <strong id="info-mapel-ujian">-</strong></div>
     </div>
-    <div class="top-bar-ujian">
-        <button class="btn btn-warning btn-toggle-drawer" onclick="toggleNavMobile()">📱 Daftar Soal</button>
-        <div class="timer-box">⏱️ Sisa Waktu: <span id="timer-countdown">00:00:00</span></div>
-        <button class="btn btn-danger" onclick="konfirmasiKeluarTanpaSimpan()" style="padding: 0.65rem 1rem; font-size: 0.9rem; width: auto;">🚪 Keluar Ujian</button>
-    </div>
-    <div class="ujian-layout">
-        <div class="sidebar-soal" id="sidebar-soal-box">
-            <div class="sidebar-title">📌 Nomor Soal</div>
-            <div class="nav-soal-grid" id="grid-nomor-soal"></div>
-        </div>
-        <div class="main-soal-area">
-            <div id="container-soal"></div>
-            <div class="nav-buttons-soal">
-                <button class="btn btn-secondary" id="btn-prev-soal" onclick="pindahSoal(currentIndexSoal - 1)" style="width:auto;">‹ Sebelumnya</button>
-                <button class="btn" id="btn-next-soal" onclick="pindahSoal(currentIndexSoal + 1)" style="width:auto;">Selanjutnya ›</button>
-            </div>
-        </div>
-    </div>
+    <div class="top-bar-ujian"><button class="btn btn-warning btn-toggle-drawer" onclick="toggleNavMobile()">📱 Daftar Soal</button><div class="timer-box">⏱️ Sisa Waktu: <span id="timer-countdown">00:00:00</span></div><button class="btn btn-danger" onclick="konfirmasiKeluarTanpaSimpan()" style="padding:.65rem 1rem;font-size:.9rem;width:auto;">🚪 Keluar Ujian</button></div>
+    <div class="ujian-layout"><div class="sidebar-soal" id="sidebar-soal-box"><div class="sidebar-title">📌 Nomor Soal</div><div class="nav-soal-grid" id="grid-nomor-soal"></div></div><div class="main-soal-area"><div id="container-soal"></div><div class="nav-buttons-soal"><button class="btn btn-secondary" id="btn-prev-soal" onclick="pindahSoal(currentIndexSoal - 1)" style="width:auto;">‹ Sebelumnya</button><button class="btn" id="btn-next-soal" onclick="pindahSoal(currentIndexSoal + 1)" style="width:auto;">Selanjutnya ›</button></div></div></div>
 </div>
 </div>
-
-<div id="modal-notif" class="modal-overlay" style="z-index: 1000;">
-    <div class="modal-card">
-        <div id="notif-icon" style="font-size: 2.5rem; margin-bottom: 0.5rem;">ℹ️</div>
-        <h3 id="notif-title" style="color: var(--primary); margin-bottom: 0.5rem;">Informasi</h3>
-        <p id="notif-message" style="font-size: 0.95rem; color: #495057; margin-bottom: 1.5rem; line-height: 1.5;"></p>
-        <div id="modal-buttons-container" style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <button class="btn" id="notif-btn-ok" style="width: 100%; justify-content: center; text-align: center;">MENGERTI</button>
-        </div>
-    </div>
-</div>
-
+<div id="modal-notif" class="modal-overlay" style="z-index:1000;"><div class="modal-card"><div id="notif-icon" style="font-size:2.5rem;margin-bottom:.5rem;">ℹ️</div><h3 id="notif-title" style="color:var(--primary);margin-bottom:.5rem;">Informasi</h3><p id="notif-message" style="font-size:.95rem;color:#495057;margin-bottom:1.5rem;line-height:1.5;"></p><div id="modal-buttons-container" style="display:flex;flex-direction:column;gap:.5rem;"><button class="btn" id="notif-btn-ok" style="width:100%;">MENGERTI</button></div></div></div>
 <script>
-    const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxxcs96dxFK_IatVI53R2woXXuxKzxhAxtM8meHC5AgYvQ/exec";
-    let listMembers = [], listJadwal = [];
-    let currentSiswa = null, currentJadwal = null, activeSoal = [];
-    let jawabanSiswa = {};
-    let currentIndexSoal = 0;
-    let timerInterval = null, sisaDetik = 0;
-    let tabSwitchCount = 0;
-    const MAX_TAB_SWITCH = 3;
-    function toggleFlipAuth(e) {
-        if(e) e.preventDefault();
-        const flipper = document.getElementById('card-flipper');
-        flipper.classList.toggle('flipped');
+const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxxcs96dxFK_IatVI53R2woXXuxKzxhAxtsAvOY7NXb7gF-iTQ3OKbYvtM8meHC5AgYvQ/exec";
+let listMembers=[],listJadwal=[]; let currentSiswa=null,currentJadwal=null,activeSoal=[]; let jawabanSiswa={}; let currentIndexSoal=0; let timerInterval=null,sisaDetik=0; let tabSwitchCount=0; const MAX_TAB_SWITCH=3;
+function toggleFlipAuth(e){ if(e) e.preventDefault(); document.getElementById('card-flipper').classList.toggle('flipped'); }
+async function prosesLoginGuru(){
+  const idGuru=document.getElementById('input-id-guru').value.trim(); const passGuru=document.getElementById('input-pass-guru').value.trim(); const btn=document.getElementById('btn-login-guru');
+  if(!idGuru||!passGuru) return showNotif("Peringatan","ID Guru dan Password harus diisi!","warning");
+  btn.innerHTML=`<div class="spinner"></div> &nbsp; MEMVERIFIKASI...`; btn.disabled=true; await new Promise(r=>setTimeout(r,400));
+  try{ const resM=await fetch('members.json'); listMembers=await resM.json(); }catch(e){}
+  const guru=listMembers.find(m=>m.id===idGuru && (m.role==='guru'||m.role==='admin'||m.id==='111233090018'));
+  if(!guru && idGuru!=='111233090018'){ btn.innerHTML="MASUK DASHBOARD"; btn.disabled=false; return showNotif("Login Gagal","ID Guru tidak terdaftar!","warning"); }
+  sessionStorage.setItem('cbt_guru_logged','true'); sessionStorage.setItem('cbt_guru_id',idGuru); sessionStorage.setItem('cbt_guru_nama',guru?guru.nama:"Muh Kholil, S.Pd.I."); window.location.href="guru.html";
+}
+function togglePasswordVisibility(){
+  const p=document.getElementById('input-pass-guru'); const pupil=document.getElementById('eye-pupil'); const slash=document.getElementById('eye-slash');
+  if(p.type==='password'){ p.type='text'; pupil.style.display='block'; slash.style.display='none'; } else { p.type='password'; pupil.style.display='none'; slash.style.display='block'; }
+}
+let wakeLockObj=null; async function aktifkanPengunciLayar(){ try{ if('wakeLock' in navigator) wakeLockObj=await navigator.wakeLock.request('screen'); }catch(e){} }
+function lepasPengunciLayar(){ if(wakeLockObj!==null) wakeLockObj.release().then(()=>{wakeLockObj=null;}); }
+
+// === FUNGSI BARU CEK JADWAL ===
+function parseWaktuJadwal(str){
+  // Format: "2026-10-25 00:01" atau "2026-10-25T00:01" -> jadi Date
+  if(!str) return null;
+  let s = str.trim().replace(' ', 'T');
+  // tambahkan :00 kalau tidak ada detik
+  if(s.length===16) s+=':00';
+  let d = new Date(s);
+  return isNaN(d.getTime()) ? null : d;
+}
+function cekJadwalUjian(jadwal){
+  if(jadwal.aktif===false) return { boleh:false, title:"Ujian Nonaktif", msg:`Ujian <b>${jadwal.mapel}</b> sedang dinonaktifkan oleh admin.`, icon:"🔒" };
+  const now = new Date();
+  const buka = parseWaktuJadwal(jadwal.waktu_buka || jadwal.waktu_mulai);
+  const tutup = parseWaktuJadwal(jadwal.waktu_tutup || jadwal.waktu_selesai);
+  if(buka && now < buka){
+    return { boleh:false, title:"Ujian Belum Dibuka", msg:`Ujian <b>${jadwal.mapel}</b> belum dimulai.<br><br>📅 Jadwal buka: <b>${jadwal.waktu_buka} WIB</b><br>Silakan kembali sesuai jadwal ya.`, icon:"⏰" };
+  }
+  if(tutup && now > tutup){
+    return { boleh:false, title:"Ujian Sudah Selesai", msg:`Waktu ujian <b>${jadwal.mapel}</b> sudah berakhir.<br><br>📅 Ditutup: <b>${jadwal.waktu_tutup} WIB</b><br>Hubungi panitia jika ada kendala.`, icon:"📪" };
+  }
+  return { boleh:true };
+}
+
+window.onload=async function(){
+  try{ const rM=await fetch('members.json'); listMembers=await rM.json(); const rJ=await fetch('jadwal.json'); listJadwal=await rJ.json(); }catch(e){ showNotif("Gagal","Gagal memuat data konfigurasi sistem.","error"); }
+  document.addEventListener("keydown",e=>{
+    if(document.getElementById('ujian-section').style.display==='block'){
+      if((e.ctrlKey&&(e.key==='c'||e.key==='v'||e.key==='a'||e.key==='x'||e.key==='p'||e.key==='u'))||e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))){ e.preventDefault(); showNotif("🚫 DILINDUNGI","Fungsi salin-tempel dimatikan selama ujian!","warning"); }
     }
-    async function prosesLoginGuru() {
-        const idGuru = document.getElementById('input-id-guru').value.trim();
-        const passGuru = document.getElementById('input-pass-guru').value.trim();
-        const btnLoginGuru = document.getElementById('btn-login-guru');
-        if (!idGuru || !passGuru) { return showNotif("Peringatan", "ID Guru dan Password harus diisi!", "warning"); }
-        btnLoginGuru.innerHTML = `<div class="spinner"></div> &nbsp; MEMVERIFIKASI...`;
-        btnLoginGuru.disabled = true;
-        await new Promise(r => setTimeout(r, 400));
-        try { const resM = await fetch('members.json'); listMembers = await resM.json(); } catch(e) {}
-        const guru = listMembers.find(m => m.id === idGuru && (m.role === 'guru' || m.role === 'admin' || m.id === '111233090018'));
-        if (!guru && idGuru !== '111233090018') {
-            btnLoginGuru.innerHTML = "MASUK DASHBOARD"; btnLoginGuru.disabled = false;
-            return showNotif("Login Gagal", "ID Guru tidak terdaftar di sistem!", "warning");
-        }
-        sessionStorage.setItem('cbt_guru_logged', 'true');
-        sessionStorage.setItem('cbt_guru_id', idGuru);
-        sessionStorage.setItem('cbt_guru_nama', guru ? guru.nama : "Muh Kholil, S.Pd.I.");
-        window.location.href = "guru.html";
-    }
-    function togglePasswordVisibility() {
-        const passInput = document.getElementById('input-pass-guru');
-        const eyePupil = document.getElementById('eye-pupil');
-        const eyeSlash = document.getElementById('eye-slash');
-        if (passInput.type === 'password') {
-            passInput.type = 'text';
-            eyePupil.style.display = 'block';
-            eyeSlash.style.display = 'none';
-        } else {
-            passInput.type = 'password';
-            eyePupil.style.display = 'none';
-            eyeSlash.style.display = 'block';
-        }
-    }
-    let wakeLockObj = null;
-    async function aktifkanPengunciLayar() {
-        try { if ('wakeLock' in navigator) { wakeLockObj = await navigator.wakeLock.request('screen'); } } catch (err) {}
-    }
-    function lepasPengunciLayar() { if (wakeLockObj !== null) { wakeLockObj.release().then(() => { wakeLockObj = null; }); } }
-    window.onload = async function() {
-        try {
-            const resM = await fetch('members.json'); listMembers = await resM.json();
-            const resJ = await fetch('jadwal.json'); listJadwal = await resJ.json();
-        } catch(e) { showNotif("Gagal", "Gagal memuat data konfigurasi sistem.", "error"); }
-        document.addEventListener("keydown", function(e) {
-            if (document.getElementById('ujian-section').style.display === 'block') {
-                if ((e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'a' || e.key === 'x' || e.key === 'p' || e.key === 'u')) || e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) {
-                    e.preventDefault();
-                    showNotif("🚫 DILINDUNGI", "Fungsi salin-tempel dan pintasan tombol dimatikan selama ujian!", "warning");
-                }
-            }
-        });
-        document.addEventListener("visibilitychange", function() {
-            if (document.hidden && document.getElementById('ujian-section').style.display === 'block') {
-                tabSwitchCount++;
-                if (tabSwitchCount < MAX_TAB_SWITCH) {
-                    showNotif("⚠️ PERINGATAN KECURANGAN", `Anda terdeteksi berpindah tab atau keluar aplikasi ujian!<br>Peringatan ke-<strong>${tabSwitchCount}</strong> dari ${MAX_TAB_SWITCH}.`, "warning");
-                } else {
-                    showNotif("❌ UJIAN DITUTUP PAKSA", "Anda telah melakukan pelanggaran keluar aplikasi/pindah tab sebanyak 3 kali.", "error", function() { kirimJawabanKeServer(true); });
-                }
-            } else if (!document.hidden && document.getElementById('ujian-section').style.display === 'block') {
-                aktifkanPengunciLayar();
-            }
-        });
-    };
-    function showNotif(title, msg, type = "info", onOk = null, customButtonsHtml = null) {
-        document.getElementById('notif-title').textContent = title;
-        document.getElementById('notif-message').innerHTML = msg;
-        const iconMap = { success: "✅", warning: "⚠️", error: "❌", info: "ℹ️" };
-        document.getElementById('notif-icon').textContent = iconMap[type] || "ℹ️";
-        const container = document.getElementById('modal-buttons-container');
-        if (customButtonsHtml) { container.innerHTML = customButtonsHtml; } 
-        else {
-            container.innerHTML = `<button class="btn" id="notif-btn-ok" style="width: 100%; justify-content: center; text-align: center;">MENGERTI</button>`;
-            document.getElementById('notif-btn-ok').onclick = function() { document.getElementById('modal-notif').style.display = 'none'; if (onOk) onOk(); };
-        }
-        document.getElementById('modal-notif').style.display = 'flex';
-    }
-    function tutupModalNotif() { document.getElementById('modal-notif').style.display = 'none'; }
-    function requestFullScreen() { const el = document.documentElement; if (el.requestFullscreen) el.requestFullscreen(); }
-    function toggleNavMobile() { document.getElementById('sidebar-soal-box').classList.toggle('show-mobile'); }
-    async function prosesLoginSiswa() {
-        const nis = document.getElementById('input-nis').value.trim();
-        const token = document.getElementById('input-token').value.trim().toUpperCase();
-        const btnLogin = document.getElementById('btn-login-siswa');
-        btnLogin.innerHTML = `<div class="spinner"></div> &nbsp; MEMVERIFIKASI...`;
-        btnLogin.disabled = true;
-        await new Promise(r => setTimeout(r, 600));
-        aktifkanPengunciLayar();
-        const userAdmin = listMembers.find(m => m.id === nis && (m.role === 'admin' || m.role === 'guru' || m.id === '111233090018'));
-        if (userAdmin || nis === '111233090018') {
-            const jadwal = listJadwal.find(j => j.token.toUpperCase() === token);
-            if (!jadwal) { btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false; return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning"); }
-            currentSiswa = userAdmin || { id: "111233090018", nama: "Muh Kholil, S.Pd.I.", role: "admin" };
-            currentJadwal = jadwal; tabSwitchCount = 0; currentIndexSoal = 0;
-            const resSoal = await fetch(jadwal.file_soal); activeSoal = await resSoal.json();
-            document.getElementById('auth-wrapper-box').style.display = 'none';
-            document.getElementById('ujian-section').style.display = 'block';
-            document.getElementById('info-nama-siswa').textContent = currentSiswa.nama + " [SUPER USER]";
-            document.getElementById('info-nis-siswa').textContent = currentSiswa.id;
-            document.getElementById('info-kelas-siswa').textContent = "ADMIN / UJI COBA";
-            document.getElementById('info-mapel-ujian').textContent = jadwal.mapel + " (Mode Terobos)";
-            renderGridNomorSoal(); tampilkanSoalAktif(); mulaiTimerUjian((jadwal.durasi_menit || 90) * 60); return;
-        }
-        const siswa = listMembers.find(m => m.id === nis && m.role === 'siswa');
-        if (!siswa) { btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false; return showNotif("Login Gagal", "ID Siswa tidak terdaftar di sistem!", "warning"); }
-        const jadwal = listJadwal.find(j => j.token.toUpperCase() === token);
-        if (!jadwal) { btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false; return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning"); }
-        if (jadwal.aktif === false) { btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false; return showNotif("Ujian Nonaktif", "Ujian mata pelajaran ini sedang dinonaktifkan.", "warning"); }
-        currentSiswa = siswa; currentJadwal = jadwal; tabSwitchCount = 0; currentIndexSoal = 0;
-        const resSoal = await fetch(jadwal.file_soal); activeSoal = await resSoal.json();
-        requestFullScreen();
-        document.getElementById('auth-wrapper-box').style.display = 'none';
-        document.getElementById('ujian-section').style.display = 'block';
-        document.getElementById('info-nama-siswa').textContent = siswa.nama;
-        document.getElementById('info-nis-siswa').textContent = siswa.id;
-        document.getElementById('info-kelas-siswa').textContent = siswa.kelas || jadwal.kelas || "6";
-        document.getElementById('info-mapel-ujian').textContent = jadwal.mapel;
-        renderGridNomorSoal(); tampilkanSoalAktif(); mulaiTimerUjian((jadwal.durasi_menit || 90) * 60);
-    }
-    function renderGridNomorSoal() {
-        let html = '';
-        activeSoal.forEach((s, index) => {
-            let statusClass = '';
-            let ansVal = jawabanSiswa[s.id];
-            if (ansVal !== undefined && ansVal !== '' && (!(Array.isArray(ansVal)) || ansVal.length > 0)) statusClass = 'terjawab';
-            if (index === currentIndexSoal) statusClass = 'active';
-            html += `<button class="btn-no-soal ${statusClass}" onclick="pindahSoal(${index})">${s.id}</button>`;
-        });
-        document.getElementById('grid-nomor-soal').innerHTML = html;
-    }
-    function tampilkanSoalAktif() {
-        if (!activeSoal || activeSoal.length === 0) return;
-        const s = activeSoal[currentIndexSoal];
-        let tipeSoal = (s.tipe || "PG").toUpperCase();
-        let html = `<div class="soal-card"><div class="soal-teks">Soal No. ${s.id} (${tipeSoal})<br><span style="font-weight:normal;">${s.soal}</span></div>`;
-        let ans = jawabanSiswa[s.id] || (tipeSoal === "PG_KOMPLEKS" ? [] : (tipeSoal === "MENJODOHKAN" ? {} : ''));
-        if (tipeSoal === "PG" && s.pilihan) {
-            s.pilihan.forEach(p => {
-                let charOpt = p.charAt(0);
-                let checked = (ans === charOpt) ? 'checked' : '';
-                html += `<label class="pilihan-item"><input type="radio" name="soal_${s.id}" value="${charOpt}" ${checked} onclick="simpanJawaban(${s.id}, '${charOpt}')">${p}</label>`;
-            });
-        } else if (tipeSoal === "PG_KOMPLEKS" || tipeSoal === "PG_KOMPLEK") {
-            if (s.pilihan) {
-                s.pilihan.forEach((p, idx) => {
-                    let charOpt = ["A","B","C","D","E"][idx] || p.charAt(0);
-                    let checked = (Array.isArray(ans) && ans.includes(charOpt)) ? 'checked' : '';
-                    html += `<label class="pilihan-item"><input type="checkbox" value="${charOpt}" ${checked} onchange="simpanJawabanPgKompleks(${s.id}, this)">${p}</label>`;
-                });
-            }
-        } else if (tipeSoal === "MENJODOHKAN") {
-            const listKiri = s.pasangan_kiri || s.pilihan_kiri || s.kiri || [];
-            const listKanan = s.pasangan_kanan || s.pilihan_kanan || s.kanan || [];
-            const abjad = ["A","B","C","D","E","F","G","H"];
-            if (listKiri.length > 0 && listKanan.length > 0) {
-                html += `<div class="bank-opsi-box"><b>Pilihan Pasangan (Kolom B):</b><ul>`;
-                listKanan.forEach((kananItem, kidx) => { html += `<li><b>${abjad[kidx]}.</b> ${kananItem}</li>`; });
-                html += `</ul></div>`;
-                html += `<table class="tabel-jodoh"><thead><tr><th>Pernyataan (Kolom A)</th><th style="width:120px;text-align:center">Jawaban Huruf</th></tr></thead><tbody>`;
-                listKiri.forEach((kiriItem, kiden) => {
-                    let curVal = (typeof ans === 'object' && ans !== null) ? (ans[kiden + 1] || '') : '';
-                    html += `<tr><td>${kiden + 1}. ${kiriItem}</td><td align="center"><input type="text" class="form-control" style="text-align:center; text-transform:uppercase; max-width:80px; padding:0.3rem;" maxlength="2" value="${curVal}" oninput="simpanJawabanMenjodohkan(${s.id}, ${kiden + 1}, this.value)"></td></tr>`;
-                });
-                html += `</tbody></table>`;
-            }
-        } else if (tipeSoal === "ISIAN" || tipeSoal === "ISIAN_SINGKAT") {
-            html += `<input type="text" class="form-control" value="${ans}" placeholder="Tulis jawaban singkat..." oninput="simpanJawaban(${s.id}, this.value)">`;
-        } else if (tipeSoal === "URAIAN" || tipeSoal === "ESAI") {
-            html += `<textarea class="form-control" rows="4" placeholder="Tulis uraian jawaban..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
-        } else {
-            html += `<textarea class="form-control" rows="3" placeholder="Tulis jawaban..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
-        }
-        html += `</div>`;
-        if (currentIndexSoal === activeSoal.length - 1) {
-            html += `<button class="btn btn-danger" style="width: 100%; padding: 0.9rem; font-size: 1.1rem; margin-top: 1rem;" onclick="konfirmasiSelesai()">SELESAI & KUMPULKAN JAWABAN</button>`;
-        }
-        document.getElementById('container-soal').innerHTML = html;
-        document.getElementById('btn-prev-soal').style.visibility = (currentIndexSoal === 0) ? 'hidden' : 'visible';
-        document.getElementById('btn-next-soal').style.visibility = (currentIndexSoal === activeSoal.length - 1) ? 'hidden' : 'visible';
-        renderGridNomorSoal();
-    }
-    function simpanJawaban(id, val) { jawabanSiswa[id] = val; renderGridNomorSoal(); }
-    function simpanJawabanPgKompleks(id, checkbox) {
-        if (!Array.isArray(jawabanSiswa[id])) jawabanSiswa[id] = [];
-        let val = checkbox.value;
-        if (checkbox.checked) { if (!jawabanSiswa[id].includes(val)) jawabanSiswa[id].push(val); } 
-        else { jawabanSiswa[id] = jawabanSiswa[id].filter(item => item !== val); }
-        renderGridNomorSoal();
-    }
-    function simpanJawabanMenjodohkan(idSoal, noKiri, val) {
-        if (typeof jawabanSiswa[idSoal] !== 'object' || Array.isArray(jawabanSiswa[idSoal]) || jawabanSiswa[idSoal] === null) { jawabanSiswa[idSoal] = {}; }
-        jawabanSiswa[idSoal][noKiri] = val.trim().toUpperCase();
-        renderGridNomorSoal();
-    }
-    function pindahSoal(idx) { if (idx >= 0 && idx < activeSoal.length) { currentIndexSoal = idx; tampilkanSoalAktif(); } }
-    function mulaiTimerUjian(detik) {
-        sisaDetik = detik;
-        if (timerInterval) clearInterval(timerInterval);
-        timerInterval = setInterval(() => {
-            if (sisaDetik <= 0) { clearInterval(timerInterval); kirimJawabanKeServer(true); return; }
-            sisaDetik--;
-            let m = Math.floor(sisaDetik / 60), d = sisaDetik % 60;
-            document.getElementById('timer-countdown').textContent = String(Math.floor(sisaDetik/3600)).padStart(2,'0') + ":" + String(m).padStart(2,'0') + ":" + String(d).padStart(2,'0');
-        }, 1000);
-    }
-    function konfirmasiKeluarTanpaSimpan() {
-        let buttonsHtml = `<button class="btn btn-danger" onclick="executeKeluar()" style="width: 100%; margin-bottom: 0.4rem; justify-content: center;">YA, KELUAR UJIAN</button><button class="btn btn-secondary" onclick="tutupModalNotif()" style="width: 100%; justify-content: center;">BATAL / KEMBALI MENGARJAKAN</button>`;
-        showNotif("Konfirmasi Keluar", "Apakah Anda yakin ingin keluar?<br><span style='color:red; font-size:0.85rem;'>Jawaban Anda tidak akan disimpan.</span>", "warning", null, buttonsHtml);
-    }
-    function executeKeluar() { if (timerInterval) clearInterval(timerInterval); lepasPengunciLayar(); location.reload(); }
-    function konfirmasiSelesai() {
-        let buttonsHtml = `<button class="btn btn-success" onclick="executeSelesai()" style="width: 100%; margin-bottom: 0.4rem; justify-content: center;">YA, SELESAI & KUMPULKAN</button><button class="btn btn-secondary" onclick="tutupModalNotif()" style="width: 100%; justify-content: center;">BATAL / LANJUTKAN UJIAN</button>`;
-        showNotif("Konfirmasi Selesai", "Apakah Anda yakin ingin menyelesaikan ujian dan mengirim jawaban ke server?", "warning", null, buttonsHtml);
-    }
-    function executeSelesai() { tutupModalNotif(); kirimJawabanKeServer(false); }
-    async function kirimJawabanKeServer(auto) {
-        if (timerInterval) clearInterval(timerInterval);
-        let skorPG = 0;
-        activeSoal.forEach(s => {
-            let ans = jawabanSiswa[s.id];
-            let tipe = (s.tipe || "PG").toUpperCase();
-            if (ans !== undefined && ans !== '') {
-                if (tipe === "PG" && String(ans).trim().toUpperCase() === String(s.kunci).trim().toUpperCase()) { skorPG += (s.bobot || 2); } 
-                else if ((tipe === "PG_KOMPLEKS" || tipe === "PG_KOMPLEK") && Array.isArray(ans) && Array.isArray(s.kunci)) {
-                    let u = [...ans].sort(), c = [...s.kunci].sort();
-                    if (u.length === c.length && u.every((v, i) => v === c[i])) skorPG += (s.bobot || 2);
-                }
-            }
-        });
-        showNotif("Mengirim Data", "Menyimpan jawaban ujian ke server pusat...", "info", null, `<div class="spinner" style="margin: 0 auto;"></div>`);
-        try {
-            await fetch(GAS_WEBAPP_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: "simpanHasil", sheetName: "HASIL_" + currentJadwal.mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_"), nis: currentSiswa.id, nama: currentSiswa.nama, kelas: currentSiswa.kelas || "6", mapel: currentJadwal.mapel, skorPG: skorPG, jawabanJson: JSON.stringify(jawabanSiswa), totalNilai: skorPG })
-            });
-            lepasPengunciLayar();
-            showNotif("Ujian Selesai", "Jawaban ujian berhasil dikirim ke server. Terima kasih!", "success", () => location.reload());
-        } catch(e) { showNotif("Gagal", "Koneksi ke server pusat terputus. Periksa internet.", "error"); }
-    }
+  });
+  document.addEventListener("visibilitychange",()=>{
+    if(document.hidden && document.getElementById('ujian-section').style.display==='block'){
+      tabSwitchCount++;
+      if(tabSwitchCount<MAX_TAB_SWITCH) showNotif("⚠️ PERINGATAN KECURANGAN",`Anda terdeteksi berpindah tab!<br>Peringatan ke-<strong>${tabSwitchCount}</strong> dari ${MAX_TAB_SWITCH}.`,"warning");
+      else showNotif("❌ UJIAN DITUTUP PAKSA","Anda melanggar keluar aplikasi 3 kali.","error",()=>kirimJawabanKeServer(true));
+    } else if(!document.hidden && document.getElementById('ujian-section').style.display==='block') aktifkanPengunciLayar();
+  });
+};
+function showNotif(title,msg,type="info",onOk=null,custom=null){
+  document.getElementById('notif-title').textContent=title; document.getElementById('notif-message').innerHTML=msg;
+  const map={success:"✅",warning:"⚠️",error:"❌",info:"ℹ️"}; document.getElementById('notif-icon').textContent=map[type]||"ℹ️";
+  const cont=document.getElementById('modal-buttons-container');
+  if(custom) cont.innerHTML=custom; else { cont.innerHTML=`<button class="btn" id="notif-btn-ok" style="width:100%">MENGERTI</button>`; document.getElementById('notif-btn-ok').onclick=()=>{ document.getElementById('modal-notif').style.display='none'; if(onOk) onOk(); }; }
+  document.getElementById('modal-notif').style.display='flex';
+}
+function tutupModalNotif(){ document.getElementById('modal-notif').style.display='none'; }
+function requestFullScreen(){ const el=document.documentElement; if(el.requestFullscreen) el.requestFullscreen(); }
+function toggleNavMobile(){ document.getElementById('sidebar-soal-box').classList.toggle('show-mobile'); }
+
+async function prosesLoginSiswa(){
+  const nis=document.getElementById('input-nis').value.trim(); const token=document.getElementById('input-token').value.trim().toUpperCase(); const btn=document.getElementById('btn-login-siswa');
+  btn.innerHTML=`<div class="spinner"></div> &nbsp; MEMVERIFIKASI...`; btn.disabled=true; await new Promise(r=>setTimeout(r,600)); aktifkanPengunciLayar();
+
+  // SUPER USER BYPASS JADWAL
+  const userAdmin=listMembers.find(m=>m.id===nis && (m.role==='admin'||m.role==='guru'||m.id==='111233090018'));
+  if(userAdmin || nis==='111233090018'){
+    const jadwal=listJadwal.find(j=>j.token.toUpperCase()===token);
+    if(!jadwal){ btn.innerHTML="MULAI UJIAN"; btn.disabled=false; return showNotif("Login Gagal","Token ujian tidak valid!","warning"); }
+    currentSiswa=userAdmin||{id:"111233090018",nama:"Muh Kholil, S.Pd.I.",role:"admin"}; currentJadwal=jadwal; tabSwitchCount=0; currentIndexSoal=0;
+    const res=await fetch(jadwal.file_soal); activeSoal=await res.json();
+    document.getElementById('auth-wrapper-box').style.display='none'; document.getElementById('ujian-section').style.display='block';
+    document.getElementById('info-nama-siswa').textContent=currentSiswa.nama+" [SUPER USER]"; document.getElementById('info-nis-siswa').textContent=currentSiswa.id; document.getElementById('info-kelas-siswa').textContent="ADMIN / UJI COBA"; document.getElementById('info-mapel-ujian').textContent=jadwal.mapel+" (Mode Terobos)";
+    renderGridNomorSoal(); tampilkanSoalAktif(); mulaiTimerUjian((jadwal.durasi_menit||90)*60); return;
+  }
+
+  const siswa=listMembers.find(m=>m.id===nis && m.role==='siswa');
+  if(!siswa){ btn.innerHTML="MULAI UJIAN"; btn.disabled=false; return showNotif("Login Gagal","ID Siswa tidak terdaftar!","warning"); }
+  const jadwal=listJadwal.find(j=>j.token.toUpperCase()===token);
+  if(!jadwal){ btn.innerHTML="MULAI UJIAN"; btn.disabled=false; return showNotif("Login Gagal","Token ujian tidak valid!","warning"); }
+
+  // CEK JADWAL UNTUK SISWA (SUPER USER TIDAK KENA CEK)
+  const cek=cekJadwalUjian(jadwal);
+  if(!cek.boleh){
+    btn.innerHTML="MULAI UJIAN"; btn.disabled=false;
+    return showNotif(cek.title, cek.msg, "warning");
+  }
+
+  currentSiswa=siswa; currentJadwal=jadwal; tabSwitchCount=0; currentIndexSoal=0;
+  const res=await fetch(jadwal.file_soal); activeSoal=await res.json();
+  requestFullScreen(); document.getElementById('auth-wrapper-box').style.display='none'; document.getElementById('ujian-section').style.display='block';
+  document.getElementById('info-nama-siswa').textContent=siswa.nama; document.getElementById('info-nis-siswa').textContent=siswa.id; document.getElementById('info-kelas-siswa').textContent=siswa.kelas||jadwal.kelas||"6"; document.getElementById('info-mapel-ujian').textContent=jadwal.mapel;
+  renderGridNomorSoal(); tampilkanSoalAktif(); mulaiTimerUjian((jadwal.durasi_menit||90)*60);
+}
+function renderGridNomorSoal(){ let h=''; activeSoal.forEach((s,i)=>{ let cls=''; let v=jawabanSiswa[s.id]; if(v!==undefined&&v!==''&&(!(Array.isArray(v))||v.length>0)) cls='terjawab'; if(i===currentIndexSoal) cls='active'; h+=`<button class="btn-no-soal ${cls}" onclick="pindahSoal(${i})">${s.id}</button>`; }); document.getElementById('grid-nomor-soal').innerHTML=h; }
+function tampilkanSoalAktif(){
+  if(!activeSoal.length) return; const s=activeSoal[currentIndexSoal]; let tipe=(s.tipe||"PG").toUpperCase(); let html=`<div class="soal-card"><div class="soal-teks">Soal No. ${s.id} (${tipe})<br><span style="font-weight:normal;">${s.soal}</span></div>`;
+  let ans=jawabanSiswa[s.id]||(tipe==="PG_KOMPLEKS"?[]:(tipe==="MENJODOHKAN"?{}:''));
+  if(tipe==="PG"&&s.pilihan){ s.pilihan.forEach(p=>{ let c=p.charAt(0); let ch=(ans===c)?'checked':''; html+=`<label class="pilihan-item"><input type="radio" name="soal_${s.id}" value="${c}" ${ch} onclick="simpanJawaban(${s.id},'${c}')">${p}</label>`; }); }
+  else if(tipe==="PG_KOMPLEKS"||tipe==="PG_KOMPLEK"){ if(s.pilihan){ s.pilihan.forEach((p,idx)=>{ let c=["A","B","C","D","E"][idx]||p.charAt(0); let ch=(Array.isArray(ans)&&ans.includes(c))?'checked':''; html+=`<label class="pilihan-item"><input type="checkbox" value="${c}" ${ch} onchange="simpanJawabanPgKompleks(${s.id},this)">${p}</label>`; }); } }
+  else if(tipe==="MENJODOHKAN"){ const kiri=s.pasangan_kiri||s.pilihan_kiri||s.kiri||[]; const kanan=s.pasangan_kanan||s.pilihan_kanan||s.kanan||[]; const abjad=["A","B","C","D","E","F","G","H"]; if(kiri.length&&kanan.length){ html+=`<div style="background:#fff3cd;padding:.6rem;border-radius:8px;margin:.6rem 0"><b>Pilihan (Kolom B):</b><ul>`; kanan.forEach((k,i)=>{ html+=`<li><b>${abjad[i]}.</b> ${k}</li>`; }); html+=`</ul></div><table class="tabel-jodoh"><thead><tr><th>Pernyataan</th><th style="width:120px;text-align:center">Jawaban</th></tr></thead><tbody>`; kiri.forEach((k,i)=>{ let cur=(typeof ans==='object'&&ans!==null)?(ans[i+1]||'') : ''; html+=`<tr><td>${i+1}. ${k}</td><td align="center"><input type="text" class="form-control" style="text-align:center;text-transform:uppercase;max-width:80px;padding:.3rem;" maxlength="2" value="${cur}" oninput="simpanJawabanMenjodohkan(${s.id},${i+1},this.value)"></td></tr>`; }); html+=`</tbody></table>`; } }
+  else if(tipe==="ISIAN"||tipe==="ISIAN_SINGKAT"){ html+=`<input type="text" class="form-control" value="${ans}" placeholder="Tulis jawaban..." oninput="simpanJawaban(${s.id},this.value)">`; }
+  else if(tipe==="URAIAN"||tipe==="ESAI"){ html+=`<textarea class="form-control" rows="4" placeholder="Tulis uraian..." oninput="simpanJawaban(${s.id},this.value)">${ans}</textarea>`; }
+  else { html+=`<textarea class="form-control" rows="3" placeholder="Tulis jawaban..." oninput="simpanJawaban(${s.id},this.value)">${ans}</textarea>`; }
+  html+=`</div>`; if(currentIndexSoal===activeSoal.length-1){ html+=`<button class="btn btn-danger" style="width:100%;padding:.9rem;font-size:1.1rem;margin-top:1rem;" onclick="konfirmasiSelesai()">SELESAI & KUMPULKAN JAWABAN</button>`; }
+  document.getElementById('container-soal').innerHTML=html; document.getElementById('btn-prev-soal').style.visibility=(currentIndexSoal===0)?'hidden':'visible'; document.getElementById('btn-next-soal').style.visibility=(currentIndexSoal===activeSoal.length-1)?'hidden':'visible'; renderGridNomorSoal();
+}
+function simpanJawaban(id,val){ jawabanSiswa[id]=val; renderGridNomorSoal(); }
+function simpanJawabanPgKompleks(id,cb){ if(!Array.isArray(jawabanSiswa[id])) jawabanSiswa[id]=[]; let v=cb.value; if(cb.checked){ if(!jawabanSiswa[id].includes(v)) jawabanSiswa[id].push(v); } else { jawabanSiswa[id]=jawabanSiswa[id].filter(x=>x!==v); } renderGridNomorSoal(); }
+function simpanJawabanMenjodohkan(id,no,val){ if(typeof jawabanSiswa[id]!=='object'||Array.isArray(jawabanSiswa[id])||jawabanSiswa[id]===null) jawabanSiswa[id]={}; jawabanSiswa[id][no]=val.trim().toUpperCase(); renderGridNomorSoal(); }
+function pindahSoal(idx){ if(idx>=0&&idx<activeSoal.length){ currentIndexSoal=idx; tampilkanSoalAktif(); } }
+function mulaiTimerUjian(detik){ sisaDetik=detik; if(timerInterval) clearInterval(timerInterval); timerInterval=setInterval(()=>{ if(sisaDetik<=0){ clearInterval(timerInterval); kirimJawabanKeServer(true); return; } sisaDetik--; let m=Math.floor(sisaDetik/60),d=sisaDetik%60; document.getElementById('timer-countdown').textContent=String(Math.floor(sisaDetik/3600)).padStart(2,'0')+":"+String(m).padStart(2,'0')+":"+String(d).padStart(2,'0'); },1000); }
+function konfirmasiKeluarTanpaSimpan(){ let b=`<button class="btn btn-danger" onclick="executeKeluar()" style="width:100%;margin-bottom:.4rem;">YA, KELUAR UJIAN</button><button class="btn btn-secondary" onclick="tutupModalNotif()" style="width:100%">BATAL / KEMBALI MENGERJAKAN</button>`; showNotif("Konfirmasi Keluar","Apakah yakin ingin keluar?<br><span style='color:red;font-size:.85rem;'>Jawaban tidak akan disimpan.</span>","warning",null,b); }
+function executeKeluar(){ if(timerInterval) clearInterval(timerInterval); lepasPengunciLayar(); location.reload(); }
+function konfirmasiSelesai(){ let b=`<button class="btn btn-success" onclick="executeSelesai()" style="width:100%;margin-bottom:.4rem;">YA, SELESAI & KUMPULKAN</button><button class="btn btn-secondary" onclick="tutupModalNotif()" style="width:100%">BATAL / LANJUTKAN UJIAN</button>`; showNotif("Konfirmasi Selesai","Yakin ingin menyelesaikan ujian dan mengirim jawaban?","warning",null,b); }
+function executeSelesai(){ tutupModalNotif(); kirimJawabanKeServer(false); }
+async function kirimJawabanKeServer(auto){
+  if(timerInterval) clearInterval(timerInterval); let skor=0; activeSoal.forEach(s=>{ let a=jawabanSiswa[s.id]; let t=(s.tipe||"PG").toUpperCase(); if(a!==undefined&&a!==''){ if(t==="PG"&&String(a).trim().toUpperCase()===String(s.kunci).trim().toUpperCase()) skor+=(s.bobot||2); else if((t==="PG_KOMPLEKS"||t==="PG_KOMPLEK")&&Array.isArray(a)&&Array.isArray(s.kunci)){ let u=[...a].sort(),c=[...s.kunci].sort(); if(u.length===c.length&&u.every((v,i)=>v===c[i])) skor+=(s.bobot||2); } } });
+  showNotif("Mengirim Data","Menyimpan jawaban ke server pusat...","info",null,`<div class="spinner" style="margin:0 auto"></div>`);
+  try{ await fetch(GAS_WEBAPP_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:"simpanHasil",sheetName:"HASIL_"+currentJadwal.mapel.toUpperCase().replace(/[^A-Z0-9_]/g,"_"),nis:currentSiswa.id,nama:currentSiswa.nama,kelas:currentSiswa.kelas||"6",mapel:currentJadwal.mapel,skorPG:skor,jawabanJson:JSON.stringify(jawabanSiswa),totalNilai:skor})}); lepasPengunciLayar(); showNotif("Ujian Selesai","Jawaban berhasil dikirim! Terima kasih!","success",()=>location.reload()); }catch(e){ showNotif("Gagal","Koneksi terputus. Periksa internet.","error"); }
+}
 </script>
 </body>
 </html>
