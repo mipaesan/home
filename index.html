@@ -175,7 +175,7 @@ function renderBeritaTambahan(){
   const nextSlice=semuaBeritaData.slice(beritaDitampilkan, beritaDitampilkan+perLoad);
   nextSlice.forEach((item)=>{
     const d=document.createElement('div'); d.className='berita-box';
-    d.innerHTML=`<img src="${item.gambar}"><div class="berita-content"><h3 style="font-size:.95rem;color:#0f5132">${item.judul}</h3><small style="color:#888">${item.tanggal}</small><p style="font-size:.82rem;color:#555;margin:6px 0">${item.ringkasan}</p><a href="berita/${item.slug}.html" style="background:#0f5132;color:white;padding:6px 12px;border-radius:8px;text-decoration:none;font-size:.82rem">Selengkapnya</a></div>`;
+    d.innerHTML=`<img src="${item.gambar}"><div class="berita-content"><h3 style="font-size:.95rem;color:#0f5132">${item.judul}</h3><small style="color:#888">${item.tanggal}</small><p style="font-size:.82rem;color:#555;margin:6px 0">${item.ringkasan}</p><a href="detail.html?id=${item.id}" style="background:#0f5132;color:white;padding:6px 12px;border-radius:8px;text-decoration:none;font-size:.82rem">Selengkapnya</a></div>`;
     c.appendChild(d);
   });
   beritaDitampilkan+=nextSlice.length;
