@@ -1,51 +1,90 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pilih Jenis Surat - MI Salafiyatul Ma’muroh</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: 'Poppins', sans-serif; background: #f8f9fa; color: #333; display: flex; flex-direction: column; min-height: 100vh; align-items: center; justify-content: center; }
-    .container { max-width: 500px; width: 90%; background: white; padding: 40px 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); text-align: center; }
-    h1 { font-size: 1.8em; color: #1e7e34; margin-bottom: 10px; }
-    p { color: #666; margin-bottom: 30px; }
-    .menu-list { display: flex; flex-direction: column; gap: 15px; }
-    
-    /* Tombol dengan warna berbeda-beda untuk tiap surat */
-    .btn-surat { display: block; text-decoration: none; padding: 16px; border-radius: 8px; font-weight: 600; color: white; font-size: 1.05em; transition: opacity 0.2s, transform 0.1s; }
-    .btn-surat:hover { opacity: 0.9; transform: translateY(-2px); }
-    
-    .btn-tugas { background-color: #1e7e34; }       /* Hijau */
-    .btn-pindah { background-color: #007bff; }      /* Biru */
-    .btn-undangan { background-color: #d97706; }    /* Oranye */
-    .btn-ket-guru { background-color: #4f46e5; }    /* Ungu / Indigo */
-    .btn-ket-siswa { background-color: #0284c7; }   /* Biru Laut */
-    
-    .footer-back { margin-top: 25px; }
-    .footer-back a { color: #666; text-decoration: none; font-size: 0.9em; }
-    .footer-back a:hover { text-decoration: underline; }
-  </style>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pilih Layanan Surat - MI Salafiyatul Ma'muroh Paesan</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{ --primary:#0f5132; --primary-light:#198754; --accent:#FFC107; --bg:#FFFBF5; --card:#ffffff; --muted:#6b7280; --border:#f0f0f0; }
+*{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,sans-serif}
+body{background:var(--bg);color:#1a1a1a;scroll-behavior:smooth}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 5%;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--primary);font-size:1.05rem;text-decoration:none}
+.logo img{width:36px;height:36px;object-fit:contain;border-radius:6px}
+.nav-links a{margin-left:18px;text-decoration:none;color:#1a1a1a;font-weight:600;font-size:.85rem}
+.nav-links a.cbt{ background:var(--primary);color:white;padding:8px 14px;border-radius:8px; border:1px solid var(--primary)}
+.section{max-width:720px;margin:0 auto;padding:32px 5% 40px}
+.header-card{background:linear-gradient(135deg,#0f5132,#198754);border-radius:22px;padding:28px 24px;color:white;text-align:center;box-shadow:0 18px 36px rgba(15,81,50,.18);margin-bottom:22px;position:relative;overflow:hidden}
+.header-card::after{content:"";position:absolute;right:-20px;top:-20px;width:120px;height:120px;background:rgba(255,255,255,.12);border-radius:50%}
+.header-card h1{font-size:1.8rem;font-weight:800;line-height:1.2;margin-bottom:6px;position:relative;z-index:1}
+.header-card p{color:rgba(255,255,255,.9);font-size:.92rem;position:relative;z-index:1}
+.menu-list{display:grid;grid-template-columns:1fr;gap:14px}
+.btn-surat{ display:flex; align-items:center; gap:14px; text-decoration:none; background:var(--card); border:1px solid var(--border); padding:16px 18px; border-radius:16px; transition:all .25s ease; box-shadow:0 2px 8px rgba(0,0,0,.03); }
+.btn-surat:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(15,81,50,.12);border-color:var(--primary-light)}
+.btn-surat .icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.btn-surat .text{ text-align:left; }
+.btn-surat .text b{display:block;font-size:.98rem;font-weight:700;color:#1a1a1a;line-height:1.2}
+.btn-surat .text span{display:block;font-size:.78rem;color:var(--muted);margin-top:2px}
+
+/* Warna Icon tetap beda-beda sesuai permintaan lama */
+.btn-tugas .icon{background:#dcfce7}
+.btn-pindah .icon{background:#dbeafe}
+.btn-undangan .icon{background:#fef3c7}
+.btn-ket-guru .icon{background:#e0e7ff}
+.btn-ket-siswa .icon{background:#e0f2fe}
+
+.footer-back{text-align:center;margin-top:26px}
+.footer-back a{display:inline-block;background:white;border:1.5px solid var(--border);color:var(--muted);padding:10px 18px;border-radius:10px;text-decoration:none;font-weight:600;font-size:.85rem}
+.footer-back a:hover{border-color:var(--primary);color:var(--primary)}
+footer{background:#111;color:#aaa;text-align:center;padding:22px;font-size:.85rem;margin-top:10px;line-height:1.6}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.card-anim{animation:fadeUp .6s ease forwards}
+@media(max-width:600px){ .header-card h1{font-size:1.5rem} }
+</style>
 </head>
 <body>
+<nav>
+  <a class="logo" href="index.html"><img src="logo-mi.png" alt="Logo MI"> MI Salafiyatul Ma'muroh Paesan</a>
+  <div class="nav-links"><a href="index.html">Beranda</a><a class="cbt" href="index.html#layanan">Layanan</a></div>
+</nav>
 
-  <div class="container">
+<section class="section">
+  <div class="header-card card-anim">
     <h1>Pilih Layanan Surat</h1>
-    <p>Silakan pilih jenis surat yang ingin Anda buat</p>
-    
-    <div class="menu-list">
-      <a href="form-surat-tugas.html" class="btn-surat btn-tugas">Surat Tugas</a>
-      <a href="form-surat-pindah.html" class="btn-surat btn-pindah">Surat Keterangan Pindah Sekolah</a>
-      <a href="form-surat-undangan.html" class="btn-surat btn-undangan">Surat Undangan Wali Siswa</a>
-      <a href="form-surat-keterangan-guru.html" class="btn-surat btn-ket-guru">Surat Keterangan Guru</a>
-      <a href="form-surat-keterangan-siswa.html" class="btn-surat btn-ket-siswa">Surat Keterangan Siswa</a>
-    </div>
-
-    <div class="footer-back">
-      <a href="index.html">&larr; Kembali ke Beranda Utama</a>
-    </div>
+    <p>Silakan pilih jenis surat yang ingin Anda buat secara mandiri</p>
   </div>
 
+  <div class="menu-list">
+    <a href="form-surat-tugas.html" class="btn-surat btn-tugas card-anim" style="animation-delay:.05s">
+      <div class="icon">📋</div>
+      <div class="text"><b>Surat Tugas</b><span>Penugasan guru / kegiatan kedinasan</span></div>
+    </a>
+    <a href="form-surat-pindah.html" class="btn-surat btn-pindah card-anim" style="animation-delay:.1s">
+      <div class="icon">🚚</div>
+      <div class="text"><b>Surat Keterangan Pindah Sekolah</b><span>Untuk siswa yang mutasi keluar</span></div>
+    </a>
+    <a href="form-surat-undangan.html" class="btn-surat btn-undangan card-anim" style="animation-delay:.15s">
+      <div class="icon">✉️</div>
+      <div class="text"><b>Surat Undangan Wali Siswa</b><span>Undangan pertemuan / pengambilan raport</span></div>
+    </a>
+    <a href="form-surat-keterangan-guru.html" class="btn-surat btn-ket-guru card-anim" style="animation-delay:.2s">
+      <div class="icon">👨‍🏫</div>
+      <div class="text"><b>Surat Keterangan Guru</b><span>Keterangan aktif mengajar / GTY</span></div>
+    </a>
+    <a href="form-surat-keterangan-siswa.html" class="btn-surat btn-ket-siswa card-anim" style="animation-delay:.25s">
+      <div class="icon">🎓</div>
+      <div class="text"><b>Surat Keterangan Siswa</b><span>Keterangan aktif sebagai siswa MI Paesan</span></div>
+    </a>
+  </div>
+
+  <div class="footer-back">
+    <a href="index.html">← Kembali ke Beranda Utama</a>
+  </div>
+</section>
+
+<footer>
+<p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Cepogo</p>
+<p>085725311612 | 081567681930 | mipaesan@gmail.com</p>
+</footer>
 </body>
 </html>
