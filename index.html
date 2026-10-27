@@ -110,8 +110,6 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
 <div class="card-prog"><img src="tilmi-sholat.png" alt="Sholat"><h3>Sholat Dhuha & Dhuhur Berjamaah</h3><p>Pembiasaan sholat sunnah Dhuha dan sholat Dhuhur berjamaah untuk membentuk akhlak dan karakter.</p></div>
 </div>
 </section>
-
-<!-- GALERI OTOMATIS DARI foto.json -->
 <section class="section"><h2 class="section-title">Galeri Kegiatan</h2><div class="galeri-wrapper" id="galeri-wrapper"><p style="color:#888">⏳ Memuat galeri...</p></div></section>
 
 <div class="modal-overlay" id="surat-modal">
@@ -130,7 +128,6 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
     <button class="btn btn-login-cancel" onclick="tutupModalSurat()">Batal</button>
   </div>
 </div>
-
 <div class="modal-overlay" id="info-modal">
   <div class="modal-box">
     <div class="info-modal-icon" id="info-icon">⏰</div>
@@ -139,11 +136,10 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
     <button class="btn btn-login-submit" onclick="tutupInfoModal()">Mengerti, Terima Kasih</button>
   </div>
 </div>
-
 <footer><p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Cepogo</p><p>085725311612 | 081567681930 | mipaesan@gmail.com</p></footer>
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>
-// --- GALERI OTOMATIS DARI foto.json ---
+// --- GALERI OTOMATIS 20 FOTO + ANTI-ERROR ---
 let currentIndex=0;
 let galeriItems=[];
 let galeriInterval;
@@ -164,16 +160,28 @@ async function loadGaleriOtomatis(){
   try{
     const res = await fetch('foto.json?v='+Date.now());
     const fotoList = await res.json();
-    if(!fotoList.length){
+    const cekGambar = (src) => new Promise(resolve=>{
+      const img = new Image();
+      img.onload = ()=>resolve(true);
+      img.onerror = ()=>resolve(false);
+      img.src = src + '?v=' + Date.now();
+    });
+    let fotoValid = [];
+    for(let file of fotoList){
+      if(await cekGambar(file)){
+        fotoValid.push(file);
+      }
+    }
+    if(!fotoValid.length){
       wrapper.innerHTML='<p style="color:#888">Belum ada foto galeri</p>';
       return;
     }
     wrapper.innerHTML='';
-    fotoList.forEach((file, idx)=>{
+    fotoValid.forEach((file, idx)=>{
       const a = document.createElement('a');
       a.href = file;
       a.className = 'glightbox galeri-item' + (idx===0 ? ' active' : '');
-      a.innerHTML = `<img src="${file}" alt="Galeri ${idx+1}" onerror="this.parentElement.style.display='none'">`;
+      a.innerHTML = `<img src="${file}" alt="Galeri ${idx+1}">`;
       wrapper.appendChild(a);
     });
     galeriItems = document.querySelectorAll('.galeri-item');
@@ -182,7 +190,7 @@ async function loadGaleriOtomatis(){
     startGaleriSlider();
     GLightbox({selector:'.glightbox'});
   }catch(e){
-    wrapper.innerHTML='<p style="color:#888">Gagal memuat foto.json - pastikan file ada</p>';
+    wrapper.innerHTML='<p style="color:#888">Gagal memuat foto.json</p>';
   }
 }
 
@@ -205,7 +213,6 @@ function showInfoModal(icon, title, desc){
   const modal = document.getElementById('info-modal'); modal.style.display='flex'; setTimeout(()=>modal.classList.add('show'),10);
 }
 function tutupInfoModal(){ const m=document.getElementById('info-modal'); m.classList.remove('show'); setTimeout(()=>m.style.display='none',200); }
-
 document.getElementById('card-pengumuman').addEventListener('click', function(e){
   const status = cekTanggal(JADWAL.pengumuman.mulai, JADWAL.pengumuman.selesai);
   if(status !== "buka"){ e.preventDefault(); if(status === "belum") showInfoModal("🎓", "Pengumuman Belum Dibuka", JADWAL.pengumuman.pesanBelum); else showInfoModal("🔒", "Pengumuman Sudah Ditutup", JADWAL.pengumuman.pesanTutup); }
@@ -214,7 +221,6 @@ document.getElementById('card-pmbm').addEventListener('click', function(e){
   const status = cekTanggal(JADWAL.pmbm.mulai, JADWAL.pmbm.selesai);
   if(status !== "buka"){ e.preventDefault(); if(status === "belum") showInfoModal("📝", "PMBM Belum Dibuka", JADWAL.pmbm.pesanBelum); else showInfoModal("📪", "PMBM Sudah Ditutup", JADWAL.pmbm.pesanTutup); }
 });
-
 document.getElementById('persuratan-button').addEventListener('click',e=>{e.preventDefault(); const m=document.getElementById('surat-modal'); m.style.display='flex'; setTimeout(()=>m.classList.add('show'),10);});
 function tutupModalSurat(){ const m=document.getElementById('surat-modal'); m.classList.remove('show'); setTimeout(()=>m.style.display='none',200); }
 function togglePass(){
@@ -231,7 +237,6 @@ function togglePass(){
 function prosesLoginSurat(){ if(document.getElementById('surat-user').value==="admin"&&document.getElementById('surat-pass').value==="@Paesan1234"){ location.href="pilih-surat.html"; }else alert("Username atau Password Salah!"); }
 document.getElementById('surat-modal').addEventListener('click', e=>{ if(e.target.id==='surat-modal') tutupModalSurat(); });
 document.getElementById('info-modal').addEventListener('click', e=>{ if(e.target.id==='info-modal') tutupInfoModal(); });
-
 const bulanMap={"Januari":"01","Februari":"02","Maret":"03","April":"04","Mei":"05","Juni":"06","Juli":"07","Agustus":"08","September":"09","Oktober":"10","November":"11","Desember":"12"};
 function parseTanggal(s){ try{ const [t,b,th]=s.split(' '); return new Date(`${th}-${bulanMap[b]}-${t.padStart(2,'0')}`); }catch{ return new Date(0); } }
 let semuaBeritaData=[]; let beritaDitampilkan=0; const perLoad=3;
