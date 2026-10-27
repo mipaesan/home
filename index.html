@@ -47,21 +47,28 @@ header{max-width:1200px;margin:0 auto;padding:32px 5% 20px;display:grid;grid-tem
 .galeri-item.active{opacity:1;z-index:1}
 .galeri-item img{width:100%;height:100%;object-fit:cover}
 .visi-misi{background:linear-gradient(135deg,#e0ffe0,#f2fff2);border-radius:18px;padding:32px 24px;border:1px solid #d1fae5}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;justify-content:center;align-items:center;padding:16px}
-.modal-box{background:white;padding:28px;border-radius:18px;width:90%;max-width:400px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,.2);animation:fadeUp .3s ease}
-.modal-box input{width:100%;padding:10px 12px;margin:8px 0 12px;border:1px solid #ccc;border-radius:8px}
-.modal-box button{width:100%;padding:10px;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
-.btn-login-submit{background:var(--primary);color:white;margin-bottom:8px}
-.btn-login-cancel{background:#eee;color:#333}
+
+/* MODAL SERASI */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,81,50,.42);backdrop-filter:blur(7px);z-index:9999;justify-content:center;align-items:center;padding:16px}
+.modal-overlay.show{display:flex;animation:fadeUp .3s ease}
+.modal-box{background:white;padding:28px 22px;border-radius:22px;width:90%;max-width:400px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,.18);border:1px solid var(--border);animation:fadeUp .35s ease}
+.modal-box h3{color:var(--primary);font-weight:800;font-size:1.2rem;margin-bottom:4px}
+.modal-sub{color:var(--muted);font-size:.85rem;margin-bottom:18px}
+.modal-box input{width:100%;padding:13px 14px;border:1.5px solid #e5e7eb;border-radius:12px;font-family:Poppins,sans-serif;font-size:.9rem;transition:.2s;background:#fff}
+.modal-box input:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(25,135,84,.12)}
+.pass-wrapper{position:relative;margin-bottom:14px}
+.pass-wrapper input{margin:0;padding-right:44px}
+.toggle-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;justify-content:center;color:#6b7280}
+.toggle-eye svg{width:20px;height:20px;stroke:#6b7280;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.modal-box button.btn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:.95rem;transition:.2s}
+.btn-login-submit{background:linear-gradient(135deg,#0f5132,#198754);color:white;margin-bottom:10px;box-shadow:0 8px 18px rgba(15,81,50,.22)}
+.btn-login-submit:hover{transform:translateY(-2px)}
+.btn-login-cancel{background:#f3f4f6;color:var(--muted);border:1px solid var(--border)}
 .info-modal-icon{width:64px;height:64px;background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 14px}
-.info-modal-title{font-size:1.15rem;font-weight:800;color:var(--primary);margin-bottom:6px}
-.info-modal-desc{font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:18px}
-.btn-info-ok{background:var(--primary);color:white;padding:11px 22px;border-radius:10px;border:none;font-weight:700;width:100%;cursor:pointer}
 footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85rem;margin-top:20px;line-height:1.6}
 @keyframes floatTILMI{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:900px){header{grid-template-columns:1fr} .bento-grid,.berita-grid{grid-template-columns:1fr} .programs{grid-template-columns:repeat(2,1fr)} .nav-links{display:none} .galeri-wrapper{height:230px} .hero-text h1{font-size:2rem}}
-@media(max-width:600px){ .programs{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -106,8 +113,35 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
 </div>
 </section>
 <section class="section"><h2 class="section-title">Galeri Kegiatan</h2><div class="galeri-wrapper"><a href="galeri1.jpg" class="glightbox galeri-item active"><img src="galeri1.jpg"></a><a href="galeri2.jpg" class="glightbox galeri-item"><img src="galeri2.jpg"></a><a href="galeri3.jpg" class="glightbox galeri-item"><img src="galeri3.jpg"></a><a href="galeri4.jpg" class="glightbox galeri-item"><img src="galeri4.jpg"></a><a href="galeri5.jpg" class="glightbox galeri-item"><img src="galeri5.jpg"></a><a href="galeri6.jpg" class="glightbox galeri-item"><img src="galeri6.jpg"></a></div></section>
-<div class="modal-overlay" id="surat-modal"><div class="modal-box"><h3 style="color:var(--primary)">Akses Layanan Surat</h3><input type="text" id="surat-user" placeholder="Username"><input type="password" id="surat-pass" placeholder="Password"><button class="btn-login-submit" onclick="prosesLoginSurat()">Masuk</button><button class="btn-login-cancel" onclick="tutupModalSurat()">Batal</button></div></div>
-<div class="modal-overlay" id="info-modal"><div class="modal-box"><div class="info-modal-icon" id="info-icon">⏰</div><div class="info-modal-title" id="info-title">Informasi</div><div class="info-modal-desc" id="info-desc">Deskripsi</div><button class="btn-info-ok" onclick="tutupInfoModal()">Mengerti, Terima Kasih</button></div></div>
+
+<!-- MODAL SURAT MANDIRI - ICON MATA GARIS -->
+<div class="modal-overlay" id="surat-modal">
+  <div class="modal-box">
+    <div style="width:56px;height:56px;background:linear-gradient(135deg,#dcfce7,#bbf7d0);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 12px">✉️</div>
+    <h3>Akses Layanan Surat</h3>
+    <p class="modal-sub">Masukkan username & password layanan mandiri</p>
+    <input type="text" id="surat-user" placeholder="Username" style="margin-bottom:12px">
+    <div class="pass-wrapper">
+      <input type="password" id="surat-pass" placeholder="Masukkan Password">
+      <button type="button" class="toggle-eye" onclick="togglePass()" id="eyeBtn" aria-label="Lihat password">
+        <!-- eye-off icon default -->
+        <svg viewBox="0 0 24 24" id="eyeIcon"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><path d="M10.73 5.08A10.94 10.94 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.59 9.59 0 0 0 5.39-1.61"></path><line x1="2" y1="2" x2="22" y2="22"></line></svg>
+      </button>
+    </div>
+    <button class="btn btn-login-submit" onclick="prosesLoginSurat()">🔓 Masuk Sekarang</button>
+    <button class="btn btn-login-cancel" onclick="tutupModalSurat()">Batal</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="info-modal">
+  <div class="modal-box">
+    <div class="info-modal-icon" id="info-icon">⏰</div>
+    <div id="info-title" style="font-size:1.15rem;font-weight:800;color:var(--primary);margin-bottom:6px">Informasi</div>
+    <div id="info-desc" style="font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:18px">Deskripsi</div>
+    <button class="btn btn-login-submit" onclick="tutupInfoModal()">Mengerti, Terima Kasih</button>
+  </div>
+</div>
+
 <footer><p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Cepogo</p><p>085725311612 | 081567681930 | mipaesan@gmail.com</p></footer>
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>
@@ -116,23 +150,10 @@ let currentIndex=0; const galeriItems=document.querySelectorAll('.galeri-item');
 function showSlide(i){ galeriItems.forEach((el,idx)=>el.classList.toggle('active',idx===i)); }
 setInterval(()=>{ currentIndex=(currentIndex+1)%galeriItems.length; showSlide(currentIndex); },3000);
 
-// ===== SETTING JADWAL - SUDAH FINAL MAS, TANPA TANGGAL KEMENAG =====
 const JADWAL = {
-  pengumuman: { 
-    mulai: "2026-06-05", 
-    selesai: "2026-06-20",
-    pesanBelum: "Pengumuman kelulusan belum dibuka. Ketentuan waktu pengumuman masih menunggu informasi resmi dari Kementerian Agama. Silakan pantau terus website madrasah.",
-    pesanTutup: "Pengumuman kelulusan sudah ditutup. Silakan hubungi panitia di madrasah untuk informasi lebih lanjut."
-  },
-  pmbm: { 
-    mulai: "2026-01-10", 
-    selesai: "2026-07-15",
-    pesanBelum: "Pendaftaran murid baru (PMBM) belum dibuka. Saat ini belum memasuki periode pendaftaran.",
-    pesanTutup: "Pendaftaran PMBM 2026/2027 sudah ditutup. Terima kasih atas partisipasinya."
-  }
+  pengumuman: { mulai: "2026-06-05", selesai: "2026-06-20", pesanBelum: "Pengumuman kelulusan belum dibuka. Ketentuan waktu pengumuman masih menunggu informasi resmi dari Kementerian Agama. Silakan pantau terus website madrasah.", pesanTutup: "Pengumuman kelulusan sudah ditutup. Silakan hubungi panitia di madrasah untuk informasi lebih lanjut." },
+  pmbm: { mulai: "2026-01-10", selesai: "2026-07-15", pesanBelum: "Pendaftaran murid baru (PMBM) belum dibuka. Saat ini belum memasuki periode pendaftaran.", pesanTutup: "Pendaftaran PMBM 2026/2027 sudah ditutup. Terima kasih atas partisipasinya." }
 };
-// =====================================================================
-
 function cekTanggal(mulai, selesai){
   const today = new Date(); today.setHours(0,0,0,0);
   const m = new Date(mulai); m.setHours(0,0,0,0);
@@ -145,28 +166,40 @@ function showInfoModal(icon, title, desc){
   document.getElementById('info-icon').innerText = icon;
   document.getElementById('info-title').innerText = title;
   document.getElementById('info-desc').innerText = desc;
-  document.getElementById('info-modal').style.display='flex';
+  const modal = document.getElementById('info-modal'); modal.style.display='flex'; setTimeout(()=>modal.classList.add('show'),10);
 }
-function tutupInfoModal(){ document.getElementById('info-modal').style.display='none'; }
+function tutupInfoModal(){ const m=document.getElementById('info-modal'); m.classList.remove('show'); setTimeout(()=>m.style.display='none',200); }
+
 document.getElementById('card-pengumuman').addEventListener('click', function(e){
   const status = cekTanggal(JADWAL.pengumuman.mulai, JADWAL.pengumuman.selesai);
-  if(status !== "buka"){
-    e.preventDefault();
-    if(status === "belum") showInfoModal("🎓", "Pengumuman Belum Dibuka", JADWAL.pengumuman.pesanBelum);
-    else showInfoModal("🔒", "Pengumuman Sudah Ditutup", JADWAL.pengumuman.pesanTutup);
-  }
+  if(status !== "buka"){ e.preventDefault(); if(status === "belum") showInfoModal("🎓", "Pengumuman Belum Dibuka", JADWAL.pengumuman.pesanBelum); else showInfoModal("🔒", "Pengumuman Sudah Ditutup", JADWAL.pengumuman.pesanTutup); }
 });
 document.getElementById('card-pmbm').addEventListener('click', function(e){
   const status = cekTanggal(JADWAL.pmbm.mulai, JADWAL.pmbm.selesai);
-  if(status !== "buka"){
-    e.preventDefault();
-    if(status === "belum") showInfoModal("📝", "PMBM Belum Dibuka", JADWAL.pmbm.pesanBelum);
-    else showInfoModal("📪", "PMBM Sudah Ditutup", JADWAL.pmbm.pesanTutup);
-  }
+  if(status !== "buka"){ e.preventDefault(); if(status === "belum") showInfoModal("📝", "PMBM Belum Dibuka", JADWAL.pmbm.pesanBelum); else showInfoModal("📪", "PMBM Sudah Ditutup", JADWAL.pmbm.pesanTutup); }
 });
-document.getElementById('persuratan-button').addEventListener('click',e=>{e.preventDefault(); document.getElementById('surat-modal').style.display='flex';});
-function tutupModalSurat(){ document.getElementById('surat-modal').style.display='none'; }
-function prosesLoginSurat(){ if(document.getElementById('surat-user').value==="admin"&&document.getElementById('surat-pass').value==="@Paesan1234"){ location.href="pilih-surat.html"; }else alert("Salah!"); }
+
+document.getElementById('persuratan-button').addEventListener('click',e=>{e.preventDefault(); const m=document.getElementById('surat-modal'); m.style.display='flex'; setTimeout(()=>m.classList.add('show'),10);});
+function tutupModalSurat(){ const m=document.getElementById('surat-modal'); m.classList.remove('show'); setTimeout(()=>m.style.display='none',200); }
+
+function togglePass(){
+  const input = document.getElementById('surat-pass');
+  const iconContainer = document.getElementById('eyeIcon');
+  const isHidden = input.type === 'password';
+  input.type = isHidden ? 'text' : 'password';
+  // Ganti SVG eye / eye-off
+  if(isHidden){
+    // eye on
+    iconContainer.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+  } else {
+    // eye off
+    iconContainer.innerHTML = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><path d="M10.73 5.08A10.94 10.94 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.59 9.59 0 0 0 5.39-1.61"></path><line x1="2" y1="2" x2="22" y2="22"></line>';
+  }
+}
+function prosesLoginSurat(){ if(document.getElementById('surat-user').value==="admin"&&document.getElementById('surat-pass').value==="@Paesan1234"){ location.href="pilih-surat.html"; }else alert("Username atau Password Salah!"); }
+document.getElementById('surat-modal').addEventListener('click', e=>{ if(e.target.id==='surat-modal') tutupModalSurat(); });
+document.getElementById('info-modal').addEventListener('click', e=>{ if(e.target.id==='info-modal') tutupInfoModal(); });
+
 const bulanMap={"Januari":"01","Februari":"02","Maret":"03","April":"04","Mei":"05","Juni":"06","Juli":"07","Agustus":"08","September":"09","Oktober":"10","November":"11","Desember":"12"};
 function parseTanggal(s){ try{ const [t,b,th]=s.split(' '); return new Date(`${th}-${bulanMap[b]}-${t.padStart(2,'0')}`); }catch{ return new Date(0); } }
 let semuaBeritaData=[]; let beritaDitampilkan=0; const perLoad=3;
