@@ -1,358 +1,139 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laboratorium Digital - MI Salafiyatul Ma'muroh</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-color: #00a896;
-      --primary-hover: #008f80;
-      --bg-color: #f4f7f6;
-      --card-bg: #ffffff;
-      --text-color: #2b2d42;
-      --text-muted: #6c757d;
-      --border-radius: 12px;
-      --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      --transition: all 0.3s ease;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-    }
-
-    /* Header Styling */
-    header {
-      background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('header_optimized_16by9.png') no-repeat center center/cover;
-      color: white;
-      text-align: center;
-      padding: 60px 20px 40px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    header h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      font-size: 1.05rem;
-      font-weight: 300;
-      opacity: 0.9;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* Container Main */
-    .container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    /* Tombol Kembali ke Beranda (Di Luar Header) */
-    .nav-top {
-      margin-bottom: 20px;
-    }
-
-    .btn-home {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--card-bg);
-      color: var(--primary-color);
-      padding: 10px 18px;
-      border-radius: var(--border-radius);
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 600;
-      box-shadow: var(--box-shadow);
-      transition: var(--transition);
-      border: 1px solid #e2e8f0;
-    }
-
-    .btn-home:hover {
-      background: var(--primary-color);
-      color: white;
-      transform: translateY(-2px);
-    }
-
-    /* Controls: Search Box */
-    .controls-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-
-    .search-box {
-      position: relative;
-      width: 100%;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 14px 20px 14px 45px;
-      border: 2px solid #e2e8f0;
-      border-radius: var(--border-radius);
-      font-size: 1rem;
-      outline: none;
-      transition: var(--transition);
-      background: white;
-    }
-
-    .search-box input:focus {
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(0, 168, 150, 0.15);
-    }
-
-    .search-box i {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-    }
-
-    /* Grid Layout for Cards */
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 25px;
-    }
-
-    /* Module Card */
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--border-radius);
-      padding: 24px;
-      box-shadow: var(--box-shadow);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: var(--transition);
-      border: 1px solid #edf2f7;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-icon {
-      font-size: 2.8rem;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .card-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--text-color);
-      text-align: center;
-    }
-
-    .card-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-      text-align: center;
-      flex-grow: 1;
-    }
-
-    .card-footer {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-top: auto;
-    }
-
-    /* Read Count (Eye Icon) Above Action Button */
-    .view-count {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 500;
-    }
-
-    .btn-simulasi {
-      width: 100%;
-      padding: 10px 16px;
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .btn-simulasi:hover {
-      background-color: var(--primary-hover);
-    }
-
-    /* Empty state */
-    .no-result {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 40px;
-      color: var(--text-muted);
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      margin-top: 50px;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      border-top: 1px solid #e2e8f0;
-    }
-  </style>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Laboratorium Digital - MI Salafiyatul Ma'muroh Paesan</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{ --primary:#0f5132; --primary-light:#198754; --accent:#FFC107; --bg:#FFFBF5; --card:#ffffff; --muted:#6b7280; --border:#f0f0f0; }
+*{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,sans-serif}
+body{background:var(--bg);color:#1a1a1a;min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 5%;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--primary);font-size:1.05rem;text-decoration:none}
+.logo img{width:36px;height:36px;object-fit:contain;border-radius:6px}
+.nav-links a{margin-left:18px;text-decoration:none;color:#1a1a1a;font-weight:600;font-size:.85rem}
+.nav-links a.cbt{ background:var(--primary);color:white;padding:8px 14px;border-radius:8px; border:1px solid var(--primary)}
+.hero-mini{max-width:1200px;margin:0 auto;padding:18px 5% 16px;width:100%;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;background:white;border-bottom:1px solid var(--border)}
+.hero-mini h1{font-size:2rem;font-weight:800;color:var(--primary);line-height:1.1}
+.hero-mini h1 span{color:var(--primary-light)}
+.hero-mini p{color:var(--muted);margin-top:6px;font-size:.88rem;max-width:540px;line-height:1.5}
+.hero-mini-right{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hero-mini-right img{height:110px;width:auto;object-fit:contain;filter:drop-shadow(0 6px 12px rgba(15,81,50,.15));animation:floatTILMI 3.5s ease-in-out infinite}
+.hero-mini-right .tagline{margin-top:6px;font-size:.78rem;font-weight:800;color:var(--primary);letter-spacing:.5px;background:#e0ffe0;border:1px solid #c8f7c5;padding:4px 12px;border-radius:20px}
+.container{max-width:1200px;margin:20px auto;padding:0 5%;flex:1;width:100%}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:white;border:1px solid var(--border);border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 12px rgba(0,0,0,.04);transition:.2s}
+.stat-card:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(15,81,50,.1);border-color:var(--primary-light)}
+.stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.stat-info b{display:block;font-size:1.15rem;font-weight:800;color:var(--primary);line-height:1}
+.stat-info span{font-size:.78rem;color:var(--muted);font-weight:600}
+.back-btn{display:inline-block;margin-bottom:18px;padding:9px 16px;background:white;border:1px solid var(--border);color:var(--primary);text-decoration:none;border-radius:10px;font-weight:700;font-size:.85rem;transition:.2s}
+.back-btn:hover{border-color:var(--primary);transform:translateY(-2px)}
+.filter-section{background:white;border:1px solid var(--border);border-radius:18px;padding:18px; margin-bottom:24px; box-shadow:0 4px 14px rgba(0,0,0,.04)}
+.search-box{position:relative;width:100%;max-width:540px;margin:0 auto}
+.search-box input{width:100%;padding:12px 20px 12px 44px;border:1.5px solid var(--border);border-radius:12px;font-size:.9em;outline:none;transition:.2s}
+.search-box input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(15,81,50,.12)}
+.search-box i{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.grid-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.card{background:var(--card);border-radius:16px;padding:20px;border:1px solid var(--border);box-shadow:0 4px 12px rgba(0,0,0,.05);display:flex;flex-direction:column;justify-content:space-between;transition:.25s}
+.card:hover{transform:translateY(-6px);box-shadow:0 14px 28px rgba(15,81,50,.12);border-color:var(--primary-light)}
+.card-icon{font-size:2.6rem;margin-bottom:12px;text-align:center}
+.card-title{font-size:1.05rem;font-weight:700;margin-bottom:8px;color:var(--primary);text-align:center;line-height:1.3}
+.card-desc{font-size:.84rem;color:var(--muted);margin-bottom:18px;text-align:center;flex-grow:1;line-height:1.5}
+.card-footer{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:auto}
+.view-count{font-size:.78rem;color:var(--primary);background:#f0fdf4;border:1px solid #dcfce7;padding:4px 10px;border-radius:20px;display:flex;align-items:center;gap:6px;font-weight:600}
+.btn-simulasi{width:100%;padding:10px 16px;background:var(--primary);color:white;border:none;border-radius:10px;text-decoration:none;font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:.2s}
+.btn-simulasi:hover{background:var(--primary-light)}
+.no-result{grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)}
+footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85rem;margin-top:20px;line-height:1.6}
+@keyframes floatTILMI{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media(max-width:900px){.stat-grid{grid-template-columns:1fr} .hero-mini{grid-template-columns:1fr} .hero-mini-right{flex-direction:row;gap:10px;justify-content:flex-start} .hero-mini-right img{height:70px} .nav-links{display:none}}
+</style>
 </head>
 <body>
+<nav><a class="logo" href="index.html"><img src="logo-mi.png" alt="Logo MI"> MI Salafiyatul Ma'muroh Paesan</a><div class="nav-links"><a href="index.html#layanan">Layanan</a><a href="index.html#berita">Berita</a><a class="cbt" href="cbt/index.html">Ujian Online</a></div></nav>
 
-  <header>
-    <h1>Laboratorium Digital Interaktif</h1>
-    <p>MI Salafiyatul Ma'muroh</p>
-  </header>
-
-  <div class="container">
-    <!-- Tombol Beranda di Atas Kotak Pencarian -->
-    <div class="nav-top">
-      <a href="index.html" class="btn-home">
-        <i class="fas fa-arrow-left"></i> Kembali ke Beranda
-      </a>
-    </div>
-
-    <div class="controls-wrapper">
-      <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input type="text" id="searchInput" placeholder="Cari modul laboratorium atau simulasi..." onkeyup="filterModules()">
-      </div>
-    </div>
-
-    <div id="gridContainer" class="grid-container">
-      <!-- Data dari lab.json dimuat secara dinamis via JavaScript -->
-    </div>
+<div class="hero-mini">
+  <div>
+    <h1>Lab <span>Digital Interaktif</span></h1>
+    <p>Simulasi sains, coding, dan eksperimen virtual untuk belajar lebih menyenangkan di MI Salafiyatul Ma'muroh Paesan.</p>
   </div>
+  <div class="hero-mini-right">
+    <img src="tilmi-komputer.png" alt="TILMI Komputer">
+    <div class="tagline">Iso Ngaji, Iso Teknologi</div>
+  </div>
+</div>
 
-  <footer>
-    <p>&copy; 2026 MI Salafiyatul Ma'muroh. Hak Cipta Dilindungi.</p>
-  </footer>
+<div class="container">
+<a href="index.html" class="back-btn">← Kembali ke Beranda</a>
 
-  <script>
-    // URL Google Apps Script terhubung langsung ke Google Sheets tracking
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLNf-BeIBZ3qTW5Dhj0lTBme_J9Ed6-3LKwsR5jnktjkM238plbApfL1HUUk7f3YKP2g/exec";
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-icon" style="background:#dcfce7">🧪</div><div class="stat-info"><b id="stat-total-modul">0</b><span>Total Modul</span></div></div>
+  <div class="stat-card"><div class="stat-icon" style="background:#fef3c7">👁️</div><div class="stat-info"><b id="stat-total-akses">0</b><span>Total Diakses</span></div></div>
+  <div class="stat-card"><div class="stat-icon" style="background:#dbeafe">🔥</div><div class="stat-info"><b id="stat-modul-populer">-</b><span>Modul Terpopuler</span></div></div>
+</div>
 
-    let modulesData = [];
-    let clickCounts = {};
+<div class="filter-section">
+<div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchInput" placeholder="Cari modul laboratorium atau simulasi..." onkeyup="filterModules()"></div>
+</div>
 
-    // Fetch data dari lab.json & Google Sheets secara paralel
-    async function initLab() {
-      try {
-        const [jsonResponse, countsResponse] = await Promise.allSettled([
-          fetch('lab.json').then(res => res.json()),
-          fetch(SCRIPT_URL).then(res => res.json())
-        ]);
+<div id="gridContainer" class="grid-container"></div>
+</div>
 
-        if (jsonResponse.status === 'fulfilled') {
-          modulesData = jsonResponse.value;
-        }
+<footer><p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Cepogo</p><p>085725311612 | 081567681930 | mipaesan@gmail.com</p></footer>
 
-        if (countsResponse.status === 'fulfilled' && countsResponse.value) {
-          clickCounts = countsResponse.value;
-        }
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLNf-BeIBZ3qTW5Dhj0lTBme_J9Ed6-3LKwsR5jnktjkM238plbApfL1HUUk7f3YKP2g/exec";
+let modulesData = []; let clickCounts = {};
 
-        renderModules(modulesData);
-      } catch (error) {
-        console.error('Gagal memuat data:', error);
-      }
-    }
+function updateStatistikLab(){
+  document.getElementById('stat-total-modul').innerText = modulesData.length;
+  let total=0; let maxId='-'; let maxVal=0;
+  Object.values(clickCounts).forEach(v=>{ total+= Number(v)||0 });
+  Object.keys(clickCounts).forEach(k=>{ if((clickCounts[k]||0)>maxVal){ maxVal=clickCounts[k]; maxId=k; } });
+  document.getElementById('stat-total-akses').innerText = total.toLocaleString('id-ID');
+  let populer = '-';
+  if(maxId !== '-'){ let found = modulesData.find(m=>m.id===maxId); if(found) populer = found.judul; else populer = maxId; }
+  document.getElementById('stat-modul-populer').innerText = populer.length>22 ? populer.substring(0,22)+'...' : populer;
+}
 
-    // Render kartu modul ke dalam HTML
-    function renderModules(data) {
-      const container = document.getElementById('gridContainer');
-      container.innerHTML = '';
-
-      if (data.length === 0) {
-        container.innerHTML = '<div class="no-result"><i class="fas fa-info-circle fa-2x"></i><p style="margin-top:10px;">Modul tidak ditemukan.</p></div>';
-        return;
-      }
-
-      data.forEach(item => {
-        const count = clickCounts[item.id] || 0;
-
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <div class="card-icon">${item.icon || '🧪'}</div>
-          <h2 class="card-title">${item.judul}</h2>
-          <p class="card-desc">${item.deskripsi}</p>
-          <div class="card-footer">
-            <div class="view-count">
-              <i class="far fa-eye"></i> <span id="count-${item.id}">${count}</span> kali diakses
-            </div>
-            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-simulasi" onclick="trackClick('${item.id}')">
-              <i class="fas fa-external-link-alt"></i> Buka Simulasi
-            </a>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    // Filter modul berdasarkan input pencarian
-    function filterModules() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const filtered = modulesData.filter(item => 
-        item.judul.toLowerCase().includes(query) || 
-        item.deskripsi.toLowerCase().includes(query)
-      );
-      renderModules(filtered);
-    }
-
-    // Tracking klik andal (Support Mobile & Tab Baru)
-    function trackClick(id) {
-      const countEl = document.getElementById(`count-${id}`);
-      if (countEl) {
-        let currentCount = parseInt(countEl.innerText) || 0;
-        countEl.innerText = currentCount + 1;
-      }
-
-      if (SCRIPT_URL) {
-        const trackingUrl = `${SCRIPT_URL}?id=${id}`;
-        if (navigator.sendBeacon) {
-          navigator.sendBeacon(trackingUrl);
-        } else {
-          fetch(trackingUrl, { mode: 'no-cors' }).catch(err => console.error(err));
-        }
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', initLab);
-  </script>
+async function initLab(){
+  try{
+    const [jsonResponse, countsResponse] = await Promise.allSettled([
+      fetch('lab.json').then(res=>res.json()),
+      fetch(SCRIPT_URL).then(res=>res.json())
+    ]);
+    if(jsonResponse.status==='fulfilled'){ modulesData = jsonResponse.value; }
+    if(countsResponse.status==='fulfilled' && countsResponse.value){ clickCounts = countsResponse.value; }
+    renderModules(modulesData); updateStatistikLab();
+  }catch(error){ console.error('Gagal memuat data:', error); }
+}
+function renderModules(data){
+  const container=document.getElementById('gridContainer'); container.innerHTML='';
+  if(data.length===0){ container.innerHTML='<div class="no-result"><i class="fas fa-flask fa-2x"></i><p style="margin-top:10px;">Modul tidak ditemukan.</p></div>'; return; }
+  data.forEach(item=>{
+    const count = clickCounts[item.id] || 0;
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=`<div class="card-icon">${item.icon||'🧪'}</div><h2 class="card-title">${item.judul}</h2><p class="card-desc">${item.deskripsi}</p><div class="card-footer"><div class="view-count"><i class="far fa-eye"></i> <span id="count-${item.id}">${count}</span> kali diakses</div><a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-simulasi" onclick="trackClick('${item.id}')"><i class="fas fa-external-link-alt"></i> Buka Simulasi</a></div></div>`;
+    container.appendChild(card);
+  });
+}
+function filterModules(){
+  const query=document.getElementById('searchInput').value.toLowerCase();
+  const filtered=modulesData.filter(item=> item.judul.toLowerCase().includes(query) || item.deskripsi.toLowerCase().includes(query));
+  renderModules(filtered);
+}
+function trackClick(id){
+  const countEl=document.getElementById(`count-${id}`);
+  if(countEl){ let currentCount=parseInt(countEl.innerText)||0; countEl.innerText=currentCount+1; }
+  clickCounts[id]=(clickCounts[id]||0)+1; updateStatistikLab();
+  if(SCRIPT_URL){
+    const trackingUrl=`${SCRIPT_URL}?id=${id}`;
+    if(navigator.sendBeacon){ navigator.sendBeacon(trackingUrl); } else { fetch(trackingUrl,{mode:'no-cors'}).catch(()=>{}); }
+  }
+}
+window.addEventListener('DOMContentLoaded', initLab);
+</script>
 </body>
 </html>
