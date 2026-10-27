@@ -17,14 +17,14 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-
 .back-btn{display:inline-block;margin-bottom:18px;padding:9px 16px;background:white;border:1px solid var(--border);color:var(--primary);text-decoration:none;border-radius:10px;font-weight:700;font-size:.85rem;transition:.2s}
 .back-btn:hover{border-color:var(--primary);transform:translateY(-2px)}
 .berita-card{background:white;border-radius:18px;overflow:hidden;border:1px solid var(--border);box-shadow:0 8px 20px rgba(0,0,0,.06)}
-.berita-card img.main-img{width:100%;max-height:420px;object-fit:cover;display:block}
+.berita-card img.main-img{width:100%;max-height:440px;object-fit:cover;display:block}
 .berita-content{padding:22px}
-.berita-content h1{font-size:1.6rem;font-weight:800;color:var(--primary);line-height:1.3;margin-bottom:8px}
-.tanggal{color:var(--muted);font-size:.85rem;margin-bottom:16px;display:flex;align-items:center;gap:6px}
-.tanggal span{background:#e0ffe0;color:var(--primary);padding:3px 10px;border-radius:20px;font-weight:700;font-size:.75rem;border:1px solid #c8f7c5}
-.isi-berita p{line-height:1.8;margin-bottom:14px;color:#333;font-size:.92rem}
+.berita-content h1{font-size:1.55rem;font-weight:800;color:var(--primary);line-height:1.3;margin-bottom:8px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.meta .tgl{color:var(--muted);font-size:.84rem} .meta .badge{background:#e0ffe0;color:var(--primary);padding:3px 10px;border-radius:20px;font-weight:700;font-size:.72rem;border:1px solid #c8f7c5}
+.meta .penulis{font-style:italic;color:var(--muted);font-size:.84rem}
+.isi-berita p{line-height:1.85;margin-bottom:14px;color:#333;font-size:.93rem;text-align:justify}
 footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85rem;margin-top:20px;line-height:1.6}
-@media(max-width:600px){.berita-content h1{font-size:1.3rem}.nav-links{display:none}}
 </style>
 </head>
 <body>
@@ -39,27 +39,45 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
 
 <script>
 const params = new URLSearchParams(window.location.search);
-const id = params.get('id');
-fetch('berita.json').then(res=>res.json()).then(data=>{
-  const berita = data.find(b=> String(b.id) === String(id) || String(b.slug) === String(id));
-  const container=document.getElementById('berita-detail');
+const idParam = params.get('id');
+const slugParam = params.get('slug');
+
+fetch('berita.json').then(r=>r.json()).then(data=>{
+  // support array langsung atau {data: [...]}
+  let list = Array.isArray(data) ? data : (data.data || data.berita || []);
+  let berita = list.find(b => String(b.id) === String(idParam) || String(b.slug) === String(slugParam) || String(b.slug) === String(idParam));
+  
+  const container = document.getElementById('berita-detail');
   if(!berita){
-    container.innerHTML='<div style="padding:30px;text-align:center"><p>Berita tidak ditemukan.</p><a href="index.html#berita" class="back-btn" style="margin-top:16px">← Kembali</a></div>';
+    container.innerHTML = '<div style="padding:30px;text-align:center">Berita tidak ditemukan.<br><a href="index.html#berita" class="back-btn" style="margin-top:16px">← Kembali</a></div>';
     return;
   }
   document.title = berita.judul + ' - MI Salafiyatul Ma\'muroh';
-  const isiParagraf = (berita.isi||berita.ringkasan||'').split('\n\n').map(p=>`<p>${p.trim()}</p>`).join('');
-  container.innerHTML=`
+
+  // isi bisa \n\n atau panjang satu paragraf, kita pecah jadi paragraf enak dibaca
+  let isiText = berita.isi || '';
+  // kalau isi tidak ada \n\n tapi panjang, pecah per 2 kalimat biar tidak numpuk
+  let paragrafs;
+  if(isiText.includes('\n\n')) paragrafs = isiText.split('\n\n');
+  else {
+    // pecah jadi beberapa paragraf per 3 kalimat
+    let sentences = isiText.split(/(?<=\.)\s+/);
+    paragrafs = [];
+    for(let i=0;i<sentences.length;i+=3){ paragrafs.push(sentences.slice(i,i+3).join(' ')); }
+  }
+  let isiHTML = paragrafs.map(p=>`<p>${p.trim()}</p>`).join('');
+
+  container.innerHTML = `
     <img class="main-img" src="${berita.gambar}" alt="${berita.judul}">
     <div class="berita-content">
       <h1>${berita.judul}</h1>
-      <div class="tanggal">📅 ${berita.tanggal} <span>${berita.kategori||'Berita Madrasah'}</span></div>
-      <div class="isi-berita">${isiParagraf}</div>
+      <div class="meta"><span class="tgl">📅 ${berita.tanggal}</span><span class="badge">Berita</span><span class="penulis">oleh: ${berita.penulis||'Admin Madrasah'}</span></div>
+      <div class="isi-berita">${isiHTML}</div>
       <a href="index.html#berita" class="back-btn" style="margin-top:20px">← Kembali ke Daftar Berita</a>
     </div>
   `;
-}).catch(()=>{
-  document.getElementById('berita-detail').innerHTML='<div style="padding:30px;text-align:center">Gagal memuat berita.<br><a href="index.html#berita" class="back-btn" style="margin-top:16px">← Kembali</a></div>';
+}).catch(e=>{
+  document.getElementById('berita-detail').innerHTML = '<div style="padding:30px;text-align:center">Gagal memuat berita.<br><a href="index.html#berita" class="back-btn" style="margin-top:16px">← Kembali</a></div>';
 });
 </script>
 </body>
