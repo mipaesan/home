@@ -7,67 +7,67 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 <style>
-:root{--primary:#0f5132;--primary-light:#198754;--accent:#ffc107;--bg:#f4f7f5;--card:#ffffff;--text:#212529;--border:#e9ecef;--muted:#6c757d}
+:root{--primary:#0f5132;--primary-light:#198754;--accent:#ffc107;--bg:#f4f7f5;--text:#212529;--border:#e9ecef;--muted:#6c757d}
 *{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,sans-serif}
 body{background:var(--bg);color:var(--text);padding-bottom:30px}
 header{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;padding:14px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-header .left{display:flex;align-items:center;gap:12px}
 header h1{font-size:1.15rem;font-weight:700} header p{font-size:.8rem;opacity:.9}
 .container{max-width:1150px;margin:1.5rem auto;padding:0 5%}
 .card{background:white;border-radius:16px;padding:18px;border:1px solid var(--border);box-shadow:0 4px 14px rgba(15,81,50,.06);margin-bottom:18px}
 .card-title{font-size:1.05rem;font-weight:700;color:var(--primary);border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
 .form-control{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:.9rem;background:white}
-.form-control:focus{border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(25,135,84,.15);outline:none}
-.btn{padding:9px 14px;background:var(--primary);color:white;border:none;border-radius:10px;font-weight:600;cursor:pointer;display:inline-flex;gap:6px;font-size:.85rem;transition:.2s}
-.btn:hover{transform:translateY(-1px)}
-.btn-warning{background:var(--accent);color:#212529} .btn-secondary{background:#6c757d;color:white} .btn-info{background:#0dcaf0;color:#000} .btn-success{background:#198754}
+.btn{padding:9px 14px;background:var(--primary);color:white;border:none;border-radius:10px;font-weight:600;cursor:pointer;display:inline-flex;gap:6px;font-size:.85rem}
+.btn-warning{background:var(--accent);color:#212529} .btn-secondary{background:#6c757d} .btn-info{background:#0dcaf0;color:#000} .btn-success{background:#198754}
 .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
 .stat-box{background:white;border:1px solid var(--border);border-radius:12px;padding:12px 14px} .stat-box b{font-size:1.3rem;color:var(--primary)} .stat-box span{font-size:.78rem;color:var(--muted);display:block}
 table{width:100%;border-collapse:collapse;font-size:.88rem} th,td{border:1px solid var(--border);padding:10px 8px} th{background:#e9f5ed;color:var(--primary);font-weight:700;position:sticky;top:0}
 .badge{padding:3px 8px;border-radius:20px;font-weight:600;font-size:.75rem;display:inline-block} .badge-mudah{background:#d1e7dd;color:#0f5132} .badge-sedang{background:#fff3cd;color:#664d03} .badge-sulit{background:#f8d7da;color:#842029}
 .search-wrap{position:relative;flex:1;min-width:180px} .search-wrap input{padding-left:36px} .search-wrap span{position:absolute;left:10px;top:50%;transform:translateY(-50%)}
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);z-index:999;align-items:center;justify-content:center;padding:12px}
-.modal-card{background:white;border-radius:16px;max-width:860px;width:100%;padding:18px;max-height:92vh;display:flex;flex-direction:column;box-shadow:0 20px 40px rgba(0,0,0,.25)}
+.modal-card{background:white;border-radius:16px;max-width:860px;width:100%;padding:18px;max-height:92vh;display:flex;flex-direction:column}
 .koreksi-item-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px}
 .soal-header-box{background:#f0faf3;border-left:4px solid var(--primary);padding:8px 10px;font-weight:600;font-size:.92rem;margin-bottom:8px;border-radius:0 8px 8px 0}
 .grid-3-kolom{display:grid;grid-template-columns:1fr 140px 1fr;gap:10px} @media(max-width:800px){.grid-3-kolom{grid-template-columns:1fr}.stat-grid{grid-template-columns:1fr}}
-.box-kolom{border-radius:8px;padding:10px;font-size:.86rem;display:flex;flex-direction:column} .box-title{font-weight:700;font-size:.75rem;margin-bottom:4px;text-transform:uppercase}
-.kolom-siswa{background:#eef6ff;border:1px solid #c6e0fe;color:#084298} .kolom-nilai{background:#fff8e6;border:1px solid #ffe69c;justify-content:center;align-items:center;text-align:center} .kolom-kunci{background:#eef9f2;border:1px solid #c3e6cb;color:#0f5132}
+.box-kolom{border-radius:8px;padding:10px;font-size:.86rem;display:flex;flex-direction:column} .kolom-siswa{background:#eef6ff;border:1px solid #c6e0fe} .kolom-nilai{background:#fff8e6;border:1px solid #ffe69c;justify-content:center;align-items:center;text-align:center} .kolom-kunci{background:#eef9f2;border:1px solid #c3e6cb}
 .input-nilai-num{width:100%;max-width:80px;text-align:center;font-size:1.2rem;font-weight:bold;padding:6px;border:2px solid var(--accent);border-radius:8px}
 @media print{body{background:white!important} header,.no-print,#card-rekap-tabel,.modal-overlay{display:none!important} .container{max-width:100%!important;margin:0!important;padding:0!important} .card{border:none!important;box-shadow:none!important} #card-analisis-tabel{display:block!important}}
 </style>
 </head>
 <body>
-<header class="no-print"><div class="left"><div><h1>DASHBOARD GURU KELAS & KOREKSI CBT</h1><p>MI Salafiyatul Ma'muroh Paesan</p></div></div><div style="display:flex;gap:8px;align-items:center"><span id="jam-now" style="font-size:.8rem;opacity:.9"></span><button class="btn btn-warning" onclick="logoutGuru()" style="font-size:.8rem">Keluar</button></div></header>
+<header class="no-print"><div><h1>DASHBOARD GURU KELAS & KOREKSI CBT</h1><p>MI Salafiyatul Ma'muroh Paesan</p></div><div style="display:flex;gap:8px;align-items:center"><span id="jam-now" style="font-size:.8rem"></span><button class="btn btn-warning" onclick="logoutGuru()" style="font-size:.8rem">Keluar</button></div></header>
 <div class="container">
-<div class="card no-print"><div class="card-title"><span>Selamat Datang, <strong id="guru-nama">-</strong></span><span style="font-size:.78rem;color:var(--muted)">Guru Kelas</span></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end"><div style="min-width:130px;flex:1"><label style="font-size:.8rem;font-weight:600">Pilih Kelas</label><select id="select-kelas-rekap" class="form-control" onchange="filterMapelByKelas()"><option value="">-- Semua --</option><option value="4">Kelas 4</option><option value="5">Kelas 5</option><option value="6" selected>Kelas 6</option></select></div><div style="flex:2;min-width:240px"><label style="font-size:.8rem;font-weight:600">Mata Pelajaran</label><select id="select-mapel-rekap" class="form-control"><option>-- Pilih Kelas Dulu --</option></select></div><button class="btn" onclick="muatDataRekap()">📋 Rekap Nilai</button><button class="btn btn-info" onclick="muatAnalisisButirSoal()">📊 Analisis Soal</button></div></div>
+<div class="card no-print"><div class="card-title"><span>Selamat Datang, <strong id="guru-nama">-</strong></span></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end"><div style="min-width:130px;flex:1"><label style="font-size:.8rem;font-weight:600">Pilih Kelas</label><select id="select-kelas-rekap" class="form-control" onchange="filterMapelByKelas()"><option value="">-- Semua --</option><option value="4">Kelas 4</option><option value="5">Kelas 5</option><option value="6" selected>Kelas 6</option></select></div><div style="flex:2;min-width:240px"><label style="font-size:.8rem;font-weight:600">Mata Pelajaran</label><select id="select-mapel-rekap" class="form-control"><option>-- Pilih Kelas Dulu --</option></select></div><button class="btn" onclick="muatDataRekap()">📋 Rekap</button><button class="btn btn-info" onclick="muatAnalisisButirSoal()">📊 Analisis</button></div></div>
 <div class="stat-grid no-print" id="stat-grid" style="display:none"><div class="stat-box"><span>Total Siswa</span><b id="stat-total">0</b></div><div class="stat-box"><span>Rata-rata</span><b id="stat-rata">0</b></div><div class="stat-box"><span>Belum Dikoreksi</span><b id="stat-belum">0</b></div></div>
-<div id="card-rekap-tabel" class="card no-print"><div class="card-title"><span>Rekap Nilai</span><div style="display:flex;gap:8px;align-items:center"><div class="search-wrap"><span>🔍</span><input id="input-search-rekap" class="form-control" placeholder="Cari NIS / Nama..." oninput="filterTabelRekap()"></div><button class="btn btn-success" style="font-size:.8rem" onclick="downloadRekapExcel()">📥 Excel</button></div></div><div style="overflow-x:auto;max-height:60vh"><table><thead><tr><th>No</th><th>NIS</th><th>Nama</th><th>PG</th><th>Isian</th><th>Total</th><th>Aksi</th></tr></thead><tbody id="tabel-rekap-body"><tr><td colspan="7" style="text-align:center;color:#888">Pilih kelas & mapel.</td></tr></tbody></table></div></div>
-<div id="card-analisis-tabel" class="card" style="display:none"><div class="card-title"><span>Analisis Butir Soal</span><div style="display:flex;gap:6px;flex-wrap:wrap" class="no-print"><button class="btn btn-success" style="font-size:.8rem" onclick="downloadFileSoalDocx()">📄 Soal .doc</button><button class="btn btn-success" style="font-size:.8rem" onclick="downloadAnalisisExcel()">📥 Excel</button><button class="btn btn-warning" style="font-size:.8rem" onclick="cetakDokumenAnalisis()">🖨️ Cetak</button></div></div>
+<div id="card-rekap-tabel" class="card no-print"><div class="card-title"><span>Rekap Nilai</span><div style="display:flex;gap:8px"><div class="search-wrap"><span>🔍</span><input id="input-search-rekap" class="form-control" placeholder="Cari NIS / Nama..." oninput="filterTabelRekap()"></div><button class="btn btn-success" style="font-size:.8rem" onclick="downloadRekapExcel()">📥 Excel</button></div></div><div style="overflow-x:auto;max-height:60vh"><table><thead><tr><th>No</th><th>NIS</th><th>Nama</th><th>PG</th><th>Isian</th><th>Total</th><th>Aksi</th></tr></thead><tbody id="tabel-rekap-body"><tr><td colspan="7" style="text-align:center;color:#888">Pilih kelas & mapel.</td></tr></tbody></table></div></div>
+<div id="card-analisis-tabel" class="card" style="display:none"><div class="card-title"><span>Analisis Butir Soal</span><div style="display:flex;gap:6px" class="no-print"><button class="btn btn-success" style="font-size:.8rem" onclick="downloadFileSoalDocx()">📄 Soal .doc</button><button class="btn btn-success" style="font-size:.8rem" onclick="downloadAnalisisExcel()">📥 Excel</button><button class="btn btn-warning" style="font-size:.8rem" onclick="cetakDokumenAnalisis()">🖨️ Cetak</button></div></div>
 <div id="area-cetak-analisis">
-<div style="text-align:center;margin-bottom:14px;border-bottom:3px double #000;padding-bottom:10px"><h2 style="font-size:1.3rem;margin:0">MI SALAFIYATUL MA'MUROH PAESAN</h2><p style="font-size:.8rem;margin:2px 0">Jl. Krajan, Paesan, Kec. Kangkung, Kab. Kendal</p><h3 style="font-size:1.05rem;margin:8px 0 2px">LAPORAN ANALISIS BUTIR SOAL CBT</h3><p style="font-size:.85rem;margin-top:4px">Mapel: <strong id="analisis-info-mapel">-</strong> | Kelas: <strong id="analisis-info-kelas">-</strong> | Siswa: <strong id="analisis-info-siswa">0</strong> | Tgl: <span id="analisis-tgl-cetak">-</span></p></div>
-<div style="overflow-x:auto"><table><thead><tr><th style="width:50px;text-align:center">No</th><th style="width:80px;text-align:center">Tipe</th><th style="width:80px;text-align:center">Kunci</th><th style="text-align:center">Benar</th><th style="text-align:center">Salah</th><th style="text-align:center">% Benar</th><th style="text-align:center">Kesukaran</th></tr></thead><tbody id="tabel-analisis-body"></tbody></table></div>
+<!-- KOP FINAL SESUAI REQUEST -->
+<div style="text-align:center;border-bottom:3px double #000;padding-bottom:12px;margin-bottom:14px">
+<img src="logo-mi.png" alt="Logo" style="width:48px;height:48px;object-fit:contain;margin-bottom:6px;display:block;margin-left:auto;margin-right:auto" onerror="this.src='../logo-mi.png'">
+<h2 style="font-size:1.25rem;margin:0;letter-spacing:.5px;text-transform:uppercase">MI SALAFIYATUL MA'MUROH</h2>
+<p style="font-size:.85rem;margin:2px 0 8px">Alamat : Paesan, Jelok, Cepogo, Boyolali 57362</p>
+<div style="border-top:1px solid #000;margin-top:8px;padding-top:8px">
+<h3 style="font-size:1.02rem;margin:0">LAPORAN ANALISIS BUTIR SOAL CBT</h3>
+<p style="font-size:.85rem;margin-top:4px">Mapel: <strong id="analisis-info-mapel">-</strong> | Kelas: <strong id="analisis-info-kelas">-</strong> | Siswa: <strong id="analisis-info-siswa">0</strong> | Tgl Cetak: <span id="analisis-tgl-cetak">-</span></p>
+</div>
+</div>
+<div style="overflow-x:auto"><table><thead><tr><th style="text-align:center;width:50px">No</th><th style="text-align:center;width:80px">Tipe</th><th style="text-align:center;width:80px">Kunci</th><th style="text-align:center">Benar</th><th style="text-align:center">Salah</th><th style="text-align:center">% Benar</th><th style="text-align:center">Kesukaran</th></tr></thead><tbody id="tabel-analisis-body"></tbody></table></div>
 <div style="margin-top:40px;display:flex;justify-content:space-between;font-size:.9rem;page-break-inside:avoid">
 <div style="text-align:center;width:45%"><p>Mengetahui,</p><p>Kepala Madrasah</p><br><br><br><br><p style="font-weight:700;text-decoration:underline">Muh Kholil, S.Pd.I.</p></div>
 <div style="text-align:center;width:45%"><p>Boyolali, <span id="ttd-tanggal">-</span></p><p id="ttd-jabatan-guru">Guru Kelas</p><br><br><br><br><p style="font-weight:700;text-decoration:underline" id="ttd-nama-guru">-</p></div>
 </div>
-</div></div>
 </div>
-<div id="modal-koreksi" class="modal-overlay no-print"><div class="modal-card"><div class="card-title"><span>Lembar Koreksi Isian & Uraian</span><button onclick="tutupModalKoreksi()" style="border:none;background:none;font-size:1.3rem;cursor:pointer">✕</button></div><div style="background:#e9ecef;padding:10px 12px;border-radius:8px;margin-bottom:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px"><div>Siswa: <strong id="modal-siswa-nama">-</strong> (<span id="modal-siswa-nis">-</span>)</div><div>Total: <strong id="text-total-koreksi" style="color:#0d6efd;font-size:1.2rem">0</strong></div></div><div id="list-koreksi-container" style="flex:1;overflow-y:auto;padding-right:4px">Loading...</div><div style="margin-top:12px;border-top:1px solid #dee2e6;padding-top:12px;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap"><input type="text" id="input-catatan-guru" class="form-control" placeholder="Catatan Guru (Opsional)" style="max-width:280px"><button class="btn btn-secondary" onclick="tutupModalKoreksi()">Batal</button><button class="btn btn-warning" onclick="simpanKoreksiGuru()">💾 SIMPAN</button></div></div></div>
-<div id="modal-notif" class="modal-overlay no-print" style="z-index:1000"><div class="modal-card" style="max-width:420px;text-align:center"><div id="notif-icon" style="font-size:2.5rem;margin-bottom:6px">ℹ️</div><h3 id="notif-title" style="color:var(--primary);margin-bottom:6px">Informasi</h3><p id="notif-message" style="font-size:.92rem;color:#495057;margin-bottom:16px;line-height:1.5"></p><button class="btn" id="notif-btn-ok" style="width:100%">MENGERTI</button></div></div>
+</div>
+</div>
+<div id="modal-koreksi" class="modal-overlay no-print"><div class="modal-card"><div class="card-title"><span>Lembar Koreksi</span><button onclick="tutupModalKoreksi()" style="border:none;background:none;font-size:1.3rem;cursor:pointer">✕</button></div><div style="background:#e9ecef;padding:10px;border-radius:8px;margin-bottom:12px;display:flex;justify-content:space-between"><div>Siswa: <strong id="modal-siswa-nama">-</strong> (<span id="modal-siswa-nis">-</span>)</div><div>Total: <strong id="text-total-koreksi" style="color:#0d6efd">0</strong></div></div><div id="list-koreksi-container" style="flex:1;overflow-y:auto"></div><div style="margin-top:12px;border-top:1px solid #dee2e6;padding-top:12px;display:flex;gap:8px;justify-content:flex-end"><input type="text" id="input-catatan-guru" class="form-control" placeholder="Catatan" style="max-width:280px"><button class="btn btn-secondary" onclick="tutupModalKoreksi()">Batal</button><button class="btn btn-warning" onclick="simpanKoreksiGuru()">💾 SIMPAN</button></div></div></div>
+<div id="modal-notif" class="modal-overlay no-print" style="z-index:1000"><div class="modal-card" style="max-width:420px;text-align:center"><div id="notif-icon" style="font-size:2.5rem">ℹ️</div><h3 id="notif-title">Info</h3><p id="notif-message" style="margin:10px 0 16px"></p><button class="btn" id="notif-btn-ok" style="width:100%">MENGERTI</button></div></div>
 <script>
 const GAS_WEBAPP_URL="https://script.google.com/macros/s/AKfycbxxcs96dxFK_IatVI53R2woXXuxKzxhAxtsAvOY7NXb7gF-iTQ3OKbYvtM8meHC5AgYvQ/exec";
 let listMembers=[],listJadwal=[],selectedNIS=null,currentMapelObj=null,activeSoalData=[],dataAnalisisGlobal=[],dataRekapGlobal=[];
-function updateJam(){ const el=document.getElementById('jam-now'); if(el) el.textContent=new Date().toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'}); }
-setInterval(updateJam,60000); updateJam();
-window.onload=async function(){
-  try{ const r=await fetch('members.json'); listMembers=await r.json(); const rJ=await fetch('jadwal.json'); listJadwal=await rJ.json(); }catch(e){ showNotif("🚫 Gagal","Gagal memuat konfigurasi","error"); }
-  if(sessionStorage.getItem('cbt_guru_logged')==='true'){ document.getElementById('guru-nama').textContent=sessionStorage.getItem('cbt_guru_nama')||"Guru"; filterMapelByKelas(); } else { window.location.href="index.html"; }
-};
+function updateJam(){ const el=document.getElementById('jam-now'); if(el) el.textContent=new Date().toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'}); } setInterval(updateJam,60000); updateJam();
+window.onload=async function(){ try{ const r=await fetch('members.json'); listMembers=await r.json(); const rJ=await fetch('jadwal.json'); listJadwal=await rJ.json(); }catch(e){} if(sessionStorage.getItem('cbt_guru_logged')==='true'){ document.getElementById('guru-nama').textContent=sessionStorage.getItem('cbt_guru_nama')||"Guru"; filterMapelByKelas(); } else { window.location.href="index.html"; } };
 function logoutGuru(){ sessionStorage.clear(); window.location.href="index.html"; }
-function showNotif(title,msg,type="info",onOk=null){ document.getElementById('notif-title').textContent=title; document.getElementById('notif-message').innerHTML=msg; const m={success:"✅",warning:"⚠️",error:"❌",info:"ℹ️"}; document.getElementById('notif-icon').textContent=m[type]||"ℹ️"; document.getElementById('notif-btn-ok').onclick=()=>{ document.getElementById('modal-notif').style.display='none'; if(onOk) onOk(); }; document.getElementById('modal-notif').style.display='flex'; }
-
-// FIX FORMAT TANGGAL INDONESIA - TANGGAL BULAN (10 Sep / 25 Okt)
+function showNotif(t,m,ty="info",ok=null){ document.getElementById('notif-title').textContent=t; document.getElementById('notif-message').innerHTML=m; const mm={success:"✅",warning:"⚠️",error:"❌",info:"ℹ️"}; document.getElementById('notif-icon').textContent=mm[ty]||"ℹ️"; document.getElementById('notif-btn-ok').onclick=()=>{ document.getElementById('modal-notif').style.display='none'; if(ok) ok(); }; document.getElementById('modal-notif').style.display='flex'; }
 function filterMapelByKelas(){
   const kelas=document.getElementById('select-kelas-rekap').value;
   const sel=document.getElementById('select-mapel-rekap');
@@ -76,24 +76,10 @@ function filterMapelByKelas(){
   const bulanIndo=["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
   function formatWaktuIndo(str){
     if(!str) return "";
-    try{
-      let d=new Date(str.replace(' ','T'));
-      if(isNaN(d)) return "";
-      let tgl=d.getDate();
-      let bln=bulanIndo[d.getMonth()];
-      let jam=String(d.getHours()).padStart(2,'0')+":"+String(d.getMinutes()).padStart(2,'0');
-      return `${tgl} ${bln} ${jam} WIB`;
-    }catch(e){ return ""; }
+    try{ let d=new Date(str.replace(' ','T')); if(isNaN(d)) return ""; let tgl=d.getDate(); let bln=bulanIndo[d.getMonth()]; let jam=String(d.getHours()).padStart(2,'0')+":"+String(d.getMinutes()).padStart(2,'0'); return `${tgl} ${bln} ${jam} WIB`; }catch(e){ return ""; }
   }
-  filt.forEach(j=>{
-    let o=document.createElement('option');
-    o.value=j.mapel;
-    let w=formatWaktuIndo(j.waktu_buka);
-    o.textContent=w?`${j.mapel} | ${w}`:j.mapel;
-    sel.appendChild(o);
-  });
+  filt.forEach(j=>{ let o=document.createElement('option'); o.value=j.mapel; let w=formatWaktuIndo(j.waktu_buka); o.textContent=w?`${j.mapel} | ${w}`:j.mapel; sel.appendChild(o); });
 }
-
 function filterTabelRekap(){ const q=document.getElementById('input-search-rekap').value.toLowerCase(); document.querySelectorAll('#tabel-rekap-body tr').forEach(tr=>{ tr.style.display=tr.innerText.toLowerCase().includes(q)?'':'none'; }); }
 async function muatDataRekap(){
   const mapel=document.getElementById('select-mapel-rekap').value; if(!mapel) return showNotif("Peringatan","Pilih mapel dulu!","warning");
@@ -106,20 +92,12 @@ async function muatDataRekap(){
     const res=await fetch(`${GAS_WEBAPP_URL}?action=getData&sheet=${encodeURIComponent(sheet)}`); const json=await res.json();
     if(!json.data||json.data.length<=1){ tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:#888">Belum ada jawaban.</td></tr>'; document.getElementById('stat-grid').style.display='none'; return; }
     let html=''; dataRekapGlobal=[]; let total=0,belum=0;
-    for(let i=1;i<json.data.length;i++){ let row=json.data[i]; let totalNilai=parseFloat(row[8]||row[5]||0); total+=totalNilai; if(!row[7]||row[7]==0) belum++;
-      dataRekapGlobal.push({No:i,NIS:row[1],Nama:row[2],PG:row[5],Isian:row[7]||0,Total:totalNilai});
-      let encJaw=encodeURIComponent(row[6]||'{}'); let encCat=encodeURIComponent(row[9]||'');
-      html+=`<tr><td>${i}</td><td>${row[1]}</td><td><strong>${row[2]}</strong></td><td style="color:#0f5132;font-weight:bold">${row[5]}</td><td style="color:#0d6efd;font-weight:bold">${row[7]||0}</td><td style="color:#dc3545;font-weight:bold">${row[8]||row[5]}</td><td><button class="btn" style="padding:5px 8px;font-size:.78rem" onclick="bukaKoreksi3Kolom('${row[1]}','${row[2].replace(/'/g,"&#39;")}','${encJaw}','${encCat}')">📝 Koreksi</button></td></tr>`;
-    }
+    for(let i=1;i<json.data.length;i++){ let row=json.data[i]; let totalNilai=parseFloat(row[8]||row[5]||0); total+=totalNilai; if(!row[7]||row[7]==0) belum++; dataRekapGlobal.push({No:i,NIS:row[1],Nama:row[2],PG:row[5],Isian:row[7]||0,Total:totalNilai}); let encJaw=encodeURIComponent(row[6]||'{}'); let encCat=encodeURIComponent(row[9]||''); html+=`<tr><td>${i}</td><td>${row[1]}</td><td><strong>${row[2]}</strong></td><td style="color:#0f5132;font-weight:bold">${row[5]}</td><td style="color:#0d6efd;font-weight:bold">${row[7]||0}</td><td style="color:#dc3545;font-weight:bold">${row[8]||row[5]}</td><td><button class="btn" style="padding:5px 8px;font-size:.78rem" onclick="bukaKoreksi3Kolom('${row[1]}','${row[2].replace(/'/g,"&#39;")}','${encJaw}','${encCat}')">📝 Koreksi</button></td></tr>`; }
     tbody.innerHTML=html; document.getElementById('stat-grid').style.display='grid'; document.getElementById('stat-total').textContent=json.data.length-1; document.getElementById('stat-rata').textContent=(total/(json.data.length-1)).toFixed(1); document.getElementById('stat-belum').textContent=belum;
   }catch(e){ tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:red">Gagal ambil data.</td></tr>'; }
 }
 function downloadRekapExcel(){ if(!dataRekapGlobal.length) return showNotif("Peringatan","Belum ada data rekap!","warning"); let ws=XLSX.utils.json_to_sheet(dataRekapGlobal); let wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,"Rekap"); XLSX.writeFile(wb,`Rekap_${document.getElementById('select-mapel-rekap').value}.xlsx`); }
-async function downloadFileSoalDocx(){
-  const mapel=document.getElementById('select-mapel-rekap').value; if(!mapel) return showNotif("Peringatan","Pilih mapel!","warning");
-  const obj=listJadwal.find(j=>j.mapel===mapel); if(!obj) return showNotif("Gagal","File soal tidak ada","error");
-  try{ const res=await fetch(obj.file_soal); const soal=await res.json(); const ab=["A","B","C","D","E","F"]; let html=`<html><head><meta charset='utf-8'><style>body{font-family:Calibri;font-size:11pt}</style></head><body><h2 style="text-align:center">MI SALAFIYATUL MA'MUROH<br>NASKAH SOAL ${mapel}</h2>`; soal.forEach(s=>{ html+=`<p><b>${s.id}. ${s.soal}</b></p>`; if(s.pilihan){ html+=`<div style="margin-left:18px">`; s.pilihan.forEach((p,i)=>{ html+=`<div>${ab[i]||""}. ${p}</div>`; }); html+=`</div>`; } }); html+=`</body></html>`; let blob=new Blob(['\ufeff'+html],{type:'application/msword'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`Soal_${mapel}.doc`; a.click(); }catch(e){ showNotif("Gagal","Gagal download soal","error"); }
-}
+async function downloadFileSoalDocx(){ const mapel=document.getElementById('select-mapel-rekap').value; if(!mapel) return showNotif("Peringatan","Pilih mapel!","warning"); const obj=listJadwal.find(j=>j.mapel===mapel); try{ const res=await fetch(obj.file_soal); const soal=await res.json(); const ab=["A","B","C","D","E","F"]; let html=`<html><head><meta charset='utf-8'></head><body><h2 style="text-align:center">MI SALAFIYATUL MA'MUROH<br>NASKAH SOAL ${mapel}</h2>`; soal.forEach(s=>{ html+=`<p><b>${s.id}. ${s.soal}</b></p>`; if(s.pilihan){ html+=`<div style="margin-left:18px">`; s.pilihan.forEach((p,i)=>{ html+=`<div>${ab[i]||""}. ${p}</div>`; }); html+=`</div>`; } }); html+=`</body></html>`; let blob=new Blob(['\ufeff'+html],{type:'application/msword'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`Soal_${mapel}.doc`; a.click(); }catch(e){ showNotif("Gagal","Gagal download soal","error"); } }
 async function muatAnalisisButirSoal(){
   const mapel=document.getElementById('select-mapel-rekap').value; if(!mapel) return showNotif("Peringatan","Pilih mapel!","warning");
   document.getElementById('card-rekap-tabel').style.display='none'; document.getElementById('card-analisis-tabel').style.display='block'; document.getElementById('stat-grid').style.display='none';
@@ -146,26 +124,12 @@ async function muatAnalisisButirSoal(){
     tbody.innerHTML=html;
   }catch(e){ tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:red">Gagal memuat analisis</td></tr>'; }
 }
-function downloadAnalisisCSV(){ if(!dataAnalisisGlobal.length) return showNotif("Peringatan","Belum ada analisis!","warning"); let csv="No,Tipe,Kunci,Benar,Salah,Persen,Kategori\n"; dataAnalisisGlobal.forEach(d=>{ csv+=`"${d.No}","${d.Tipe}","${d.Kunci}","${d.Benar}","${d.Salah}","${d.Persen}","${d.Kategori}"\n`; }); let blob=new Blob([csv],{type:'text/csv'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`Analisis_${document.getElementById('select-mapel-rekap').value}.csv`; a.click(); }
 function downloadAnalisisExcel(){ if(!dataAnalisisGlobal.length) return showNotif("Peringatan","Belum ada analisis!","warning"); let ws=XLSX.utils.json_to_sheet(dataAnalisisGlobal); let wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,"Analisis"); XLSX.writeFile(wb,`Analisis_${document.getElementById('select-mapel-rekap').value}.xlsx`); }
 function cetakDokumenAnalisis(){ window.print(); }
-function bukaKoreksi3Kolom(nis,nama,encJaw,encCat){
-  selectedNIS=nis; document.getElementById('modal-siswa-nama').textContent=nama; document.getElementById('modal-siswa-nis').textContent=nis; document.getElementById('input-catatan-guru').value=decodeURIComponent(encCat||'');
-  let jaw={}; try{ jaw=JSON.parse(decodeURIComponent(encJaw||'%7B%7D')); }catch(e){ jaw={}; }
-  const cont=document.getElementById('list-koreksi-container'); cont.innerHTML='';
-  let nonPG=activeSoalData.filter(s=>{ let t=(s.tipe||"PG").toUpperCase(); return t==="ISIAN"||t==="ISIAN_SINGKAT"||t==="URAIAN"||t==="ESAI"; });
-  if(!nonPG.length){ cont.innerHTML='<div style="text-align:center;padding:2rem;color:#888">Tidak ada soal Isian/Uraian.</div>'; }
-  else{ nonPG.forEach(s=>{ let ans=jaw[s.id]||'(Tidak dijawab)'; let max=s.bobot||10; cont.innerHTML+=`<div class="koreksi-item-card"><div class="soal-header-box">Soal No. ${s.id} (${s.tipe}): ${s.soal}</div><div class="grid-3-kolom"><div class="box-kolom kolom-siswa"><div class="box-title">Jawaban Siswa</div><div style="font-weight:600">${ans}</div></div><div class="box-kolom kolom-nilai"><div class="box-title">Nilai (Maks ${max})</div><input type="number" class="input-nilai-num input-koreksi-item" data-idsoal="${s.id}" max="${max}" min="0" value="0" oninput="hitungTotalKoreksi()"></div><div class="box-kolom kolom-kunci"><div class="box-title">Kunci</div><div>${s.kunci}</div></div></div></div>`; }); }
-  hitungTotalKoreksi(); document.getElementById('modal-koreksi').style.display='flex';
-}
+function bukaKoreksi3Kolom(nis,nama,encJaw,encCat){ selectedNIS=nis; document.getElementById('modal-siswa-nama').textContent=nama; document.getElementById('modal-siswa-nis').textContent=nis; document.getElementById('input-catatan-guru').value=decodeURIComponent(encCat||''); let jaw={}; try{ jaw=JSON.parse(decodeURIComponent(encJaw||'%7B%7D')); }catch(e){ jaw={}; } const cont=document.getElementById('list-koreksi-container'); cont.innerHTML=''; let nonPG=activeSoalData.filter(s=>{ let t=(s.tipe||"PG").toUpperCase(); return t==="ISIAN"||t==="ISIAN_SINGKAT"||t==="URAIAN"||t==="ESAI"; }); if(!nonPG.length){ cont.innerHTML='<div style="text-align:center;padding:2rem;color:#888">Tidak ada soal Isian/Uraian.</div>'; } else{ nonPG.forEach(s=>{ let ans=jaw[s.id]||'(Tidak dijawab)'; let max=s.bobot||10; cont.innerHTML+=`<div class="koreksi-item-card"><div class="soal-header-box">Soal No. ${s.id} (${s.tipe}): ${s.soal}</div><div class="grid-3-kolom"><div class="box-kolom kolom-siswa"><div>${ans}</div></div><div class="box-kolom kolom-nilai"><div>Max ${max}</div><input type="number" class="input-nilai-num input-koreksi-item" max="${max}" min="0" value="0" oninput="hitungTotalKoreksi()"></div><div class="box-kolom kolom-kunci"><div>${s.kunci}</div></div></div></div>`; }); } hitungTotalKoreksi(); document.getElementById('modal-koreksi').style.display='flex'; }
 function hitungTotalKoreksi(){ let t=0; document.querySelectorAll('.input-koreksi-item').forEach(i=>{ t+=parseFloat(i.value)||0; }); document.getElementById('text-total-koreksi').textContent=t; }
 function tutupModalKoreksi(){ document.getElementById('modal-koreksi').style.display='none'; }
-async function simpanKoreksiGuru(){
-  let total=0; document.querySelectorAll('.input-koreksi-item').forEach(inp=>{ total+=parseFloat(inp.value)||0; });
-  const catatan=document.getElementById('input-catatan-guru').value.trim(); const mapel=document.getElementById('select-mapel-rekap').value; const sheet="HASIL_"+mapel.toUpperCase().replace(/[^A-Z0-9_]/g,"_");
-  showNotif("Menyimpan","Mengirim koreksi...","info");
-  try{ await fetch(GAS_WEBAPP_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:"updateKoreksi",sheetName:sheet,nis:selectedNIS,nilaiEssay:total,catatan:catatan})}); tutupModalKoreksi(); showNotif("Berhasil","Nilai disimpan!","success",()=>muatDataRekap()); }catch(e){ showNotif("Gagal","Gagal menyimpan","error"); }
-}
+async function simpanKoreksiGuru(){ let total=0; document.querySelectorAll('.input-koreksi-item').forEach(inp=>{ total+=parseFloat(inp.value)||0; }); const catatan=document.getElementById('input-catatan-guru').value.trim(); const mapel=document.getElementById('select-mapel-rekap').value; const sheet="HASIL_"+mapel.toUpperCase().replace(/[^A-Z0-9_]/g,"_"); showNotif("Menyimpan","Mengirim koreksi...","info"); try{ await fetch(GAS_WEBAPP_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:"updateKoreksi",sheetName:sheet,nis:selectedNIS,nilaiEssay:total,catatan:catatan})}); tutupModalKoreksi(); showNotif("Berhasil","Nilai disimpan!","success",()=>muatDataRekap()); }catch(e){ showNotif("Gagal","Gagal menyimpan","error"); } }
 </script>
 </body>
 </html>
