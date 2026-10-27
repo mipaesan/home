@@ -47,8 +47,6 @@ header{max-width:1200px;margin:0 auto;padding:32px 5% 20px;display:grid;grid-tem
 .galeri-item.active{opacity:1;z-index:1}
 .galeri-item img{width:100%;height:100%;object-fit:cover}
 .visi-misi{background:linear-gradient(135deg,#e0ffe0,#f2fff2);border-radius:18px;padding:32px 24px;border:1px solid #d1fae5}
-
-/* MODAL SERASI */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,81,50,.42);backdrop-filter:blur(7px);z-index:9999;justify-content:center;align-items:center;padding:16px}
 .modal-overlay.show{display:flex;animation:fadeUp .3s ease}
 .modal-box{background:white;padding:28px 22px;border-radius:22px;width:90%;max-width:400px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,.18);border:1px solid var(--border);animation:fadeUp .35s ease}
@@ -112,9 +110,10 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
 <div class="card-prog"><img src="tilmi-sholat.png" alt="Sholat"><h3>Sholat Dhuha & Dhuhur Berjamaah</h3><p>Pembiasaan sholat sunnah Dhuha dan sholat Dhuhur berjamaah untuk membentuk akhlak dan karakter.</p></div>
 </div>
 </section>
-<section class="section"><h2 class="section-title">Galeri Kegiatan</h2><div class="galeri-wrapper"><a href="galeri1.jpg" class="glightbox galeri-item active"><img src="galeri1.jpg"></a><a href="galeri2.jpg" class="glightbox galeri-item"><img src="galeri2.jpg"></a><a href="galeri3.jpg" class="glightbox galeri-item"><img src="galeri3.jpg"></a><a href="galeri4.jpg" class="glightbox galeri-item"><img src="galeri4.jpg"></a><a href="galeri5.jpg" class="glightbox galeri-item"><img src="galeri5.jpg"></a><a href="galeri6.jpg" class="glightbox galeri-item"><img src="galeri6.jpg"></a></div></section>
 
-<!-- MODAL SURAT MANDIRI - ICON MATA GARIS -->
+<!-- GALERI OTOMATIS DARI foto.json -->
+<section class="section"><h2 class="section-title">Galeri Kegiatan</h2><div class="galeri-wrapper" id="galeri-wrapper"><p style="color:#888">⏳ Memuat galeri...</p></div></section>
+
 <div class="modal-overlay" id="surat-modal">
   <div class="modal-box">
     <div style="width:56px;height:56px;background:linear-gradient(135deg,#dcfce7,#bbf7d0);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 12px">✉️</div>
@@ -124,7 +123,6 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
     <div class="pass-wrapper">
       <input type="password" id="surat-pass" placeholder="Masukkan Password">
       <button type="button" class="toggle-eye" onclick="togglePass()" id="eyeBtn" aria-label="Lihat password">
-        <!-- eye-off icon default -->
         <svg viewBox="0 0 24 24" id="eyeIcon"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><path d="M10.73 5.08A10.94 10.94 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.59 9.59 0 0 0 5.39-1.61"></path><line x1="2" y1="2" x2="22" y2="22"></line></svg>
       </button>
     </div>
@@ -145,10 +143,48 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
 <footer><p>&copy; 2025 MI Salafiyatul Ma'muroh Paesan | Jelok, Cepogo</p><p>085725311612 | 081567681930 | mipaesan@gmail.com</p></footer>
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>
-const lightbox=GLightbox({selector:'.glightbox'});
-let currentIndex=0; const galeriItems=document.querySelectorAll('.galeri-item');
-function showSlide(i){ galeriItems.forEach((el,idx)=>el.classList.toggle('active',idx===i)); }
-setInterval(()=>{ currentIndex=(currentIndex+1)%galeriItems.length; showSlide(currentIndex); },3000);
+// --- GALERI OTOMATIS DARI foto.json ---
+let currentIndex=0;
+let galeriItems=[];
+let galeriInterval;
+function showSlide(i){ 
+  if(!galeriItems.length) return;
+  galeriItems.forEach((el,idx)=>el.classList.toggle('active',idx===i)); 
+}
+function startGaleriSlider(){
+  if(galeriInterval) clearInterval(galeriInterval);
+  galeriInterval = setInterval(()=>{
+    if(!galeriItems.length) return;
+    currentIndex=(currentIndex+1)%galeriItems.length; 
+    showSlide(currentIndex); 
+  },3000);
+}
+async function loadGaleriOtomatis(){
+  const wrapper = document.getElementById('galeri-wrapper');
+  try{
+    const res = await fetch('foto.json?v='+Date.now());
+    const fotoList = await res.json();
+    if(!fotoList.length){
+      wrapper.innerHTML='<p style="color:#888">Belum ada foto galeri</p>';
+      return;
+    }
+    wrapper.innerHTML='';
+    fotoList.forEach((file, idx)=>{
+      const a = document.createElement('a');
+      a.href = file;
+      a.className = 'glightbox galeri-item' + (idx===0 ? ' active' : '');
+      a.innerHTML = `<img src="${file}" alt="Galeri ${idx+1}" onerror="this.parentElement.style.display='none'">`;
+      wrapper.appendChild(a);
+    });
+    galeriItems = document.querySelectorAll('.galeri-item');
+    currentIndex=0;
+    showSlide(0);
+    startGaleriSlider();
+    GLightbox({selector:'.glightbox'});
+  }catch(e){
+    wrapper.innerHTML='<p style="color:#888">Gagal memuat foto.json - pastikan file ada</p>';
+  }
+}
 
 const JADWAL = {
   pengumuman: { mulai: "2026-06-05", selesai: "2026-06-20", pesanBelum: "Pengumuman kelulusan belum dibuka. Ketentuan waktu pengumuman masih menunggu informasi resmi dari Kementerian Agama. Silakan pantau terus website madrasah.", pesanTutup: "Pengumuman kelulusan sudah ditutup. Silakan hubungi panitia di madrasah untuk informasi lebih lanjut." },
@@ -181,18 +217,14 @@ document.getElementById('card-pmbm').addEventListener('click', function(e){
 
 document.getElementById('persuratan-button').addEventListener('click',e=>{e.preventDefault(); const m=document.getElementById('surat-modal'); m.style.display='flex'; setTimeout(()=>m.classList.add('show'),10);});
 function tutupModalSurat(){ const m=document.getElementById('surat-modal'); m.classList.remove('show'); setTimeout(()=>m.style.display='none',200); }
-
 function togglePass(){
   const input = document.getElementById('surat-pass');
   const iconContainer = document.getElementById('eyeIcon');
   const isHidden = input.type === 'password';
   input.type = isHidden ? 'text' : 'password';
-  // Ganti SVG eye / eye-off
   if(isHidden){
-    // eye on
     iconContainer.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
   } else {
-    // eye off
     iconContainer.innerHTML = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><path d="M10.73 5.08A10.94 10.94 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.59 9.59 0 0 0 5.39-1.61"></path><line x1="2" y1="2" x2="22" y2="22"></line>';
   }
 }
@@ -221,7 +253,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     semuaBeritaData=data; beritaDitampilkan=0; renderBeritaTambahan();
     if(data.length>3) document.getElementById('btn-more-berita').style.display='inline-block';
   });
-  showSlide(0);
+  loadGaleriOtomatis();
 });
 </script>
 </body>
