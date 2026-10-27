@@ -13,15 +13,11 @@
 body{background:var(--bg);color:var(--text);overflow-x:hidden;
  -webkit-user-select:none;user-select:none;min-height:100vh;padding-bottom:30px}
 input,textarea,select{user-select:text !important}
-
 header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:1rem;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,0.1)}
 header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
-
-/* CONTAINER UTAMA EFEK FLIP 3D */
 .auth-wrapper { perspective: 1000px; max-width: 900px; margin: 2rem auto; }
 .auth-card-container { width: 100%; position: relative; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
 .auth-card-container.flipped { transform: rotateY(180deg); }
-
 .auth-box {
     background: white; border-radius: 24px; overflow: hidden;
     box-shadow: 0 20px 40px rgba(15,81,50,.15);
@@ -33,29 +29,21 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .auth-box-back { position: absolute; top: 0; left: 0; transform: rotateY(180deg); z-index: 1; }
 .auth-card-container.flipped .auth-box-front { z-index: 1; }
 .auth-card-container.flipped .auth-box-back { z-index: 2; }
-
 .login-left{flex:1;background:linear-gradient(160deg,#0f5132 0%,#198754 100%);color:white;padding:2rem;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;text-align:center}
 .blob{position:absolute;border-radius:50%;background:rgba(255,255,255,.12);animation:float 6s ease-in-out infinite}
 .blob1{width:200px;height:200px;top:-40px;left:-40px} .blob2{width:150px;height:150px;bottom:30px;right:-20px;animation-delay:2s}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-
 .login-right{flex:1;padding:2rem 2rem 1.5rem;display:flex;flex-direction:column;justify-content:center}
-.cartoon-container{width:100px;height:100px;margin:0 auto .5rem;position:relative}
-.cartoon-avatar{width:100%;height:100%}
-.pupil{transition:transform .1s} 
-.hands{transition:all .3s;transform:translateY(30px);opacity:0}
-.cartoon-container.cover-eyes .hands{transform:translateY(0);opacity:1}
-
+.tilmi-box{width:110px;height:110px;margin:0 auto .8rem;position:relative;background:white;border-radius:50%;padding:6px;box-shadow:0 8px 20px rgba(0,0,0,.12);border:3px solid #e9f5ed;animation:float 3s ease-in-out infinite}
+.tilmi-box img{width:100%;height:100%;object-fit:contain;border-radius:50%;background:#FFFBF5}
 .card-title{font-size:1.3rem;font-weight:800;color:var(--primary-dark);text-align:center;margin-bottom:1rem}
 .form-group{margin-bottom:1rem} .form-group label{font-size:.82rem;font-weight:700;margin-bottom:.3rem;display:block}
 .form-control{width:100%;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-size:.95rem;transition:.2s}
 .form-control:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(15,81,50,.15);outline:none}
-
 .password-wrapper { position: relative; display: flex; align-items: center; }
 .password-wrapper .form-control { padding-right: 48px; }
 .toggle-password { position: absolute; right: 12px; background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; color: #6c757d; }
 .toggle-password:hover { color: var(--primary); }
-
 .btn{padding:.8rem 1.2rem;background:var(--primary);color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;position:relative;overflow:hidden}
 .btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:.5s}
 .btn:hover::after{left:100%} .btn:hover{background:var(--primary-dark);transform:translateY(-1px)}
@@ -63,27 +51,19 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .btn-secondary{background:#6c757d;color:white}
 .btn-danger{background:#dc3545;color:white}
 .btn-success{background:#198754;color:white}
-
-.spinner {
-    width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3);
-    border-radius: 50%; border-top-color: white;
-    animation: spin 0.8s linear infinite; display: inline-block;
-}
+.spinner {width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3);border-radius: 50%; border-top-color: white;animation: spin 0.8s linear infinite; display: inline-block;}
 @keyframes spin { to { transform: rotate(360deg); } }
-
 @media(max-width:768px){
  .auth-box{flex-direction:column;min-height:auto}
  .login-left{padding:1.5rem 1.5rem 2rem;align-items:center;text-align:center}
  .login-right{padding:1.5rem}
 }
-
 #ujian-section{display:none} 
 .container{max-width:1000px;margin:1.5rem auto;padding:0 1rem}
 .card{background:white;border-radius:16px;padding:1.5rem;border:1px solid #dee2e6;box-shadow:0 4px 12px rgba(0,0,0,.06);margin-bottom:1.5rem}
 .top-bar-ujian{display:flex;justify-content:space-between;align-items:center;gap:.8rem;margin-bottom:1rem;flex-wrap:wrap}
 .timer-box{flex:1;min-width:180px;background:#fff3cd;border:1px solid #ffeeba;color:#856404;padding:.65rem 1rem;border-radius:10px;font-weight:bold;text-align:center}
 .ujian-layout{display:flex;gap:1.2rem;align-items:flex-start}
-
 .sidebar-soal{width:240px;background:white;border:1px solid #dee2e6;border-radius:12px;padding:1rem;flex-shrink:0}
 .sidebar-title{font-size:.95rem;font-weight:bold;color:var(--primary);margin-bottom:.8rem;border-bottom:1px solid #dee2e6;padding-bottom:.4rem}
 .nav-soal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-height:400px;overflow-y:auto;padding-right:4px}
@@ -91,21 +71,17 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 .btn-no-soal:hover{background:#e9ecef}
 .btn-no-soal.active{background:#0d6efd;color:white;border-color:#0d6efd} 
 .btn-no-soal.terjawab{background:var(--primary);color:white;border-color:var(--primary)}
-
 .main-soal-area{flex:1;min-width:0} 
 .soal-card{background:#f8f9fa;border:1px solid #dee2e6;border-radius:12px;padding:1.2rem;margin-bottom:1.2rem}
 .soal-teks{font-weight:600;margin-bottom:.8rem;font-size:1.05rem}
 .pilihan-item{display:block;background:white;border:1px solid #dee2e6;padding:.6rem .8rem;border-radius:8px;margin-bottom:.5rem;cursor:pointer;transition:.2s}
 .pilihan-item:hover{background:#e9ecef}
 .pilihan-item input{margin-right:8px}
-
 .tabel-jodoh{width:100%;border-collapse:collapse;margin-top:.8rem;background:white}
 .tabel-jodoh th, .tabel-jodoh td{border:1px solid #dee2e6;padding:.6rem;font-size:.9rem}
 .tabel-jodoh th{background:#e9f5ed;color:var(--primary)}
-
 .nav-buttons-soal{display:flex;justify-content:space-between;gap:1rem;margin-top:1rem}
 .btn-toggle-drawer{display:none}
-
 @media(max-width:768px){
  .ujian-layout{flex-direction:column}
  .btn-toggle-drawer{display:inline-flex}
@@ -113,7 +89,6 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
  .sidebar-soal.show-mobile{display:block}
  .nav-soal-grid{grid-template-columns:repeat(auto-fill,minmax(45px,1fr));max-height:250px}
 }
-
 .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:999;align-items:center;justify-content:center;padding:1rem}
 .modal-card{background:white;border-radius:16px;max-width:420px;width:100%;padding:1.5rem;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,0.25)}
 </style>
@@ -126,11 +101,10 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 </header>
 
 <div class="container">
-<!-- WRAPPER LOGIN EFEK FLIP 3D -->
 <div class="auth-wrapper" id="auth-wrapper-box">
   <div class="auth-card-container" id="card-flipper">
     
-    <!-- SISI DEPAN: LOGIN SISWA -->
+    <!-- SISI DEPAN: LOGIN SISWA - SUDAH TILMI -->
     <div class="auth-box auth-box-front" id="login-section">
       <div class="login-left">
         <div class="blob blob1"></div><div class="blob blob2"></div>
@@ -145,17 +119,9 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
       </div>
 
       <div class="login-right">
-        <div class="cartoon-container" id="cartoon-box">
-          <svg class="cartoon-avatar" viewBox="0 0 200 200">
-            <circle cx="45" cy="55" r="22" fill="#0f5132"/><circle cx="45" cy="55" r="12" fill="#ffc107"/>
-            <circle cx="155" cy="55" r="22" fill="#0f5132"/><circle cx="155" cy="55" r="12" fill="#ffc107"/>
-            <circle cx="100" cy="105" r="65" fill="#0f5132"/><ellipse cx="100" cy="120" rx="45" ry="35" fill="#e9f5ed"/>
-            <circle cx="75" cy="95" r="14" fill="#fff"/><circle cx="125" cy="95" r="14" fill="#fff"/>
-            <circle id="pupil-left" class="pupil" cx="75" cy="95" r="6" fill="#212529"/><circle id="pupil-right" class="pupil" cx="125" cy="95" r="6" fill="#212529"/>
-            <polygon points="100,110 93,102 107,102" fill="#212529"/>
-            <path d="M 90 120 Q 100 130 110 120" stroke="#212529" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <g class="hands"><ellipse cx="65" cy="95" rx="18" ry="14" fill="#198754"/><ellipse cx="135" cy="95" rx="18" ry="14" fill="#198754"/></g>
-          </svg>
+        <!-- INI YANG DIGANTI JADI TILMI MAS -->
+        <div class="tilmi-box">
+          <img src="../tilmi-lengkap.png" alt="TILMI MI Paesan" onerror="this.src='../logo-mi.png'">
         </div>
         <div class="card-title">Masuk Ruang Ujian</div>
         <form onsubmit="event.preventDefault(); prosesLoginSiswa();">
@@ -171,7 +137,7 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
       </div>
     </div>
 
-    <!-- SISI BELAKANG: LOGIN / DASHBOARD GURU -->
+    <!-- SISI BELAKANG: LOGIN GURU - TETAP SAMA -->
     <div class="auth-box auth-box-back">
       <div class="login-left" style="background:linear-gradient(160deg,#1e293b 0%,#0f172a 100%);">
         <div class="blob blob1"></div><div class="blob blob2"></div>
@@ -212,7 +178,6 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
   </div>
 </div>
 
-<!-- RUANG UJIAN SISWA -->
 <div id="ujian-section">
     <div class="card" style="padding: 1rem; background: #e9ecef; margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.6;">
         <div>Nama &nbsp;: <strong id="info-nama-siswa">-</strong></div>
@@ -222,25 +187,16 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             Mapel Ujian: <strong id="info-mapel-ujian">-</strong>
         </div>
     </div>
-
     <div class="top-bar-ujian">
-        <button class="btn btn-warning btn-toggle-drawer" onclick="toggleNavMobile()">
-            📱 Daftar Soal
-        </button>
-        <div class="timer-box">
-            ⏱️ Sisa Waktu: <span id="timer-countdown">00:00:00</span>
-        </div>
-        <button class="btn btn-danger" onclick="konfirmasiKeluarTanpaSimpan()" style="padding: 0.65rem 1rem; font-size: 0.9rem; width: auto;">
-            🚪 Keluar Ujian
-        </button>
+        <button class="btn btn-warning btn-toggle-drawer" onclick="toggleNavMobile()">📱 Daftar Soal</button>
+        <div class="timer-box">⏱️ Sisa Waktu: <span id="timer-countdown">00:00:00</span></div>
+        <button class="btn btn-danger" onclick="konfirmasiKeluarTanpaSimpan()" style="padding: 0.65rem 1rem; font-size: 0.9rem; width: auto;">🚪 Keluar Ujian</button>
     </div>
-
     <div class="ujian-layout">
         <div class="sidebar-soal" id="sidebar-soal-box">
             <div class="sidebar-title">📌 Nomor Soal</div>
             <div class="nav-soal-grid" id="grid-nomor-soal"></div>
         </div>
-
         <div class="main-soal-area">
             <div id="container-soal"></div>
             <div class="nav-buttons-soal">
@@ -252,7 +208,6 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 </div>
 </div>
 
-<!-- POPUP NOTIFIKASI -->
 <div id="modal-notif" class="modal-overlay" style="z-index: 1000;">
     <div class="modal-card">
         <div id="notif-icon" style="font-size: 2.5rem; margin-bottom: 0.5rem;">ℹ️</div>
@@ -265,8 +220,7 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
 </div>
 
 <script>
-    const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxxcs96dxFK_IatVI53R2woXXuxKzxhAxtsAvOY7NXb7gF-iTQ3OKbYvtM8meHC5AgYvQ/exec";
-
+    const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxxcs96dxFK_IatVI53R2woXXuxKzxhAxtM8meHC5AgYvQ/exec";
     let listMembers = [], listJadwal = [];
     let currentSiswa = null, currentJadwal = null, activeSoal = [];
     let jawabanSiswa = {};
@@ -274,51 +228,34 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
     let timerInterval = null, sisaDetik = 0;
     let tabSwitchCount = 0;
     const MAX_TAB_SWITCH = 3;
-
     function toggleFlipAuth(e) {
         if(e) e.preventDefault();
         const flipper = document.getElementById('card-flipper');
         flipper.classList.toggle('flipped');
     }
-
     async function prosesLoginGuru() {
         const idGuru = document.getElementById('input-id-guru').value.trim();
         const passGuru = document.getElementById('input-pass-guru').value.trim();
         const btnLoginGuru = document.getElementById('btn-login-guru');
-
-        if (!idGuru || !passGuru) {
-            return showNotif("Peringatan", "ID Guru dan Password harus diisi!", "warning");
-        }
-
+        if (!idGuru || !passGuru) { return showNotif("Peringatan", "ID Guru dan Password harus diisi!", "warning"); }
         btnLoginGuru.innerHTML = `<div class="spinner"></div> &nbsp; MEMVERIFIKASI...`;
         btnLoginGuru.disabled = true;
-
         await new Promise(r => setTimeout(r, 400));
-
-        try {
-            const resM = await fetch('members.json');
-            listMembers = await resM.json();
-        } catch(e) {}
-
+        try { const resM = await fetch('members.json'); listMembers = await resM.json(); } catch(e) {}
         const guru = listMembers.find(m => m.id === idGuru && (m.role === 'guru' || m.role === 'admin' || m.id === '111233090018'));
-        
         if (!guru && idGuru !== '111233090018') {
             btnLoginGuru.innerHTML = "MASUK DASHBOARD"; btnLoginGuru.disabled = false;
             return showNotif("Login Gagal", "ID Guru tidak terdaftar di sistem!", "warning");
         }
-
         sessionStorage.setItem('cbt_guru_logged', 'true');
         sessionStorage.setItem('cbt_guru_id', idGuru);
         sessionStorage.setItem('cbt_guru_nama', guru ? guru.nama : "Muh Kholil, S.Pd.I.");
-
         window.location.href = "guru.html";
     }
-
     function togglePasswordVisibility() {
         const passInput = document.getElementById('input-pass-guru');
         const eyePupil = document.getElementById('eye-pupil');
         const eyeSlash = document.getElementById('eye-slash');
-
         if (passInput.type === 'password') {
             passInput.type = 'text';
             eyePupil.style.display = 'block';
@@ -329,63 +266,24 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             eyeSlash.style.display = 'block';
         }
     }
-
     let wakeLockObj = null;
     async function aktifkanPengunciLayar() {
-        try {
-            if ('wakeLock' in navigator) {
-                wakeLockObj = await navigator.wakeLock.request('screen');
-            }
-        } catch (err) {}
+        try { if ('wakeLock' in navigator) { wakeLockObj = await navigator.wakeLock.request('screen'); } } catch (err) {}
     }
-
-    function lepasPengunciLayar() {
-        if (wakeLockObj !== null) {
-            wakeLockObj.release().then(() => { wakeLockObj = null; });
-        }
-    }
-
-    const inputNis = document.getElementById('input-nis');
-    const inputToken = document.getElementById('input-token');
-    const cartoonBox = document.getElementById('cartoon-box');
-    const pupilLeft = document.getElementById('pupil-left');
-    const pupilRight = document.getElementById('pupil-right');
-
-    if (inputNis) {
-        inputNis.addEventListener('input', (e) => {
-            cartoonBox.classList.remove('cover-eyes');
-            let len = Math.min(e.target.value.length, 12);
-            let shiftX = (len - 6) * 0.8;
-            pupilLeft.style.transform = `translate(${shiftX}px, 3px)`;
-            pupilRight.style.transform = `translate(${shiftX}px, 3px)`;
-        });
-        inputNis.addEventListener('focus', () => { cartoonBox.classList.remove('cover-eyes'); });
-    }
-
-    if (inputToken) {
-        inputToken.addEventListener('focus', () => { cartoonBox.classList.add('cover-eyes'); });
-        inputToken.addEventListener('blur', () => { cartoonBox.classList.remove('cover-eyes'); });
-    }
-
+    function lepasPengunciLayar() { if (wakeLockObj !== null) { wakeLockObj.release().then(() => { wakeLockObj = null; }); } }
     window.onload = async function() {
         try {
             const resM = await fetch('members.json'); listMembers = await resM.json();
             const resJ = await fetch('jadwal.json'); listJadwal = await resJ.json();
         } catch(e) { showNotif("Gagal", "Gagal memuat data konfigurasi sistem.", "error"); }
-
         document.addEventListener("keydown", function(e) {
             if (document.getElementById('ujian-section').style.display === 'block') {
-                if (
-                    (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'a' || e.key === 'x' || e.key === 'p' || e.key === 'u')) ||
-                    e.key === 'F12' || 
-                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))
-                ) {
+                if ((e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'a' || e.key === 'x' || e.key === 'p' || e.key === 'u')) || e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) {
                     e.preventDefault();
                     showNotif("🚫 DILINDUNGI", "Fungsi salin-tempel dan pintasan tombol dimatikan selama ujian!", "warning");
                 }
             }
         });
-
         document.addEventListener("visibilitychange", function() {
             if (document.hidden && document.getElementById('ujian-section').style.display === 'block') {
                 tabSwitchCount++;
@@ -399,96 +297,52 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             }
         });
     };
-
     function showNotif(title, msg, type = "info", onOk = null, customButtonsHtml = null) {
         document.getElementById('notif-title').textContent = title;
         document.getElementById('notif-message').innerHTML = msg;
         const iconMap = { success: "✅", warning: "⚠️", error: "❌", info: "ℹ️" };
         document.getElementById('notif-icon').textContent = iconMap[type] || "ℹ️";
-        
         const container = document.getElementById('modal-buttons-container');
-        if (customButtonsHtml) {
-            container.innerHTML = customButtonsHtml;
-        } else {
+        if (customButtonsHtml) { container.innerHTML = customButtonsHtml; } 
+        else {
             container.innerHTML = `<button class="btn" id="notif-btn-ok" style="width: 100%; justify-content: center; text-align: center;">MENGERTI</button>`;
-            document.getElementById('notif-btn-ok').onclick = function() {
-                document.getElementById('modal-notif').style.display = 'none';
-                if (onOk) onOk();
-            };
+            document.getElementById('notif-btn-ok').onclick = function() { document.getElementById('modal-notif').style.display = 'none'; if (onOk) onOk(); };
         }
         document.getElementById('modal-notif').style.display = 'flex';
     }
-
-    function tutupModalNotif() {
-        document.getElementById('modal-notif').style.display = 'none';
-    }
-
-    function requestFullScreen() {
-        const el = document.documentElement;
-        if (el.requestFullscreen) el.requestFullscreen();
-    }
-
-    function toggleNavMobile() {
-        document.getElementById('sidebar-soal-box').classList.toggle('show-mobile');
-    }
-
+    function tutupModalNotif() { document.getElementById('modal-notif').style.display = 'none'; }
+    function requestFullScreen() { const el = document.documentElement; if (el.requestFullscreen) el.requestFullscreen(); }
+    function toggleNavMobile() { document.getElementById('sidebar-soal-box').classList.toggle('show-mobile'); }
     async function prosesLoginSiswa() {
         const nis = document.getElementById('input-nis').value.trim();
         const token = document.getElementById('input-token').value.trim().toUpperCase();
         const btnLogin = document.getElementById('btn-login-siswa');
-
         btnLogin.innerHTML = `<div class="spinner"></div> &nbsp; MEMVERIFIKASI...`;
         btnLogin.disabled = true;
-
         await new Promise(r => setTimeout(r, 600));
         aktifkanPengunciLayar();
-
         const userAdmin = listMembers.find(m => m.id === nis && (m.role === 'admin' || m.role === 'guru' || m.id === '111233090018'));
         if (userAdmin || nis === '111233090018') {
             const jadwal = listJadwal.find(j => j.token.toUpperCase() === token);
-            if (!jadwal) {
-                btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
-                return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning");
-            }
+            if (!jadwal) { btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false; return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning"); }
             currentSiswa = userAdmin || { id: "111233090018", nama: "Muh Kholil, S.Pd.I.", role: "admin" };
-            currentJadwal = jadwal;
-            tabSwitchCount = 0; currentIndexSoal = 0;
-
-            const resSoal = await fetch(jadwal.file_soal);
-            activeSoal = await resSoal.json();
-
+            currentJadwal = jadwal; tabSwitchCount = 0; currentIndexSoal = 0;
+            const resSoal = await fetch(jadwal.file_soal); activeSoal = await resSoal.json();
             document.getElementById('auth-wrapper-box').style.display = 'none';
             document.getElementById('ujian-section').style.display = 'block';
             document.getElementById('info-nama-siswa').textContent = currentSiswa.nama + " [SUPER USER]";
             document.getElementById('info-nis-siswa').textContent = currentSiswa.id;
             document.getElementById('info-kelas-siswa').textContent = "ADMIN / UJI COBA";
             document.getElementById('info-mapel-ujian').textContent = jadwal.mapel + " (Mode Terobos)";
-
-            renderGridNomorSoal(); tampilkanSoalAktif(); mulaiTimerUjian((jadwal.durasi_menit || 90) * 60);
-            return;
+            renderGridNomorSoal(); tampilkanSoalAktif(); mulaiTimerUjian((jadwal.durasi_menit || 90) * 60); return;
         }
-
         const siswa = listMembers.find(m => m.id === nis && m.role === 'siswa');
-        if (!siswa) {
-            btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
-            return showNotif("Login Gagal", "ID Siswa tidak terdaftar di sistem!", "warning");
-        }
-
+        if (!siswa) { btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false; return showNotif("Login Gagal", "ID Siswa tidak terdaftar di sistem!", "warning"); }
         const jadwal = listJadwal.find(j => j.token.toUpperCase() === token);
-        if (!jadwal) {
-            btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
-            return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning");
-        }
-
-        if (jadwal.aktif === false) {
-            btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false;
-            return showNotif("Ujian Nonaktif", "Ujian mata pelajaran ini sedang dinonaktifkan.", "warning");
-        }
-
+        if (!jadwal) { btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false; return showNotif("Login Gagal", "Token ujian tidak valid atau salah!", "warning"); }
+        if (jadwal.aktif === false) { btnLogin.innerHTML = "MULAI UJIAN"; btnLogin.disabled = false; return showNotif("Ujian Nonaktif", "Ujian mata pelajaran ini sedang dinonaktifkan.", "warning"); }
         currentSiswa = siswa; currentJadwal = jadwal; tabSwitchCount = 0; currentIndexSoal = 0;
-        const resSoal = await fetch(jadwal.file_soal);
-        activeSoal = await resSoal.json();
-
+        const resSoal = await fetch(jadwal.file_soal); activeSoal = await resSoal.json();
         requestFullScreen();
         document.getElementById('auth-wrapper-box').style.display = 'none';
         document.getElementById('ujian-section').style.display = 'block';
@@ -496,10 +350,8 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         document.getElementById('info-nis-siswa').textContent = siswa.id;
         document.getElementById('info-kelas-siswa').textContent = siswa.kelas || jadwal.kelas || "6";
         document.getElementById('info-mapel-ujian').textContent = jadwal.mapel;
-
         renderGridNomorSoal(); tampilkanSoalAktif(); mulaiTimerUjian((jadwal.durasi_menit || 90) * 60);
     }
-
     function renderGridNomorSoal() {
         let html = '';
         activeSoal.forEach((s, index) => {
@@ -511,14 +363,12 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
         });
         document.getElementById('grid-nomor-soal').innerHTML = html;
     }
-
     function tampilkanSoalAktif() {
         if (!activeSoal || activeSoal.length === 0) return;
         const s = activeSoal[currentIndexSoal];
         let tipeSoal = (s.tipe || "PG").toUpperCase();
         let html = `<div class="soal-card"><div class="soal-teks">Soal No. ${s.id} (${tipeSoal})<br><span style="font-weight:normal;">${s.soal}</span></div>`;
         let ans = jawabanSiswa[s.id] || (tipeSoal === "PG_KOMPLEKS" ? [] : (tipeSoal === "MENJODOHKAN" ? {} : ''));
-
         if (tipeSoal === "PG" && s.pilihan) {
             s.pilihan.forEach(p => {
                 let charOpt = p.charAt(0);
@@ -537,14 +387,10 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             const listKiri = s.pasangan_kiri || s.pilihan_kiri || s.kiri || [];
             const listKanan = s.pasangan_kanan || s.pilihan_kanan || s.kanan || [];
             const abjad = ["A","B","C","D","E","F","G","H"];
-
             if (listKiri.length > 0 && listKanan.length > 0) {
                 html += `<div class="bank-opsi-box"><b>Pilihan Pasangan (Kolom B):</b><ul>`;
-                listKanan.forEach((kananItem, kidx) => {
-                    html += `<li><b>${abjad[kidx]}.</b> ${kananItem}</li>`;
-                });
+                listKanan.forEach((kananItem, kidx) => { html += `<li><b>${abjad[kidx]}.</b> ${kananItem}</li>`; });
                 html += `</ul></div>`;
-
                 html += `<table class="tabel-jodoh"><thead><tr><th>Pernyataan (Kolom A)</th><th style="width:120px;text-align:center">Jawaban Huruf</th></tr></thead><tbody>`;
                 listKiri.forEach((kiriItem, kiden) => {
                     let curVal = (typeof ans === 'object' && ans !== null) ? (ans[kiden + 1] || '') : '';
@@ -560,45 +406,28 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             html += `<textarea class="form-control" rows="3" placeholder="Tulis jawaban..." oninput="simpanJawaban(${s.id}, this.value)">${ans}</textarea>`;
         }
         html += `</div>`;
-
-        // TOMBOL SELESAI & KUMPULKAN MUNCUL DI BAWAH SOAL HANYA PADA SOAL TERAKHIR
         if (currentIndexSoal === activeSoal.length - 1) {
-            html += `
-                <button class="btn btn-danger" style="width: 100%; padding: 0.9rem; font-size: 1.1rem; margin-top: 1rem;" onclick="konfirmasiSelesai()">
-                    SELESAI & KUMPULKAN JAWABAN
-                </button>
-            `;
+            html += `<button class="btn btn-danger" style="width: 100%; padding: 0.9rem; font-size: 1.1rem; margin-top: 1rem;" onclick="konfirmasiSelesai()">SELESAI & KUMPULKAN JAWABAN</button>`;
         }
-
         document.getElementById('container-soal').innerHTML = html;
         document.getElementById('btn-prev-soal').style.visibility = (currentIndexSoal === 0) ? 'hidden' : 'visible';
         document.getElementById('btn-next-soal').style.visibility = (currentIndexSoal === activeSoal.length - 1) ? 'hidden' : 'visible';
         renderGridNomorSoal();
     }
-
     function simpanJawaban(id, val) { jawabanSiswa[id] = val; renderGridNomorSoal(); }
-
     function simpanJawabanPgKompleks(id, checkbox) {
         if (!Array.isArray(jawabanSiswa[id])) jawabanSiswa[id] = [];
         let val = checkbox.value;
-        if (checkbox.checked) {
-            if (!jawabanSiswa[id].includes(val)) jawabanSiswa[id].push(val);
-        } else {
-            jawabanSiswa[id] = jawabanSiswa[id].filter(item => item !== val);
-        }
+        if (checkbox.checked) { if (!jawabanSiswa[id].includes(val)) jawabanSiswa[id].push(val); } 
+        else { jawabanSiswa[id] = jawabanSiswa[id].filter(item => item !== val); }
         renderGridNomorSoal();
     }
-
     function simpanJawabanMenjodohkan(idSoal, noKiri, val) {
-        if (typeof jawabanSiswa[idSoal] !== 'object' || Array.isArray(jawabanSiswa[idSoal]) || jawabanSiswa[idSoal] === null) {
-            jawabanSiswa[idSoal] = {};
-        }
+        if (typeof jawabanSiswa[idSoal] !== 'object' || Array.isArray(jawabanSiswa[idSoal]) || jawabanSiswa[idSoal] === null) { jawabanSiswa[idSoal] = {}; }
         jawabanSiswa[idSoal][noKiri] = val.trim().toUpperCase();
         renderGridNomorSoal();
     }
-
     function pindahSoal(idx) { if (idx >= 0 && idx < activeSoal.length) { currentIndexSoal = idx; tampilkanSoalAktif(); } }
-
     function mulaiTimerUjian(detik) {
         sisaDetik = detik;
         if (timerInterval) clearInterval(timerInterval);
@@ -609,75 +438,38 @@ header h1{font-size:1.2rem} header p{font-size:.8rem;opacity:.9}
             document.getElementById('timer-countdown').textContent = String(Math.floor(sisaDetik/3600)).padStart(2,'0') + ":" + String(m).padStart(2,'0') + ":" + String(d).padStart(2,'0');
         }, 1000);
     }
-
-    // KONFIRMASI KELUAR DI ATAS DENGAN TOMBOL BATAL
     function konfirmasiKeluarTanpaSimpan() {
-        let buttonsHtml = `
-            <button class="btn btn-danger" onclick="executeKeluar()" style="width: 100%; margin-bottom: 0.4rem; justify-content: center;">YA, KELUAR UJIAN</button>
-            <button class="btn btn-secondary" onclick="tutupModalNotif()" style="width: 100%; justify-content: center;">BATAL / KEMBALI MENGARJAKAN</button>
-        `;
+        let buttonsHtml = `<button class="btn btn-danger" onclick="executeKeluar()" style="width: 100%; margin-bottom: 0.4rem; justify-content: center;">YA, KELUAR UJIAN</button><button class="btn btn-secondary" onclick="tutupModalNotif()" style="width: 100%; justify-content: center;">BATAL / KEMBALI MENGARJAKAN</button>`;
         showNotif("Konfirmasi Keluar", "Apakah Anda yakin ingin keluar?<br><span style='color:red; font-size:0.85rem;'>Jawaban Anda tidak akan disimpan.</span>", "warning", null, buttonsHtml);
     }
-
-    function executeKeluar() {
-        if (timerInterval) clearInterval(timerInterval);
-        lepasPengunciLayar();
-        location.reload();
-    }
-
-    // KONFIRMASI SELESAI DI BAWAH DENGAN TOMBOL BATAL
+    function executeKeluar() { if (timerInterval) clearInterval(timerInterval); lepasPengunciLayar(); location.reload(); }
     function konfirmasiSelesai() {
-        let buttonsHtml = `
-            <button class="btn btn-success" onclick="executeSelesai()" style="width: 100%; margin-bottom: 0.4rem; justify-content: center;">YA, SELESAI & KUMPULKAN</button>
-            <button class="btn btn-secondary" onclick="tutupModalNotif()" style="width: 100%; justify-content: center;">BATAL / LANJUTKAN UJIAN</button>
-        `;
+        let buttonsHtml = `<button class="btn btn-success" onclick="executeSelesai()" style="width: 100%; margin-bottom: 0.4rem; justify-content: center;">YA, SELESAI & KUMPULKAN</button><button class="btn btn-secondary" onclick="tutupModalNotif()" style="width: 100%; justify-content: center;">BATAL / LANJUTKAN UJIAN</button>`;
         showNotif("Konfirmasi Selesai", "Apakah Anda yakin ingin menyelesaikan ujian dan mengirim jawaban ke server?", "warning", null, buttonsHtml);
     }
-
-    function executeSelesai() {
-        tutupModalNotif();
-        kirimJawabanKeServer(false);
-    }
-
+    function executeSelesai() { tutupModalNotif(); kirimJawabanKeServer(false); }
     async function kirimJawabanKeServer(auto) {
         if (timerInterval) clearInterval(timerInterval);
         let skorPG = 0;
-
         activeSoal.forEach(s => {
             let ans = jawabanSiswa[s.id];
             let tipe = (s.tipe || "PG").toUpperCase();
             if (ans !== undefined && ans !== '') {
-                if (tipe === "PG" && String(ans).trim().toUpperCase() === String(s.kunci).trim().toUpperCase()) {
-                    skorPG += (s.bobot || 2);
-                } else if ((tipe === "PG_KOMPLEKS" || tipe === "PG_KOMPLEK") && Array.isArray(ans) && Array.isArray(s.kunci)) {
+                if (tipe === "PG" && String(ans).trim().toUpperCase() === String(s.kunci).trim().toUpperCase()) { skorPG += (s.bobot || 2); } 
+                else if ((tipe === "PG_KOMPLEKS" || tipe === "PG_KOMPLEK") && Array.isArray(ans) && Array.isArray(s.kunci)) {
                     let u = [...ans].sort(), c = [...s.kunci].sort();
                     if (u.length === c.length && u.every((v, i) => v === c[i])) skorPG += (s.bobot || 2);
                 }
             }
         });
-        
         showNotif("Mengirim Data", "Menyimpan jawaban ujian ke server pusat...", "info", null, `<div class="spinner" style="margin: 0 auto;"></div>`);
-
         try {
-            await fetch(GAS_WEBAPP_URL, {
-                method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: "simpanHasil",
-                    sheetName: "HASIL_" + currentJadwal.mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_"),
-                    nis: currentSiswa.id,
-                    nama: currentSiswa.nama,
-                    kelas: currentSsiswa.kelas || "6",
-                    mapel: currentJadwal.mapel,
-                    skorPG: skorPG,
-                    jawabanJson: JSON.stringify(jawabanSiswa),
-                    totalNilai: skorPG
-                })
+            await fetch(GAS_WEBAPP_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: "simpanHasil", sheetName: "HASIL_" + currentJadwal.mapel.toUpperCase().replace(/[^A-Z0-9_]/g, "_"), nis: currentSiswa.id, nama: currentSiswa.nama, kelas: currentSiswa.kelas || "6", mapel: currentJadwal.mapel, skorPG: skorPG, jawabanJson: JSON.stringify(jawabanSiswa), totalNilai: skorPG })
             });
             lepasPengunciLayar();
             showNotif("Ujian Selesai", "Jawaban ujian berhasil dikirim ke server. Terima kasih!", "success", () => location.reload());
-        } catch(e) {
-            showNotif("Gagal", "Koneksi ke server pusat terputus. Periksa internet.", "error");
-        }
+        } catch(e) { showNotif("Gagal", "Koneksi ke server pusat terputus. Periksa internet.", "error"); }
     }
 </script>
 </body>
