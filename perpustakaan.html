@@ -13,20 +13,20 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-
 .logo img{width:36px;height:36px;object-fit:contain;border-radius:6px}
 .nav-links a{margin-left:18px;text-decoration:none;color:#1a1a1a;font-weight:600;font-size:.85rem}
 .nav-links a.cbt{ background:var(--primary);color:white;padding:8px 14px;border-radius:8px; border:1px solid var(--primary)}
-.hero-mini{max-width:1200px;margin:0 auto;padding:28px 5% 10px;width:100%}
+.hero-mini{max-width:1200px;margin:0 auto;padding:18px 5% 16px;width:100%;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;background:white;border-bottom:1px solid var(--border)}
 .hero-mini h1{font-size:2rem;font-weight:800;color:var(--primary);line-height:1.1}
 .hero-mini h1 span{color:var(--primary-light)}
-.hero-mini p{color:var(--muted);margin-top:6px;font-size:.9rem}
+.hero-mini p{color:var(--muted);margin-top:6px;font-size:.88rem;max-width:520px;line-height:1.5}
+.hero-mini-right{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hero-mini-right img{height:110px;width:auto;object-fit:contain;filter:drop-shadow(0 6px 12px rgba(15,81,50,.15));animation:floatTILMI 3.5s ease-in-out infinite}
+.hero-mini-right .tagline{margin-top:6px;font-size:.78rem;font-weight:800;color:var(--primary);letter-spacing:.5px;background:#e0ffe0;border:1px solid #c8f7c5;padding:4px 12px;border-radius:20px}
 .container{max-width:1200px;margin:20px auto;padding:0 5%;flex:1;width:100%}
-
-/* --- STATISTIK KEREN BARU --- */
 .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
 .stat-card{background:white;border:1px solid var(--border);border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 12px rgba(0,0,0,.04);transition:.2s}
 .stat-card:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(15,81,50,.1);border-color:var(--primary-light)}
 .stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
 .stat-info b{display:block;font-size:1.15rem;font-weight:800;color:var(--primary);line-height:1}
 .stat-info span{font-size:.78rem;color:var(--muted);font-weight:600}
-
 .back-btn{display:inline-block;margin-bottom:18px;padding:9px 16px;background:white;border:1px solid var(--border);color:var(--primary);text-decoration:none;border-radius:10px;font-weight:700;font-size:.85rem;transition:.2s}
 .back-btn:hover{border-color:var(--primary);transform:translateY(-2px)}
 .filter-section{background:white;border:1px solid var(--border);border-radius:18px;padding:18px; margin-bottom:24px; box-shadow:0 4px 14px rgba(0,0,0,.04)}
@@ -50,6 +50,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-
 .pesan-kosong{text-align:center;grid-column:1/-1;padding:40px;color:var(--muted)}
 .spinner{width:32px;height:32px;border:3px solid #e6f7f5;border-top:3px solid var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
 @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@keyframes floatTILMI{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.75);z-index:1000;justify-content:center;align-items:center;padding:15px}
 .modal-container{background:#fff;width:100%;max-width:950px;height:92vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.3)}
 .modal-header{background:var(--primary);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
@@ -58,22 +59,30 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-
 .modal-body{flex:1;background:#fff}
 .modal-body iframe{width:100%;height:100%;border:none}
 footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85rem;margin-top:20px;line-height:1.6}
-@media(max-width:900px){.stat-grid{grid-template-columns:1fr} .nav-links{display:none}}
+@media(max-width:900px){.stat-grid{grid-template-columns:1fr} .hero-mini{grid-template-columns:1fr} .hero-mini-right{flex-direction:row;gap:10px;justify-content:flex-start} .hero-mini-right img{height:70px} .nav-links{display:none}}
 </style>
 </head>
 <body>
 <nav><a class="logo" href="index.html"><img src="logo-mi.png" alt="Logo MI"> MI Salafiyatul Ma'muroh Paesan</a><div class="nav-links"><a href="index.html#layanan">Layanan</a><a href="index.html#berita">Berita</a><a class="cbt" href="cbt/index.html">Ujian Online</a></div></nav>
-<div class="hero-mini"><h1>Perpustakaan <span>Digital</span></h1><p>Koleksi Buku Bacaan & Pembelajaran - Iso Ngaji, Iso Teknologi</p></div>
+
+<div class="hero-mini">
+  <div>
+    <h1>Perpustakaan <span>Digital</span></h1>
+    <p>Koleksi buku bacaan, e-book pelajaran, dan literasi untuk siswa MI Salafiyatul Ma'muroh Paesan.</p>
+  </div>
+  <div class="hero-mini-right">
+    <img src="tilmi-lengkap.png" alt="TILMI - Iso Ngaji Iso Teknologi">
+    <div class="tagline">Iso Ngaji, Iso Teknologi</div>
+  </div>
+</div>
+
 <div class="container">
 <a href="index.html" class="back-btn">← Kembali ke Beranda</a>
-
-<!-- STATISTIK KEREN -->
 <div class="stat-grid">
   <div class="stat-card"><div class="stat-icon" style="background:#dcfce7">📚</div><div class="stat-info"><b id="stat-total-buku">0</b><span>Koleksi Buku</span></div></div>
   <div class="stat-card"><div class="stat-icon" style="background:#fef3c7">👁️</div><div class="stat-info"><b id="stat-total-baca">0</b><span>Total Dibaca</span></div></div>
   <div class="stat-card"><div class="stat-icon" style="background:#dbeafe">🔥</div><div class="stat-info"><b id="stat-populer">-</b><span>Kategori Terpopuler</span></div></div>
 </div>
-
 <div class="filter-section">
 <div class="search-bar"><input type="text" id="inputCari" placeholder="Cari judul buku atau penulis..." oninput="tanganiPencarian()"></div>
 <div class="category-buttons" id="areaFilter">
@@ -118,7 +127,7 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
         if(data&&typeof data==='object'){Object.keys(data).forEach(kunci=>{dataStatistikNormalized[normalisasi(kunci)]=data[kunci]})}
       }).catch(err=>{dataStatistikNormalized={}})
     }
-    Promise.all([ambilDataBuku(),ambilStatistik()]).then(([dataBuku])=>{semuaBuku=acakBuku(dataBuku);tampilkanBuku(semuaBuku);updateStatistikAtas();}).catch(error=>{document.getElementById('daftarBuku').innerHTML='<div class="pesan-kosong">Gagal memuat data buku. Pastikan file buku.json tersedia.</div>'});
+    Promise.all([ambilDataBuku(),ambilStatistik()]).then(([dataBuku])=>{semuaBuku=acakBuku(dataBuku);tampilkanBuku(semuaBuku);updateStatistikAtas();}).catch(error=>{document.getElementById('daftarBuku').innerHTML='<div class="pesan-kosong">Gagal memuat data buku.</div>'});
     function tampilkanBuku(listBuku){
       const container=document.getElementById('daftarBuku');
       if(listBuku.length===0){container.innerHTML='<div class="pesan-kosong">Buku tidak ditemukan.</div>';return}
@@ -126,14 +135,13 @@ footer{background:#111;color:#aaa;text-align:center;padding:26px;font-size:.85re
         let katLabel=buku.kategori||''; let linkBuku=buku.file||buku.link||buku.url||buku.pdf||'';
         let judulAman=(buku.judul||'').replace(/'/g,"\\'"); let katAman=(katLabel||'Umum').replace(/'/g,"\\'"); let linkAman=linkBuku.replace(/'/g,"\\'");
         let domId=buatIdAman(buku.id||buku.judul); let kunciNormal=normalisasi(buku.judul); let totalBaca=dataStatistikNormalized[kunciNormal]||0;
-        html+=`<div class="card-buku"><img class="cover-buku" src="${buku.cover||'https://via.placeholder.com/200x270?text=No+Cover'}" alt="${buku.judul}" loading="lazy"><div class="info-buku"><div class="meta-card">${katLabel?`<span class="kategori-tag">${katLabel}</span>`:''}</div><div class="judul-buku">${buku.judul}</div><div class="penulis-buku">${buku.penulis||'Penulis tidak diketahui'}</div><div class="view-count">👁️ <span id="count-${domId}">${totalBaca}</span>x dibaca</div><button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}', '${buku.id||buku.judul}')">📚 Baca Buku</button></div></div>`;
+        html+=`<div class="card-buku"><img class="cover-buku" src="${buku.cover||'https://via.placeholder.com/200x270?text=No+Cover'}" alt="${buku.judul}" loading="lazy"><div class="info-buku"><div class="meta-card"><span class="kategori-tag">${katLabel||'Umum'}</span></div><div class="judul-buku">${buku.judul}</div><div class="penulis-buku">${buku.penulis||'Penulis tidak diketahui'}</div><div class="view-count">👁️ <span id="count-${domId}">${totalBaca}</span>x dibaca</div><button class="btn-baca" onclick="bukaModal('${linkAman}', '${judulAman}', '${katAman}', '${buku.id||buku.judul}')">📚 Baca Buku</button></div></div>`;
       }); container.innerHTML=html;
     }
     function tanganiPencarian(){clearTimeout(timerPencarian);timerPencarian=setTimeout(()=>{filterSemua()},200)}
     function catatPembaca(judul,kategori,idBuku){
       if(!SCRIPT_URL) return; const domId=buatIdAman(idBuku); const elCount=document.getElementById(`count-${domId}`); if(elCount){let valSekarang=parseInt(elCount.innerText)||0;elCount.innerText=valSekarang+1}
-      const kunciNormal=normalisasi(judul); dataStatistikNormalized[kunciNormal]=(dataStatistikNormalized[kunciNormal]||0)+1;
-      updateStatistikAtas();
+      const kunciNormal=normalisasi(judul); dataStatistikNormalized[kunciNormal]=(dataStatistikNormalized[kunciNormal]||0)+1; updateStatistikAtas();
       const formData=new FormData(); formData.append('judul',judul); formData.append('kategori',kategori);
       fetch(SCRIPT_URL,{method:'POST',body:formData,mode:'no-cors'}).catch(()=>{})
     }
