@@ -15,7 +15,7 @@
   {
     "id": 2,
     "tipe": "PG",
-    "soal": "Perhatikan gambar: Relawan MI Salafiyatul Ma'muroh menyalurkan bantuan sembako untuk korban erupsi Gunung Merapi di Kecamatan Selo, Boyolali. Bantuan diberikan kepada semua korban tanpa membedakan suku. Perilaku tersebut mencerminkan nilai Pancasila sila ...",
+    "soal": "Wacana: Relawan MI Salafiyatul Ma'muroh menyalurkan bantuan sembako untuk korban erupsi Gunung Merapi di Kecamatan Selo, Boyolali. Bantuan diberikan kepada semua korban tanpa membedakan suku dan agama. Perilaku tersebut mencerminkan nilai Pancasila sila ...",
     "pilihan": [
       "A. Sila kedua dan kelima",
       "B. Sila pertama dan kedua",
@@ -28,7 +28,7 @@
   {
     "id": 3,
     "tipe": "PG",
-    "soal": "Gambar pohon beringin dan padi kapas merupakan bagian dari lambang negara. Makna persatuan yang terkandung dari kedua lambang tersebut adalah ...",
+    "soal": "Perhatikan lambang Pancasila yaitu pohon beringin (sila ketiga) dan padi kapas (sila kelima). Makna persatuan yang terkandung dari kedua lambang tersebut adalah ...",
     "pilihan": [
       "A. Rakyat Indonesia harus beriman dan bertakwa",
       "B. Seluruh rakyat Indonesia bersatu dalam keragaman untuk kesejahteraan bersama",
@@ -106,7 +106,7 @@
   {
     "id": 9,
     "tipe": "PG",
-    "soal": "Gambar kegiatan Jumat Bersih di lingkungan MI Salafiyatul Ma'muroh: siswa kelas VI bersama-sama menyapu halaman, memungut sampah, dan menata taman madrasah. Kegiatan tersebut paling sesuai dengan pengamalan sila ...",
+    "soal": "Wacana: Kegiatan Jumat Bersih di lingkungan MI Salafiyatul Ma'muroh, siswa kelas VI bersama-sama menyapu halaman, memungut sampah, dan menata taman madrasah dengan rukun. Kegiatan tersebut paling sesuai dengan pengamalan sila ...",
     "pilihan": [
       "A. Sila pertama Ketuhanan Yang Maha Esa",
       "B. Sila kedua Kemanusiaan yang adil dan beradab",
@@ -223,7 +223,7 @@
   {
     "id": 18,
     "tipe": "PG",
-    "soal": "Gambar kerja kelompok yang diwarnai perbedaan pendapat: Ani usul membuat poster, Budi usul membuat drama. Sikap menghargai pendapat orang lain yang tepat adalah ...",
+    "soal": "Wacana: Dalam kerja kelompok, Ani usul membuat poster sedangkan Budi usul membuat drama. Terjadi perbedaan pendapat. Sikap menghargai pendapat orang lain yang tepat adalah ...",
     "pilihan": [
       "A. Memaksakan ide sendiri dan menolak ide Budi",
       "B. Tidak mau ikut kerja kelompok",
@@ -275,14 +275,14 @@
   {
     "id": 22,
     "tipe": "PG",
-    "soal": "Disajikan beberapa gambar metode pengambilan keputusan: (A) bermusyawarah melingkar, (B) mengangkat tangan satu per satu untuk memilih, (C) berdoa bersama, (D) bekerja bakti. Gambar yang menunjukkan proses pemungutan suara (voting) adalah ...",
+    "soal": "Berikut adalah beberapa metode pengambilan keputusan: (1) bermusyawarah melingkar, (2) mengangkat tangan satu per satu untuk memilih, (3) berdoa bersama, (4) bekerja bakti. Metode yang menunjukkan proses pemungutan suara (voting) adalah ...",
     "pilihan": [
-      "A. Gambar B",
-      "B. Gambar A",
-      "C. Gambar C",
-      "D. Gambar D"
+      "A. Metode 1",
+      "B. Metode 2",
+      "C. Metode 3",
+      "D. Metode 4"
     ],
-    "kunci": "A",
+    "kunci": "B",
     "bobot": 2
   },
   {
@@ -326,7 +326,7 @@
   },
   {
     "id": 26,
-    "tipe": "BENAR_SALAH",
+    "tipe": "PG",
     "soal": "Pernyataan: Sila-sila dalam Pancasila merupakan satu kesatuan yang utuh dan saling terkait satu sama lain.",
     "pilihan": [
       "A. Benar",
@@ -337,7 +337,7 @@
   },
   {
     "id": 27,
-    "tipe": "BENAR_SALAH",
+    "tipe": "PG",
     "soal": "Cerita: Siswa MI saling menghargai perbedaan suku dan agama saat bermain. Ada anggapan bahwa sikap tersebut hanya mencerminkan satu sila saja, yaitu sila ketiga. Pernyataan tersebut benar atau salah?",
     "pilihan": [
       "A. Benar",
@@ -348,7 +348,7 @@
   },
   {
     "id": 28,
-    "tipe": "BENAR_SALAH",
+    "tipe": "PG",
     "soal": "Kasus: Pembagian tugas piket kelas hanya dibebankan kepada siswa perempuan saja, sedangkan siswa laki-laki bebas bermain. Perbuatan tersebut sudah sesuai dengan sila kelima Keadilan sosial.",
     "pilihan": [
       "A. Benar",
@@ -359,7 +359,7 @@
   },
   {
     "id": 29,
-    "tipe": "BENAR_SALAH",
+    "tipe": "PG",
     "soal": "Cerita kerja bakti membersihkan lingkungan madrasah bersama-sama adalah wujud pengamalan Pancasila sila ketiga Persatuan Indonesia.",
     "pilihan": [
       "A. Benar",
@@ -370,7 +370,7 @@
   },
   {
     "id": 30,
-    "tipe": "BENAR_SALAH",
+    "tipe": "PG",
     "soal": "Teman yang berbicara kurang sopan kepada guru, seperti memanggil dengan sebutan tidak pantas, dapat dikatakan melanggar norma kesopanan.",
     "pilihan": [
       "A. Benar",
@@ -381,7 +381,7 @@
   },
   {
     "id": 31,
-    "tipe": "BENAR_SALAH",
+    "tipe": "PG",
     "soal": "Pernyataan: Sebagai anak, saya bebas melakukan apa saja semaunya di rumah dan di sekolah karena itu adalah bagian dari hak saya.",
     "pilihan": [
       "A. Benar",
@@ -392,7 +392,7 @@
   },
   {
     "id": 32,
-    "tipe": "BENAR_SALAH",
+    "tipe": "PG",
     "soal": "Pernyataan: Hasil musyawarah kelompok hanya wajib ditaati oleh pihak yang setuju saja, yang tidak setuju boleh mengabaikan.",
     "pilihan": [
       "A. Benar",
@@ -403,7 +403,7 @@
   },
   {
     "id": 33,
-    "tipe": "BENAR_SALAH",
+    "tipe": "PG",
     "soal": "Pernyataan: Musyawarah mufakat selalu mengedepankan asas kekeluargaan, kebersamaan, dan menghargai pendapat orang lain.",
     "pilihan": [
       "A. Benar",
@@ -414,7 +414,7 @@
   },
   {
     "id": 34,
-    "tipe": "BENAR_SALAH",
+    "tipe": "PG",
     "soal": "Wacana: Saat musyawarah, ada teman yang suka menyela pembicaraan teman lain sebelum selesai. Sikap menyela tersebut sesuai dengan etika musyawarah.",
     "pilihan": [
       "A. Benar",
@@ -425,7 +425,7 @@
   },
   {
     "id": 35,
-    "tipe": "BENAR_SALAH",
+    "tipe": "PG",
     "soal": "Cara penyampaian pendapat dalam forum kelas yang baik adalah dengan mengangkat tangan, berbicara dengan sopan, jelas, dan tidak memaksakan kehendak.",
     "pilihan": [
       "A. Benar",
@@ -451,7 +451,7 @@
   {
     "id": 38,
     "tipe": "ISIAN",
-    "soal": "Berdasarkan gambar tradisi kumpul warga di Desa Cepogo, Boyolali untuk menyelesaikan masalah lingkungan secara bersama-sama, kegiatan tersebut menerapkan Pancasila sila ke ...",
+    "soal": "Wacana: Warga di Desa Cepogo, Boyolali memiliki tradisi kumpul warga di balai desa untuk menyelesaikan masalah lingkungan secara bersama-sama. Kegiatan tersebut menerapkan Pancasila sila ke ...",
     "kunci": "empat / 4 / keempat",
     "bobot": 3
   },
@@ -472,7 +472,7 @@
   {
     "id": 41,
     "tipe": "ISIAN",
-    "soal": "Berdasarkan gambar pengendara motor di jalan raya Boyolali yang ditilang polisi karena tidak memakai helm dan melanggar rambu lalu lintas, ia telah melanggar norma ...",
+    "soal": "Wacana: Seorang pengendara motor di jalan raya Boyolali ditilang polisi karena tidak memakai helm dan melanggar rambu lalu lintas. Ia telah melanggar norma ...",
     "kunci": "hukum",
     "bobot": 3
   },
