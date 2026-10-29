@@ -1,0 +1,542 @@
+[
+  {
+    "id": 1,
+    "tipe": "PG",
+    "soal": "Di Desa Karanganyar warga mengadakan kerja bakti membersihkan selokan. Warga yang ikut terdiri dari pemeluk Islam, Kristen, dan Kejawen. Mereka bekerja bersama tanpa membedakan keyakinan. Kegiatan tersebut merupakan pengamalan Pancasila sila ...",
+    "pilihan": [
+      "A. Pertama dan ketiga",
+      "B. Pertama dan kedua",
+      "C. Kedua dan ketiga",
+      "D. Ketiga dan keempat"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 2,
+    "tipe": "PG",
+    "soal": "Perhatikan gambar: Relawan MI Salafiyatul Ma'muroh menyalurkan bantuan sembako untuk korban erupsi Gunung Merapi di Kecamatan Selo, Boyolali. Bantuan diberikan kepada semua korban tanpa membedakan suku. Perilaku tersebut mencerminkan nilai Pancasila sila ...",
+    "pilihan": [
+      "A. Sila kedua dan kelima",
+      "B. Sila pertama dan kedua",
+      "C. Sila ketiga dan keempat",
+      "D. Sila keempat dan kelima"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 3,
+    "tipe": "PG",
+    "soal": "Gambar pohon beringin dan padi kapas merupakan bagian dari lambang negara. Makna persatuan yang terkandung dari kedua lambang tersebut adalah ...",
+    "pilihan": [
+      "A. Rakyat Indonesia harus beriman dan bertakwa",
+      "B. Seluruh rakyat Indonesia bersatu dalam keragaman untuk kesejahteraan bersama",
+      "C. Rakyat Indonesia berhak bermusyawarah",
+      "D. Kekuasaan tertinggi ada di tangan rakyat"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 4,
+    "tipe": "PG",
+    "soal": "Berikut adalah beberapa pernyataan tentang Pancasila:<br>1) Sebagai hiasan dinding kelas<br>2) Sebagai dasar negara yang menjadi sumber segala peraturan<br>3) Sebagai lagu wajib<br>4) Sebagai pemersatu bangsa. Fungsi utama Pancasila sebagai dasar negara ditunjukkan oleh nomor ...",
+    "pilihan": [
+      "A. 1",
+      "B. 2",
+      "C. 3",
+      "D. 2 dan 4"
+    ],
+    "kunci": "D",
+    "bobot": 2
+  },
+  {
+    "id": 5,
+    "tipe": "PG",
+    "soal": "Saat sidang BPUPKI, para tokoh berbeda pendapat tentang dasar negara. Namun mereka tetap mendengarkan dengan seksama dan mencari titik temu. Hal ini menunjukkan arti Pancasila sebagai pandangan hidup bangsa, yaitu ...",
+    "pilihan": [
+      "A. Pedoman untuk memaksakan pendapat sendiri",
+      "B. Aturan untuk meninggalkan perbedaan",
+      "C. Petunjuk untuk menyelesaikan perbedaan dengan musyawarah dan toleransi",
+      "D. Alat untuk memenangkan golongan sendiri"
+    ],
+    "kunci": "C",
+    "bobot": 2
+  },
+  {
+    "id": 6,
+    "tipe": "PG",
+    "soal": "Kisah teladan Ir. Soekarno dan Moh. Hatta yang rela berkorban dan tidak mementingkan golongan sendiri saat merumuskan Pancasila. Sikap yang paling patut dicontoh pelajar masa kini adalah ...",
+    "pilihan": [
+      "A. Belajar giat hanya untuk diri sendiri",
+      "B. Selalu ingin menjadi yang paling menonjol di kelas",
+      "C. Berani berkorban, cinta tanah air, dan mendahulukan kepentingan bersama",
+      "D. Memilih berteman hanya dengan yang sepaham"
+    ],
+    "kunci": "C",
+    "bobot": 2
+  },
+  {
+    "id": 7,
+    "tipe": "PG_KOMPLEKS",
+    "soal": "Perhatikan ilustrasi: Selokan di RT 05 mampet karena sampah. Ketua RT mengajak kerja bakti lintas agama. Berikut tindakan penyelesaian yang diusulkan:<br>1) Mengajak semua warga tanpa membedakan agama dan keyakinan<br>2) Memaksa warga yang tidak ikut dengan memaki dan mengancam<br>3) Membersihkan selokan bersama demi kesehatan dan kepentingan bersama<br>4) Hanya mengajak warga yang seagama agar cepat selesai",
+    "pilihan": [
+      "A. 1 & 2",
+      "B. 1 & 3",
+      "C. 2 & 4",
+      "D. 3 & 4"
+    ],
+    "kunci": "B",
+    "bobot": 2.5
+  },
+  {
+    "id": 8,
+    "tipe": "PG",
+    "soal": "Riko dan Bima bertengkar saat bermain bola karena berbeda pendapat siapa yang curang. Riko langsung memukul Bima dan tidak mau mendengarkan penjelasan teman lain. Cara penyelesaian Riko bertentangan dengan sila keempat karena ...",
+    "pilihan": [
+      "A. Tidak menghormati keyakinan orang lain",
+      "B. Tidak adil dalam membagi makanan",
+      "C. Memaksakan kehendak dan tidak mengutamakan musyawarah",
+      "D. Tidak menjaga persatuan"
+    ],
+    "kunci": "C",
+    "bobot": 2
+  },
+  {
+    "id": 9,
+    "tipe": "PG",
+    "soal": "Gambar kegiatan Jumat Bersih di lingkungan MI Salafiyatul Ma'muroh: siswa kelas VI bersama-sama menyapu halaman, memungut sampah, dan menata taman madrasah. Kegiatan tersebut paling sesuai dengan pengamalan sila ...",
+    "pilihan": [
+      "A. Sila pertama Ketuhanan Yang Maha Esa",
+      "B. Sila kedua Kemanusiaan yang adil dan beradab",
+      "C. Sila kelima Keadilan sosial bagi seluruh rakyat Indonesia",
+      "D. Sila ketiga Persatuan Indonesia"
+    ],
+    "kunci": "D",
+    "bobot": 2
+  },
+  {
+    "id": 10,
+    "tipe": "PG",
+    "soal": "Wacana: Hidup rukun sangat penting agar suasana bermain menyenangkan. Contoh sikap tenggang rasa saat bermain dengan teman sebaya adalah ...",
+    "pilihan": [
+      "A. Memilih teman bermain hanya yang kaya",
+      "B. Memberi kesempatan teman lain untuk mencoba mainan secara bergiliran",
+      "C. Mengejek teman yang kalah dalam permainan",
+      "D. Memaksa teman menuruti aturan buatan sendiri"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 11,
+    "tipe": "PG",
+    "soal": "Di kelas VI, Doni sering datang terlambat dan tidak mengerjakan piket. Akibatnya teman-teman harus bekerja lebih berat dan kelas menjadi kotor. Dampak pelanggaran tata tertib tersebut adalah ...",
+    "pilihan": [
+      "A. Kelas menjadi nyaman dan bersih",
+      "B. Menjadi contoh yang baik",
+      "C. Mendapat pujian dari guru",
+      "D. Merugikan diri sendiri dan mengganggu kenyamanan teman serta lingkungan belajar"
+    ],
+    "kunci": "D",
+    "bobot": 2
+  },
+  {
+    "id": 12,
+    "tipe": "PG_KOMPLEKS",
+    "soal": "Peristiwa: Sinta berbicara kasar dan berbohong kepada guru saat ditanya mengapa tidak memakai seragam sesuai aturan. Perhatikan pernyataan berikut:<br>1) Sinta melanggar norma kesopanan dan norma agama<br>2) Sinta melanggar norma hukum karena tidak memakai helm saat di jalan<br>3) Sanksi yang tepat adalah teguran, nasihat, dan pembinaan agar jujur dan sopan<br>4) Sanksi yang tepat adalah kurungan penjara selama 10 tahun",
+    "pilihan": [
+      "A. 1 & 2",
+      "B. 1 & 3",
+      "C. 2 & 4",
+      "D. 3 & 4"
+    ],
+    "kunci": "B",
+    "bobot": 2.5
+  },
+  {
+    "id": 13,
+    "tipe": "PG",
+    "soal": "Andi selalu menuntut diberi uang jajan lebih, minta dibelikan sepeda baru, tetapi ia tidak pernah membantu orang tua dan malas belajar. Akibat sikap yang selalu menuntut hak namun mengabaikan kewajiban adalah ...",
+    "pilihan": [
+      "A. Kehidupan keluarga menjadi harmonis",
+      "B. Timbul rasa tidak adil dan keharmonisan keluarga terganggu",
+      "C. Semua keinginan akan tercapai",
+      "D. Disayangi semua orang"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 14,
+    "tipe": "PG",
+    "soal": "Berdasarkan kegiatan sehari-hari, mana yang termasuk hak di rumah dan hak di sekolah?",
+    "pilihan": [
+      "A. Hak di rumah: membantu menyapu; Hak di sekolah: melaksanakan piket kelas",
+      "B. Kewajiban di rumah: tidur siang; Hak di sekolah: dihukum guru",
+      "C. Hak di rumah: mendapat kasih sayang orang tua; Hak di sekolah: mendapat pelajaran dari guru",
+      "D. Hak di rumah: mencuci piring; Hak di sekolah: membuang sampah"
+    ],
+    "kunci": "C",
+    "bobot": 2
+  },
+  {
+    "id": 15,
+    "tipe": "PG",
+    "soal": "Daftar acak tahapan pemilihan ketua kelas VI: (1) Penghitungan suara, (2) Pendaftaran calon, (3) Pemungutan suara, (4) Penyampaian visi misi. Urutan yang benar adalah ...",
+    "pilihan": [
+      "A. 4-2-1-3",
+      "B. 1-2-3-4",
+      "C. 2-4-3-1",
+      "D. 3-1-2-4"
+    ],
+    "kunci": "C",
+    "bobot": 2
+  },
+  {
+    "id": 16,
+    "tipe": "PG",
+    "soal": "Sebelum musyawarah persiapan pentas seni kelas VI dimulai, hal utama yang harus disiapkan agar musyawarah berjalan tertib adalah ...",
+    "pilihan": [
+      "A. Membawa makanan sebanyak-banyaknya",
+      "B. Menentukan topik, tujuan, aturan bicara, dan pemimpin musyawarah",
+      "C. Menentukan siapa yang harus menang",
+      "D. Mengajak teman yang hanya sependapat"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 17,
+    "tipe": "PG",
+    "soal": "Saat diskusi pembagian tugas kelompok, suasana mulai memanas karena saling berteriak. Tindakan paling bijak untuk menenangkan teman adalah ...",
+    "pilihan": [
+      "A. Ikut berteriak lebih keras agar didengar",
+      "B. Diam dan meninggalkan ruangan",
+      "C. Mengajak teman tenang, mendengarkan satu per satu, dan mengingatkan tujuan bersama",
+      "D. Menunjuk satu orang yang salah"
+    ],
+    "kunci": "C",
+    "bobot": 2
+  },
+  {
+    "id": 18,
+    "tipe": "PG",
+    "soal": "Gambar kerja kelompok yang diwarnai perbedaan pendapat: Ani usul membuat poster, Budi usul membuat drama. Sikap menghargai pendapat orang lain yang tepat adalah ...",
+    "pilihan": [
+      "A. Memaksakan ide sendiri dan menolak ide Budi",
+      "B. Tidak mau ikut kerja kelompok",
+      "C. Mengejek ide teman yang berbeda",
+      "D. Mendengarkan kedua ide, menghargai, dan mencari jalan tengah yang disepakati"
+    ],
+    "kunci": "D",
+    "bobot": 2
+  },
+  {
+    "id": 19,
+    "tipe": "PG",
+    "soal": "Cerita: Saat berdiskusi, Rudi selalu memaksakan kehendaknya dan berkata 'Pokoknya harus ikut aku!'. Alasan tidak baiknya sikap memaksakan kehendak adalah ...",
+    "pilihan": [
+      "A. Karena dapat merusak kebersamaan dan membuat orang lain tidak dihargai",
+      "B. Karena membuat diskusi cepat selesai",
+      "C. Karena menunjukkan keberanian",
+      "D. Karena membuat dirinya populer"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 20,
+    "tipe": "PG",
+    "soal": "Dalam wacana diskusi persiapan perpisahan kelas VI, manfaat dari sikap saling terbuka dan jujur dalam musyawarah adalah ...",
+    "pilihan": [
+      "A. Keputusan dapat diterima semua pihak dan tercipta rasa saling percaya",
+      "B. Menimbulkan pertengkaran",
+      "C. Membuat salah satu pihak merasa paling benar",
+      "D. Membuat musyawarah tidak pernah selesai"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 21,
+    "tipe": "PG",
+    "soal": "Berdasarkan contoh hasil kesepakatan kelas tentang jadwal piket yang sudah disahkan bersama, sikap yang benar setelah keputusan disahkan adalah ...",
+    "pilihan": [
+      "A. Mengajak teman lain untuk menolak",
+      "B. Hanya melaksanakan jika diawasi guru",
+      "C. Mengabaikan keputusan karena tidak sesuai keinginan",
+      "D. Melaksanakan keputusan dengan penuh tanggung jawab"
+    ],
+    "kunci": "D",
+    "bobot": 2
+  },
+  {
+    "id": 22,
+    "tipe": "PG",
+    "soal": "Disajikan beberapa gambar metode pengambilan keputusan: (A) bermusyawarah melingkar, (B) mengangkat tangan satu per satu untuk memilih, (C) berdoa bersama, (D) bekerja bakti. Gambar yang menunjukkan proses pemungutan suara (voting) adalah ...",
+    "pilihan": [
+      "A. Gambar B",
+      "B. Gambar A",
+      "C. Gambar C",
+      "D. Gambar D"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 23,
+    "tipe": "PG",
+    "soal": "Dari cerita kesepakatan teman sekelas tentang tema mading, ciri-ciri keputusan yang diambil secara mufakat adalah ...",
+    "pilihan": [
+      "A. Diambil setelah mendengarkan semua pendapat dan disepakati bersama tanpa paksaan",
+      "B. Hanya menguntungkan ketua kelas",
+      "C. Diputuskan oleh satu orang saja",
+      "D. Harus melalui pemungutan suara terlebih dahulu"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 24,
+    "tipe": "PG",
+    "soal": "Cerita: Rapat kelas membahas tempat study tour mengalami kebuntuan, tidak ada yang mau mengalah. Langkah alternatif agar masalah cepat terselesaikan adalah ...",
+    "pilihan": [
+      "A. Membubarkan rapat tanpa hasil",
+      "B. Menunda terus menerus tanpa batas waktu",
+      "C. Memutuskan sendiri oleh satu orang",
+      "D. Mengambil jalan tengah, menampung semua usulan, atau melakukan voting jika mufakat tidak tercapai"
+    ],
+    "kunci": "D",
+    "bobot": 2
+  },
+  {
+    "id": 25,
+    "tipe": "PG",
+    "soal": "Ilustrasi pemilihan ketua kelas VI, kapan voting boleh dilakukan?",
+    "pilihan": [
+      "A. Voting boleh dilakukan apabila musyawarah mufakat tidak mencapai kesepakatan setelah diusahakan",
+      "B. Voting dilakukan langsung tanpa musyawarah sama sekali",
+      "C. Voting hanya untuk memilih makanan",
+      "D. Voting tidak boleh dilakukan di sekolah"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 26,
+    "tipe": "BENAR_SALAH",
+    "soal": "Pernyataan: Sila-sila dalam Pancasila merupakan satu kesatuan yang utuh dan saling terkait satu sama lain.",
+    "pilihan": [
+      "A. Benar",
+      "B. Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 27,
+    "tipe": "BENAR_SALAH",
+    "soal": "Cerita: Siswa MI saling menghargai perbedaan suku dan agama saat bermain. Ada anggapan bahwa sikap tersebut hanya mencerminkan satu sila saja, yaitu sila ketiga. Pernyataan tersebut benar atau salah?",
+    "pilihan": [
+      "A. Benar",
+      "B. Salah"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 28,
+    "tipe": "BENAR_SALAH",
+    "soal": "Kasus: Pembagian tugas piket kelas hanya dibebankan kepada siswa perempuan saja, sedangkan siswa laki-laki bebas bermain. Perbuatan tersebut sudah sesuai dengan sila kelima Keadilan sosial.",
+    "pilihan": [
+      "A. Benar",
+      "B. Salah"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 29,
+    "tipe": "BENAR_SALAH",
+    "soal": "Cerita kerja bakti membersihkan lingkungan madrasah bersama-sama adalah wujud pengamalan Pancasila sila ketiga Persatuan Indonesia.",
+    "pilihan": [
+      "A. Benar",
+      "B. Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 30,
+    "tipe": "BENAR_SALAH",
+    "soal": "Teman yang berbicara kurang sopan kepada guru, seperti memanggil dengan sebutan tidak pantas, dapat dikatakan melanggar norma kesopanan.",
+    "pilihan": [
+      "A. Benar",
+      "B. Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 31,
+    "tipe": "BENAR_SALAH",
+    "soal": "Pernyataan: Sebagai anak, saya bebas melakukan apa saja semaunya di rumah dan di sekolah karena itu adalah bagian dari hak saya.",
+    "pilihan": [
+      "A. Benar",
+      "B. Salah"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 32,
+    "tipe": "BENAR_SALAH",
+    "soal": "Pernyataan: Hasil musyawarah kelompok hanya wajib ditaati oleh pihak yang setuju saja, yang tidak setuju boleh mengabaikan.",
+    "pilihan": [
+      "A. Benar",
+      "B. Salah"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 33,
+    "tipe": "BENAR_SALAH",
+    "soal": "Pernyataan: Musyawarah mufakat selalu mengedepankan asas kekeluargaan, kebersamaan, dan menghargai pendapat orang lain.",
+    "pilihan": [
+      "A. Benar",
+      "B. Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 34,
+    "tipe": "BENAR_SALAH",
+    "soal": "Wacana: Saat musyawarah, ada teman yang suka menyela pembicaraan teman lain sebelum selesai. Sikap menyela tersebut sesuai dengan etika musyawarah.",
+    "pilihan": [
+      "A. Benar",
+      "B. Salah"
+    ],
+    "kunci": "B",
+    "bobot": 2
+  },
+  {
+    "id": 35,
+    "tipe": "BENAR_SALAH",
+    "soal": "Cara penyampaian pendapat dalam forum kelas yang baik adalah dengan mengangkat tangan, berbicara dengan sopan, jelas, dan tidak memaksakan kehendak.",
+    "pilihan": [
+      "A. Benar",
+      "B. Salah"
+    ],
+    "kunci": "A",
+    "bobot": 2
+  },
+  {
+    "id": 36,
+    "tipe": "ISIAN",
+    "soal": "Melalui wacana tentang pentingnya pedoman hidup berbangsa, istilah untuk Pancasila sebagai penunjuk arah dan pedoman kehidupan berbangsa dan bernegara disebut sebagai ...",
+    "kunci": "pandangan hidup bangsa / way of life",
+    "bobot": 3
+  },
+  {
+    "id": 37,
+    "tipe": "ISIAN",
+    "soal": "Berdasarkan narasi tentang hubungan antarsila, sila yang kedudukannya berfungsi untuk memimpin dan menjiwai sila-sila di bawahnya, serta menjadi sumber dari semua sila adalah sila ke ...",
+    "kunci": "satu / pertama / Ketuhanan Yang Maha Esa",
+    "bobot": 3
+  },
+  {
+    "id": 38,
+    "tipe": "ISIAN",
+    "soal": "Berdasarkan gambar tradisi kumpul warga di Desa Cepogo, Boyolali untuk menyelesaikan masalah lingkungan secara bersama-sama, kegiatan tersebut menerapkan Pancasila sila ke ...",
+    "kunci": "empat / 4 / keempat",
+    "bobot": 3
+  },
+  {
+    "id": 39,
+    "tipe": "ISIAN",
+    "soal": "Cerita: Zahra melihat temannya kesulitan membawa buku padahal ia sendiri sedang repot. Namun Zahra tetap ikhlas membantu tanpa pamrih. Sikap teladan yang ditunjukkan Zahra adalah ...",
+    "kunci": "tolong-menolong / peduli / ikhlas / kemanusiaan",
+    "bobot": 3
+  },
+  {
+    "id": 40,
+    "tipe": "ISIAN",
+    "soal": "Lengkapi kalimat rumpang: Membersihkan kelas agar nyaman adalah ... siswa, sedangkan mendapatkan lingkungan kelas yang bersih dan sehat adalah ... siswa.",
+    "kunci": "kewajiban dan hak",
+    "bobot": 3
+  },
+  {
+    "id": 41,
+    "tipe": "ISIAN",
+    "soal": "Berdasarkan gambar pengendara motor di jalan raya Boyolali yang ditilang polisi karena tidak memakai helm dan melanggar rambu lalu lintas, ia telah melanggar norma ...",
+    "kunci": "hukum",
+    "bobot": 3
+  },
+  {
+    "id": 42,
+    "tipe": "ISIAN",
+    "soal": "Melalui cerita diskusi kelompok yang tak kunjung mufakat meski sudah lama bermusyawarah, maka metode pengambilan keputusan yang harus dilakukan selanjutnya adalah ...",
+    "kunci": "voting / pemungutan suara",
+    "bobot": 3
+  },
+  {
+    "id": 43,
+    "tipe": "ISIAN",
+    "soal": "Disajikan ilustrasi guru yang menengahi pertengkaran peserta didik agar rukun kembali. Peran orang yang menengahi masalah tersebut disebut ...",
+    "kunci": "mediator / penengah / juru damai",
+    "bobot": 3
+  },
+  {
+    "id": 44,
+    "tipe": "ISIAN",
+    "soal": "Berdasarkan cerita tentang usulan teman yang tertolak dalam rapat kelas, sikap baik yang seharusnya ditunjukkan oleh teman yang usulannya ditolak adalah ...",
+    "kunci": "lapang dada / menghormati keputusan bersama / tidak marah",
+    "bobot": 3
+  },
+  {
+    "id": 45,
+    "tipe": "ISIAN",
+    "soal": "Setelah hasil diskusi kelas disepakati bersama tentang aturan penggunaan fasilitas perpustakaan, kewajiban yang harus ditaati seluruh peserta didik adalah ...",
+    "kunci": "melaksanakan dan menaati hasil keputusan bersama dengan tanggung jawab",
+    "bobot": 3
+  },
+  {
+    "id": 46,
+    "tipe": "URAIAN",
+    "soal": "Melalui cerita pendek tentang anak yang mengejek temannya karena berbeda suku saat bermain bola di halaman madrasah, rumuskan 2 (dua) cara penyelesaian masalah yang menunjukkan hubungan antara Sila ke-2 dan Sila ke-3 Pancasila secara tepat!",
+    "kunci": "Kunci: 1) Sila 2 Kemanusiaan: meminta maaf, mengakui kesalahan, tidak mengejek dan menghargai harkat teman. 2) Sila 3 Persatuan: mengajak bermain bersama kembali tanpa membedakan suku, menjaga persatuan dan kerukunan kelas. Hubungannya saling menguatkan karena menghargai kemanusiaan akan memperkuat persatuan.",
+    "bobot": 4
+  },
+  {
+    "id": 47,
+    "tipe": "URAIAN",
+    "soal": "Berdasarkan wacana tentang sikap tokoh perumus Pancasila yang bermusyawarah dengan baik meski berbeda pandangan (contoh: Soekarno, Hatta, Ki Hajar Dewantara), rumuskan 2 (dua) tindakan nyata di lingkungan madrasah untuk meneladani sikap menghargai perbedaan pendapat!",
+    "kunci": "Kunci: 1) Mendengarkan pendapat teman saat diskusi kelompok tanpa menyela. 2) Tidak memaksakan kehendak dan menghargai hasil keputusan bersama / menerima perbedaan dengan lapang dada dan tetap menjaga kerukunan.",
+    "bobot": 4
+  },
+  {
+    "id": 48,
+    "tipe": "URAIAN",
+    "soal": "Diberikan kasus: Teman sekelasmu, Ani, sering izin tidak masuk sekolah karena harus menjaga adiknya di rumah yang masih balita sementara orang tuanya bekerja. Berikan pendapat dan saran solusi agar Ani tetap bisa belajar dan haknya sebagai anak terpenuhi!",
+    "kunci": "Kunci: Pendapat: Ani mengalami kesulitan menjalankan kewajiban belajar karena membantu orang tua, perlu dibantu. Solusi: 1) Guru memberikan tugas belajar di rumah / belajar kelompok di rumah Ani, 2) Teman membantu bergantian menjaga atau mencatat pelajaran untuk Ani, 3) Melapor kepada wali kelas untuk dicarikan solusi bersama orang tua, menunjukkan sikap peduli dan gotong royong.",
+    "bobot": 4
+  },
+  {
+    "id": 49,
+    "tipe": "URAIAN",
+    "soal": "Melalui cerita diskusi kelas VI yang ricuh akibat ego masing-masing peserta didik yang ingin menang sendiri dan tidak mau mendengarkan, temukan letak kesalahan dalam diskusi tersebut dan tuliskan 2 (dua) solusi yang lebih baik agar musyawarah berjalan tertib!",
+    "kunci": "Kunci: Kesalahan: Tidak ada aturan bicara, saling memaksakan kehendak, tidak menghargai pendapat orang lain, tidak ada pemimpin musyawarah. Solusi: 1) Menetapkan pemimpin musyawarah dan aturan giliran bicara. 2) Membiasakan sikap rendah hati, mendengarkan, dan mengedepankan kepentingan bersama di atas kepentingan pribadi.",
+    "bobot": 4
+  },
+  {
+    "id": 50,
+    "tipe": "URAIAN",
+    "soal": "Berdasarkan cerita pembagian kelompok belajar yang dirasa tidak adil oleh beberapa teman karena kelompoknya selalu itu-itu saja, sarankan 2 (dua) solusi agar musyawarah pembagian kelompok berjalan adil sesuai nilai Pancasila!",
+    "kunci": "Kunci: Solusi: 1) Melakukan musyawarah ulang dengan asas keadilan, semua siswa mendapat kesempatan yang sama. 2) Membagi kelompok secara acak / undi atau berdasarkan kemampuan yang merata agar adil. 3) Meminta guru menjadi mediator dan memastikan keputusan disepakati bersama, mencerminkan sila ke-4 dan ke-5.",
+    "bobot": 4
+  }
+]
